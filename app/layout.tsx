@@ -24,8 +24,10 @@ export default async function RootLayout({
       <body>
         {/* Toast notifications for Sanity Live errors */}
         <Toaster />
-        {/* SanityLive enables SSR for live preview - renders during draft mode */}
+        {/* SanityLive enables live updates - should always be rendered */}
+        {/* It only activates stega encoding when draft mode is enabled */}
         <SanityLive onError={handleError} />
+        {/* VisualEditing shows edit overlays - only render in draft mode */}
         {isDraftMode && (
           <VisualEditing />
         )}
