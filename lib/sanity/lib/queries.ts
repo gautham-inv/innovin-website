@@ -61,7 +61,7 @@ export const jobQuery = defineQuery(`
 `)
 
 export const jobSlugs = defineQuery(`
-  *[_type == "job" && defined(slug.current)]
+  *[_type == "job" && defined(slug.current) && isActive == true]
   {"slug": slug.current}
 `)
 

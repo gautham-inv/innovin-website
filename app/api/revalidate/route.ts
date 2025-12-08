@@ -33,6 +33,9 @@ export async function POST(request: NextRequest) {
     // Parse webhook payload
     const body = await request.json()
     
+    // Log webhook payload for debugging
+    console.log('Webhook received:', JSON.stringify(body, null, 2))
+    
     // Sanity webhook payload structure:
     // {
     //   _type: "job",
@@ -42,23 +45,31 @@ export async function POST(request: NextRequest) {
     // }
     
     const documentType = body._type
-    const slug = body.slug?.current
+    const slug = body.slug?.current || body.slug
+    
+    // Handle both slug formats: { current: "slug" } or just "slug"
+    const jobSlug = typeof slug === 'string' ? slug : slug?.current
 
     // Only revalidate job-related pages
-    if (documentType === 'job' && slug) {
+    if (documentType === 'job' && jobSlug) {
       // Revalidate the specific career detail page
-      revalidatePath(`/careers/${slug}`)
+      revalidatePath(`/careers/${jobSlug}`)
       
       // Also revalidate the careers listing page
       revalidatePath('/careers')
       
-      console.log(`Revalidated: /careers/${slug} and /careers`)
+      console.log(`✅ Revalidated: /careers/${jobSlug} and /careers`)
       
       return NextResponse.json({
         revalidated: true,
-        paths: [`/careers/${slug}`, '/careers'],
-        message: `Successfully revalidated career pages for ${slug}`,
+        paths: [`/careers/${jobSlug}`, '/careers'],
+        message: `Successfully revalidated career pages for ${jobSlug}`,
       })
+    }
+    
+    // Log if slug is missing
+    if (documentType === 'job' && !jobSlug) {
+      console.warn('Job document received but slug is missing:', body)
     }
 
     // If document type doesn't match or slug is missing, return success but don't revalidate

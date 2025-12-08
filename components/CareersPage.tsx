@@ -2,12 +2,26 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import Link from "next/link";
 
 // Image assets
 const careerImage = "/images/cdedc12b1b86c0aaa766bfbfd4091d46fcbd8773.png";
 const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg"; // Frame icon
 
-export default function CareersPage() {
+interface Job {
+  _id: string;
+  title: string;
+  heading?: string;
+  slug: string;
+  location?: string;
+  employmentType?: string;
+}
+
+interface CareersPageProps {
+  jobs: Job[];
+}
+
+export default function CareersPage({ jobs }: CareersPageProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const reasonToChooseRef = useRef<HTMLDivElement>(null);
   
@@ -59,24 +73,15 @@ export default function CareersPage() {
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  const jobOpenings = [
-    {
-      title: "UX/UI Designer",
-      description: "As a UI/UX Designer, you'll craft intuitive, user-centered designs that enhance digital experiences. You'll collaborate with cross-functional teams to create visually engaging, context-aware interfaces that drive user satisfaction.",
-    },
-    {
-      title: "Senior Software Engineer",
-      description: "As a Senior Software Engineer, you'll build robust, scalable, intelligent systems that turn complex data into meaningful impact. You'll collaborate across teams to deliver high-quality, context-aware software experiences with precision.",
-    },
-    {
-      title: "Product Engineer",
-      description: "As a Product Engineer, you'll design scalable, intelligent, innovative product features that leverage AI for impact. You'll collaborate across disciplines to deliver high-value, user-centered digital experiences with precision.",
-    },
-    {
-      title: "Technical Lead",
-      description: "As a Technical Lead, you'll drive the design and delivery of scalable, high-impact software solutions. You'll guide cross-functional teams to build context-aware systems that enable data-driven decision-making.",
-    },
-  ];
+  // Use jobs from Sanity CMS, or empty array if none available
+  const jobOpenings = jobs.map((job) => ({
+    id: job._id,
+    title: job.title,
+    slug: job.slug,
+    description: job.heading || `Join us as a ${job.title}. We're looking for talented individuals to join our team.`,
+    location: job.location,
+    employmentType: job.employmentType,
+  }));
 
   const talentApproach = [
     {
@@ -271,48 +276,88 @@ export default function CareersPage() {
             <span className="font-normal">Recent</span> Job Openings
           </h2>
           
-          <div className="flex flex-col gap-[32px]">
-            {/* First row - 3 jobs */}
-            <div className="grid grid-cols-3 gap-[20px]">
-              {jobOpenings.slice(0, 3).map((job, index) => (
-                <div 
-                  key={index}
-                  className="border-2 border-[#005c89] rounded-[30px] p-[20px] flex flex-col gap-[27px] hover:shadow-lg transition"
-                >
-                  <h3 className="text-[24px] text-black font-medium leading-[34px]">
-                    {job.title}
-                  </h3>
-                  <p className="text-[16px] text-black leading-[44px] flex-1">
-                    {job.description}
-                  </p>
-                  <button className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
-                    View details
-                    <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="-rotate-90">
-                      <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
+          {jobOpenings.length > 0 ? (
+            <div className="flex flex-col gap-[32px]">
+              {/* First row - 3 jobs */}
+              {jobOpenings.length >= 3 && (
+                <div className="grid grid-cols-3 gap-[20px]">
+                  {jobOpenings.slice(0, 3).map((job) => (
+                    <Link
+                      key={job.id}
+                      href={`/careers/${job.slug}`}
+                      className="border-2 border-[#005c89] rounded-[30px] p-[20px] flex flex-col gap-[27px] hover:shadow-lg transition cursor-pointer"
+                    >
+                      <h3 className="text-[24px] text-black font-medium leading-[34px]">
+                        {job.title}
+                      </h3>
+                      <p className="text-[16px] text-black leading-[44px] flex-1">
+                        {job.description}
+                      </p>
+                      <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
+                        View details
+                        <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="-rotate-90">
+                          <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              ))}
+              )}
+              
+              {/* Second row - remaining jobs */}
+              {jobOpenings.length > 3 && (
+                <div className="w-[500px]">
+                  <Link
+                    href={`/careers/${jobOpenings[3].slug}`}
+                    className="border-2 border-[#005c89] rounded-[30px] p-[20px] flex flex-col gap-[27px] hover:shadow-lg transition cursor-pointer block"
+                  >
+                    <h3 className="text-[24px] text-black font-medium leading-[34px]">
+                      {jobOpenings[3].title}
+                    </h3>
+                    <p className="text-[16px] text-black leading-[44px]">
+                      {jobOpenings[3].description}
+                    </p>
+                    <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
+                      View details
+                      <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="-rotate-90">
+                        <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                  </Link>
+                </div>
+              )}
+
+              {/* If less than 4 jobs, show them in a grid */}
+              {jobOpenings.length < 4 && jobOpenings.length > 0 && (
+                <div className="grid grid-cols-3 gap-[20px]">
+                  {jobOpenings.map((job) => (
+                    <Link
+                      key={job.id}
+                      href={`/careers/${job.slug}`}
+                      className="border-2 border-[#005c89] rounded-[30px] p-[20px] flex flex-col gap-[27px] hover:shadow-lg transition cursor-pointer"
+                    >
+                      <h3 className="text-[24px] text-black font-medium leading-[34px]">
+                        {job.title}
+                      </h3>
+                      <p className="text-[16px] text-black leading-[44px] flex-1">
+                        {job.description}
+                      </p>
+                      <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
+                        View details
+                        <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="-rotate-90">
+                          <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
-            
-            {/* Second row - 1 job */}
-            <div className="w-[500px]">
-              <div className="border-2 border-[#005c89] rounded-[30px] p-[20px] flex flex-col gap-[27px] hover:shadow-lg transition">
-                <h3 className="text-[24px] text-black font-medium leading-[34px]">
-                  {jobOpenings[3].title}
-                </h3>
-                <p className="text-[16px] text-black leading-[44px]">
-                  {jobOpenings[3].description}
-                </p>
-                <button className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
-                  View details
-                  <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="-rotate-90">
-                    <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-              </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-[24px] text-gray-500">No job openings at the moment. Check back soon!</p>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
