@@ -2,12 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import HoverCard from "./HoverCard";
 
+// Register ScrollTrigger plugin
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 // Image assets
 const careerImage = "/images/cdedc12b1b86c0aaa766bfbfd4091d46fcbd8773.png";
-const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg"; // Frame icon
+const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg";
 
 interface Job {
   _id: string;
@@ -25,8 +31,9 @@ interface CareersPageProps {
 export default function CareersPage({ jobs }: CareersPageProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const reasonToChooseRef = useRef<HTMLDivElement>(null);
+  const frontCardRef = useRef<HTMLDivElement>(null);
   
-  const images = [careerImage, careerImage, careerImage]; // Using same image for demo
+  const images = [careerImage, careerImage, careerImage];
   const reasonsToChoose = [
     {
       title: "Education",
@@ -52,18 +59,50 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     const items = Array.from(container.querySelectorAll<HTMLElement>(".reason-item"));
     if (!items.length) return;
 
-    // Initial hidden state
     items.forEach((item) => gsap.set(item, { opacity: 0, x: 60 }));
 
     const tl = gsap.timeline({ repeat: -1 });
 
     items.forEach((item) => {
       tl.to(item, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" });
-      tl.to(item, { duration: 5 }); // hold for 5s
+      tl.to(item, { duration: 5 });
       tl.to(item, { opacity: 0, x: -60, duration: 0.6, ease: "power2.in" });
     });
 
-    return ()=>{}
+    return () => {};
+  }, []);
+
+  // Scroll animation for front card items
+  useEffect(() => {
+    const frontCard = frontCardRef.current;
+    if (!frontCard) return;
+
+    const items = Array.from(frontCard.querySelectorAll<HTMLElement>(".talent-item"));
+    if (!items.length) return;
+
+    // Set initial state
+    gsap.set(items, { opacity: 0, x: -60 });
+
+    // Create scroll trigger animation
+    items.forEach((item, index) => {
+      gsap.to(item, {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        delay: index * 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: frontCard,
+          start: "top 70%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   const handlePrevImage = () => {
@@ -74,7 +113,6 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  // Use jobs from Sanity CMS, or empty array if none available
   const jobOpenings = jobs.map((job) => ({
     id: job._id,
     title: job.title,
@@ -205,12 +243,16 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               </div>
             </div>
 
-            {/* Front card - rotated 359 degrees (almost straight) */}
+            {/* Front card - rotated 359 degrees with scroll animation */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-white rounded-[20px] shadow-[0px_0px_6px_0px_rgba(0,0,0,0.25)] w-[834px] h-[834px] p-[74px]" style={{ transform: 'rotate(359deg)' }}>
+              <div 
+                ref={frontCardRef}
+                className="bg-white rounded-[20px] shadow-[0px_0px_6px_0px_rgba(0,0,0,0.25)] w-[834px] h-[834px] p-[74px]" 
+                style={{ transform: 'rotate(359deg)' }}
+              >
                 <div className="flex flex-col gap-[30px]">
                   {talentApproach.map((item, index) => (
-                    <div key={index} className="flex gap-[44px] items-center">
+                    <div key={index} className="talent-item flex gap-[44px] items-center">
                       <div className="w-[94px] h-[94px] shrink-0 flex items-center justify-center bg-primary/10 rounded-full">
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="#005c89">
                           <path d="M25 5 L30 20 L45 25 L30 30 L25 45 L20 30 L5 25 L20 20 Z" />
@@ -279,7 +321,6 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           
           {jobOpenings.length > 0 ? (
             <div className="flex flex-col gap-[32px]">
-              {/* First row - 3 jobs */}
               {jobOpenings.length >= 3 && (
                 <div className="grid grid-cols-3 gap-[20px]">
                   {jobOpenings.slice(0, 3).map((job) => (
@@ -311,7 +352,6 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                 </div>
               )}
               
-              {/* Second row - remaining jobs */}
               {jobOpenings.length > 3 && (
                 <div className="w-[500px]">
                   <HoverCard
@@ -340,7 +380,6 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                 </div>
               )}
 
-              {/* If less than 4 jobs, show them in a grid */}
               {jobOpenings.length < 4 && jobOpenings.length > 0 && (
                 <div className="grid grid-cols-3 gap-[20px]">
                   {jobOpenings.map((job) => (
@@ -382,4 +421,3 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     </div>
   );
 }
-

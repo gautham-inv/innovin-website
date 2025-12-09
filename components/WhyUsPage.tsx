@@ -1,5 +1,3 @@
-import HoverCard from "./HoverCard";
-
 // Icon assets
 const iconNetwork = "/images/4076a00dcf114223bee46321b8b5539570416f58.svg";
 const iconTalents = "/images/30e10ea8e914fc7e3b7c930fb0ab9e24eedb665b.svg";
@@ -55,39 +53,29 @@ export default function WhyUsPage() {
 
           {/* Expertise Cards */}
           <div className="grid grid-cols-2 gap-[20px]">
-            <HoverCard
-              icon={
-                <div className="w-[94px] h-[94px] overflow-hidden">
-                  <img src={iconNetwork} alt="Network icon" className="w-full h-full" />
-                </div>
-              }
-              title="Network of Tech SMES"
-              description="Our expert network comprises accomplished industry leaders from around the globe, bringing together a wealth of diverse insights and unparalleled expertise to foster collaboration, drive innovation, and offer strategic guidance across various sectors."
-              borderColor="border-[#66c2e2]"
-              padding="p-[24px]"
-              shadow="shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
-              height="h-[448px]"
-              titleClassName="text-[31px] text-black font-medium leading-[60px] mb-[13px]"
-              descriptionClassName="text-[20px] text-black leading-[44px]"
-              contentClassName=""
-            />
+            <div className="bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] h-[448px]">
+              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
+                <img src={iconNetwork} alt="Network icon" className="w-full h-full" />
+              </div>
+              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                Network of Tech SMES
+              </h3>
+              <p className="text-[20px] text-black leading-[44px]">
+                Our expert network comprises accomplished industry leaders from around the globe, bringing together a wealth of diverse insights and unparalleled expertise to foster collaboration, drive innovation, and offer strategic guidance across various sectors.
+              </p>
+            </div>
 
-            <HoverCard
-              icon={
-                <div className="w-[94px] h-[94px] overflow-hidden">
-                  <img src={iconTalents} alt="Talents icon" className="w-full h-full" />
-                </div>
-              }
-              title="Top tech talents"
-              description="At the core of our top tech talents lies an unwavering commitment to excellence, cultivated through meticulous hiring practices, hands-on training, and mentorship-led assimilation, ensuring a dynamic and proficient team ready to tackle the most complex technological challenges."
-              borderColor="border-[#66c2e2]"
-              padding="p-[24px]"
-              shadow="shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
-              height="h-[448px]"
-              titleClassName="text-[31px] text-black font-medium leading-[60px] mb-[13px]"
-              descriptionClassName="text-[20px] text-black leading-[44px]"
-              contentClassName=""
-            />
+            <div className="bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] h-[448px]">
+              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
+                <img src={iconTalents} alt="Talents icon" className="w-full h-full" />
+              </div>
+              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                Top tech talents
+              </h3>
+              <p className="text-[20px] text-black leading-[44px]">
+                At the core of our top tech talents lies an unwavering commitment to excellence, cultivated through meticulous hiring practices, hands-on training, and mentorship-led assimilation, ensuring a dynamic and proficient team ready to tackle the most complex technological challenges.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -110,80 +98,56 @@ export default function WhyUsPage() {
             </div>
 
             {/* Top Left Card - Tap India's Tech Talent Pool */}
-            <HoverCard
-              className="absolute left-0 top-[40px] z-20"
-              icon={
-                <div className="w-[94px] h-[94px] overflow-hidden">
-                  <img src={iconNetwork} alt="Icon" className="w-full h-full" />
-                </div>
-              }
-              title="Tap India's Tech Talent Pool"
-              description="Enabling access to India's exceptional talent by tapping into a diverse pool of skilled professionals to drive project success."
-              borderColor="border-[#66c2e2]"
-              padding="p-[24px]"
-              shadow="shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
-              width="w-[463px]"
-              titleClassName="text-[31px] text-black font-medium leading-[60px] mb-[13px]"
-              descriptionClassName="text-[16px] text-black leading-[44px]"
-              contentClassName=""
-            />
+            <div className="absolute left-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20">
+              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
+                <img src={iconNetwork} alt="Icon" className="w-full h-full" />
+              </div>
+              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                Tap India's Tech Talent Pool
+              </h3>
+              <p className="text-[16px] text-black leading-[44px]">
+                Enabling access to India's exceptional talent by tapping into a diverse pool of skilled professionals to drive project success.
+              </p>
+            </div>
 
             {/* Top Right Card - Project-Based Execution */}
-            <HoverCard
-              className="absolute right-0 top-[40px] z-20"
-              icon={
-                <div className="w-[94px] h-[94px] overflow-hidden">
-                  <img src={iconNetwork} alt="Icon" className="w-full h-full" />
-                </div>
-              }
-              title="Project-Based Execution"
-              description="From defining tasks and timelines to building and delivering the final product, we ensure smooth execution and set the stage for ongoing improvement."
-              borderColor="border-[#66c2e2]"
-              padding="p-[24px]"
-              shadow="shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
-              width="w-[463px]"
-              titleClassName="text-[31px] text-black font-medium leading-[60px] mb-[13px]"
-              descriptionClassName="text-[16px] text-black leading-[44px]"
-              contentClassName=""
-            />
+            <div className="absolute right-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20">
+              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
+                <img src={iconNetwork} alt="Icon" className="w-full h-full" />
+              </div>
+              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                Project-Based Execution
+              </h3>
+              <p className="text-[16px] text-black leading-[44px]">
+                From defining tasks and timelines to building and delivering the final product, we ensure smooth execution and set the stage for ongoing improvement.
+              </p>
+            </div>
 
             {/* Bottom Left Card - Remote CTO & Technology Team */}
-            <HoverCard
-              className="absolute left-0 bottom-0 z-20"
-              icon={
-                <div className="w-[94px] h-[94px] overflow-hidden">
-                  <img src={iconNetwork} alt="Icon" className="w-full h-full" />
-                </div>
-              }
-              title="Remote CTO & Technology Team"
-              description="Enhance your business with our CTO and expert tech team, seamlessly filling skill gaps and offering flexible, scalable, and cost-effective solutions without the overhead of in-house hiring."
-              borderColor="border-[#66c2e2]"
-              padding="p-[24px]"
-              shadow="shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
-              width="w-[624px]"
-              titleClassName="text-[31px] text-black font-medium leading-[60px] mb-[13px]"
-              descriptionClassName="text-[16px] text-black leading-[44px]"
-              contentClassName=""
-            />
+            <div className="absolute left-0 bottom-0 w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20">
+              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
+                <img src={iconNetwork} alt="Icon" className="w-full h-full" />
+              </div>
+              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                Remote CTO & Technology Team
+              </h3>
+              <p className="text-[16px] text-black leading-[44px]">
+                Enhance your business with our CTO and expert tech team, seamlessly filling skill gaps and offering flexible, scalable, and cost-effective solutions without the overhead of in-house hiring.
+              </p>
+            </div>
 
             {/* Bottom Right Card - Build, Operate, Transfer */}
-            <HoverCard
-              className="absolute right-0 bottom-[100px] z-20"
-              icon={
-                <div className="w-[94px] h-[94px] overflow-hidden">
-                  <img src={iconNetwork} alt="Icon" className="w-full h-full" />
-                </div>
-              }
-              title="Build, Operate, Transfer"
-              description="We build the team, operate it for a set period, and then transfer full ownership to the client, ensuring a smooth transition."
-              borderColor="border-[#66c2e2]"
-              padding="p-[24px]"
-              shadow="shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
-              width="w-[463px]"
-              titleClassName="text-[31px] text-black font-medium leading-[60px] mb-[13px]"
-              descriptionClassName="text-[16px] text-black leading-[44px]"
-              contentClassName=""
-            />
+            <div className="absolute right-0 bottom-[100px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20">
+              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
+                <img src={iconNetwork} alt="Icon" className="w-full h-full" />
+              </div>
+              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                Build, Operate, Transfer
+              </h3>
+              <p className="text-[16px] text-black leading-[44px]">
+                We build the team, operate it for a set period, and then transfer full ownership to the client, ensuring a smooth transition.
+              </p>
+            </div>
 
             {/* Static Arrow SVG Paths - matching Figma design exactly */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-[5]" viewBox="0 0 1240 720" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
