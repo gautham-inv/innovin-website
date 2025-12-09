@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -14,6 +15,9 @@ const config: Config = {
       colors: {
         primary: "#66C2E2",
         secondary: "#005C89",
+      },
+      fontFamily: {
+        manrope: ['var(--font-manrope)','sans-serif'],
       },
     },
   },

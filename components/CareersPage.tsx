@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Link from "next/link";
+import HoverCard from "./HoverCard";
 
 // Image assets
 const careerImage = "/images/cdedc12b1b86c0aaa766bfbfd4091d46fcbd8773.png";
@@ -282,10 +283,16 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               {jobOpenings.length >= 3 && (
                 <div className="grid grid-cols-3 gap-[20px]">
                   {jobOpenings.slice(0, 3).map((job) => (
-                    <Link
+                    <HoverCard
                       key={job.id}
                       href={`/careers/${job.slug}`}
-                      className="border-2 border-[#005c89] rounded-[30px] p-[20px] flex flex-col gap-[27px] hover:shadow-lg transition cursor-pointer"
+                      as="link"
+                      borderColor="border-[#005c89]"
+                      borderWidth="border-2"
+                      borderRadius="rounded-[30px]"
+                      padding="p-[20px]"
+                      shadow="hover:shadow-lg"
+                      className="gap-[27px]"
                     >
                       <h3 className="text-[24px] text-black font-medium leading-[34px]">
                         {job.title}
@@ -299,7 +306,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                           <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </div>
-                    </Link>
+                    </HoverCard>
                   ))}
                 </div>
               )}
@@ -307,9 +314,15 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               {/* Second row - remaining jobs */}
               {jobOpenings.length > 3 && (
                 <div className="w-[500px]">
-                  <Link
+                  <HoverCard
                     href={`/careers/${jobOpenings[3].slug}`}
-                    className="border-2 border-[#005c89] rounded-[30px] p-[20px] flex flex-col gap-[27px] hover:shadow-lg transition cursor-pointer block"
+                    as="link"
+                    borderColor="border-[#005c89]"
+                    borderWidth="border-2"
+                    borderRadius="rounded-[30px]"
+                    padding="p-[20px]"
+                    shadow="hover:shadow-lg"
+                    className="gap-[27px]"
                   >
                     <h3 className="text-[24px] text-black font-medium leading-[34px]">
                       {jobOpenings[3].title}
@@ -323,7 +336,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                         <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </div>
-                  </Link>
+                  </HoverCard>
                 </div>
               )}
 
@@ -331,10 +344,16 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               {jobOpenings.length < 4 && jobOpenings.length > 0 && (
                 <div className="grid grid-cols-3 gap-[20px]">
                   {jobOpenings.map((job) => (
-                    <Link
+                    <HoverCard
                       key={job.id}
                       href={`/careers/${job.slug}`}
-                      className="border-2 border-[#005c89] rounded-[30px] p-[20px] flex flex-col gap-[27px] hover:shadow-lg transition cursor-pointer"
+                      as="link"
+                      borderColor="border-[#005c89]"
+                      borderWidth="border-2"
+                      borderRadius="rounded-[30px]"
+                      padding="p-[20px]"
+                      shadow="hover:shadow-lg"
+                      className="gap-[27px]"
                     >
                       <h3 className="text-[24px] text-black font-medium leading-[34px]">
                         {job.title}
@@ -348,7 +367,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                           <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </div>
-                    </Link>
+                    </HoverCard>
                   ))}
                 </div>
               )}

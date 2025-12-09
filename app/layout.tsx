@@ -6,11 +6,14 @@ import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { SanityLive } from "@/lib/sanity/lib/live";
 import { handleError } from "./client-utils";
+import { Manrope } from "next/font/google";
 
-export const metadata: Metadata = {
-  title: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
-  description: "We help startups and small businesses build bold, scalable tech fast.",
-};
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap", // or "optional" for better performance
+  variable: "--font-manrope",
+});
 
 export default async function RootLayout({
   children,
@@ -21,7 +24,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body className={`${manrope.variable}`}>
         {/* Toast notifications for Sanity Live errors */}
         <Toaster />
         {/* SanityLive enables live updates - should always be rendered */}
