@@ -15,10 +15,8 @@ export default function HomeScreen() {
     <div className="bg-white relative w-full overflow-x-hidden">
       <main className="w-full">
         <Hero />
-        <div data-lenis-prevent>X
-          <WhyUs />
-          <Services />
-        </div>
+        <WhyUs />
+        <Services />
         <TechStack />
         <Testimonials />
         <Careers />

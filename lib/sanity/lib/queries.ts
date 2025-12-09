@@ -65,3 +65,67 @@ export const jobSlugs = defineQuery(`
   {"slug": slug.current}
 `)
 
+// Blog/Post queries
+const postFields = /* groq */ `
+  _id,
+  "title": coalesce(title, "Untitled"),
+  "slug": slug.current,
+  excerpt,
+  coverImage,
+  "date": coalesce(date, _updatedAt),
+  "author": author->{firstName, lastName, picture, description, linkedinUrl},
+  "categories": categories[]->{_id, title, slug, description, color},
+`
+
+export const allPostsQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {
+    ${postFields}
+  }
+`)
+
+export const postsByCategoryQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current) && $categoryId in categories[]->_id] | order(date desc, _updatedAt desc) {
+    ${postFields}
+  }
+`)
+
+export const featuredPostQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {
+    ${postFields}
+  }
+`)
+
+export const allCategoriesQuery = defineQuery(`
+  *[_type == "category" && defined(slug.current)] | order(title asc) {
+    _id,
+    title,
+    "slug": slug.current,
+    description,
+    color,
+  }
+`)
+
+export const postQuery = defineQuery(`
+  *[_type == "post" && slug.current == $slug] [0] {
+    content[]{
+      ...,
+      markDefs[]{
+        ...,
+        ${linkReference}
+      }
+    },
+    ${postFields}
+  }
+`)
+
+export const postSlugs = defineQuery(`
+  *[_type == "post" && defined(slug.current)]
+  {"slug": slug.current}
+`)
+
+export const relatedPostsQuery = defineQuery(`
+  *[_type == "post" && defined(slug.current) && slug.current != $currentSlug && $categoryId in categories[]->_id] | order(date desc, _updatedAt desc) [0...3] {
+    ${postFields}
+  }
+`)
+

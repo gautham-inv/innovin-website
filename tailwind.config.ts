@@ -17,7 +17,12 @@ const config: Config = {
         secondary: "#005C89",
       },
       fontFamily: {
-        manrope: ['var(--font-manrope)','sans-serif'],
+        manrope: ['var(--font-manrope)', 'sans-serif'],
+        sans: ['var(--font-manrope)', 'sans-serif'], // Make it default
+      },
+      fontSize: {
+        // Ensure consistent font sizes
+        base: ['1rem', { lineHeight: '1.5' }],
       },
     },
   },

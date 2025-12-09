@@ -25,14 +25,18 @@ export default function CustomPortableText({
   
   const components: PortableTextComponents = {
     block: {
-      h1: ({children}) => (
-        <h1 className="group relative">
-          {children}
-        </h1>
-      ),
-      h2: ({children}) => {
+      h1: ({children}) => {
+        const isBlogContent = className?.includes('blog-content');
         return (
-          <h2 className="group relative">
+          <h1 className={`group relative ${isBlogContent ? 'text-[42px] font-semibold leading-[1.3] mb-6 mt-8 font-["Manrope",sans-serif]' : ''}`}>
+            {children}
+          </h1>
+        )
+      },
+      h2: ({children}) => {
+        const isBlogContent = className?.includes('blog-content');
+        return (
+          <h2 className={`group relative ${isBlogContent ? 'text-[36px] font-semibold leading-[1.3] mb-5 mt-7 font-["Manrope",sans-serif]' : ''}`}>
             {children}
           </h2>
         )
@@ -44,6 +48,10 @@ export default function CustomPortableText({
         }
         if (className?.includes('job-description')) {
           return <p className="font-medium leading-[60px] text-[24px] text-black">{children}</p>
+        }
+        // Blog content styling - larger, more readable
+        if (className?.includes('blog-content')) {
+          return <p className="font-normal leading-[1.8] text-[20px] text-black mb-6 font-['Manrope',sans-serif]">{children}</p>
         }
         return <p>{children}</p>
       },

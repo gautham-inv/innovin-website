@@ -1,8 +1,15 @@
 
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Base font-size - CRITICAL: Ensures consistent rem calculations across all environments */
+/* This prevents layout shifts between localhost and production */
+html {
+  font-size: 16px !important; /* Explicit base size - prevents browser default differences */
+  -webkit-text-size-adjust: 100%; /* Prevent iOS font scaling */
+  text-size-adjust: 100%;
+}
 
 :root {
   --primary: #66C2E2;
@@ -11,6 +18,11 @@
 
 body {
   font-family: var(--font-manrope), sans-serif;
+  font-size: 1rem; /* Explicit size based on html font-size */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* CTA Button Gradient Slide Animation */

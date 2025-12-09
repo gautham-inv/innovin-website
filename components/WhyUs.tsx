@@ -3,9 +3,31 @@
 import { useRef, useLayoutEffect } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import ServiceCard from "./ServiceCard";
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// ServiceCard component
+function ServiceCard({ 
+  title, 
+  subtitle, 
+  description, 
+  className = "" 
+}: { 
+  title: string; 
+  subtitle: string; 
+  description: string; 
+  className?: string;
+}) {
+  return (
+    <div className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow ${className}`}>
+      <h3 className="text-2xl font-bold text-[#232323] mb-2">{title}</h3>
+      <p className="text-lg font-semibold text-blue-600 mb-4">{subtitle}</p>
+      <p className="text-base text-gray-600 leading-relaxed">{description}</p>
+    </div>
+  );
+}
 
 export default function WhyUs() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -23,100 +45,176 @@ export default function WhyUs() {
 
     if (!section || !title || !content) return;
 
-    // Ensure ScrollTrigger is ready
-    ScrollTrigger.refresh();
-
-    // Set initial states
-    gsap.set(title, { 
-      clearProps: "all"
-    });
-    
-    gsap.set(content, { 
-      opacity: 0, 
-      y: 50 
-    });
-    
-    // Set all letters to gray initially
-    letterRefs.current.forEach((letterEl) => {
-      if (letterEl) {
-        gsap.set(letterEl, { color: "#c8c8c8" });
+    // Kill ALL existing ScrollTriggers for this section first (critical for remounting)
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (trigger.vars?.trigger === section || trigger.trigger === section) {
+        trigger.kill();
       }
     });
 
-    // Wait for next frame to ensure layout is stable
-    requestAnimationFrame(() => {
-      const measureContent = () => {
-        const vh = window.innerHeight;
-        return Math.max(1500, vh * 2);
-      };
-
-      const scrollDistance = measureContent();
-
-      // Create main timeline
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: `+=${scrollDistance}`,
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        }
-      });
-
-      // Phase 1: Letter color fade (0-25%)
-      letterRefs.current.forEach((letterEl, index) => {
-        if (!letterEl) return;
-        
-        tl.to(letterEl, {
-          color: "#232323",
-          duration: 0.25 / letters.length,
-          ease: "none"
-        }, index * (0.25 / letters.length));
-      });
-
-      // Phase 2: Scale and position title (25%-50%)
-      tl.to(title, {
-        scale: 0.23,
-        y: () => {
-          const vh = window.innerHeight;
-          return -vh * 0.35;
-        },
-        duration: 0.25,
-        ease: "power2.inOut"
-      }, 0.25);
-
-      // Phase 3: Fade in content (40%-70%)
-      tl.to(content, {
-        opacity: 1,
-        y: 0,
-        duration: 0.3,
-        ease: "power2.out"
-      }, 0.4);
-
-      // Handle resize
-      let resizeTimeout: NodeJS.Timeout;
-      const handleResize = () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 200);
-      };
-
-      window.addEventListener("resize", handleResize);
-
-      // Cleanup
-      return () => {
-        window.removeEventListener("resize", handleResize);
-        clearTimeout(resizeTimeout);
-        tl.kill();
-        ScrollTrigger.getAll().forEach(st => st.kill());
-      };
+    // Reset all GSAP properties to initial state (critical for remounting)
+    gsap.set([title, content, ...letterRefs.current.filter(Boolean)], { 
+      clearProps: "all" 
     });
 
-    return () => {};
-  }, [letters.length]);
+    // Use gsap.context for automatic cleanup
+    let rafId: number;
+    let resizeTimeout: NodeJS.Timeout;
+    let initTimeout: NodeJS.Timeout;
+    let handleResize: (() => void) | null = null;
+    let handleImageLoad: (() => void) | null = null;
+    
+    const ctx = gsap.context(() => {
+      // Wait for next frame to ensure layout is stable and DOM is ready
+      rafId = requestAnimationFrame(() => {
+        // Force a reflow to ensure layout is calculated
+        void section.offsetHeight;
+      
+        // Set initial states - use transforms and opacity only (no layout properties)
+        // CRITICAL: Reset to initial state on every mount
+        gsap.set(content, { 
+          opacity: 0, 
+          y: 50,
+          force3D: true
+        });
+        
+        // Reset title to initial state
+        gsap.set(title, {
+          scale: 1,
+          y: 0,
+          force3D: true,
+          transformOrigin: "center center"
+        });
+        
+        // Set all letters to gray initially (reset on remount)
+        letterRefs.current.forEach((letterEl) => {
+          if (letterEl) {
+            gsap.set(letterEl, { 
+              color: "#c8c8c8",
+              force3D: true
+            });
+          }
+        });
+
+        // Calculate exact scroll distance based on animation phases
+        const vh = window.innerHeight;
+        const scrollDistance = vh * 1.5;
+
+        // Create main timeline with proper configuration
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: `+=${scrollDistance}`,
+            scrub: 1,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            refreshPriority: -1,
+            markers: false,
+            // CRITICAL: Reset scroll position when section enters view
+            onEnter: () => {
+              // Ensure we start from the beginning
+              gsap.set([title, content, ...letterRefs.current.filter(Boolean)], {
+                clearProps: "all"
+              });
+              gsap.set(content, { opacity: 0, y: 50, force3D: true });
+              gsap.set(title, { scale: 1, y: 0, force3D: true });
+              letterRefs.current.forEach((el) => {
+                if (el) gsap.set(el, { color: "#c8c8c8", force3D: true });
+              });
+            },
+          }
+        });
+
+        // Phase 1: Letter color fade (0-25% of timeline)
+        letterRefs.current.forEach((letterEl, index) => {
+          if (!letterEl) return;
+          
+          tl.to(letterEl, {
+            color: "#232323",
+            duration: 0.25 / letters.length,
+            ease: "none",
+            force3D: true
+          }, index * (0.25 / letters.length));
+        });
+
+        // Phase 2: Scale and position title (25%-50% of timeline)
+        tl.to(title, {
+          scale: 0.23,
+          y: () => {
+            const vh = window.innerHeight;
+            return -vh * 0.25;
+          },
+          duration: 0.25,
+          ease: "power2.inOut",
+          force3D: true,
+          transformOrigin: "center center"
+        }, 0.25);
+
+        // Phase 3: Fade in content (40%-70% of timeline)
+        tl.to(content, {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out",
+          force3D: true
+        }, 0.4);
+
+        // Handle resize with debounce
+        handleResize = () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 250);
+        };
+
+        // Handle images loading
+        handleImageLoad = () => {
+          ScrollTrigger.refresh();
+        };
+
+        window.addEventListener("resize", handleResize);
+        window.addEventListener("load", handleImageLoad);
+        
+        // Refresh after a short delay to ensure all content is loaded
+        initTimeout = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 100);
+      });
+    }, section); // Scope to section element
+
+    // Cleanup function - runs when component unmounts or remounts
+    return () => {
+      // Cancel any pending animation frames
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      // Clear timeouts
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
+      if (initTimeout) {
+        clearTimeout(initTimeout);
+      }
+      // Remove event listeners
+      if (handleResize) {
+        window.removeEventListener("resize", handleResize);
+      }
+      if (handleImageLoad) {
+        window.removeEventListener("load", handleImageLoad);
+      }
+      // Kill all ScrollTriggers for this section
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars?.trigger === section || trigger.trigger === section) {
+          trigger.kill();
+        }
+      });
+      // Revert all GSAP animations
+      ctx.revert();
+    };
+  }, []); // Empty dependency array - runs on mount/unmount
 
   return (
     <section
@@ -129,7 +227,8 @@ export default function WhyUs() {
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
           <h2 
             ref={titleRef}
-            className="text-[120px] md:text-[180px] lg:text-[279.273px] leading-[1.25] text-center font-['Manrope',sans-serif] will-change-transform"
+            className="text-[120px] md:text-[180px] lg:text-[279.273px] leading-[1.25] text-center font-['Manrope',sans-serif]"
+            style={{ willChange: 'transform' }}
           >
             {letters.map((letter, i) => (
               <span
@@ -138,7 +237,7 @@ export default function WhyUs() {
                   letterRefs.current[i] = el;
                 }}
                 className={`inline-block ${i <= 2 ? "font-normal" : "font-semibold"}`}
-                style={{ color: "#c8c8c8" }}
+                style={{ color: "#c8c8c8", willChange: 'color, transform' }}
               >
                 {letter === " " ? "\u00A0" : letter}
               </span>
@@ -149,7 +248,8 @@ export default function WhyUs() {
         {/* Content - appears after title scales */}
         <div
           ref={contentRef}
-          className="absolute inset-0 flex flex-col items-center pt-[180px] px-8 z-10 overflow-y-auto"
+          className="absolute inset-0 flex flex-col justify-center items-center pt-[180px] px-8 z-10 overflow-y-auto"
+          style={{ willChange: 'transform, opacity' }}
         >
           {/* Description */}
           <div className="mb-16 max-w-[837px] text-center">

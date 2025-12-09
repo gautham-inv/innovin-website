@@ -81,12 +81,12 @@ export default function Navigation() {
             About us
           </Link>
 
-          <a 
-            href="#blog" 
-            className={linkClasses("#blog", false, false, pathname === "/" && activeHash === "#blog")}
+          <Link 
+            href="/blog" 
+            className={linkClasses("", false, false, pathname === "/blog")}
           >
-            Knowledge hub
-          </a>
+            Knowledge Hub
+          </Link>
 
           <Link 
             href="/careers" 

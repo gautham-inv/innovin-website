@@ -36,3 +36,6 @@ export const urlForImage = (source: any) => {
   return imageBuilder?.image(source).auto('format')
 }
 
+// Alias for urlForImage for convenience
+export const urlFor = urlForImage
+
