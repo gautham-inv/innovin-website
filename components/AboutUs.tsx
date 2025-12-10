@@ -1,5 +1,5 @@
 "use client";
-
+import Footer from "./Footer";
 // Image assets
 const imgHeroBackground = "/images/efdf1ab711ffad6d48b3163655ede5890772aaf2.png";
 const imgHeroBackgroundJpg = "/images/efdf1ab711ffad6d48b3163655ede5890772aaf2.jpg";
@@ -317,37 +317,53 @@ export default function AboutUs() {
 
       {/* Leadership Team Section */}
       <section className="bg-white py-12 sm:py-14 md:py-16 lg:py-[60px] px-6 sm:px-8 md:px-10 lg:px-[51px]">
-        {/* Mobile/Tablet: 2 columns, last centered if odd */}
-        <div className="lg:hidden grid grid-cols-2 gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-8 sm:gap-y-10 md:gap-y-12 justify-items-center">
-          {leadershipTeam.map((leader, index) => {
-            const isLastOdd = leadershipTeam.length % 2 === 1 && index === leadershipTeam.length - 1;
-            return (
-              <div
-                key={index}
-                className="flex flex-col gap-4 sm:gap-5 md:gap-6"
-                // Only center the last odd item
-                style={isLastOdd ? { justifySelf: "center" } : {}}
-              >
-                <div className="w-full max-w-[140px] sm:max-w-[160px] md:max-w-[180px] aspect-[3/4] rounded-[8px] sm:rounded-[10px] overflow-hidden">
-                  <img
-                    src={leader.image}
-                    alt={leader.name}
-                    className="w-full h-full object-cover"
-                  />
+        <div className="max-w-[1681px] mx-auto">
+          {/* Header */}
+          <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-[20px]">
+            <h2 className="text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] text-black font-bold leading-[1.3] sm:leading-[1.5] lg:leading-[97.8px] tracking-[-0.02em] lg:tracking-[-0.48px] mb-2 sm:mb-3">
+              Our Leadership Team
+            </h2>
+            <p className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black font-semibold leading-[1.6] sm:leading-[1.8] lg:leading-[97.8px] tracking-[-0.01em] lg:tracking-[-0.24px]">
+              Visionaries behind our promise to build world-class products together.
+            </p>
+          </div>
+
+          {/* Desktop: 3 columns grid */}
+          <div className="hidden lg:grid grid-cols-3 gap-x-[116px] gap-y-[60px]">
+            {leadershipTeam.map((leader, index) => (
+              <LeadershipCard key={index} name={leader.name} role={leader.role} image={leader.image} />
+            ))}
+          </div>
+
+          {/* Mobile/Tablet: 2 columns */}
+          <div className="lg:hidden grid grid-cols-2 gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-8 sm:gap-y-10 md:gap-y-12 justify-items-center">
+            {leadershipTeam.map((leader, index) => {
+              const isLastOdd = leadershipTeam.length % 2 === 1 && index === leadershipTeam.length - 1;
+              return (
+                <div
+                  key={index}
+                  className="flex flex-col gap-4 sm:gap-5 md:gap-6"
+                  style={isLastOdd ? { justifySelf: "center", gridColumn: "1 / -1" } : {}}
+                >
+                  <div className="w-full max-w-[140px] sm:max-w-[160px] md:max-w-[180px] aspect-[3/4] rounded-[8px] sm:rounded-[10px] overflow-hidden">
+                    <img src={leader.image} alt={leader.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="flex flex-col gap-2 sm:gap-[6px] items-center">
+                    <p className="text-[16px] sm:text-[18px] md:text-[20px] text-black font-semibold leading-[1.3] sm:leading-[1.4] text-center">
+                      {leader.name}
+                    </p>
+                    <p className="text-[14px] sm:text-[16px] md:text-[18px] text-black font-medium leading-[1.4] sm:leading-[1.5] text-center">
+                      {leader.role}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col gap-2 sm:gap-[6px] items-center">
-                  <p className="text-[16px] sm:text-[18px] md:text-[20px] text-black font-semibold leading-[1.3] sm:leading-[1.4] text-center">
-                    {leader.name}
-                  </p>
-                  <p className="text-[14px] sm:text-[16px] md:text-[18px] text-black font-medium leading-[1.4] sm:leading-[1.5] text-center">
-                    {leader.role}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }
