@@ -143,10 +143,10 @@ export default function Testimonials() {
     <section className="testimonials-section bg-white min-h-screen flex items-center justify-center py-20 overflow-clip relative">
       {/* Background gradient blobs */}
       <div className="absolute left-[-400px] top-[100px] w-[800px] h-[400px] opacity-20 mix-blend-multiply pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-radial from-blue-500/20 via-blue-400/10 to-transparent blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-radial from-blue-500/20 via-blue-400/10 to-transparent blur-2xl" />
       </div>
       <div className="absolute right-[-400px] bottom-[100px] w-[800px] h-[400px] opacity-15 mix-blend-multiply pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-radial from-cyan-500/15 via-cyan-400/8 to-transparent blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-radial from-cyan-500/15 via-cyan-400/8 to-transparent blur-2xl" />
       </div>
 
       <div className="max-w-[1681px] mx-auto px-5 w-full relative z-10">

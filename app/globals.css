@@ -64,3 +64,10 @@ html, body {
   }
 }
 
+/* Front card rotation for desktop only */
+@media (min-width: 1024px) {
+  .front-card-rotate {
+    transform: rotate(359deg) !important;
+  }
+}
+
