@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -18,6 +19,7 @@ export default function Services() {
   const titleOurRef = useRef<HTMLDivElement>(null);
   const titleServicesRef = useRef<HTMLDivElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const pathname = usePathname(); // Track route changes
 
   const services = [
     { title: "Smart Product Development", description: "We're not just software consultants – we're your Trusted Tech Innovation Partner and efficiency architects.", image: img1 },
@@ -39,14 +41,29 @@ export default function Services() {
     const section = sectionRef.current;
     if (!section) return;
 
+    // Kill ALL existing ScrollTriggers for this section first (critical for remounting)
+    ScrollTrigger.getAll().forEach((trigger) => {
+      if (trigger.vars?.trigger === section || trigger.trigger === section) {
+        trigger.kill();
+      }
+    });
+
+    // Reset all GSAP properties to initial state (critical for remounting)
+    const allElements = [
+      ...cardsRef.current.filter(Boolean),
+      titleOurRef.current,
+      titleServicesRef.current,
+      subtitleRef.current,
+    ];
+    gsap.set(allElements, { clearProps: "all" });
+
+    // Store cleanup variables outside context
+    let cleanupResize: (() => void) | null = null;
+    let cleanupLoad: (() => void) | null = null;
+    let cleanupInitTimeout: NodeJS.Timeout | null = null;
+
     // Use gsap.context for automatic cleanup
     const ctx = gsap.context(() => {
-      // Clear any existing ScrollTriggers for this section
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars?.trigger === section) {
-          trigger.kill();
-        }
-      });
 
       // Wait for next frame to ensure all refs are populated
       requestAnimationFrame(() => {
@@ -193,21 +210,57 @@ export default function Services() {
       // Refresh after a short delay to ensure all content is loaded
       const initTimeout = setTimeout(() => {
         ScrollTrigger.refresh();
+        // CRITICAL: Force refresh again after navigation to ensure proper calculation
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 300);
       }, 100);
 
-        return () => {
-          clearTimeout(initTimeout);
-          window.removeEventListener("resize", handleResize);
-          window.removeEventListener("load", handleImageLoad);
-        };
+      // Store cleanup functions
+      cleanupResize = handleResize;
+      cleanupLoad = handleImageLoad;
+      cleanupInitTimeout = initTimeout;
       });
     }, section); // Scope to section element
 
+    // CRITICAL: Refresh ScrollTrigger when on homepage (after navigation)
+    let pathnameRefreshTimeout: NodeJS.Timeout;
+    if (pathname === "/") {
+      // Small delay to ensure DOM is ready after navigation
+      pathnameRefreshTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+        // Force a second refresh to ensure calculations are correct
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+      }, 200);
+    }
+
     // Cleanup function
     return () => {
+      // Clear pathname refresh timeout
+      if (pathnameRefreshTimeout) {
+        clearTimeout(pathnameRefreshTimeout);
+      }
+      // Remove event listeners
+      if (cleanupResize) {
+        window.removeEventListener("resize", cleanupResize);
+      }
+      if (cleanupLoad) {
+        window.removeEventListener("load", cleanupLoad);
+      }
+      if (cleanupInitTimeout) {
+        clearTimeout(cleanupInitTimeout);
+      }
+      // Kill all ScrollTriggers for this section
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars?.trigger === section || trigger.trigger === section) {
+          trigger.kill();
+        }
+      });
       ctx.revert(); // This automatically kills all ScrollTriggers and timelines
     };
-  }, []);
+  }, [pathname]); // Include pathname to re-run on navigation
 
   return (
     <section ref={sectionRef} id="services" className="bg-black relative h-screen overflow-hidden">

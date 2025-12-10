@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useLayoutEffect } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -34,6 +35,7 @@ export default function WhyUs() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const pathname = usePathname(); // Track route changes
 
   const text = "why us";
   const letters = text.split("");
@@ -181,9 +183,26 @@ export default function WhyUs() {
         // Refresh after a short delay to ensure all content is loaded
         initTimeout = setTimeout(() => {
           ScrollTrigger.refresh();
+          // CRITICAL: Force refresh again after navigation to ensure proper calculation
+          setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 300);
         }, 100);
       });
     }, section); // Scope to section element
+
+    // CRITICAL: Refresh ScrollTrigger when on homepage (after navigation)
+    let pathnameRefreshTimeout: NodeJS.Timeout;
+    if (pathname === "/") {
+      // Small delay to ensure DOM is ready after navigation
+      pathnameRefreshTimeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+        // Force a second refresh to ensure calculations are correct
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+      }, 200);
+    }
 
     // Cleanup function - runs when component unmounts or remounts
     return () => {
@@ -205,6 +224,10 @@ export default function WhyUs() {
       if (handleImageLoad) {
         window.removeEventListener("load", handleImageLoad);
       }
+      // Clear pathname refresh timeout
+      if (pathnameRefreshTimeout) {
+        clearTimeout(pathnameRefreshTimeout);
+      }
       // Kill all ScrollTriggers for this section
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars?.trigger === section || trigger.trigger === section) {
@@ -214,7 +237,7 @@ export default function WhyUs() {
       // Revert all GSAP animations
       ctx.revert();
     };
-  }, []); // Empty dependency array - runs on mount/unmount
+  }, [pathname]); // Include pathname to re-run on navigation
 
   return (
     <section
