@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import HoverCard from "./HoverCard";
-
+import Footer from "./Footer";
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -445,7 +445,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                       </p>
                       <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
                         View details
-                        <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="-rotate-90">
+                        <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
                           <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </div>
@@ -474,7 +474,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                     </p>
                     <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
                       View details
-                      <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="-rotate-90">
+                      <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
                         <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </div>
@@ -504,7 +504,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                       </p>
                       <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
                         View details
-                        <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="-rotate-90">
+                        <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
                           <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </div>
@@ -535,7 +535,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                     </p>
                     <div className="flex items-center gap-3 sm:gap-[15px] text-[18px] sm:text-[20px] lg:text-[24px] text-black font-medium leading-[1.5] sm:leading-[1.6] lg:leading-[60px] hover:text-[#005c89] transition">
                       View details
-                      <svg className="w-6 h-6 sm:w-8 sm:h-8 lg:w-[34px] lg:h-[34px] -rotate-90" viewBox="0 0 34 34" fill="currentColor">
+                      <svg className="w-6 h-6 sm:w-8 sm:h-8 lg:w-[34px] lg:h-[34px] rotate-90" viewBox="0 0 34 34" fill="currentColor">
                         <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </div>
@@ -550,6 +550,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

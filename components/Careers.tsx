@@ -75,18 +75,17 @@ export default function Careers() {
 
   return (
     <section className="bg-white min-h-[1111px] overflow-hidden relative py-20">
-      {/* Background decorative elements */}
       {/* Background dotted grid */}
-<div
-  className="absolute inset-0 pointer-events-none opacity-20"
-  style={{
-    backgroundImage: `
-      radial-gradient(rgba(0,0,0,0.25) 2px, transparent 2px)
-    `,
-    backgroundSize: "100px 100px", // each grid cell is 100px x 100px
-    backgroundPosition: "0 0",
-  }}
-></div>
+        <div
+          className="absolute inset-0 pointer-events-none opacity-20"
+          style={{
+            backgroundImage: `
+              radial-gradient(rgba(0,0,0,0.25) 2px, transparent 2px)
+            `,
+            backgroundSize: "100px 100px", // each grid cell is 100px x 100px
+            backgroundPosition: "0 0",
+          }}
+        ></div>
 
 
       <div className="max-w-[1681px] mx-auto px-5 relative">
