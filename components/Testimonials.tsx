@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const imgZirklyFullLogo1 = "/images/0e1e238a26444c8cba519ce5114ec632284ffba6.png";
+const imgZirklyFullLogo1 = "/images/zirkly.png";
 const imgEllipse1 = "/images/blue_gradient.svg";
 
 const testimonials = [
@@ -64,37 +64,37 @@ export default function Testimonials() {
     const absPosition = Math.abs(position);
     
     let scale = 1;
-    let opacity = 1;
+    let blur = 0;
     let zIndex = 10;
-    let translateX = position * 350; // More overlap
+    let translateX = position * 400;
+    let opacity = 0; // Hide cards by default
 
     if (absPosition === 0) {
-      // Center card (front)
+      // Center card (front) - no blur
       scale = 1;
-      opacity = 1;
+      blur = 0;
       zIndex = 50;
+      opacity = 1;
     } else if (absPosition === 1) {
-      // Cards immediately next to center
+      // Cards immediately next to center - slight blur
       scale = 0.92;
-      opacity = 0.85;
+      blur = 4;
       zIndex = 40;
-    } else if (absPosition === 2) {
-      // Cards at the edges (pushed further back)
-      scale = 0.84;
-      opacity = 0.7;
-      zIndex = 30;
+      opacity = 1;
     } else {
-      // Cards further away (hidden)
+      // Hide all other cards
       scale = 0.7;
-      opacity = 0;
+      blur = 10;
       zIndex = 10;
+      opacity = 0;
     }
 
     return {
       transform: `translateX(${translateX}px) scale(${scale})`,
+      filter: `blur(${blur}px)`,
       opacity,
-      zIndex: 50 - absPosition * 5, // Dynamic z-index that changes during animation
-      pointerEvents: absPosition <= 2 ? 'auto' : 'none',
+      zIndex: 50 - absPosition * 5,
+      pointerEvents: absPosition <= 1 ? 'auto' : 'none',
     };
   };
 
@@ -121,14 +121,11 @@ export default function Testimonials() {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
   }, []);
-  
-  
 
   const handleCardClick = (cardIndex: number) => {
     const position = getCardPosition(cardIndex);
     
-    // Respond to clicks on any visible card
-    if (Math.abs(position) <= 2) {
+    if (Math.abs(position) <= 1) {
       snapToCard(cardIndex);
       
       if (autoPlayRef.current) {
@@ -144,24 +141,16 @@ export default function Testimonials() {
 
   return (
     <section className="testimonials-section bg-white min-h-screen flex items-center justify-center py-20 overflow-clip relative">
-      <div className="absolute h-full left-1/2 overflow-clip rounded-[23.408px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-[98vw] max-w-[1800px]">
-        {/* Background decorative ellipse at top */}
-        <div className="absolute h-[950.137px] left-1/2 -translate-x-1/2 top-[-550px] w-[1755.93px] max-w-[200%]">
-          <div className="absolute inset-[-75.24%_-40.71%]">
-            <img 
-              alt="" 
-              className="block max-w-none w-full h-full object-contain" 
-              src={imgEllipse1}
-              onError={(e) => {
-                console.error('Failed to load ellipse image:', imgEllipse1);
-              }}
-            />
-          </div>
-        </div>
+      {/* Background gradient blobs */}
+      <div className="absolute left-[-400px] top-[100px] w-[800px] h-[400px] opacity-20 mix-blend-multiply pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-radial from-blue-500/20 via-blue-400/10 to-transparent blur-3xl" />
+      </div>
+      <div className="absolute right-[-400px] bottom-[100px] w-[800px] h-[400px] opacity-15 mix-blend-multiply pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-radial from-cyan-500/15 via-cyan-400/8 to-transparent blur-3xl" />
       </div>
 
       <div className="max-w-[1681px] mx-auto px-5 w-full relative z-10">
-        <h2 className="text-4xl md:text-5xl lg:text-[64px] text-black font-semibold leading-tight lg:leading-[85.4px] text-center tracking-wide lg:tracking-[1.92px] mb-12 lg:mb-20 font-['Manrope',sans-serif]">
+        <h2 className="text-5xl md:text-6xl lg:text-[82px] text-black font-medium leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-16 lg:mb-24">
           Trusted by companies
         </h2>
 
@@ -180,20 +169,23 @@ export default function Testimonials() {
                     marginLeft: '-350px',
                     marginTop: '-300px',
                     transform: style.transform,
+                    filter: style.filter,
                     opacity: style.opacity,
                     zIndex: style.zIndex,
                     transformOrigin: 'center center',
-                    transition: 'transform 0.6s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1), z-index 0s linear',
+                    transition: 'transform 0.6s cubic-bezier(0.33, 1, 0.68, 1), filter 0.6s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.6s cubic-bezier(0.33, 1, 0.68, 1)',
                     pointerEvents: style.pointerEvents as any,
                   }}
                   onClick={() => handleCardClick(index)}
                 >
-                  <div className="bg-white rounded-[10px] shadow-[0px_2.25px_5px_0px_rgba(0,0,0,0.25)] p-6 md:p-[25px] flex flex-col gap-8 md:gap-[52.5px] h-full">
-                    <p className="text-lg md:text-xl lg:text-[25px] text-black leading-relaxed md:leading-[32.5px] tracking-wide md:tracking-[0.75px] font-['Plus_Jakarta_Sans',sans-serif]">
-                      {testimonial.quote}
+                  <div 
+                    className="rounded-3xl shadow-2xl p-8 md:p-10 flex flex-col gap-8 md:gap-12 h-full bg-white border border-neutral-200"
+                  >
+                    <p className="text-xl md:text-2xl text-neutral-700 leading-relaxed md:leading-[38px] tracking-wide">
+                      "{testimonial.quote}"
                     </p>
 
-                    <div className="flex items-center justify-between gap-8 md:gap-[50px]">
+                    <div className="flex items-center justify-between gap-8 md:gap-12">
                       <div className="h-[50px] md:h-[62px] w-[180px] md:w-[219px] flex-shrink-0">
                         <img 
                           alt="Company Logo" 
@@ -202,7 +194,7 @@ export default function Testimonials() {
                           draggable={false}
                         />
                       </div>
-                      <p className="text-base md:text-lg lg:text-[20px] text-black leading-relaxed md:leading-[32.5px] tracking-wide md:tracking-[0.6px] font-['Poppins',sans-serif] font-medium whitespace-nowrap">
+                      <p className="text-lg md:text-xl text-black leading-relaxed font-semibold whitespace-nowrap">
                         {testimonial.author}
                       </p>
                     </div>
@@ -213,13 +205,13 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-3 mt-12">
           {testimonials.map((_, index) => (
             <button
               key={index}
               onClick={() => snapToCard(index)}
               className={`h-2 rounded-full transition-all ${
-                index === currentIndex ? 'bg-black w-8' : 'bg-gray-300 w-2'
+                index === currentIndex ? 'bg-black w-10' : 'bg-neutral-300 w-2'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

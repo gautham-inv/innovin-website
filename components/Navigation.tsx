@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { AnimatedButton } from "./AnimatedButton";
 
 const imgLogoDark = "/images/logo.png";
 
 export default function Navigation() {
   const [activeHash, setActiveHash] = useState("");
+  const [isVisible, setIsVisible] = useState(true);
   const pathname = usePathname();
+  const lastScrollY = useRef(0);
+  const scrollThreshold = 5; // Minimum scroll amount to trigger hide/show
 
   useEffect(() => {
     const updateActive = () => {
@@ -22,6 +26,48 @@ export default function Navigation() {
     
     return () => window.removeEventListener("hashchange", updateActive);
   }, [pathname]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDifference = Math.abs(currentScrollY - lastScrollY.current);
+
+      // Only trigger if scroll difference is at least the threshold
+      if (scrollDifference >= scrollThreshold) {
+        if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+          // Scrolling down - hide navbar
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY.current) {
+          // Scrolling up - show navbar
+          setIsVisible(true);
+        }
+        lastScrollY.current = currentScrollY;
+      }
+
+      // Always show navbar at the top of the page
+      if (currentScrollY < 50) {
+        setIsVisible(true);
+      }
+    };
+
+    // Throttle scroll events for better performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener("scroll", throttledHandleScroll);
+    };
+  }, []);
 
   const linkClasses = (hash: string, isFirst = false, isLast = false, isPageActive = false) => {
     // Check if hash-based link is active (on home page with matching hash)
@@ -42,9 +88,13 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[100px] bg-white/80 transition-transform duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="py-4">
-      <div className="max-w-[1681px] mx-auto px-1 flex items-center justify-between h-[85px]">
+      <div className="max-w-[1681px] mx-auto px-1 flex items-center justify-between h-[70px]">
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -98,19 +148,9 @@ export default function Navigation() {
         </div>
 
         {/* CTA Button */}
-        <a 
-          href="#contact"
-          className="
-            btn-grad
-            bg-gradient-to-l from-primary to-secondary 
-            border-[0.585px] border-[rgba(0,92,137,0.5)] border-solid 
-            rounded-[40px] px-[35.112px] py-[9.363px] 
-            text-white text-[16.39px] font-semibold 
-            leading-[23.408px] tracking-[0.0069px]
-          "
-        >
+        <AnimatedButton href="#contact">
           Get in touch
-        </a>
+        </AnimatedButton>
 
       </div>
       </div>
