@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { AnimatedButton } from "./AnimatedButton";
+import { useContactModal } from "./ContactModal";
 
 const imgLogoDark = "/images/logo.png";
 
@@ -13,6 +14,7 @@ export default function Navigation() {
   const pathname = usePathname();
   const lastScrollY = useRef(0);
   const scrollThreshold = 5; // Minimum scroll amount to trigger hide/show
+  const { openModal } = useContactModal();
 
   useEffect(() => {
     const updateActive = () => {
@@ -148,7 +150,7 @@ export default function Navigation() {
         </div>
 
         {/* CTA Button */}
-        <AnimatedButton href="#contact">
+        <AnimatedButton onClick={openModal} className="scale-110">
           Get in touch
         </AnimatedButton>
 

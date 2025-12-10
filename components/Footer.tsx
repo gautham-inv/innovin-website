@@ -1,6 +1,9 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 export default function Footer() {
+  const router = useRouter();
   return (
     <footer className="bg-white h-[962px] overflow-hidden relative">
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-black h-[850.707px] w-[1593px] rounded-[29.301px] overflow-hidden">
@@ -8,27 +11,27 @@ export default function Footer() {
           Fueling bold ideas with AI to help startups scale, innovate, and lead the future.
         </p>
         <div className="absolute left-[79.11px] top-[657.32px] flex gap-[16.604px] items-center">
-          <button className="px-[21.487px] py-[13.674px] rounded-[14px]">
+          <button onClick={() => router.push("/")} className="px-[21.487px] py-[13.674px] rounded-[14px]">
             <p className="text-[#b4b7bc] text-[22.19px] font-medium leading-[27.884px]">
               Home
             </p>
           </button>
-          <button className="px-[21.487px] py-[13.674px] rounded-[14px]">
+          <button onClick={() => router.push("/why-us")} className="px-[21.487px] py-[13.674px] rounded-[14px]">
             <p className="text-[#b4b7bc] text-[22.19px] font-medium leading-[27.884px]">
               Why us
             </p>
           </button>
-          <button className="px-[21.487px] py-[13.674px] rounded-[14px]">
+          <button onClick={() => router.push("/about-us")} className="px-[21.487px] py-[13.674px] rounded-[14px]">
             <p className="text-[#b4b7bc] text-[22.19px] font-medium leading-[27.884px]">
               About us
             </p>
           </button>
-          <button className="px-[21.487px] py-[13.674px] rounded-[14px]">
+          <button onClick={() => router.push("/blog")} className="px-[21.487px] py-[13.674px] rounded-[14px]">
             <p className="text-[#b4b7bc] text-[22.19px] font-medium leading-[27.884px]">
               Knowledge hub
             </p>
           </button>
-          <button className="px-[21.487px] py-[13.674px] rounded-[14px]">
+          <button onClick={() => router.push("/careers")} className="px-[21.487px] py-[13.674px] rounded-[14px]">
             <p className="text-[#b4b7bc] text-[22.19px] font-medium leading-[27.884px]">
               Careers
             </p>

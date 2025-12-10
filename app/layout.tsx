@@ -7,6 +7,7 @@ import Navigation from "@/components/Navigation";
 import { SanityLive } from "@/lib/sanity/lib/live";
 import { handleError } from "./client-utils";
 import { Manrope } from "next/font/google";
+import { ContactModalProvider } from "@/components/ContactModal";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -48,8 +49,10 @@ export default async function RootLayout({
         {isDraftMode && (
           <VisualEditing />
         )}
-        <Navigation />
-        {children}
+        <ContactModalProvider>
+          <Navigation />
+          {children}
+        </ContactModalProvider>
       </body>
     </html>
   );

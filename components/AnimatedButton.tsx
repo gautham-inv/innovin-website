@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 
+
 interface AnimatedButtonProps {
   href?: string;
   onClick?: () => void;
@@ -70,4 +71,3 @@ export function AnimatedButton({ href, onClick, children, className = "" }: Anim
     </button>
   );
 }
-

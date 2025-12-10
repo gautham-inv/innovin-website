@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatedButton } from "./AnimatedButton";
 
-const imgEllipse = "/images/4c3dce0794efde83822631e43c726b0634816851.png";
+const imgEllipse = "/images/zirkly.png";
 const imgAshwanth = "/images/9454b043f49c13ff58150de23ad3177131cba25a.png";
 const imgMohammed = "/images/b96a25f5c5aaa1da26f63e8a421b0a4c393b75f5.png";
 
@@ -75,15 +76,18 @@ export default function Careers() {
   return (
     <section className="bg-white min-h-[1111px] overflow-hidden relative py-20">
       {/* Background decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[445px] left-[410px] w-[1066px] h-[455px] opacity-30">
-          <img 
-            src={imgEllipse} 
-            alt="" 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
+      {/* Background dotted grid */}
+<div
+  className="absolute inset-0 pointer-events-none opacity-20"
+  style={{
+    backgroundImage: `
+      radial-gradient(rgba(0,0,0,0.25) 2px, transparent 2px)
+    `,
+    backgroundSize: "100px 100px", // each grid cell is 100px x 100px
+    backgroundPosition: "0 0",
+  }}
+></div>
+
 
       <div className="max-w-[1681px] mx-auto px-5 relative">
         {/* Header Section */}
@@ -91,11 +95,7 @@ export default function Careers() {
           <h2 className="text-[48px] text-black font-bold leading-[85.4px] tracking-[1.44px] max-w-[1183px]">
             The Next Big Move Is Yours
           </h2>
-          <button 
-            className="bg-white border-4 border-secondary/50 rounded-[46.816px] px-[35.112px] py-[9.363px] shadow-[0px_1px_1px_0px_rgba(0,0,0,0.25)] text-black text-[16.386px] font-bold transition-all duration-300 hover:shadow-lg hover:scale-105 hover:border-secondary active:scale-95"
-          >
-            Explore Roles
-          </button>
+          <AnimatedButton href="/careers" className="scale-145">Explore Roles</AnimatedButton>
         </div>
 
         {/* Description Text */}
