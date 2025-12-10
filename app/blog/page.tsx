@@ -1,4 +1,5 @@
 import BlogPage from "@/components/BlogPage";
+import Footer from "@/components/Footer";
 import { sanityFetch } from "@/lib/sanity/lib/live";
 import {
   allPostsQuery,
@@ -47,11 +48,14 @@ export default async function Blog() {
   }
 
   return (
-    <BlogPage
-      posts={posts}
-      categories={categories}
-      featuredPost={featuredPost}
-    />
+    <>
+      <BlogPage
+        posts={posts}
+        categories={categories}
+        featuredPost={featuredPost}
+      />
+      <Footer />
+    </>
   );
 }
 

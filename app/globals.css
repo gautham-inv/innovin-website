@@ -71,6 +71,10 @@ html, body {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
   }
+  
+  .overscroll-none {
+    overscroll-behavior: none;
+  }
 }
 
 /* Front card rotation for desktop only */

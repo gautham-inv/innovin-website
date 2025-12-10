@@ -5,7 +5,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import HoverCard from "./HoverCard";
-import Footer from "./Footer";
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -550,7 +549,6 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import CareersPage from "@/components/CareersPage";
 import { sanityFetch } from "@/lib/sanity/lib/live";
 import { allJobsQuery } from "@/lib/sanity/lib/queries";
+import Footer from "@/components/Footer";
+
 
 /**
  * Careers listing page - pre-rendered as static HTML at build time.
@@ -22,6 +24,11 @@ export default async function Careers() {
     console.warn('❌ Failed to fetch jobs from Sanity:', error);
   }
 
-  return <CareersPage jobs={jobs} />;
+  return (
+    <>
+      <CareersPage jobs={jobs} />
+      <Footer />
+    </>
+  );
 }
 

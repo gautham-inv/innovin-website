@@ -81,11 +81,25 @@ export default function Navigation() {
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
+      const scrollY = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
       document.body.style.overflow = "hidden";
     } else {
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
       document.body.style.overflow = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+      }
     }
     return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
       document.body.style.overflow = "";
     };
   }, [isMobileMenuOpen]);
@@ -204,8 +218,16 @@ export default function Navigation() {
         onClick={() => setIsMobileMenuOpen(false)}
       >
         <div
-          className="h-full w-full flex flex-col pt-24 pb-8 overflow-y-auto"
+          className="h-full w-full flex flex-col pt-24 pb-8 overflow-y-auto overscroll-none"
           onClick={(e) => e.stopPropagation()}
+          onTouchStart={(e) => {
+            // Prevent body scroll when touching menu
+            e.stopPropagation();
+          }}
+          onTouchMove={(e) => {
+            // Allow scrolling within menu, but prevent body scroll
+            e.stopPropagation();
+          }}
         >
           <div className="flex flex-col items-stretch max-w-md mx-auto w-full px-4 space-y-2">
             <Link

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 export default function Footer() {
   const router = useRouter();
   return (
-    <footer className="bg-white min-h-[600px] sm:min-h-[700px] lg:h-[962px] overflow-hidden relative py-8 sm:py-12 lg:py-0 px-4 sm:px-6 lg:px-0">
+    <footer className="bg-white min-h-[600px] sm:min-h-[700px] lg:h-[962px] overflow-hidden relative pt-8 sm:pt-12 lg:pt-0 px-4 sm:px-6 lg:px-[70px] pb-4 sm:pb-6 lg:pb-[70px]">
       <div className="relative lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 bg-black min-h-[550px] sm:min-h-[650px] lg:h-[850.707px] w-full max-w-[1593px] mx-auto rounded-[20px] sm:rounded-[24px] lg:rounded-[29.301px] overflow-hidden p-6 sm:p-10 lg:p-0">
         {/* Main Tagline */}
         <p className="lg:absolute lg:left-[79.11px] lg:top-[48.84px] text-[32px] sm:text-[48px] lg:text-[72.276px] text-white font-medium leading-[1.3] sm:leading-[1.25] lg:leading-[90.833px] tracking-[1.5px] sm:tracking-[2.5px] lg:tracking-[3.6138px] lg:w-[1003.07px] mb-8 sm:mb-12 lg:mb-0">

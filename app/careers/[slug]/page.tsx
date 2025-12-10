@@ -5,6 +5,7 @@ import {type PortableTextBlock} from 'next-sanity'
 import {sanityFetch} from '@/lib/sanity/lib/live'
 import {jobSlugs, jobQuery} from '@/lib/sanity/lib/queries'
 import PortableText from '@/components/PortableText'
+import Footer from '@/components/Footer'
 
 type Props = {
   params: Promise<{slug: string}>
@@ -184,6 +185,7 @@ export default async function JobDetailPage(props: Props) {
           </Link>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

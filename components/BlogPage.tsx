@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/lib/sanity/lib/utils";
 import BlogCard from "./BlogCard";
-import Footer from "./Footer";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Category {
@@ -269,7 +268,6 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

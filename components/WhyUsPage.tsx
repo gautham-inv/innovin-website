@@ -1,7 +1,8 @@
+"use client";
+
 // Icon assets
 const iconNetwork = "/images/4076a00dcf114223bee46321b8b5539570416f58.svg";
 const iconTalents = "/images/30e10ea8e914fc7e3b7c930fb0ab9e24eedb665b.svg";
-import Footer from "./Footer";
 
 export default function WhyUsPage() {
 
@@ -245,8 +246,6 @@ L 380 510
           </div>
         </div>
       </div>
-      <Footer />
     </div>
-    
   );
 }
