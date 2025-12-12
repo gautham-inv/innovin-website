@@ -2,10 +2,10 @@
 
 import React, { useState, FormEvent, ChangeEvent, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
+import Footer from "../../../components/Footer";
+import Navigation from "../../../components/Navigation";
 
-const Footer = dynamic(() => import("../../components/Footer"), { ssr: false });
-const Navigation = dynamic(() => import("../../components/Navigation"), { ssr: false });
+
 
 function ApplyForm() {
   const searchParams = useSearchParams();
