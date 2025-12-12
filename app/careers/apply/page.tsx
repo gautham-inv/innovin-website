@@ -143,7 +143,22 @@ function ApplyForm() {
       });
 
       if (!presignedUrlResponse.ok) {
-        throw new Error("Failed to get upload URL");
+        const errorData = await presignedUrlResponse.json().catch(() => ({ error: "Unknown error" }));
+        console.error("Upload URL error - Full response:", errorData);
+        console.error("Upload URL error - Status:", presignedUrlResponse.status);
+        
+        let errorMessage = "Failed to get upload URL. Please try again.";
+        if (errorData.error) {
+          errorMessage = errorData.error;
+        } else if (errorData.details) {
+          if (typeof errorData.details === 'string') {
+            errorMessage = errorData.details;
+          } else if (errorData.details.message) {
+            errorMessage = errorData.details.message;
+          }
+        }
+        
+        throw new Error(errorMessage);
       }
 
       const { uploadUrl, filePath } = await presignedUrlResponse.json();
