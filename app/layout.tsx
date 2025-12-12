@@ -41,10 +41,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <body className="antialiased">
-        {/* Toast notifications for Sanity Live errors */}
-        <Toaster />
-        {/* SanityLive enables live updates - only activates on CMS pages via client-side logic */}
-        <SanityLive onError={handleError} />
+        {/* Toast notifications for Sanity Live errors - only show in draft mode */}
+        {isDraftMode && <Toaster />}
+        {/* SanityLive enables live updates - ONLY render in draft mode to prevent CORS errors for end users */}
+        {isDraftMode && <SanityLive onError={handleError} />}
         {/* VisualEditing shows edit overlays - only render in draft mode */}
         {isDraftMode && (
           <VisualEditing />

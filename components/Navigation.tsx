@@ -140,7 +140,7 @@ export default function Navigation() {
         }`}
       >
         <div className="py-4">
-          <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-1 flex items-center justify-between h-[70px]">
+          <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-1 flex items-center justify-between h-[60px]">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="h-[40px] relative">

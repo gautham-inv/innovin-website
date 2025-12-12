@@ -69,9 +69,6 @@ export default function WhyUs() {
       rafId = requestAnimationFrame(() => {
         void section.offsetHeight;
       
-        // Detect if mobile/tablet
-        const isMobile = window.innerWidth < 1024;
-        
         // Set initial states
         gsap.set(content, { 
           opacity: 0, 
@@ -95,71 +92,136 @@ export default function WhyUs() {
           }
         });
 
-        // Calculate scroll distance
-        const vh = window.innerHeight;
-        const scrollDistance = isMobile ? vh * 1.2 : vh * 1.5;
+        // Use matchMedia for responsive scroll distances
+        const mm = gsap.matchMedia();
 
-        // Create main timeline
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: `+=${scrollDistance}`,
-            scrub: 1,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            refreshPriority: -1,
-            markers: false,
-            onEnter: () => {
-              gsap.set([title, content, ...letterRefs.current.filter(Boolean)], {
-                clearProps: "all"
-              });
-              gsap.set(content, { opacity: 0, y: 50, force3D: true });
-              gsap.set(title, { scale: 1, y: 0, force3D: true });
-              letterRefs.current.forEach((el) => {
-                if (el) gsap.set(el, { color: "#c8c8c8", force3D: true });
-              });
-            },
-          }
-        });
-
-        // Phase 1: Letter color fade (0-25% of timeline)
-        letterRefs.current.forEach((letterEl, index) => {
-          if (!letterEl) return;
+        mm.add({
+          // Mobile devices (< 768px)
+          isMobile: "(max-width: 767px)",
+          // Tablets (768px - 1023px)
+          isTablet: "(min-width: 768px) and (max-width: 1023px)",
+          // Desktop (>= 1024px)
+          isDesktop: "(min-width: 1024px)"
+        }, (context) => {
+          const { isMobile, isTablet } = context.conditions as { isMobile: boolean; isTablet: boolean };
           
-          tl.to(letterEl, {
-            color: "#232323",
-            duration: 0.25 / letters.length,
-            ease: "none",
+          const vh = window.innerHeight;
+          
+          // Different scroll distances for different devices
+          let scrollDistance: number;
+          let titleScale: number;
+          let titleYPosition: number;
+          
+          if (isMobile) {
+            scrollDistance = vh * 1.5; // Shorter for mobile = smoother
+            titleScale = 0.28;
+            titleYPosition = -vh * 0.41; // Moved higher to avoid overlap
+          } else if (isTablet) {
+            scrollDistance = vh * 2; // Medium for tablets
+            titleScale = 0.25;
+            titleYPosition = -vh * 0.35;
+          } else {
+            scrollDistance = vh * 2.5; // Longer for desktop
+            titleScale = 0.23;
+            titleYPosition = -vh * 0.25;
+          }
+
+          // Create main timeline
+          let scrollTriggerInstance: ScrollTrigger | null = null;
+          
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: `+=${scrollDistance}`,
+              scrub: isMobile ? 0.5 : 1, // Less scrub on mobile = more responsive
+              pin: true,
+              pinSpacing: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              refreshPriority: -1,
+              markers: false,
+              onEnter: () => {
+                gsap.set([title, content, ...letterRefs.current.filter(Boolean)], {
+                  clearProps: "all"
+                });
+                gsap.set(content, { opacity: 0, y: 50, force3D: true });
+                gsap.set(title, { scale: 1, y: 0, force3D: true });
+                letterRefs.current.forEach((el) => {
+                  if (el) gsap.set(el, { color: "#c8c8c8", force3D: true });
+                });
+              },
+              onComplete: function(this: ScrollTrigger) {
+                // Store the ScrollTrigger instance
+                scrollTriggerInstance = this;
+                
+                // Kill the ScrollTrigger after animation completes
+                this.kill();
+                
+                // Set final states permanently
+                gsap.set(title, {
+                  scale: titleScale,
+                  y: titleYPosition,
+                  force3D: true,
+                  clearProps: "transform"
+                });
+                
+                gsap.set(content, {
+                  opacity: 1,
+                  y: 0,
+                  force3D: true,
+                  clearProps: "transform,opacity"
+                });
+                
+                letterRefs.current.forEach((el) => {
+                  if (el) {
+                    gsap.set(el, { 
+                      color: "#232323",
+                      clearProps: "color"
+                    });
+                  }
+                });
+                
+                // Unpin the section
+                if (section) {
+                  section.style.position = 'relative';
+                  section.style.height = 'auto';
+                }
+              }
+            } as ScrollTrigger.Vars & { onComplete?: (this: ScrollTrigger) => void }
+          });
+
+          // Phase 1: Letter color fade (0-25% of timeline)
+          letterRefs.current.forEach((letterEl, index) => {
+            if (!letterEl) return;
+            
+            tl.to(letterEl, {
+              color: "#232323",
+              duration: 0.25 / letters.length,
+              ease: "none",
+              force3D: true
+            }, index * (0.25 / letters.length));
+          });
+
+          // Phase 2: Scale and position title (25%-50% of timeline)
+          tl.to(title, {
+            scale: titleScale,
+            y: titleYPosition,
+            duration: 0.25,
+            ease: "power2.inOut",
+            force3D: true,
+            transformOrigin: "center center"
+          }, 0.25);
+
+          // Phase 3: Fade in content (40%-70% of timeline)
+          tl.to(content, {
+            opacity: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out",
             force3D: true
-          }, index * (0.25 / letters.length));
+          }, 0.4);
         });
-
-        // Phase 2: Scale and position title (25%-50% of timeline)
-        tl.to(title, {
-          scale: isMobile ? 0.28 : 0.23,
-          y: () => {
-            const vh = window.innerHeight;
-            // Mobile: Move title to top with navbar clearance (around 100-120px from top)
-            // Desktop: Keep original behavior
-            return isMobile ? -vh * 0.38 : -vh * 0.25;
-          },
-          duration: 0.25,
-          ease: "power2.inOut",
-          force3D: true,
-          transformOrigin: "center center"
-        }, 0.25);
-
-        // Phase 3: Fade in content (40%-70% of timeline)
-        tl.to(content, {
-          opacity: 1,
-          y: 0,
-          duration: 0.3,
-          ease: "power2.out",
-          force3D: true
-        }, 0.4);
 
         // Handle resize with debounce
         handleResize = () => {

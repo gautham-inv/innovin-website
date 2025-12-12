@@ -204,10 +204,10 @@ function ContactModal() {
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
           console.error("Contact form submission error:", errorData);
-          
+
           // Extract error message from response
           let errorMessage = "Failed to submit message. Please try again later.";
-          
+
           if (errorData.error) {
             errorMessage = errorData.error;
           } else if (errorData.details) {
@@ -219,7 +219,7 @@ function ContactModal() {
               errorMessage = errorData.details.message || errorData.details.error || errorMessage;
             }
           }
-          
+
           setErrors({ submit: errorMessage });
           setIsSubmitting(false);
           return; // Don't throw, just show error
@@ -277,18 +277,7 @@ function ContactModal() {
     </button>
   );
 
-  // Exit button (matches navigation button design)
-  const ExitButton = () => (
-    <button
-      onClick={closeModal}
-      className="bg-[#5e5e5e] flex items-center justify-center p-[4.8px] rounded-[42px] shrink-0 hover:opacity-80 cursor-pointer transition-opacity"
-      aria-label="Close modal"
-    >
-      <div className="flex items-center justify-center size-[14.4px]">
-        <X className="size-[14.4px] text-white" />
-      </div>
-    </button>
-  );
+ 
 
   // Step indicator component
   const StepIndicator = ({ step }: { step: number }) => (
@@ -323,13 +312,13 @@ function ContactModal() {
   );
 
   return (
+    // NOTE: changed alignment for small screens to place modal in the upper half (items-start + top padding).
+    // Also changed outer onClick to simply closeModal() — the modal itself stops propagation so clicks inside won't bubble up.
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 lg:p-6"
-      onClick={(e) => {
-        // On mobile/smaller devices, clicking outside closes the modal
-        if (e.target === e.currentTarget) {
-          closeModal();
-        }
+      className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center p-2 sm:p-4 lg:p-6 pt-8 sm:pt-3"
+      onClick={() => {
+        // Any click that reaches this wrapper is outside the modal (modal stops propagation), so close.
+        closeModal();
       }}
     >
       {/* Backdrop with reduced brightness */}
@@ -346,17 +335,10 @@ function ContactModal() {
           <div className="flex-1 w-full sm:w-auto">
             {!showSuccess && currentStep === 1 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your name?</p>}
             {!showSuccess && currentStep === 2 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your company name</p>}
-            {!showSuccess && currentStep === 3 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your email</p>}
+            {!showSuccess && currentStep === 3 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap">What's your email</p>}
             {!showSuccess && currentStep === 4 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap whitespace-nowrap lg:whitespace-nowrap">What can we help you with</p>}
             {!showSuccess && currentStep === 5 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px]">Confirm messsage</p>}
             {showSuccess && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#66c2e2] text-[14px] sm:text-[16px]">Thank you!</p>}
-          </div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            {!showSuccess && <StepIndicator step={currentStep} />}
-            {/* Exit button - hidden on mobile */}
-            <div className="hidden sm:block">
-              <ExitButton />
-            </div>
           </div>
         </div>
 
@@ -530,3 +512,5 @@ function ContactModal() {
     </div>
   );
 }
+
+export default ContactModal;

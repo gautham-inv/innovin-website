@@ -1,14 +1,14 @@
 "use client";
 import Footer from "./Footer";
 // Image assets
-const imgHeroBackground = "/images/efdf1ab711ffad6d48b3163655ede5890772aaf2.png";
-const imgHeroBackgroundJpg = "/images/efdf1ab711ffad6d48b3163655ede5890772aaf2.jpg";
+const imgHeroBackground = "/images/compressed_efdf1ab711ffad6d48b3163655ede5890772aaf2.webp";
+const imgHeroBackgroundJpg = "/images/compressed_efdf1ab711ffad6d48b3163655ede5890772aaf2.webp";
 
 const teamPhotos = [
-  "/images/573ac6c833b631241442f52f9339c8f43a7bcb76.png",
-  "/images/d7fbbc268730dca1329c17ec05aad7e281134f4f.png",
-  "/images/af0d73906f117e3a32a5cb2964335364aff6973e.png",
-  "/images/e87e7e5ce49a5f43a07cdf9755cceca7ff36ee28.png",
+  "/images/compressed_573ac6c833b631241442f52f9339c8f43a7bcb76.webp",
+  "/images/compressed_d7fbbc268730dca1329c17ec05aad7e281134f4f.webp",
+  "/images/compressed_af0d73906f117e3a32a5cb2964335364aff6973e.webp",
+  "/images/compressed_e87e7e5ce49a5f43a07cdf9755cceca7ff36ee28.webp",
 ];
 
 const teamPhotoPositions = [
