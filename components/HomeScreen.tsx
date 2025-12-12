@@ -8,6 +8,7 @@ import TechStack from "./TechStack";
 import Testimonials from "./Testimonials";
 import Careers from "./Careers";
 import Offices from "./Offices";
+import Footer from "./Footer";
 
 export default function HomeScreen() {
   return (

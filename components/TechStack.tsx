@@ -1,37 +1,13 @@
 "use client";
 
-import LogoLoop from './LogoLoop';
-// Uncomment when react-icons is installed:
-// import { 
-//   SiReact, 
-//   SiNextdotjs, 
-//   SiTypescript, 
-//   SiJavascript,
-//   SiPostgresql,
-//   SiWordpress,
-//   SiNpm,
-//   SiSpring,
-//   SiMicrosoftazure,
-//   SiGooglecloud,
-//   SiFigma,
-//   SiSvelte,
-//   SiPhp,
-//   SiTailwindcss,
-//   SiHtml5,
-//   SiCss3,
-//   SiFirebase,
-//   SiVercel,
-//   SiAngular,
-//   SiKubernetes,
-//   SiLaravel,
-//   SiFlutter,
-//   SiMysql
-// } from 'react-icons/si';
+import { useLayoutEffect, useState } from "react";
+import LogoLoop from "./LogoLoop";
 
-// Top row logos - scrolls left → right (direction="right")
-// Based on Figma design: WordPress, npm, PostgreSQL, JavaScript, Spring Boot, Next.js, Azure, Google Cloud, Figma, React, Svelte, JavaScript
+const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
+const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
+const img3 = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop";
+
 const techLogosTop = [
-  // Using images for now - can be replaced with react-icons when available
   { src: "/images/d1f3457c582c326cacd5999f9462244cd0b086a6.svg", alt: "WordPress", title: "WordPress", href: "https://wordpress.org" },
   { src: "/images/d1fe1a927e11f7d2b0833f603607ab2e0464cb5b.svg", alt: "npm", title: "npm", href: "https://www.npmjs.com" },
   { src: "/images/d6bfd701a788246b82a09a8007bc04b677cc62ba.svg", alt: "PostgreSQL", title: "PostgreSQL", href: "https://www.postgresql.org" },
@@ -44,15 +20,8 @@ const techLogosTop = [
   { src: "/images/4dd2dc87d646964956fdd937a05639c2b1e8ca99.svg", alt: "React", title: "React", href: "https://react.dev" },
   { src: "/images/736b413565258b845495ca4fece9c434674f0611.svg", alt: "Svelte", title: "Svelte", href: "https://svelte.dev" },
   { src: "/images/bfe81755eb2f120ba86e7beea698930ea938c495.svg", alt: "JavaScript", title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
-  
-  // Example with react-icons (uncomment when react-icons is installed):
-  // { node: <SiReact />, title: "React", href: "https://react.dev" },
-  // { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
-  // { node: <SiPostgresql />, title: "PostgreSQL", href: "https://www.postgresql.org" },
 ];
 
-// Bottom row logos - scrolls right → left (direction="left")
-// Based on Figma design: PHP, Tailwind CSS, HTML5, CSS3, Firebase, Vercel, Angular, Kubernetes, Laravel, Flutter, MySQL
 const techLogosBottom = [
   { src: "/images/812700fa752137f1c86e9fdec5ec4cc56ad26459.svg", alt: "PHP", title: "PHP", href: "https://www.php.net" },
   { src: "/images/92237671aae3581d2a3e9740ba5ef3e9575a751a.svg", alt: "Tailwind CSS", title: "Tailwind CSS", href: "https://tailwindcss.com" },
@@ -65,56 +34,106 @@ const techLogosBottom = [
   { src: "/images/4e43daeb50bac0ce6e6f985139ee196def02c494.svg", alt: "Laravel", title: "Laravel", href: "https://laravel.com" },
   { src: "/images/37443694e9095109910764ac096467df5beab4fb.svg", alt: "Flutter", title: "Flutter", href: "https://flutter.dev" },
   { src: "/images/907350fc7dc8e6714e16460d08bac7c6cdcbc976.svg", alt: "MySQL", title: "MySQL", href: "https://www.mysql.com" },
-  
-  // Example with react-icons (uncomment when react-icons is installed):
-  // { node: <SiTypescript />, title: "TypeScript", href: "https://typescriptlang.org" },
-  // { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
 ];
 
 export default function TechStack() {
+  // Responsive control for logo size + speed
+  const [logoHeight, setLogoHeight] = useState<number>(48);
+  const [speed, setSpeed] = useState<number>(120);
+  const [gap, setGap] = useState<number>(40);
+
+  useLayoutEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      // Logo height
+      if (w >= 1536) { // 2xl and bigger
+        setLogoHeight(56);
+        setSpeed(140);
+        setGap(48);
+      } else if (w >= 1280) { // xl
+        setLogoHeight(48);
+        setSpeed(120);
+        setGap(44);
+      } else if (w >= 1024) { // lg (desktop)
+        setLogoHeight(48);
+        setSpeed(120);
+        setGap(40);
+      } else if (w >= 640) { // md / tablet
+        setLogoHeight(42);
+        setSpeed(90);
+        setGap(36);
+      } else { // mobile
+        setLogoHeight(36);
+        setSpeed(70);
+        setGap(28);
+      }
+    };
+
+    update();
+    let rafId: number | null = null;
+    const onResize = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(update);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
-    <div className="p-[45px]">
-    <section className="bg-[#131518] min-h-[674px] overflow-hidden rounded-[23.408px] relative py-20">
-      <div className="max-w-[1593px] mx-auto px-5 flex flex-col gap-24">
-        {/* Heading Section */}
-        <div className="text-center flex flex-col gap-6">
-          <h2 className="text-[62px] text-white font-medium tracking-[1.88px] leading-[84px] font-['Manrope',sans-serif]">
-            Tech stack we use
-          </h2>
-          <p className="text-[29px] text-[#71757f] leading-[33px]">
-            Powerful Tools and Modern Frameworks We're Actively Using to Stay Ahead and Build What's Next
-          </p>
+    <div className="p-6 sm:p-8 md:p-10 lg:p-[45px]">
+      <section
+        className="bg-[#131518] rounded-[23.408px] relative overflow-hidden"
+        style={{ minHeight: 0 }}
+      >
+        <div className="max-w-[1593px] mx-auto px-5 py-12 md:py-16 lg:py-20 flex flex-col gap-12 md:gap-20">
+          {/* Heading Section */}
+          <div className="text-center flex flex-col gap-4 md:gap-6 px-4">
+            <h2
+              className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[62px] text-white font-medium tracking-[0.6px] lg:tracking-[1.88px] leading-[1.05] lg:leading-[84px] font-['Manrope',sans-serif]"
+            >
+              Tech stack we use
+            </h2>
+            <p className="max-w-[1000px] mx-auto text-[15px] sm:text-[17px] md:text-[20px] lg:text-[29px] text-[#71757f] leading-[1.2] md:leading-[1.25]">
+              Powerful tools and modern frameworks we're actively using to stay ahead and build what's next.
+            </p>
+          </div>
+
+          {/* Top row: scrolls left → right (direction="right") */}
+          <div className="w-full">
+            <LogoLoop
+              logos={techLogosTop}
+              speed={speed}
+              direction="right"
+              logoHeight={logoHeight}
+              gap={gap}
+              hoverSpeed={0}
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#131518"
+              ariaLabel="Top row tech stack logos"
+            />
+          </div>
+
+          {/* Bottom row: scrolls right → left (direction="left") */}
+          <div className="w-full">
+            <LogoLoop
+              logos={techLogosBottom}
+              speed={speed}
+              direction="left"
+              logoHeight={logoHeight}
+              gap={gap}
+              hoverSpeed={0}
+              scaleOnHover
+              fadeOut
+              fadeOutColor="#131518"
+              ariaLabel="Bottom row tech stack logos"
+            />
+          </div>
         </div>
-
-        {/* Top row: scrolls left → right (direction="right") */}
-        <LogoLoop
-          logos={techLogosTop}
-          speed={120}
-          direction="right"
-          logoHeight={48}
-          gap={40}
-          hoverSpeed={0}
-          scaleOnHover
-          fadeOut
-          fadeOutColor="#131518"
-          ariaLabel="Top row tech stack logos"
-        />
-
-        {/* Bottom row: scrolls right → left (direction="left") */}
-        <LogoLoop
-          logos={techLogosBottom}
-          speed={120}
-          direction="left"
-          logoHeight={48}
-          gap={40}
-          hoverSpeed={0}
-          scaleOnHover
-          fadeOut
-          fadeOutColor="#131518"
-          ariaLabel="Bottom row tech stack logos"
-        />
-      </div>
-    </section>
+      </section>
     </div>
   );
 }
