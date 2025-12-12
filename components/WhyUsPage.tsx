@@ -3,7 +3,7 @@
 // Icon assets
 const iconNetwork = "/images/4076a00dcf114223bee46321b8b5539570416f58.svg";
 const iconTalents = "/images/30e10ea8e914fc7e3b7c930fb0ab9e24eedb665b.svg";
-
+const imgUniqueValueProposition = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
 export default function WhyUsPage() {
 
   const engagementModels = [
@@ -54,9 +54,7 @@ export default function WhyUsPage() {
         <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 lg:gap-[118px] items-center mb-12 sm:mb-16 lg:mb-[50px]">
           {/* Mobile/Tablet: Image first */}
           <div className="bg-[#959595] w-full sm:w-[500px] md:w-[600px] lg:w-[745px] h-[220px] sm:h-[260px] md:h-[300px] lg:h-[320px] rounded-[12px] sm:rounded-[16px] lg:rounded-[8px] flex items-center justify-center shrink-0 order-1 lg:order-2">
-            <p className="text-[20px] sm:text-[24px] md:text-[28px] lg:text-[31px] text-black text-center">
-              Placeholder
-            </p>
+            <img src={imgUniqueValueProposition} alt="Unique Value Proposition" className="w-full h-full object-contain" />
           </div>
           
           {/* Mobile/Tablet: Content second */}

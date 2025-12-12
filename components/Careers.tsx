@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 const imgEllipse = "/images/4c3dce0794efde83822631e43c726b0634816851.png";
 const imgMohammed = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80";
@@ -103,6 +104,8 @@ export default function Careers() {
     };
   }, []);
 
+  const router = useRouter();
+
   return (
     <section className="bg-white overflow-hidden relative py-8 md:py-20">
       {/* Desktop Layout */}
@@ -113,7 +116,7 @@ export default function Careers() {
             <h2 className="text-[48px] text-black font-bold leading-[85.4px] tracking-[1.44px] max-w-[1183px]">
               The Next Big Move Is Yours
             </h2>
-            <button className="bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition scale-[1.45]">
+            <button onClick={() => router.push("/careers")} className="bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition scale-[1.45]">
               Explore Roles
             </button>
           </div>
@@ -307,7 +310,7 @@ export default function Careers() {
             Think you've got the spark?
           </p>
           
-          <button className="bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition">
+          <button onClick={() => router.push("/careers")} className="bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition">
             Explore Roles
           </button>
         </div>

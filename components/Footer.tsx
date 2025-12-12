@@ -1,9 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
+import { useContactModal } from "./ContactModal";
+import { useState } from "react";
 export default function Footer() {
   const router = useRouter();
+  const { openModal } = useContactModal();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <footer className="bg-white min-h-[600px] sm:min-h-[700px] lg:h-[962px] overflow-hidden relative pt-8 sm:pt-12 lg:pt-0 px-4 sm:px-6 lg:px-[70px] pb-4 sm:pb-6 lg:pb-[70px]">
       <div className="relative lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 bg-black min-h-[550px] sm:min-h-[650px] lg:h-[850.707px] w-full max-w-[1593px] mx-auto rounded-[20px] sm:rounded-[24px] lg:rounded-[29.301px] overflow-hidden p-6 sm:p-10 lg:p-0">
@@ -54,7 +57,7 @@ export default function Footer() {
               Careers
             </p>
           </button>
-          <button className="px-[16px] sm:px-[21.487px] py-[10px] sm:py-[13.674px] rounded-[12px] sm:rounded-[14px] hover:bg-[#1a1a1a] transition-colors">
+          <button onClick={() => { openModal(); setIsMobileMenuOpen(false); }} className="px-[16px] sm:px-[21.487px] py-[10px] sm:py-[13.674px] rounded-[12px] sm:rounded-[14px] hover:bg-[#1a1a1a] transition-colors">
             <p className="text-[#b4b7bc] text-[16px] sm:text-[18px] lg:text-[22.19px] font-medium leading-[1.3] sm:leading-[27.884px] text-left">
               Contact
             </p>

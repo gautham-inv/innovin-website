@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const imgZirklyFullLogo1 = "/images/zirkly.png";
+const imgZirklyFullLogo1 = "/images/logo.png";
 
 const testimonials = new Array(5).fill(null).map(() => ({
   quote:

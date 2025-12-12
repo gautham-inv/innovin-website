@@ -11,8 +11,12 @@ if (typeof window !== "undefined") {
 }
 
 // Image assets
-const careerImage = "/images/cdedc12b1b86c0aaa766bfbfd4091d46fcbd8773.png";
 const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg";
+const life="images/compressed_2a10271a41c28441412779781963630458378940.webp";
+
+const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
+const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
+const img3 = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop";
 
 interface Job {
   _id: string;
@@ -35,22 +39,22 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   const starLeftRef = useRef<HTMLDivElement>(null);
   const starRightRef = useRef<HTMLDivElement>(null);
 
-  const images = [careerImage, careerImage, careerImage];
+  const images = [img1, img2, img3];
   const reasonsToChoose = [
     {
       title: "Education",
       description: "We offer you the opportunity to elevate your expertise and stay ahead in the tech-driven landscape.",
-      image: careerImage,
+      image: img1,
     },
     {
       title: "Experience",
       description: "Embark on a transformative journey with us, gaining valuable experience in diverse areas for personal and professional growth.",
-      image: careerImage,
+      image: img2,
     },
     {
       title: "Exposure",
       description: "Gain unparalleled exposure to diverse fields and cutting-edge technologies as you collaborate with us.",
-      image: careerImage,
+      image: img3,
     },
   ];
 
