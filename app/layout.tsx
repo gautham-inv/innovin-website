@@ -8,6 +8,7 @@ import { SanityLive } from "@/lib/sanity/lib/live";
 import { handleError } from "./client-utils";
 import { Manrope } from "next/font/google";
 import { ContactModalProvider } from "@/components/ContactModal";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -50,6 +51,7 @@ export default async function RootLayout({
           <VisualEditing />
         )}
         <ContactModalProvider>
+          <ScrollToTop />
           <Navigation />
           {children}
         </ContactModalProvider>

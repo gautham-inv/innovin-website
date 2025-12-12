@@ -91,7 +91,7 @@ export default function BlogCard({
       </div>
 
       {/* Author and Date */}
-      <div className="flex font-['Manrope',sans-serif] font-bold gap-[257px] items-center leading-[20.729px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.18px] w-full whitespace-pre">
+      <div className="flex font-['Manrope',sans-serif] font-bold justify-between items-center leading-[20.729px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.18px] w-full whitespace-pre">
         <p className="relative shrink-0">{authorName}</p>
         <p className="relative shrink-0">{formattedDate}</p>
       </div>

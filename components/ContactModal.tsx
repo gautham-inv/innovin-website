@@ -315,7 +315,7 @@ function ContactModal() {
     // NOTE: changed alignment for small screens to place modal in the upper half (items-start + top padding).
     // Also changed outer onClick to simply closeModal() — the modal itself stops propagation so clicks inside won't bubble up.
     <div
-      className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center p-2 sm:p-4 lg:p-6 pt-8 sm:pt-3"
+      className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center p-2 sm:p-4 lg:p-6 pt-8"
       onClick={() => {
         // Any click that reaches this wrapper is outside the modal (modal stops propagation), so close.
         closeModal();
@@ -327,7 +327,7 @@ function ContactModal() {
       {/* Modal */}
       <div
         ref={modalRef}
-        className="relative bg-[#131518] rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] w-full max-w-[680px] shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col"
+        className="relative mt-10 sm:mt-0 bg-[#131518] rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] w-full max-w-[680px] shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header with exit button - hidden on mobile */}

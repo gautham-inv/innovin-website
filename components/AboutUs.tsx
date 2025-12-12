@@ -1,5 +1,7 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import Footer from "./Footer";
+
 // Image assets
 const imgHeroBackground = "/images/compressed_efdf1ab711ffad6d48b3163655ede5890772aaf2.webp";
 const imgHeroBackgroundJpg = "/images/compressed_efdf1ab711ffad6d48b3163655ede5890772aaf2.webp";
@@ -8,7 +10,7 @@ const teamPhotos = [
   "/images/compressed_573ac6c833b631241442f52f9339c8f43a7bcb76.webp",
   "/images/compressed_d7fbbc268730dca1329c17ec05aad7e281134f4f.webp",
   "/images/compressed_af0d73906f117e3a32a5cb2964335364aff6973e.webp",
-  "/images/compressed_e87e7e5ce49a5f43a07cdf9755cceca7ff36ee28.webp",
+  "/images/compressed_efdf1ab711ffad6d48b3163655ede5890772aaf2.webp",
 ];
 
 const teamPhotoPositions = [
@@ -40,15 +42,50 @@ const coreValues = [
 // Reusable Components
 function TeamPhotoCard({ src, alt, className = "", style = {} }: { src: string; alt: string; className?: string; style?: React.CSSProperties }) {
   return (
-    <div className={`bg-white p-[24px] shadow-lg ${className}`} style={style}>
+    <div className={`bg-white p-[8px] shadow-lg ${className}`} style={style}>
       <img src={src} alt={alt} className="w-full aspect-[16/9] object-cover" />
     </div>
   );
 }
 
-function CoreValueCard({ icon, title }: { icon: string; title: string }) {
+function CoreValueCard({ icon, title, delay = 0 }: { icon: string; title: string; delay?: number }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px'
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col items-center">
+    <div 
+      ref={cardRef}
+      className={`flex flex-col items-center transition-all duration-700 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
       <div className="w-[200px] h-[165px] mb-[13px] text-[80px] flex items-center justify-center">
         {icon}
       </div>
@@ -59,9 +96,44 @@ function CoreValueCard({ icon, title }: { icon: string; title: string }) {
   );
 }
 
-function CoreValueCardMobile({ icon, title }: { icon: string; title: string }) {
+function CoreValueCardMobile({ icon, title, delay = 0 }: { icon: string; title: string; delay?: number }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px'
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col items-center">
+    <div 
+      ref={cardRef}
+      className={`flex flex-col items-center transition-all duration-700 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
       <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] mb-3 sm:mb-4 text-[50px] sm:text-[60px] md:text-[70px] flex items-center justify-center">
         {icon}
       </div>
@@ -83,24 +155,6 @@ function LeadershipCard({ name, role, image }: { name: string; role: string; ima
           {name}
         </p>
         <p className="text-[20px] text-black font-medium tracking-[-0.3px]">
-          {role}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function LeadershipCardMobile({ name, role, image }: { name: string; role: string; image: string }) {
-  return (
-    <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
-      <div className="w-full aspect-[3/4] rounded-[8px] sm:rounded-[10px] overflow-hidden">
-        <img src={image} alt={name} className="w-full h-full object-cover" />
-      </div>
-      <div className="flex flex-col gap-2 sm:gap-[6px]">
-        <p className="text-[16px] sm:text-[18px] md:text-[20px] text-black font-semibold leading-[1.3] sm:leading-[1.4]">
-          {name}
-        </p>
-        <p className="text-[14px] sm:text-[16px] md:text-[18px] text-black font-medium leading-[1.4] sm:leading-[1.5]">
           {role}
         </p>
       </div>
@@ -249,14 +303,13 @@ export default function AboutUs() {
             {/* Team Photos - Mobile/Tablet */}
             <div className="grid grid-cols-2 gap-4 md:hidden max-w-[700px] mx-auto">
               {teamPhotos.map((img, index) => (
-                <TeamPhotoCard key={index} src={img} alt={`Team ${index + 1}`} className="w-full p-3 sm:p-4" />
+                <TeamPhotoCard key={index} src={img} alt={`Team ${index + 1}`} className="w-full p-2 sm:p-[6px]" />
               ))}
             </div>
 
             {/* Team Photos - Tablet (scaled tilted layout) */}
             <div className="hidden md:block lg:hidden relative h-[320px] sm:h-[400px] md:h-[480px] w-full mx-auto max-w-[600px]">
               {teamPhotos.map((img, index) => {
-                const position = teamPhotoPositions[index];
                 const mobilePositions = [
                   { left: "5%", top: "8%", rotation: -6 },
                   { right: "5%", top: "8%", rotation: 7 },
@@ -276,7 +329,7 @@ export default function AboutUs() {
                       transform: `rotate(${mobilePos.rotation}deg)`,
                     }}
                   >
-                    <TeamPhotoCard src={img} alt={`Team photo ${index + 1}`} className="w-[42%] sm:w-[45%] p-3 sm:p-4 md:p-5" />
+                    <TeamPhotoCard src={img} alt={`Team photo ${index + 1}`} className="w-[42%] sm:w-[45%] p-2 sm:p-[6px] md:p-2" />
                   </div>
                 );
               })}
@@ -296,12 +349,12 @@ export default function AboutUs() {
           <div className="hidden lg:block">
             <div className="flex justify-center gap-[200px] mb-[90px]">
               {coreValues.slice(0, 3).map((value, index) => (
-                <CoreValueCard key={index} icon={value.icon} title={value.title} />
+                <CoreValueCard key={index} icon={value.icon} title={value.title} delay={index * 150} />
               ))}
             </div>
             <div className="flex justify-center gap-[200px]">
               {coreValues.slice(3, 6).map((value, index) => (
-                <CoreValueCard key={index + 3} icon={value.icon} title={value.title} />
+                <CoreValueCard key={index + 3} icon={value.icon} title={value.title} delay={(index + 3) * 150} />
               ))}
             </div>
           </div>
@@ -309,7 +362,7 @@ export default function AboutUs() {
           {/* Mobile/Tablet: 2 per row */}
           <div className="lg:hidden grid grid-cols-2 gap-x-6 sm:gap-x-10 md:gap-x-16 gap-y-10 sm:gap-y-12 md:gap-y-16 max-w-[700px] mx-auto">
             {coreValues.map((value, index) => (
-              <CoreValueCardMobile key={index} icon={value.icon} title={value.title} />
+              <CoreValueCardMobile key={index} icon={value.icon} title={value.title} delay={index * 100} />
             ))}
           </div>
         </div>

@@ -79,30 +79,54 @@ export default function WhyUsPage() {
             We believe in nurturing diverse talent, fostering creativity, and empowering individuals to reach their full potential.
           </p>
 
-          {/* Expertise Cards */}
+          {/* Expertise Cards - Modern Design */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-[20px]">
-            <div className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] lg:rounded-[16px] p-6 sm:p-8 lg:p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] h-auto lg:h-[448px]">
-              <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] lg:w-[94px] lg:h-[94px] mb-4 sm:mb-5 lg:mb-[13px] overflow-hidden">
-                <img src={iconNetwork} alt="Network icon" className="w-full h-full" />
+            {/* Network of Tech SMES Card */}
+            <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden">
+              {/* Decorative corner accent */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
+              
+              <div className="relative z-10">
+                {/* Icon with background */}
+                <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <img src={iconNetwork} alt="Network icon" className="w-full h-full object-contain filter brightness-0 invert" />
+                </div>
+                
+                <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
+                  Network of Tech SMES
+                </h3>
+                
+                <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
+                  Our expert network comprises accomplished industry leaders from around the globe, bringing together a wealth of diverse insights and unparalleled expertise to foster collaboration, drive innovation, and offer strategic guidance across various sectors.
+                </p>
               </div>
-              <h3 className="text-[22px] sm:text-[26px] md:text-[28px] lg:text-[31px] text-black font-medium leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-3 sm:mb-4 lg:mb-[13px]">
-                Network of Tech SMES
-              </h3>
-              <p className="text-[16px] sm:text-[18px] lg:text-[20px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[44px]">
-                Our expert network comprises accomplished industry leaders from around the globe, bringing together a wealth of diverse insights and unparalleled expertise to foster collaboration, drive innovation, and offer strategic guidance across various sectors.
-              </p>
+
+              {/* Bottom accent line */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#66c2e2] via-[#005c89] to-[#66c2e2] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
             </div>
 
-            <div className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] lg:rounded-[16px] p-6 sm:p-8 lg:p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] h-auto lg:h-[448px]">
-              <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] lg:w-[94px] lg:h-[94px] mb-4 sm:mb-5 lg:mb-[13px] overflow-hidden">
-                <img src={iconTalents} alt="Talents icon" className="w-full h-full" />
+            {/* Top tech talents Card */}
+            <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden">
+              {/* Decorative corner accent */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
+              
+              <div className="relative z-10">
+                {/* Icon with background */}
+                <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <img src={iconTalents} alt="Talents icon" className="w-full h-full object-contain filter brightness-0 invert" />
+                </div>
+                
+                <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
+                  Top tech talents
+                </h3>
+                
+                <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
+                  At the core of our top tech talents lies an unwavering commitment to excellence, cultivated through meticulous hiring practices, hands-on training, and mentorship-led assimilation, ensuring a dynamic and proficient team ready to tackle the most complex technological challenges.
+                </p>
               </div>
-              <h3 className="text-[22px] sm:text-[26px] md:text-[28px] lg:text-[31px] text-black font-medium leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-3 sm:mb-4 lg:mb-[13px]">
-                Top tech talents
-              </h3>
-              <p className="text-[16px] sm:text-[18px] lg:text-[20px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[44px]">
-                At the core of our top tech talents lies an unwavering commitment to excellence, cultivated through meticulous hiring practices, hands-on training, and mentorship-led assimilation, ensuring a dynamic and proficient team ready to tackle the most complex technological challenges.
-              </p>
+
+              {/* Bottom accent line */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#66c2e2] via-[#005c89] to-[#66c2e2] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
             </div>
           </div>
         </div>
@@ -225,24 +249,30 @@ L 380 510
             </svg>
           </div>
 
-          {/* Mobile/Tablet: Vertical stacked cards (no arrows, no center card) */}
-          <div className="lg:hidden flex flex-col gap-6 sm:gap-8">
-            {engagementModels.map((model, index) => (
-              <div
-                key={index}
-                className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
-              >
-                <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] mb-4 sm:mb-5 overflow-hidden">
-                  <img src={model.icon} alt="Icon" className="w-full h-full" />
+          {/* Mobile/Tablet: Vertical stacked cards with dotted connecting line */}
+          <div className="lg:hidden relative">
+            {/* Dotted vertical line connecting cards - centered to screen */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-0 border-l-2 border-dashed border-[#66c2e2] -translate-x-1/2 z-0" style={{ height: '100%' }} />
+            
+            {/* Cards */}
+            <div className="relative z-10 flex flex-col gap-6 sm:gap-8">
+              {engagementModels.map((model, index) => (
+                <div
+                  key={index}
+                  className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
+                >
+                  <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] mb-4 sm:mb-5 overflow-hidden">
+                    <img src={model.icon} alt="Icon" className="w-full h-full" />
+                  </div>
+                  <h3 className="text-[22px] sm:text-[26px] md:text-[28px] text-black font-medium leading-[1.3] sm:leading-[1.4] mb-3 sm:mb-4">
+                    {model.title}
+                  </h3>
+                  <p className="text-[16px] sm:text-[18px] text-black leading-[1.6] sm:leading-[1.65]">
+                    {model.description}
+                  </p>
                 </div>
-                <h3 className="text-[22px] sm:text-[26px] md:text-[28px] text-black font-medium leading-[1.3] sm:leading-[1.4] mb-3 sm:mb-4">
-                  {model.title}
-                </h3>
-                <p className="text-[16px] sm:text-[18px] text-black leading-[1.6] sm:leading-[1.65]">
-                  {model.description}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
