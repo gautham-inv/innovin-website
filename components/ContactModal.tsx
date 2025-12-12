@@ -203,7 +203,7 @@ function ContactModal() {
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
-          console.error("Contact form submission error - Full response:", errorData);
+          console.error("Contact form submission error:", errorData);
           
           // Extract error message from response
           let errorMessage = "Failed to submit message. Please try again later.";
@@ -220,7 +220,6 @@ function ContactModal() {
             }
           }
           
-          console.error("Contact form submission error - Extracted message:", errorMessage);
           setErrors({ submit: errorMessage });
           setIsSubmitting(false);
           return; // Don't throw, just show error

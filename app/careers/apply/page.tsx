@@ -144,8 +144,7 @@ function ApplyForm() {
 
       if (!presignedUrlResponse.ok) {
         const errorData = await presignedUrlResponse.json().catch(() => ({ error: "Unknown error" }));
-        console.error("Upload URL error - Full response:", errorData);
-        console.error("Upload URL error - Status:", presignedUrlResponse.status);
+        console.error("Upload URL error:", errorData);
         
         let errorMessage = "Failed to get upload URL. Please try again.";
         if (errorData.error) {

@@ -34,8 +34,6 @@ export async function POST(request: NextRequest) {
     }
 
     const edgeFunctionUrl = `${supabaseUrl}/functions/v1/upload-resume`;
-    console.log("Calling Edge Function:", edgeFunctionUrl);
-    console.log("Request payload:", { fileName, fileType, hasFileData: !!fileData });
     
     const response = await fetch(edgeFunctionUrl, {
       method: "POST",
@@ -50,14 +48,10 @@ export async function POST(request: NextRequest) {
       }),
     });
 
-    console.log("Edge Function response status:", response.status);
-    console.log("Edge Function response headers:", Object.fromEntries(response.headers.entries()));
-
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Edge Function error response (raw):", errorText);
+      console.error("Edge Function error:", errorText);
       console.error("Edge Function status:", response.status);
-      console.error("Edge Function URL called:", edgeFunctionUrl);
       
       // Handle 404 - Edge Function not deployed
       if (response.status === 404) {
@@ -76,14 +70,12 @@ export async function POST(request: NextRequest) {
       
       try {
         const errorJson = JSON.parse(errorText);
-        console.error("Parsed error JSON:", JSON.stringify(errorJson, null, 2));
         errorMessage = errorJson.error || errorMessage;
         errorDetails = {
           message: errorJson.details || errorJson.message,
           code: errorJson.code,
         };
-      } catch (parseError) {
-        console.error("Failed to parse error as JSON:", parseError);
+      } catch {
         errorMessage = errorText || errorMessage;
         errorDetails = errorText;
       }
