@@ -34,7 +34,7 @@ export default function Footer() {
             </p>
           </button>
           <button 
-            onClick={() => router.push("/about-us")} 
+            onClick={() => router.push("/about")} 
             className="px-[16px] sm:px-[21.487px] py-[10px] sm:py-[13.674px] rounded-[12px] sm:rounded-[14px] hover:bg-[#1a1a1a] transition-colors"
           >
             <p className="text-[#b4b7bc] text-[16px] sm:text-[18px] lg:text-[22.19px] font-medium leading-[1.3] sm:leading-[27.884px] text-left">
