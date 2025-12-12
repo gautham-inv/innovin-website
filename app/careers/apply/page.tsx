@@ -1,11 +1,13 @@
 "use client";
 
-import { useState, FormEvent, ChangeEvent } from "react";
+import React, { useState, FormEvent, ChangeEvent, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Footer from "@/components/Footer";
-import Navigation from "@/components/Navigation";
+import dynamic from "next/dynamic";
 
-export default function ApplyPage() {
+const Footer = dynamic(() => import("../../components/Footer"), { ssr: false });
+const Navigation = dynamic(() => import("../../components/Navigation"), { ssr: false });
+
+function ApplyForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const jobId = searchParams.get("jobId");
@@ -501,3 +503,19 @@ export default function ApplyPage() {
   );
 }
 
+export default function ApplyPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+          </div>
+          <p className="mt-4 text-gray-600">Loading application form...</p>
+        </div>
+      </div>
+    }>
+      <ApplyForm />
+    </Suspense>
+  );
+}
