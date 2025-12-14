@@ -2,12 +2,6 @@
 
 import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 // ServiceCard component
 function ServiceCard({ 
@@ -16,6 +10,7 @@ function ServiceCard({
   description, 
   className = "",
   isMobile = false,
+  isVisible = false,
   delay = 0
 }: { 
   title: string; 
@@ -23,14 +18,18 @@ function ServiceCard({
   description: string; 
   className?: string;
   isMobile?: boolean;
+  isVisible?: boolean;
   delay?: number;
 }) {
   return (
     <div 
-      className={`bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow ${className} ${
-        isMobile ? 'mobile-fade-in' : ''
-      }`}
-      style={isMobile ? { animationDelay: `${delay}ms` } : {}}
+      className={`bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow ${className}`}
+      style={isMobile ? { 
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
+        transitionDelay: `${delay}ms`
+      } : {}}
     >
       <h3 className="text-xl sm:text-2xl font-bold text-[#232323] mb-2">{title}</h3>
       <p className="text-base sm:text-lg font-semibold text-blue-600 mb-3 sm:mb-4">{subtitle}</p>
@@ -47,9 +46,15 @@ export default function WhyUs() {
   const pathname = usePathname();
   const [isDesktop, setIsDesktop] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const text = "why us";
   const letters = text.split("");
+
+  // Set mounted state
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Check if desktop on mount and window resize
   useEffect(() => {
@@ -65,19 +70,19 @@ export default function WhyUs() {
 
   // Intersection Observer for mobile fade-in
   useEffect(() => {
-    if (isDesktop) return;
+    if (isDesktop || !isMounted) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && !isVisible) {
             setIsVisible(true);
           }
         });
       },
       {
-        threshold: 0.2,
-        rootMargin: '0px'
+        threshold: 0.1,
+        rootMargin: '-50px 0px -50px 0px'
       }
     );
 
@@ -90,337 +95,313 @@ export default function WhyUs() {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, [isDesktop]);
+  }, [isDesktop, isMounted, isVisible]);
 
   // GSAP animations only for desktop
   useLayoutEffect(() => {
-    if (!isDesktop) return;
+    if (!isDesktop || typeof window === 'undefined') return;
 
-    const section = sectionRef.current;
-    const title = titleRef.current;
-    const content = contentRef.current;
-
-    if (!section || !title || !content) return;
-
-    // Kill ALL existing ScrollTriggers for this section first
-    ScrollTrigger.getAll().forEach((trigger) => {
-      if (trigger.vars?.trigger === section || trigger.trigger === section) {
-        trigger.kill();
-      }
-    });
-
-    // Reset all GSAP properties to initial state
-    gsap.set([title, content, ...letterRefs.current.filter(Boolean)], { 
-      clearProps: "all" 
-    });
-
-    let rafId: number;
-    let resizeTimeout: NodeJS.Timeout;
-    let initTimeout: NodeJS.Timeout;
-    let handleResize: (() => void) | null = null;
-    let handleImageLoad: (() => void) | null = null;
-    
-    const ctx = gsap.context(() => {
-      rafId = requestAnimationFrame(() => {
-        void section.offsetHeight;
+    const loadGSAP = async () => {
+      const gsap = (await import('gsap')).default;
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       
-        // Set initial states
-        gsap.set(content, { 
-          opacity: 0, 
-          y: 50,
-          force3D: true
-        });
-        
-        gsap.set(title, {
-          scale: 1,
-          y: 0,
-          force3D: true,
-          transformOrigin: "center center"
-        });
-        
-        letterRefs.current.forEach((letterEl) => {
-          if (letterEl) {
-            gsap.set(letterEl, { 
-              color: "#c8c8c8",
-              force3D: true
-            });
-          }
-        });
+      gsap.registerPlugin(ScrollTrigger);
 
-        const vh = window.innerHeight;
-        const scrollDistance = vh * 2.5;
-        const titleScale = 0.23;
-        const titleYPosition = -vh * 0.25;
+      const section = sectionRef.current;
+      const title = titleRef.current;
+      const content = contentRef.current;
 
-        // Create main timeline
-        let scrollTriggerInstance: ScrollTrigger | null = null;
-        
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: `+=${scrollDistance}`,
-            scrub: 1,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            refreshPriority: -1,
-            markers: false,
-            onEnter: () => {
-              gsap.set([title, content, ...letterRefs.current.filter(Boolean)], {
-                clearProps: "all"
-              });
-              gsap.set(content, { opacity: 0, y: 50, force3D: true });
-              gsap.set(title, { scale: 1, y: 0, force3D: true });
-              letterRefs.current.forEach((el) => {
-                if (el) gsap.set(el, { color: "#c8c8c8", force3D: true });
-              });
-            },
-            onComplete: function(this: ScrollTrigger) {
-              scrollTriggerInstance = this;
-              this.kill();
-              
-              gsap.set(title, {
-                scale: titleScale,
-                y: titleYPosition,
-                force3D: true,
-                clearProps: "transform"
-              });
-              
-              gsap.set(content, {
-                opacity: 1,
-                y: 0,
-                force3D: true,
-                clearProps: "transform,opacity"
-              });
-              
-              letterRefs.current.forEach((el) => {
-                if (el) {
-                  gsap.set(el, { 
-                    color: "#232323",
-                    clearProps: "color"
-                  });
-                }
-              });
-              
-              if (section) {
-                section.style.position = 'relative';
-                section.style.height = 'auto';
-              }
-            }
-          } as ScrollTrigger.Vars & { onComplete?: (this: ScrollTrigger) => void }
-        });
+      if (!section || !title || !content) return;
 
-        // Phase 1: Letter color fade
-        letterRefs.current.forEach((letterEl, index) => {
-          if (!letterEl) return;
-          
-          tl.to(letterEl, {
-            color: "#232323",
-            duration: 0.25 / letters.length,
-            ease: "none",
-            force3D: true
-          }, index * (0.25 / letters.length));
-        });
-
-        // Phase 2: Scale and position title
-        tl.to(title, {
-          scale: titleScale,
-          y: titleYPosition,
-          duration: 0.25,
-          ease: "power2.inOut",
-          force3D: true,
-          transformOrigin: "center center"
-        }, 0.25);
-
-        // Phase 3: Fade in content
-        tl.to(content, {
-          opacity: 1,
-          y: 0,
-          duration: 0.3,
-          ease: "power2.out",
-          force3D: true
-        }, 0.4);
-
-        // Handle resize with debounce
-        handleResize = () => {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-            ScrollTrigger.refresh();
-          }, 250);
-        };
-
-        handleImageLoad = () => {
-          ScrollTrigger.refresh();
-        };
-
-        window.addEventListener("resize", handleResize);
-        window.addEventListener("load", handleImageLoad);
-        
-        initTimeout = setTimeout(() => {
-          ScrollTrigger.refresh();
-          setTimeout(() => {
-            ScrollTrigger.refresh();
-          }, 300);
-        }, 100);
-      });
-    }, section);
-
-    let pathnameRefreshTimeout: NodeJS.Timeout;
-    if (pathname === "/") {
-      pathnameRefreshTimeout = setTimeout(() => {
-        ScrollTrigger.refresh();
-        requestAnimationFrame(() => {
-          ScrollTrigger.refresh();
-        });
-      }, 200);
-    }
-
-    // Cleanup
-    return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      if (resizeTimeout) clearTimeout(resizeTimeout);
-      if (initTimeout) clearTimeout(initTimeout);
-      if (handleResize) window.removeEventListener("resize", handleResize);
-      if (handleImageLoad) window.removeEventListener("load", handleImageLoad);
-      if (pathnameRefreshTimeout) clearTimeout(pathnameRefreshTimeout);
-      
+      // Kill ALL existing ScrollTriggers for this section first
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars?.trigger === section || trigger.trigger === section) {
           trigger.kill();
         }
       });
-      ctx.revert();
+
+      // Reset all GSAP properties to initial state
+      gsap.set([title, content, ...letterRefs.current.filter(Boolean)], { 
+        clearProps: "all" 
+      });
+
+      let rafId: number;
+      let resizeTimeout: NodeJS.Timeout;
+      let initTimeout: NodeJS.Timeout;
+      let handleResize: (() => void) | null = null;
+      let handleImageLoad: (() => void) | null = null;
+      
+      const ctx = gsap.context(() => {
+        rafId = requestAnimationFrame(() => {
+          void section.offsetHeight;
+        
+          // Set initial states
+          gsap.set(content, { 
+            opacity: 0, 
+            y: 50,
+            force3D: true
+          });
+          
+          gsap.set(title, {
+            scale: 1,
+            y: 0,
+            force3D: true,
+            transformOrigin: "center center"
+          });
+          
+          letterRefs.current.forEach((letterEl) => {
+            if (letterEl) {
+              gsap.set(letterEl, { 
+                color: "#c8c8c8",
+                force3D: true
+              });
+            }
+          });
+
+          const vh = window.innerHeight;
+          const scrollDistance = vh * 2.5;
+          const titleScale = 0.23;
+          const titleYPosition = -vh * 0.25;
+
+          // Create main timeline
+          let scrollTriggerInstance: ScrollTrigger | null = null;
+          
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top top",
+              end: `+=${scrollDistance}`,
+              scrub: 1,
+              pin: true,
+              pinSpacing: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              refreshPriority: -1,
+              markers: false,
+              onEnter: () => {
+                gsap.set([title, content, ...letterRefs.current.filter(Boolean)], {
+                  clearProps: "all"
+                });
+                gsap.set(content, { opacity: 0, y: 50, force3D: true });
+                gsap.set(title, { scale: 1, y: 0, force3D: true });
+                letterRefs.current.forEach((el) => {
+                  if (el) gsap.set(el, { color: "#c8c8c8", force3D: true });
+                });
+              },
+              onComplete: function(this: ScrollTrigger) {
+                scrollTriggerInstance = this;
+                this.kill();
+                
+                gsap.set(title, {
+                  scale: titleScale,
+                  y: titleYPosition,
+                  force3D: true,
+                  clearProps: "transform"
+                });
+                
+                gsap.set(content, {
+                  opacity: 1,
+                  y: 0,
+                  force3D: true,
+                  clearProps: "transform,opacity"
+                });
+                
+                letterRefs.current.forEach((el) => {
+                  if (el) {
+                    gsap.set(el, { 
+                      color: "#232323",
+                      clearProps: "color"
+                    });
+                  }
+                });
+                
+                if (section) {
+                  section.style.position = 'relative';
+                  section.style.height = 'auto';
+                }
+              }
+            } as any
+          });
+
+          // Phase 1: Letter color fade
+          letterRefs.current.forEach((letterEl, index) => {
+            if (!letterEl) return;
+            
+            tl.to(letterEl, {
+              color: "#232323",
+              duration: 0.25 / letters.length,
+              ease: "none",
+              force3D: true
+            }, index * (0.25 / letters.length));
+          });
+
+          // Phase 2: Scale and position title
+          tl.to(title, {
+            scale: titleScale,
+            y: titleYPosition,
+            duration: 0.25,
+            ease: "power2.inOut",
+            force3D: true,
+            transformOrigin: "center center"
+          }, 0.25);
+
+          // Phase 3: Fade in content
+          tl.to(content, {
+            opacity: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "power2.out",
+            force3D: true
+          }, 0.4);
+
+          // Handle resize with debounce
+          handleResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 250);
+          };
+
+          handleImageLoad = () => {
+            ScrollTrigger.refresh();
+          };
+
+          window.addEventListener("resize", handleResize);
+          window.addEventListener("load", handleImageLoad);
+          
+          initTimeout = setTimeout(() => {
+            ScrollTrigger.refresh();
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 300);
+          }, 100);
+        });
+      }, section);
+
+      let pathnameRefreshTimeout: NodeJS.Timeout;
+      if (pathname === "/") {
+        pathnameRefreshTimeout = setTimeout(() => {
+          ScrollTrigger.refresh();
+          requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+          });
+        }, 200);
+      }
+
+      // Cleanup
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        if (resizeTimeout) clearTimeout(resizeTimeout);
+        if (initTimeout) clearTimeout(initTimeout);
+        if (handleResize) window.removeEventListener("resize", handleResize);
+        if (handleImageLoad) window.removeEventListener("load", handleImageLoad);
+        if (pathnameRefreshTimeout) clearTimeout(pathnameRefreshTimeout);
+        
+        ScrollTrigger.getAll().forEach((trigger) => {
+          if (trigger.vars?.trigger === section || trigger.trigger === section) {
+            trigger.kill();
+          }
+        });
+        ctx.revert();
+      };
     };
+
+    loadGSAP();
   }, [pathname, isDesktop]);
 
   return (
-    <>
-      <style jsx global>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+    <section
+      ref={sectionRef}
+      id="why-us"
+      className={`relative bg-white overflow-hidden ${isDesktop ? 'min-h-screen' : 'py-12 sm:py-16'}`}
+    >
+      <div className={isDesktop ? "h-screen w-full relative" : "w-full"}>
+        {/* Title */}
+        <div className={`${
+          isDesktop 
+            ? 'absolute inset-0 flex items-center justify-center pointer-events-none z-30' 
+            : 'flex items-center justify-center mb-8 sm:mb-12'
+        }`}>
+          <h2 
+            ref={titleRef}
+            className={`text-[60px] sm:text-[80px] md:text-[120px] lg:text-[279.273px] leading-[1.25] text-center font-['Manrope',sans-serif] px-4`}
+            style={!isDesktop ? { 
+              color: '#232323',
+              opacity: isMounted && isVisible ? 1 : 0,
+              transition: 'opacity 0.8s ease-out 0.1s'
+            } : { willChange: 'transform' }}
+          >
+            {letters.map((letter, i) => (
+              <span
+                key={i}
+                ref={(el) => {
+                  letterRefs.current[i] = el;
+                }}
+                className={`inline-block ${i <= 2 ? "font-normal" : "font-semibold"}`}
+                style={isDesktop ? { color: "#c8c8c8", willChange: 'color, transform' } : {}}
+              >
+                {letter === " " ? "\u00A0" : letter}
+              </span>
+            ))}
+          </h2>
+        </div>
 
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        .mobile-fade-in {
-          opacity: 0;
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .mobile-title-fade {
-          opacity: 0;
-          animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .mobile-content-fade {
-          opacity: 0;
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-      `}</style>
-
-      <section
-        ref={sectionRef}
-        id="why-us"
-        className={`relative bg-white overflow-hidden ${isDesktop ? 'min-h-screen' : 'py-12 sm:py-16'}`}
-      >
-        <div className={isDesktop ? "h-screen w-full relative" : "w-full"}>
-          {/* Title */}
-          <div className={`${
+        {/* Content */}
+        <div
+          ref={contentRef}
+          className={`${
             isDesktop 
-              ? 'absolute inset-0 flex items-center justify-center pointer-events-none z-30' 
-              : 'flex items-center justify-center mb-8 sm:mb-12'
-          }`}>
-            <h2 
-              ref={titleRef}
-              className={`text-[60px] sm:text-[80px] md:text-[120px] lg:text-[279.273px] leading-[1.25] text-center font-['Manrope',sans-serif] px-4 ${
-                !isDesktop && isVisible ? 'mobile-title-fade' : ''
-              }`}
-              style={!isDesktop ? { 
-                animationDelay: '100ms',
-                color: '#232323'
-              } : { willChange: 'transform' }}
-            >
-              {letters.map((letter, i) => (
-                <span
-                  key={i}
-                  ref={(el) => {
-                    letterRefs.current[i] = el;
-                  }}
-                  className={`inline-block ${i <= 2 ? "font-normal" : "font-semibold"}`}
-                  style={isDesktop ? { color: "#c8c8c8", willChange: 'color, transform' } : {}}
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </span>
-              ))}
-            </h2>
+              ? 'absolute inset-0 flex flex-col justify-start lg:justify-center items-center pt-[160px] sm:pt-[180px] lg:pt-[180px] px-4 sm:px-6 lg:px-8 z-10 overflow-y-auto'
+              : 'flex flex-col items-center px-4 sm:px-6'
+          }`}
+          style={!isDesktop ? { 
+            opacity: isMounted && isVisible ? 1 : 0,
+            transform: isMounted && isVisible ? 'translateY(0)' : 'translateY(30px)',
+            transition: 'opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s'
+          } : { willChange: 'transform, opacity' }}
+        >
+          {/* Description */}
+          <div className="mb-6 sm:mb-8 lg:mb-16 max-w-[95%] sm:max-w-[600px] lg:max-w-[837px] text-center">
+            <p className="text-[13px] sm:text-[15px] md:text-[17px] lg:text-[20px] text-[#232323] leading-[1.5] sm:leading-[1.6] lg:leading-[30px]">
+              You're building something that matters and you need a tech team
+              that gets it. We work with startups and small businesses to turn
+              raw ideas into powerful digital products. From branding to
+              backends, we've got you covered.
+            </p>
           </div>
 
-          {/* Content */}
-          <div
-            ref={contentRef}
-            className={`${
-              isDesktop 
-                ? 'absolute inset-0 flex flex-col justify-start lg:justify-center items-center pt-[160px] sm:pt-[180px] lg:pt-[180px] px-4 sm:px-6 lg:px-8 z-10 overflow-y-auto'
-                : 'flex flex-col items-center px-4 sm:px-6'
-            } ${!isDesktop && isVisible ? 'mobile-content-fade' : ''}`}
-            style={!isDesktop ? { animationDelay: '300ms' } : { willChange: 'transform, opacity' }}
-          >
-            {/* Description */}
-            <div className="mb-6 sm:mb-8 lg:mb-16 max-w-[95%] sm:max-w-[600px] lg:max-w-[837px] text-center">
-              <p className="text-[13px] sm:text-[15px] md:text-[17px] lg:text-[20px] text-[#232323] leading-[1.5] sm:leading-[1.6] lg:leading-[30px]">
-                You're building something that matters and you need a tech team
-                that gets it. We work with startups and small businesses to turn
-                raw ideas into powerful digital products. From branding to
-                backends, we've got you covered.
-              </p>
-            </div>
-
-            {/* Service Cards */}
-            <div className="max-w-[1200px] w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pb-8 sm:pb-12 lg:pb-20">
-              <ServiceCard
-                title="Product Strategy"
-                subtitle="Craft clarity before code."
-                description="We help you map the journey from understanding your users to defining features that matter. Strategy isn't a phase; it's the foundation."
-                className={isDesktop ? "relative md:rotate-[-5deg]" : "relative"}
-                isMobile={!isDesktop && isVisible}
-                delay={500}
-              />
-              <ServiceCard
-                title="Design & Experience"
-                subtitle="Interfaces that feel as good as they look."
-                description="We blend form and function to design experiences that are intuitive, beautiful, and built for engagement."
-                className="relative"
-                isMobile={!isDesktop && isVisible}
-                delay={650}
-              />
-              <ServiceCard
-                title="Engineering"
-                subtitle="Fast. Scalable. Bulletproof."
-                description="Our dev team builds clean, maintainable code that scales with you whether you're launching an MVP or iterating at speed."
-                className={isDesktop ? "relative md:rotate-[5deg]" : "relative"}
-                isMobile={!isDesktop && isVisible}
-                delay={800}
-              />
-            </div>
+          {/* Service Cards */}
+          <div className="max-w-[1200px] w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pb-8 sm:pb-12 lg:pb-20">
+            <ServiceCard
+              title="Product Strategy"
+              subtitle="Craft clarity before code."
+              description="We help you map the journey from understanding your users to defining features that matter. Strategy isn't a phase; it's the foundation."
+              className={isDesktop ? "relative md:rotate-[-5deg]" : "relative"}
+              isMobile={!isDesktop}
+              isVisible={isVisible && isMounted}
+              delay={500}
+            />
+            <ServiceCard
+              title="Design & Experience"
+              subtitle="Interfaces that feel as good as they look."
+              description="We blend form and function to design experiences that are intuitive, beautiful, and built for engagement."
+              className="relative"
+              isMobile={!isDesktop}
+              isVisible={isVisible && isMounted}
+              delay={650}
+            />
+            <ServiceCard
+              title="Engineering"
+              subtitle="Fast. Scalable. Bulletproof."
+              description="Our dev team builds clean, maintainable code that scales with you whether you're launching an MVP or iterating at speed."
+              className={isDesktop ? "relative md:rotate-[5deg]" : "relative"}
+              isMobile={!isDesktop}
+              isVisible={isVisible && isMounted}
+              delay={800}
+            />
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

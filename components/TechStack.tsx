@@ -48,23 +48,23 @@ export default function TechStack() {
       // Logo height
       if (w >= 1536) { // 2xl and bigger
         setLogoHeight(56);
-        setSpeed(140);
+        setSpeed(50);
         setGap(48);
       } else if (w >= 1280) { // xl
         setLogoHeight(48);
-        setSpeed(120);
+        setSpeed(40);
         setGap(44);
       } else if (w >= 1024) { // lg (desktop)
         setLogoHeight(48);
-        setSpeed(120);
+        setSpeed(40);
         setGap(40);
       } else if (w >= 640) { // md / tablet
         setLogoHeight(42);
-        setSpeed(90);
+        setSpeed(40);
         setGap(36);
       } else { // mobile
         setLogoHeight(36);
-        setSpeed(70);
+        setSpeed(40);
         setGap(28);
       }
     };

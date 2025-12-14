@@ -36,357 +36,346 @@ export default function Services() {
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Check if desktop
     const isDesktop = window.innerWidth >= 1024;
-    
     const section = isDesktop ? sectionRef.current : mobileSectionRef.current;
     if (!section) return;
 
-    // Dynamically import GSAP to avoid SSR issues
-    import('gsap').then(({ gsap }) => {
-      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-        gsap.registerPlugin(ScrollTrigger);
+    Promise.all([
+      import('gsap'),
+      import('gsap/ScrollTrigger')
+    ]).then(([{ gsap }, { ScrollTrigger }]) => {
+      gsap.registerPlugin(ScrollTrigger);
 
-        // Kill existing ScrollTriggers
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars?.trigger === section || trigger.trigger === section) {
+          trigger.kill();
+        }
+      });
+
+      const allElements = [
+        ...cardsRef.current.filter(Boolean),
+        ...cardImagesRef.current.filter(Boolean),
+        ...cardOverlaysRef.current.filter(Boolean),
+        ...mobileCardsRef.current.filter(Boolean),
+        titleOurRef.current,
+        titleServicesRef.current,
+        subtitleRef.current,
+      ];
+      gsap.set(allElements, { clearProps: "all" });
+
+      const ctx = gsap.context(() => {
+        requestAnimationFrame(() => {
+          if (section) {
+            void section.offsetHeight;
+          }
+
+          const ourH2 = titleOurRef.current?.querySelector("h2");
+          const servicesH2 = titleServicesRef.current?.querySelector("h2");
+          const subtitle = subtitleRef.current;
+
+          if (isDesktop) {
+            const cards = cardsRef.current.filter(Boolean) as HTMLAnchorElement[];
+            const cardImages = cardImagesRef.current.filter(Boolean) as HTMLImageElement[];
+            const cardOverlays = cardOverlaysRef.current.filter(Boolean) as HTMLDivElement[];
+
+            if (!ourH2 || !servicesH2 || !subtitle || cards.length < 3) return;
+
+            const ourLetters = splitText(ourH2);
+            const servicesLetters = splitText(servicesH2);
+
+            // Initial states
+            gsap.set([...ourLetters, ...servicesLetters], { 
+              y: 80, 
+              opacity: 0,
+              force3D: true
+            });
+            gsap.set(subtitle, { 
+              opacity: 0,
+              force3D: true
+            });
+            
+            // Card 1: Visible and centered
+            gsap.set(cards[0], { 
+              y: "-50%", 
+              scale: 1, 
+              opacity: 1,
+              force3D: true
+            });
+            gsap.set(cardImages[0], {
+              opacity: 1,
+              force3D: true
+            });
+            gsap.set(cardOverlays[0], {
+              opacity: 0.4,
+              force3D: true
+            });
+            
+            // Cards 2 and 3: Hidden initially
+            gsap.set(cards.slice(1), { 
+              y: "20vh", 
+              scale: 0.9, 
+              opacity: 0,
+              force3D: true
+            });
+            gsap.set(cardImages.slice(1), {
+              opacity: 0.4,
+              force3D: true
+            });
+            gsap.set(cardOverlays.slice(1), {
+              opacity: 0.8,
+              force3D: true
+            });
+
+            // Preload animations
+            const preloadTl = gsap.timeline({
+              scrollTrigger: { 
+                trigger: section, 
+                start: "top bottom-=500", 
+                end: "top bottom", 
+                scrub: false, 
+                once: true,
+                invalidateOnRefresh: true,
+              },
+            });
+
+            preloadTl.to(ourLetters, { 
+              y: 0, 
+              opacity: 1, 
+              stagger: 0.05, 
+              duration: 1.2, 
+              ease: "power3.out",
+              force3D: true
+            }, 0);
+            preloadTl.to(servicesLetters, { 
+              y: 0, 
+              opacity: 1, 
+              stagger: 0.05, 
+              duration: 1.2, 
+              ease: "power3.out",
+              force3D: true
+            }, 0.2);
+            preloadTl.to(subtitle, { 
+              opacity: 1, 
+              duration: 0.8, 
+              ease: "power2.out",
+              force3D: true
+            }, 0.8);
+
+            // Shorter scroll distance for faster transitions
+            const scrollDistance = window.innerHeight * 2.5;
+
+            const pinnedTl = gsap.timeline({
+              scrollTrigger: {
+                trigger: section,
+                start: "top top",
+                end: `+=${scrollDistance}`,
+                scrub: 0.8, // Faster, more responsive
+                pin: true,
+                pinSpacing: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                refreshPriority: -1,
+              },
+            });
+
+            // Transition 1: Card 1 to Card 2 - FASTER
+            // Card 1 scales down and dims
+            pinnedTl.to(cards[0], { 
+              scale: 0.85, 
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 0);
+            pinnedTl.to(cardImages[0], {
+              opacity: 0.4,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 0);
+            pinnedTl.to(cardOverlays[0], {
+              opacity: 0.8,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 0);
+            
+            // Card 2 comes to front
+            pinnedTl.to(cards[1], { 
+              y: "-50%", 
+              scale: 1, 
+              opacity: 1,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 0);
+            pinnedTl.to(cardImages[1], {
+              opacity: 1,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 0);
+            pinnedTl.to(cardOverlays[1], {
+              opacity: 0.4,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 0);
+
+            // Short pause for Card 2
+            pinnedTl.to({}, { duration: 0.4 }, 0.8);
+
+            // Transition 2: Card 2 to Card 3 - FASTER
+            // Card 2 scales down and dims
+            pinnedTl.to(cards[1], { 
+              scale: 0.85, 
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 1.2);
+            pinnedTl.to(cardImages[1], {
+              opacity: 0.4,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 1.2);
+            pinnedTl.to(cardOverlays[1], {
+              opacity: 0.8,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 1.2);
+            
+            // Card 3 comes to front
+            pinnedTl.to(cards[2], { 
+              y: "-50%", 
+              scale: 1, 
+              opacity: 1,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 1.2);
+            pinnedTl.to(cardImages[2], {
+              opacity: 1,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 1.2);
+            pinnedTl.to(cardOverlays[2], {
+              opacity: 0.4,
+              duration: 0.8,
+              ease: "power1.inOut",
+              force3D: true
+            }, 1.2);
+
+          } else {
+            // Mobile animations
+            const mobileCards = mobileCardsRef.current.filter(Boolean) as HTMLAnchorElement[];
+
+            if (!ourH2 || !servicesH2 || !subtitle || mobileCards.length === 0) return;
+
+            const ourLetters = splitText(ourH2);
+            const servicesLetters = splitText(servicesH2);
+
+            gsap.set([...ourLetters, ...servicesLetters], { 
+              y: 80, 
+              opacity: 0,
+              force3D: true
+            });
+            gsap.set(subtitle, { 
+              opacity: 0,
+              force3D: true
+            });
+            gsap.set(mobileCards, {
+              opacity: 0,
+              y: 60,
+              force3D: true
+            });
+
+            const preloadTl = gsap.timeline({
+              scrollTrigger: { 
+                trigger: section, 
+                start: "top bottom-=300", 
+                end: "top bottom", 
+                scrub: false, 
+                once: true,
+                invalidateOnRefresh: true,
+              },
+            });
+
+            preloadTl.to(ourLetters, { 
+              y: 0, 
+              opacity: 1, 
+              stagger: 0.05, 
+              duration: 1.2, 
+              ease: "power3.out",
+              force3D: true
+            }, 0);
+            preloadTl.to(servicesLetters, { 
+              y: 0, 
+              opacity: 1, 
+              stagger: 0.05, 
+              duration: 1.2, 
+              ease: "power3.out",
+              force3D: true
+            }, 0.2);
+            preloadTl.to(subtitle, { 
+              opacity: 1, 
+              duration: 0.8, 
+              ease: "power2.out",
+              force3D: true
+            }, 0.8);
+
+            mobileCards.forEach((card, index) => {
+              gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top bottom-=100",
+                  end: "top center",
+                  once: true,
+                },
+                delay: index * 0.2,
+              });
+            });
+          }
+
+          let resizeTimeout: NodeJS.Timeout | undefined;
+          const handleResize = () => {
+            if (resizeTimeout) {
+              clearTimeout(resizeTimeout);
+            }
+            resizeTimeout = setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 250);
+          };
+
+          window.addEventListener("resize", handleResize);
+
+          const initTimeout = setTimeout(() => {
+            ScrollTrigger.refresh();
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 300);
+          }, 100);
+
+          return () => {
+            window.removeEventListener("resize", handleResize);
+            clearTimeout(initTimeout);
+          };
+        });
+      }, section);
+
+      return () => {
         ScrollTrigger.getAll().forEach((trigger) => {
           if (trigger.vars?.trigger === section || trigger.trigger === section) {
             trigger.kill();
           }
         });
-
-        // Reset properties
-        const allElements = [
-          ...cardsRef.current.filter(Boolean),
-          ...cardImagesRef.current.filter(Boolean),
-          ...cardOverlaysRef.current.filter(Boolean),
-          ...mobileCardsRef.current.filter(Boolean),
-          titleOurRef.current,
-          titleServicesRef.current,
-          subtitleRef.current,
-        ];
-        gsap.set(allElements, { clearProps: "all" });
-
-        const ctx = gsap.context(() => {
-          requestAnimationFrame(() => {
-            if (section) {
-              void section.offsetHeight;
-            }
-
-            const ourH2 = titleOurRef.current?.querySelector("h2");
-            const servicesH2 = titleServicesRef.current?.querySelector("h2");
-            const subtitle = subtitleRef.current;
-
-            if (isDesktop) {
-              // Desktop animations
-              const cards = cardsRef.current.filter(Boolean) as HTMLAnchorElement[];
-              const cardImages = cardImagesRef.current.filter(Boolean) as HTMLImageElement[];
-              const cardOverlays = cardOverlaysRef.current.filter(Boolean) as HTMLDivElement[];
-
-              if (!ourH2 || !servicesH2 || !subtitle || cards.length < 3) return;
-
-              const ourLetters = splitText(ourH2);
-              const servicesLetters = splitText(servicesH2);
-
-              // Initial states
-              gsap.set([...ourLetters, ...servicesLetters], { 
-                y: 80, 
-                opacity: 0,
-                force3D: true
-              });
-              gsap.set(subtitle, { 
-                opacity: 0,
-                force3D: true
-              });
-              
-              // Card 1: Visible and centered from the start - FULL BRIGHTNESS
-              gsap.set(cards[0], { 
-                y: "-50%", 
-                scale: 1, 
-                opacity: 1,
-                force3D: true
-              });
-              gsap.set(cardImages[0], {
-                opacity: 1,  // Full brightness for front card
-                force3D: true
-              });
-              gsap.set(cardOverlays[0], {
-                opacity: 0.4,  // Light overlay for front card
-                force3D: true
-              });
-              
-              // Cards 2 and 3: Hidden initially with darker images
-              gsap.set(cards.slice(1), { 
-                y: "20vh", 
-                scale: 0.9, 
-                opacity: 0,
-                force3D: true
-              });
-              gsap.set(cardImages.slice(1), {
-                opacity: 0.4,  // Darker for background cards
-                force3D: true
-              });
-              gsap.set(cardOverlays.slice(1), {
-                opacity: 0.8,  // Darker overlay for background cards
-                force3D: true
-              });
-
-              // Preload animations
-              const preloadTl = gsap.timeline({
-                scrollTrigger: { 
-                  trigger: section, 
-                  start: "top bottom-=500", 
-                  end: "top bottom", 
-                  scrub: false, 
-                  once: true,
-                  invalidateOnRefresh: true,
-                },
-              });
-
-              preloadTl.to(ourLetters, { 
-                y: 0, 
-                opacity: 1, 
-                stagger: 0.05, 
-                duration: 1.2, 
-                ease: "power3.out",
-                force3D: true
-              }, 0);
-              preloadTl.to(servicesLetters, { 
-                y: 0, 
-                opacity: 1, 
-                stagger: 0.05, 
-                duration: 1.2, 
-                ease: "power3.out",
-                force3D: true
-              }, 0.2);
-              preloadTl.to(subtitle, { 
-                opacity: 1, 
-                duration: 0.8, 
-                ease: "power2.out",
-                force3D: true
-              }, 0.8);
-
-              // Pinned scroll animations
-              const numTransitions = cards.length - 1;
-              const scrollDistance = window.innerHeight * numTransitions * 1.5; // Increased for smoother, longer scroll
-
-              const pinnedTl = gsap.timeline({
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top top",
-                  end: `+=${scrollDistance}`,
-                  scrub: 0.5, // Reduced from 1.5 for faster, smoother response
-                  pin: true,
-                  pinSpacing: true,
-                  anticipatePin: 1,
-                  invalidateOnRefresh: true,
-                  refreshPriority: -1,
-                  snap: {
-                    snapTo: [0, 0.5, 1], // Snap to discrete card positions
-                    duration: 0.3,
-                    ease: "power2.inOut"
-                  }
-                },
-              });
-
-              // Transition 1: Card 2 comes to front
-              // Card 1 scales down and dims
-              pinnedTl.to(cards[0], { 
-                scale: 0.85, 
-                duration: 1, 
-                ease: "power2.inOut",
-                force3D: true
-              }, 0);
-              pinnedTl.to(cardImages[0], {
-                opacity: 0.4,
-                duration: 1,
-                ease: "power2.inOut",
-                force3D: true
-              }, 0);
-              pinnedTl.to(cardOverlays[0], {
-                opacity: 0.8,
-                duration: 1,
-                ease: "power2.inOut",
-                force3D: true
-              }, 0);
-              
-              // Card 2 comes to front and brightens to FULL
-              pinnedTl.to(cards[1], { 
-                y: "-50%", 
-                scale: 1, 
-                opacity: 1,
-                duration: 1, 
-                ease: "power2.out",
-                force3D: true
-              }, 0);
-              pinnedTl.to(cardImages[1], {
-                opacity: 1,
-                duration: 1,
-                ease: "power2.out",
-                force3D: true
-              }, 0);
-              pinnedTl.to(cardOverlays[1], {
-                opacity: 0.4,
-                duration: 1,
-                ease: "power2.out",
-                force3D: true
-              }, 0);
-
-              // Transition 2: Card 3 comes to front
-              // Card 2 scales down and dims
-              pinnedTl.to(cards[1], { 
-                scale: 0.85, 
-                duration: 1, 
-                ease: "power2.inOut",
-                force3D: true
-              }, 1);
-              pinnedTl.to(cardImages[1], {
-                opacity: 0.4,
-                duration: 1,
-                ease: "power2.inOut",
-                force3D: true
-              }, 1);
-              pinnedTl.to(cardOverlays[1], {
-                opacity: 0.8,
-                duration: 1,
-                ease: "power2.inOut",
-                force3D: true
-              }, 1);
-              
-              // Card 3 comes to front and brightens to FULL
-              pinnedTl.to(cards[2], { 
-                y: "-50%", 
-                scale: 1, 
-                opacity: 1,
-                duration: 1, 
-                ease: "power2.out",
-                force3D: true
-              }, 1);
-              pinnedTl.to(cardImages[2], {
-                opacity: 1,
-                duration: 1,
-                ease: "power2.out",
-                force3D: true
-              }, 1);
-              pinnedTl.to(cardOverlays[2], {
-                opacity: 0.4,
-                duration: 1,
-                ease: "power2.out",
-                force3D: true
-              }, 1);
-
-            } else {
-              // Mobile animations - simple fade in with stagger
-              const mobileCards = mobileCardsRef.current.filter(Boolean) as HTMLAnchorElement[];
-
-              if (!ourH2 || !servicesH2 || !subtitle || mobileCards.length === 0) return;
-
-              const ourLetters = splitText(ourH2);
-              const servicesLetters = splitText(servicesH2);
-
-              // Initial states
-              gsap.set([...ourLetters, ...servicesLetters], { 
-                y: 80, 
-                opacity: 0,
-                force3D: true
-              });
-              gsap.set(subtitle, { 
-                opacity: 0,
-                force3D: true
-              });
-              gsap.set(mobileCards, {
-                opacity: 0,
-                y: 60,
-                force3D: true
-              });
-
-              // Preload animations for title
-              const preloadTl = gsap.timeline({
-                scrollTrigger: { 
-                  trigger: section, 
-                  start: "top bottom-=300", 
-                  end: "top bottom", 
-                  scrub: false, 
-                  once: true,
-                  invalidateOnRefresh: true,
-                },
-              });
-
-              preloadTl.to(ourLetters, { 
-                y: 0, 
-                opacity: 1, 
-                stagger: 0.05, 
-                duration: 1.2, 
-                ease: "power3.out",
-                force3D: true
-              }, 0);
-              preloadTl.to(servicesLetters, { 
-                y: 0, 
-                opacity: 1, 
-                stagger: 0.05, 
-                duration: 1.2, 
-                ease: "power3.out",
-                force3D: true
-              }, 0.2);
-              preloadTl.to(subtitle, { 
-                opacity: 1, 
-                duration: 0.8, 
-                ease: "power2.out",
-                force3D: true
-              }, 0.8);
-
-              // Staggered fade in for cards
-              mobileCards.forEach((card, index) => {
-                gsap.to(card, {
-                  opacity: 1,
-                  y: 0,
-                  duration: 0.8,
-                  ease: "power2.out",
-                  scrollTrigger: {
-                    trigger: card,
-                    start: "top bottom-=100",
-                    end: "top center",
-                    once: true,
-                  },
-                  delay: index * 0.2,
-                });
-              });
-            }
-
-            let resizeTimeout: NodeJS.Timeout | undefined;
-            const handleResize = () => {
-              if (resizeTimeout) {
-                clearTimeout(resizeTimeout);
-              }
-              resizeTimeout = setTimeout(() => {
-                ScrollTrigger.refresh();
-              }, 250);
-            };
-
-            window.addEventListener("resize", handleResize);
-
-            const initTimeout = setTimeout(() => {
-              ScrollTrigger.refresh();
-              setTimeout(() => {
-                ScrollTrigger.refresh();
-              }, 300);
-            }, 100);
-
-            return () => {
-              window.removeEventListener("resize", handleResize);
-              clearTimeout(initTimeout);
-            };
-          });
-        }, section);
-
-        return () => {
-          ScrollTrigger.getAll().forEach((trigger) => {
-            if (trigger.vars?.trigger === section || trigger.trigger === section) {
-              trigger.kill();
-            }
-          });
-          ctx.revert();
-        };
-      });
+        ctx.revert();
+      };
     });
   }, []);
 

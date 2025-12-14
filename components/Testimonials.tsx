@@ -12,10 +12,8 @@ const testimonials = new Array(5).fill(null).map(() => ({
 }));
 
 export default function Testimonials() {
-  // Start with mobile-first rendering (false) to avoid SSR/client mismatch.
   const [currentIndex, setCurrentIndex] = useState<number>(2);
   const [isAnimating, setIsAnimating] = useState(false);
-  // do NOT compute window size during render; use effect to update after mount
   const [isDesktop, setIsDesktop] = useState<boolean>(false);
   const [mounted, setMounted] = useState(false);
 
@@ -23,11 +21,11 @@ export default function Testimonials() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
+  const isDragging = useRef<boolean>(false);
 
   const total = testimonials.length;
   const transitionMs = 600;
 
-  // after mount determine desktop/mobile
   useEffect(() => {
     setMounted(true);
     const update = () => {
@@ -35,14 +33,12 @@ export default function Testimonials() {
     };
     update();
     const onResize = () => {
-      // throttle with requestAnimationFrame
       requestAnimationFrame(update);
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // normalize index for circular carousel
   const normalize = (i: number) => {
     let idx = i % total;
     if (idx < 0) idx += total;
@@ -56,11 +52,9 @@ export default function Testimonials() {
     return diff;
   };
 
-  // autoplay
   useEffect(() => {
     startAutoplay();
     return stopAutoplay;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
 
   function startAutoplay() {
@@ -69,6 +63,7 @@ export default function Testimonials() {
       setCurrentIndex((prev) => normalize(prev + 1));
     }, 5000);
   }
+  
   function stopAutoplay() {
     if (autoplayRef.current) {
       clearInterval(autoplayRef.current);
@@ -85,20 +80,17 @@ export default function Testimonials() {
 
   const handleCardClick = (index: number) => {
     const pos = getPosition(index);
-    // if neighbor or center, bring to center
     if (Math.abs(pos) <= 1) {
       snapToCard(index);
       stopAutoplay();
       startAutoplay();
     } else {
-      // jump toward clicked card
       snapToCard(index);
       stopAutoplay();
       startAutoplay();
     }
   };
 
-  // Manual navigation handlers for buttons
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
     snapToCard(currentIndex - 1);
@@ -113,17 +105,24 @@ export default function Testimonials() {
     startAutoplay();
   };
 
-  // keyboard navigation (left / right)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") snapToCard(currentIndex + 1);
-      if (e.key === "ArrowLeft") snapToCard(currentIndex - 1);
+      if (e.key === "ArrowRight") {
+        snapToCard(currentIndex + 1);
+        stopAutoplay();
+        startAutoplay();
+      }
+      if (e.key === "ArrowLeft") {
+        snapToCard(currentIndex - 1);
+        stopAutoplay();
+        startAutoplay();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [currentIndex, isAnimating]);
 
-  // touch swipe handlers (mobile)
+  // Touch swipe handlers for mobile
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -131,23 +130,34 @@ export default function Testimonials() {
     const onTouchStart = (e: TouchEvent) => {
       touchStartX.current = e.touches[0].clientX;
       touchEndX.current = null;
+      isDragging.current = false;
     };
+    
     const onTouchMove = (e: TouchEvent) => {
       touchEndX.current = e.touches[0].clientX;
+      if (touchStartX.current && Math.abs(touchEndX.current - touchStartX.current) > 10) {
+        isDragging.current = true;
+      }
     };
+    
     const onTouchEnd = () => {
       if (touchStartX.current == null || touchEndX.current == null) {
         touchStartX.current = touchEndX.current = null;
+        isDragging.current = false;
         return;
       }
       const dx = touchEndX.current - touchStartX.current;
       if (Math.abs(dx) > 50) {
-        if (dx < 0) snapToCard(currentIndex + 1);
-        else snapToCard(currentIndex - 1);
+        if (dx < 0) {
+          snapToCard(currentIndex + 1);
+        } else {
+          snapToCard(currentIndex - 1);
+        }
         stopAutoplay();
         startAutoplay();
       }
       touchStartX.current = touchEndX.current = null;
+      isDragging.current = false;
     };
 
     container.addEventListener("touchstart", onTouchStart, { passive: true });
@@ -161,10 +171,9 @@ export default function Testimonials() {
     };
   }, [currentIndex]);
 
-  // styles for desktop overlapping carousel
   function cardStyleForDesktop(position: number) {
     const abs = Math.abs(position);
-    const baseTranslate = position * 380; // distance between centers
+    const baseTranslate = position * 380;
     if (abs === 0) {
       return {
         transform: `translateX(${baseTranslate}px) scale(1)`,
@@ -196,7 +205,22 @@ export default function Testimonials() {
   const isActiveIndicator = (i: number) => normalize(i) === normalize(currentIndex);
 
   return (
-    <section className="testimonials-section bg-white w-full min-h-screen flex items-center justify-center pt-20 pb-10 overflow-hidden relative">
+    <section className="
+  testimonials-section
+  bg-white
+  w-full
+  flex
+  items-start
+  lg:items-center
+  justify-center
+  py-10
+  sm:py-10
+  lg:py-20
+  overflow-hidden
+  relative
+">
+
+
       {/* decorative blobs */}
       <div className="absolute left-[-400px] top-[100px] w-[800px] h-[400px] opacity-20 mix-blend-multiply pointer-events-none">
         <div className="absolute inset-0 bg-gradient-radial from-blue-500/20 via-blue-400/10 to-transparent blur-2xl" />
@@ -205,65 +229,40 @@ export default function Testimonials() {
         <div className="absolute inset-0 bg-gradient-radial from-cyan-500/15 via-cyan-400/8 to-transparent blur-2xl" />
       </div>
 
-      <div className="max-w-[1681px] mx-auto px-5 w-full relative z-10">
-        <h2 className="text-5xl md:text-6xl lg:text-[82px] text-black font-medium leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-12 lg:mb-24">
+      <div className="max-w-[1681px] mx-auto px-4 sm:px-5 w-full relative z-10">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[82px] text-black font-medium leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-8 sm:mb-12 lg:mb-24">
           Trusted by companies
         </h2>
 
-        {/* If not mounted yet we render the mobile layout (this matches server) */}
         {!mounted || !isDesktop ? (
+          // Mobile/Tablet Layout - Swipeable, no buttons
           <div
-            className="relative w-full flex items-center justify-center px-4"
+            className="relative w-full flex items-center justify-center"
             ref={containerRef}
             onMouseEnter={() => stopAutoplay()}
             onMouseLeave={() => startAutoplay()}
           >
-            <div className="w-full max-w-[900px]">
-              <div className="relative">
-                {/* --- LEFT BUTTON (Mobile/Tablet) --- */}
-                <button
-                  onClick={handlePrev}
-                  className="absolute left-[-15px] sm:left-[-25px] top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg border border-neutral-200 flex items-center justify-center text-neutral-600 hover:text-black hover:scale-105 transition-all focus:outline-none"
-                  aria-label="Previous testimonial"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m15 18-6-6 6-6" />
-                  </svg>
-                </button>
-
-                {/* --- CARDS --- */}
+            <div className="w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px]">
+              <div className="relative touch-pan-y">
                 {testimonials.map((t, idx) => {
                   const isCenter = normalize(idx) === normalize(currentIndex);
                   return (
                     <div
                       key={idx}
-                      role="button"
-                      aria-label={`testimonial ${idx + 1}`}
-                      tabIndex={isCenter ? 0 : -1}
-                      onClick={() => isCenter && handleCardClick(idx)}
-                      className={`mx-auto rounded-2xl overflow-hidden shadow-2xl cursor-pointer transition-transform duration-500 ${
-                        isCenter ? "relative" : "hidden"
+                      className={`mx-auto rounded-xl sm:rounded-2xl overflow-hidden shadow-xl transition-all duration-500 ${
+                        isCenter ? "relative opacity-100 scale-100" : "hidden opacity-0 scale-95"
                       }`}
                       style={{
-                        height: 420,
                         background: "white",
                         pointerEvents: isCenter ? "auto" : "none",
                       }}
                     >
-                      <div className="h-full p-6 md:p-8 flex flex-col justify-between">
-                        <p className="text-lg md:text-xl text-neutral-700 leading-relaxed">{`"${t.quote}"`}</p>
-                        <div className="flex items-center justify-between mt-6">
-                          <div className="h-[44px] w-[160px] md:h-[62px] md:w-[219px] flex-shrink-0">
+                      <div className="h-full p-5 sm:p-6 md:p-8 flex flex-col justify-between gap-4 sm:gap-6">
+                        <p className="text-base sm:text-lg md:text-xl text-neutral-700 leading-relaxed">
+                          "{t.quote}"
+                        </p>
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="h-[36px] w-[130px] sm:h-[44px] sm:w-[160px] md:h-[50px] md:w-[180px] flex-shrink-0">
                             <img
                               alt="Company Logo"
                               className="w-full h-full object-contain"
@@ -271,38 +270,19 @@ export default function Testimonials() {
                               draggable={false}
                             />
                           </div>
-                          <p className="text-base md:text-lg font-semibold">{t.author}</p>
+                          <p className="text-sm sm:text-base md:text-lg font-semibold text-black">
+                            {t.author}
+                          </p>
                         </div>
                       </div>
                     </div>
                   );
                 })}
-
-                {/* --- RIGHT BUTTON (Mobile/Tablet) --- */}
-                <button
-                  onClick={handleNext}
-                  className="absolute right-[-15px] sm:right-[-25px] top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full shadow-lg border border-neutral-200 flex items-center justify-center text-neutral-600 hover:text-black hover:scale-105 transition-all focus:outline-none"
-                  aria-label="Next testimonial"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="m9 18 6-6-6-6" />
-                  </svg>
-                </button>
               </div>
             </div>
           </div>
         ) : (
-          // Desktop layout (mounted && isDesktop)
+          // Desktop layout
           <div
             className="relative w-full h-[600px] flex items-center justify-center overflow-visible px-4"
             ref={containerRef}
@@ -360,8 +340,8 @@ export default function Testimonials() {
           </div>
         )}
 
-        {/* Dots / indicators (shared) */}
-        <div className="flex justify-center gap-3 mt-8">
+        {/* Dots indicators */}
+        <div className="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-8">
           {testimonials.map((_, i) => (
             <button
               key={i}
@@ -371,7 +351,7 @@ export default function Testimonials() {
                 startAutoplay();
               }}
               className={`h-2 rounded-full transition-all ${
-                isActiveIndicator(i) ? "bg-black w-10" : "bg-neutral-300 w-2"
+                isActiveIndicator(i) ? "bg-black w-8 sm:w-10" : "bg-neutral-300 w-2"
               }`}
               aria-label={`Go to slide ${i + 1}`}
             />
