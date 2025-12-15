@@ -228,6 +228,10 @@ function ContactModal() {
         setShowSuccess(true);
         setIsSubmitting(false);
 
+        // Track form submission
+        const { trackEvent } = await import("@/lib/analytics");
+        trackEvent("contact_form_submit", "form", "contact_modal");
+
         // Close modal after 3 seconds
         setTimeout(() => {
           setFormData({ name: "", company: "", email: "", message: "" });

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
+import Lenis from "lenis"; // Import Lenis
 
 const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
 const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
@@ -36,8 +37,20 @@ export default function Services() {
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
+    // --- 1. INITIALIZE SMOOTH SCROLL (LENIS) ---
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Standard exponential ease
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smoothWheel: true,
+      touchMultiplier: 2,
+    });
+
     const isDesktop = window.innerWidth >= 1024;
     const section = isDesktop ? sectionRef.current : mobileSectionRef.current;
+    
+    // Safety check
     if (!section) return;
 
     Promise.all([
@@ -46,6 +59,20 @@ export default function Services() {
     ]).then(([{ gsap }, { ScrollTrigger }]) => {
       gsap.registerPlugin(ScrollTrigger);
 
+      // --- 2. SYNC LENIS WITH GSAP ---
+      // Update ScrollTrigger when Lenis scrolls
+      lenis.on('scroll', ScrollTrigger.update);
+
+      // Add Lenis's requestAnimationFrame to GSAP's ticker
+      // This ensures animations and scrolling stay perfectly in sync
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      // Turn off lag smoothing to prevent stuttering during heavy calculations
+      gsap.ticker.lagSmoothing(0);
+
+      // Clean up existing triggers
       ScrollTrigger.getAll().forEach((trigger) => {
         if (trigger.vars?.trigger === section || trigger.trigger === section) {
           trigger.kill();
@@ -161,15 +188,15 @@ export default function Services() {
               force3D: true
             }, 0.8);
 
-            // Shorter scroll distance for faster transitions
-            const scrollDistance = window.innerHeight * 2.5;
+            // Extended scroll distance with hold time after last card
+            const scrollDistance = window.innerHeight * 2.8; // Increased from 2.5 to 3.5
 
             const pinnedTl = gsap.timeline({
               scrollTrigger: {
                 trigger: section,
                 start: "top top",
                 end: `+=${scrollDistance}`,
-                scrub: 0.8, // Faster, more responsive
+                scrub: 0.5, // Reduced from 0.8 for snappier response, works well with Lenis
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,
@@ -179,93 +206,91 @@ export default function Services() {
             });
 
             // Transition 1: Card 1 to Card 2 - FASTER
-            // Card 1 scales down and dims
             pinnedTl.to(cards[0], { 
               scale: 0.85, 
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5, // Reduced from 0.8
+              ease: "power2.inOut", // Changed to power2 for snappier feel
               force3D: true
             }, 0);
             pinnedTl.to(cardImages[0], {
               opacity: 0.4,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
             }, 0);
             pinnedTl.to(cardOverlays[0], {
               opacity: 0.8,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
             }, 0);
             
-            // Card 2 comes to front
             pinnedTl.to(cards[1], { 
               y: "-50%", 
               scale: 1, 
               opacity: 1,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
             }, 0);
             pinnedTl.to(cardImages[1], {
               opacity: 1,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
             }, 0);
             pinnedTl.to(cardOverlays[1], {
               opacity: 0.4,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
             }, 0);
 
-            // Short pause for Card 2
-            pinnedTl.to({}, { duration: 0.4 }, 0.8);
+            pinnedTl.to({}, { duration: 0.3 }, 0.5); // Reduced pause from 0.4
 
             // Transition 2: Card 2 to Card 3 - FASTER
-            // Card 2 scales down and dims
             pinnedTl.to(cards[1], { 
               scale: 0.85, 
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
-            }, 1.2);
+            }, 0.8);
             pinnedTl.to(cardImages[1], {
               opacity: 0.4,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
-            }, 1.2);
+            }, 0.8);
             pinnedTl.to(cardOverlays[1], {
               opacity: 0.8,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
-            }, 1.2);
+            }, 0.8);
             
-            // Card 3 comes to front
             pinnedTl.to(cards[2], { 
               y: "-50%", 
               scale: 1, 
               opacity: 1,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
-            }, 1.2);
+            }, 0.8);
             pinnedTl.to(cardImages[2], {
               opacity: 1,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
-            }, 1.2);
+            }, 0.8);
             pinnedTl.to(cardOverlays[2], {
               opacity: 0.4,
-              duration: 0.8,
-              ease: "power1.inOut",
+              duration: 0.5,
+              ease: "power2.inOut",
               force3D: true
-            }, 1.2);
+            }, 0.8);
+
+            // Add hold time after last card (card stays fully visible)
+            pinnedTl.to({}, { duration: 0.5 }, 1.0); // Extended hold time at the end
 
           } else {
             // Mobile animations
@@ -375,6 +400,10 @@ export default function Services() {
           }
         });
         ctx.revert();
+        
+        // --- 3. CLEANUP LENIS ---
+        lenis.destroy();
+        gsap.ticker.remove(lenis.raf); // Important: remove the listener
       };
     });
   }, []);
@@ -481,7 +510,8 @@ export default function Services() {
           {/* Cards - Vertical Stack */}
           <div className="flex flex-col gap-8 sm:gap-10 md:gap-12">
             {services.map((service, index) => (
-              <a
+              
+                <a
                 key={index}
                 href="/services"
                 ref={(el) => { mobileCardsRef.current[index] = el; }}

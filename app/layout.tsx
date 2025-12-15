@@ -9,6 +9,8 @@ import { handleError } from "./client-utils";
 import { Manrope } from "next/font/google";
 import { ContactModalProvider } from "@/components/ContactModal";
 import ScrollToTop from "@/components/ScrollToTop";
+import SessionTracker from "@/components/SessionTracker";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -52,9 +54,13 @@ export default async function RootLayout({
         )}
         <ContactModalProvider>
           <ScrollToTop />
+          <SessionTracker />
           <Navigation />
           {children}
         </ContactModalProvider>
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
+        )}
       </body>
     </html>
   );

@@ -116,7 +116,10 @@ export default function Careers() {
             <h2 className="text-[48px] text-black font-bold leading-[85.4px] tracking-[1.44px] max-w-[1183px]">
               The Next Big Move Is Yours
             </h2>
-            <button onClick={() => router.push("/careers")} className="bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition scale-[1.45]">
+            <button 
+              onClick={() => router.push("/careers")} 
+              className="bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition scale-[1.45]"
+            >
               Explore Roles
             </button>
           </div>

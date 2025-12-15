@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { notifySlack } from "@/lib/slack";
 
 export async function POST(request: NextRequest) {
   try {
@@ -91,6 +92,11 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await response.json();
+
+    // Slack notification (only minimal info)
+    await notifySlack(
+      `New application received: ${name} — ${(jobTitle || "General").toString()}`
+    );
 
     return NextResponse.json(
       { success: true, data },

@@ -209,6 +209,11 @@ function ApplyForm() {
       }
 
       setSubmitStatus("success");
+      
+      // Track form submission
+      const { trackEvent } = await import("@/lib/analytics");
+      trackEvent("application_form_submit", "form", jobId || "general");
+
       // Reset form
       setFormData({
         name: "",
