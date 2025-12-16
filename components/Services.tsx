@@ -1,7 +1,8 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import Lenis from "lenis"; // Import Lenis
+// @ts-ignore - Lenis types may not be available
+import Lenis from "lenis";
 
 const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
 const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
@@ -41,8 +42,6 @@ export default function Services() {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Standard exponential ease
-      direction: 'vertical',
-      gestureDirection: 'vertical',
       smoothWheel: true,
       touchMultiplier: 2,
     });
