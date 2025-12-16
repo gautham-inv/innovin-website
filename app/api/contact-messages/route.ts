@@ -108,8 +108,17 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
 
-    // Slack notification (only minimal info)
-    await notifySlack(`New contact message: ${name} — Contact`);
+    // Slack notification to contact messages channel (only minimal info)
+    const slackWebhookUrl = process.env.SLACK_WEBHOOK_URL_CONTACT;
+    if (slackWebhookUrl && data?.data?.id) {
+      const adminBaseUrl = process.env.ADMIN_DASHBOARD_URL || "http://localhost:3001";
+      const messageUrl = `${adminBaseUrl}/messages/${data.data.id}`;
+      
+      await notifySlack(
+        slackWebhookUrl,
+        `New contact message: ${name} — Contact\n<${messageUrl}|View in Admin Dashboard>`
+      );
+    }
 
     return NextResponse.json(
       { success: true, data },

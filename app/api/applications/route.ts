@@ -93,10 +93,18 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json();
 
-    // Slack notification (only minimal info)
-    await notifySlack(
-      `New application received: ${name} — ${(jobTitle || "General").toString()}`
-    );
+    // Slack notification to job posting channel (only minimal info)
+    const slackWebhookUrl = process.env.SLACK_WEBHOOK_URL_APPLICATIONS;
+    if (slackWebhookUrl && data?.data?.id) {
+      const adminBaseUrl = process.env.ADMIN_DASHBOARD_URL || "http://localhost:3001";
+      const applicationUrl = `${adminBaseUrl}/applications/${data.data.id}`;
+      const jobTitleText = (jobTitle || "General").toString();
+      
+      await notifySlack(
+        slackWebhookUrl,
+        `New application received: ${name} — ${jobTitleText}\n<${applicationUrl}|View in Admin Dashboard>`
+      );
+    }
 
     return NextResponse.json(
       { success: true, data },

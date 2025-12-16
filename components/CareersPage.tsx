@@ -58,7 +58,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     },
   ];
 
-  // Update Reasons to Choose Us with dot indicator control and auto-rotate
+  // Update Reasons to Choose Us with slide and fade animations
   useEffect(() => {
     const container = reasonToChooseRef.current;
     if (!container) return;
@@ -66,23 +66,36 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     const items = Array.from(container.querySelectorAll<HTMLElement>(".reason-item"));
     if (!items.length) return;
 
-    // Set initial state - show only current index
-    items.forEach((item, index) => {
-      if (index === currentReasonIndex) {
-        gsap.set(item, { opacity: 1, x: 0 });
-      } else {
-        gsap.set(item, { opacity: 0, x: 60 });
-      }
-    });
+    // Create a timeline to sequence animations: first fade out, then fade in
+    const tl = gsap.timeline();
 
-    // Animate to current index
-    items.forEach((item, index) => {
-      if (index === currentReasonIndex) {
-        gsap.to(item, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" });
-      } else {
-        gsap.to(item, { opacity: 0, x: 60, duration: 0.6, ease: "power2.in" });
-      }
-    });
+    // Find outgoing items (all except current)
+    const outgoingItems = items.filter((_, index) => index !== currentReasonIndex);
+    const incomingItem = items[currentReasonIndex];
+
+    // First: fade out and slide out all outgoing items
+    if (outgoingItems.length > 0) {
+      tl.to(outgoingItems, {
+        opacity: 0,
+        x: -100,
+        duration: 0.7,
+        ease: "power2.in",
+      });
+    }
+
+    // Then: fade in and slide in the new item (only after outgoing fully completes)
+    if (incomingItem) {
+      // Set initial state for incoming item
+      gsap.set(incomingItem, { opacity: 0, x: 100 });
+      
+      // Add to timeline after outgoing animation fully completes
+      tl.to(incomingItem, {
+        opacity: 1,
+        x: 0,
+        duration: 0.7,
+        ease: "power2.out",
+      }); // No overlap - starts after previous animation ends
+    }
   }, [currentReasonIndex]);
 
   // Auto-rotate Reasons to Choose Us every 5 seconds (desktop only)
@@ -261,6 +274,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                 <div
                   key={index}
                   className="reason-item absolute inset-0 flex gap-[74px] items-center"
+                  style={{ opacity: 0 }}
                 >
                   <div className="w-[450px] h-[347px] rounded-lg overflow-hidden shrink-0">
                     <img src={reason.image} alt="Team collaboration" className="w-full h-full object-cover" />
@@ -539,20 +553,20 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                     <div className="flex items-center gap-3 sm:gap-[15px] text-[18px] sm:text-[20px] lg:text-[24px] text-black font-medium leading-[1.5] sm:leading-[1.6] lg:leading-[60px] hover:text-[#005c89] transition">
                       View details
                       <svg className="w-6 h-6 sm:w-8 sm:h-8 lg:w-[34px] lg:h-[34px] rotate-90" viewBox="0 0 34 34" fill="currentColor">
-                        <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                  </HoverCard>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="text-center py-8 sm:py-12">
-              <p className="text-[18px] sm:text-[20px] lg:text-[24px] text-gray-500">No job openings at the moment. Check back soon!</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+<path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+</div>
+</HoverCard>
+))}
+</div>
+</div>
+) : (
+<div className="text-center py-8 sm:py-12">
+<p className="text-[18px] sm:text-[20px] lg:text-[24px] text-gray-500">No job openings at the moment. Check back soon!</p>
+</div>
+)}
+</div>
+</div>
+</div>
+);
 }

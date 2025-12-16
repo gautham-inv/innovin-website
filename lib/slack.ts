@@ -2,9 +2,16 @@ type SlackWebhookPayload = {
   text: string;
 };
 
-export async function notifySlack(text: string) {
-  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
-  if (!webhookUrl) return;
+/**
+ * Sends a notification to Slack via webhook URL
+ * @param webhookUrl - The Slack webhook URL for the target channel
+ * @param text - The message text to send
+ */
+export async function notifySlack(webhookUrl: string, text: string) {
+  if (!webhookUrl) {
+    console.warn("Slack webhook URL not provided");
+    return;
+  }
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 3000);
