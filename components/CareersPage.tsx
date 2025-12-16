@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
@@ -114,7 +114,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   }, [reasonsToChoose.length]);
 
   // Scroll animation for front card items - responsive
-  useEffect(() => {
+  useLayoutEffect(() => {
     const frontCard = frontCardRef.current;
     if (!frontCard || typeof window === 'undefined') return;
 

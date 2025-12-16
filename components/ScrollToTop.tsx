@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 
 /**
@@ -11,8 +11,9 @@ import { usePathname } from "next/navigation";
 export default function ScrollToTop() {
   const pathname = usePathname();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Scroll to top whenever the route changes
+    // Using useLayoutEffect to prevent visible scroll jump
     window.scrollTo({
       top: 0,
       left: 0,
@@ -21,8 +22,9 @@ export default function ScrollToTop() {
   }, [pathname]);
 
   // Also handle page refresh/reload
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Ensure we're at the top on initial load
+    // Using useLayoutEffect to prevent visible scroll jump
     if (typeof window !== "undefined") {
       window.scrollTo(0, 0);
     }

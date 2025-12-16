@@ -45,7 +45,7 @@ export default function TechStack() {
   useLayoutEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      // Logo height
+      // Logo height - smaller on mobile
       if (w >= 1536) { // 2xl and bigger
         setLogoHeight(56);
         setSpeed(50);
@@ -59,13 +59,13 @@ export default function TechStack() {
         setSpeed(40);
         setGap(40);
       } else if (w >= 640) { // md / tablet
-        setLogoHeight(42);
+        setLogoHeight(38);
         setSpeed(40);
-        setGap(36);
-      } else { // mobile
-        setLogoHeight(36);
+        setGap(32);
+      } else { // mobile - reduced from 36 to 28
+        setLogoHeight(28);
         setSpeed(40);
-        setGap(28);
+        setGap(24);
       }
     };
 

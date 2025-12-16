@@ -118,7 +118,7 @@ export default function Careers() {
             </h2>
             <button 
               onClick={() => router.push("/careers")} 
-              className="bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition scale-[1.45]"
+              className="bg-gradient-to-r cursor-pointer from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition scale-[1.45] z-20"
             >
               Explore Roles
             </button>

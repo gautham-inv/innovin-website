@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, createContext, useContext, ReactNode } from "react";
+import { useState, useEffect, useLayoutEffect, useRef, createContext, useContext, ReactNode } from "react";
 import { ChevronUp, ArrowRight, X, CheckCircle } from "lucide-react";
 
 // Context for managing modal state
@@ -118,16 +118,48 @@ function ContactModal() {
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen, closeModal]);
 
-  // Prevent body scroll when modal is open
-  useEffect(() => {
+  // Enhanced scroll prevention - handles desktop, mobile, and iOS
+  // useLayoutEffect prevents a visible "jump to top then back" on close by running cleanup before paint.
+  useLayoutEffect(() => {
     if (isOpen) {
+      // Store original body styles
+      const originalOverflow = document.body.style.overflow;
+      const originalPosition = document.body.style.position;
+      const originalTop = document.body.style.top;
+      const originalWidth = document.body.style.width;
+      const scrollY = window.scrollY;
+
+      // Prevent scrolling on desktop
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+      
+      // Prevent scrolling on mobile (especially iOS)
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
+
+      // Prevent touch move on the backdrop
+      const preventTouchMove = (e: TouchEvent) => {
+        if (e.target === e.currentTarget) {
+          e.preventDefault();
+        }
+      };
+
+      document.body.addEventListener("touchmove", preventTouchMove, { passive: false });
+
+      return () => {
+        // Restore original styles
+        document.body.style.overflow = originalOverflow;
+        document.body.style.position = originalPosition;
+        document.body.style.top = originalTop;
+        document.body.style.width = originalWidth;
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY);
+        
+        // Remove event listener
+        document.body.removeEventListener("touchmove", preventTouchMove);
+      };
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
   }, [isOpen]);
 
   // Validate current step
@@ -205,7 +237,6 @@ function ContactModal() {
           const errorData = await response.json().catch(() => ({ error: "Unknown error" }));
           console.error("Contact form submission error:", errorData);
 
-          // Extract error message from response
           let errorMessage = "Failed to submit message. Please try again later.";
 
           if (errorData.error) {
@@ -222,7 +253,7 @@ function ContactModal() {
 
           setErrors({ submit: errorMessage });
           setIsSubmitting(false);
-          return; // Don't throw, just show error
+          return;
         }
 
         setShowSuccess(true);
@@ -232,7 +263,6 @@ function ContactModal() {
         const { trackEvent } = await import("@/lib/analytics");
         trackEvent("contact_form_submit", "form", "contact_modal");
 
-        // Close modal after 3 seconds
         setTimeout(() => {
           setFormData({ name: "", company: "", email: "", message: "" });
           setCurrentStep(1);
@@ -249,7 +279,6 @@ function ContactModal() {
 
   const handleInputChange = (field: keyof ContactFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
@@ -266,7 +295,6 @@ function ContactModal() {
     }
   };
 
-  // Navigation button component (matches design)
   const NavButton = ({ onClick, disabled, rotate = false }: { onClick: () => void; disabled?: boolean; rotate?: boolean }) => (
     <button
       onClick={onClick}
@@ -281,9 +309,6 @@ function ContactModal() {
     </button>
   );
 
- 
-
-  // Step indicator component
   const StepIndicator = ({ step }: { step: number }) => (
     <div className="flex gap-2 sm:gap-[12px] h-[28px] sm:h-[32px] items-center shrink-0">
       <div className="relative shrink-0 size-[14px] sm:size-[16px]">
@@ -298,7 +323,6 @@ function ContactModal() {
     </div>
   );
 
-  // Please enter button component
   const PleaseEnterButton = ({ onClick }: { onClick: () => void }) => (
     <div className="flex gap-2 sm:gap-[10px] items-center shrink-0">
       <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#ababab] text-[14px] sm:text-[16px] text-nowrap whitespace-pre">
@@ -316,16 +340,11 @@ function ContactModal() {
   );
 
   return (
-    // NOTE: changed alignment for small screens to place modal in the upper half (items-start + top padding).
-    // Also changed outer onClick to simply closeModal() — the modal itself stops propagation so clicks inside won't bubble up.
     <div
-      className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center p-2 sm:p-4 lg:p-6 pt-8"
-      onClick={() => {
-        // Any click that reaches this wrapper is outside the modal (modal stops propagation), so close.
-        closeModal();
-      }}
+      className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center p-2 sm:p-4 lg:p-6 pt-8 overflow-hidden"
+      onClick={closeModal}
     >
-      {/* Backdrop with reduced brightness */}
+      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
       {/* Modal */}
@@ -334,7 +353,7 @@ function ContactModal() {
         className="relative mt-10 sm:mt-0 bg-[#131518] rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] w-full max-w-[680px] shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header with exit button - hidden on mobile */}
+        {/* Header */}
         <div className="bg-[#131518] flex flex-col sm:flex-row gap-2 sm:gap-[361px] min-h-[54px] h-auto sm:h-[54px] items-start sm:items-center px-4 sm:px-[30px] py-3 sm:py-[10px] rounded-tl-[12px] sm:rounded-tl-[16px] lg:rounded-tl-[20px] rounded-tr-[12px] sm:rounded-tr-[16px] lg:rounded-tr-[20px] shrink-0 relative">
           <div className="flex-1 w-full sm:w-auto">
             {!showSuccess && currentStep === 1 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your name?</p>}
