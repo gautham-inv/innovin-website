@@ -59,7 +59,7 @@ export default function ServicesPage() {
     <div className="bg-white flex flex-col items-start px-0 py-5 sm:py-6 lg:py-[20px] relative min-h-screen w-full pt-24 sm:pt-28 lg:pt-32">
       {/* Hero Section */}
       <div className="w-full px-4 sm:px-6 lg:px-8 py-5 sm:py-6 lg:py-[20px]">
-        <div className="flex flex-col gap-[60px] sm:gap-[100px] lg:gap-[150px] items-start relative w-full max-w-[1542px] mx-auto">
+          <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[150px] items-start relative w-full max-w-[1542px] mx-auto">
           {/* Header Section */}
           <div className="flex flex-col items-start px-4 sm:px-5 lg:px-[20px] py-0 relative w-full">
             <div className="flex items-start pl-0 pr-4 sm:pr-5 lg:pr-[20px] py-4 sm:py-5 lg:py-[20px] relative w-full">
@@ -69,31 +69,31 @@ export default function ServicesPage() {
                 </h1>
               </div>
             </div>
-            <p className="font-['Helvetica_Neue',sans-serif] leading-[1.4] sm:leading-[1.6] lg:leading-[2] relative text-[#005c89] text-[18px] sm:text-[22px] md:text-[26px] lg:text-[31px] w-full text-center lg:text-left mt-2 sm:mt-3">
+            <p className="font-['Helvetica_Neue',sans-serif] leading-[1.4] sm:leading-[1.6] xl:leading-[2] relative text-[#005c89] text-[18px] sm:text-[22px] md:text-[26px] xl:text-[31px] w-full text-center xl:text-left mt-2 sm:mt-3">
               We infuse AI into all aspects of technology and development , delivering smarter outcomes and smoother experiences
             </p>
           </div>
 
           {/* Services List */}
-          <div className="flex flex-col gap-[50px] sm:gap-[70px] md:gap-[100px] lg:gap-[150px] items-start relative w-full">
+          <div className="flex flex-col gap-[50px] sm:gap-[70px] md:gap-[100px] xl:gap-[150px] items-start relative w-full">
             {services.map((service, index) => (
               <div
                 key={index}
-                className={`flex flex-col lg:flex-row gap-[30px] sm:gap-[50px] lg:gap-[195px] items-center lg:items-start relative w-full ${
-                  service.imageLeft ? "lg:flex-row-reverse" : ""
+                className={`flex flex-col xl:flex-row gap-[30px] sm:gap-[50px] xl:gap-[195px] items-center xl:items-start relative w-full ${
+                  service.imageLeft ? "xl:flex-row-reverse" : ""
                 }`}
               >
                 {/* Content */}
-                <div className="flex-1 flex flex-col gap-3 sm:gap-[13px] items-start relative text-[#232323] w-full lg:w-auto order-2 lg:order-none">
+                <div className="flex-1 flex flex-col gap-3 sm:gap-[13px] items-start relative text-[#232323] w-full xl:w-auto order-2 xl:order-none">
                   <div className="flex flex-col gap-2 sm:gap-[8px] items-start relative w-full">
-                    <h2 className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.4] lg:leading-[1.55] relative text-[24px] sm:text-[28px] md:text-[32px] lg:text-[40px] w-full">
+                    <h2 className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.4] xl:leading-[1.55] relative text-[24px] sm:text-[28px] md:text-[32px] xl:text-[40px] w-full">
                       {service.title}
                     </h2>
-                    <p className="font-['Manrope',sans-serif] font-normal leading-[1.6] sm:leading-[1.8] lg:leading-[2.2] relative text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] w-full mt-2 sm:mt-3">
+                    <p className="font-['Manrope',sans-serif] font-normal leading-[1.6] sm:leading-[1.8] xl:leading-[2.2] relative text-[16px] sm:text-[17px] md:text-[18px] xl:text-[20px] w-full mt-2 sm:mt-3">
                       {service.description}
                     </p>
                   </div>
-                  <ul className="block font-['Manrope',sans-serif] font-normal leading-[1.6] sm:leading-[1.8] lg:leading-[2.2] relative text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px] w-full space-y-2 sm:space-y-3 mt-2 sm:mt-3">
+                  <ul className="block font-['Manrope',sans-serif] font-normal leading-[1.6] sm:leading-[1.8] xl:leading-[2.2] relative text-[16px] sm:text-[17px] md:text-[18px] xl:text-[20px] w-full space-y-2 sm:space-y-3 mt-2 sm:mt-3">
                     {service.bullets.map((bullet, bulletIndex) => (
                       <li key={bulletIndex} className="ms-[20px] sm:ms-[30px] list-disc">
                         <span>{bullet}</span>
@@ -103,7 +103,7 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Image */}
-                <div className="h-[250px] sm:h-[320px] md:h-[380px] lg:h-[436px] relative shrink-0 w-full sm:w-full md:w-[500px] lg:w-[612px] rounded-lg overflow-hidden order-1 lg:order-none">
+                <div className="h-[250px] sm:h-[320px] md:h-[380px] xl:h-[436px] relative shrink-0 w-full sm:w-full md:w-[500px] xl:w-[612px] rounded-lg overflow-hidden order-1 xl:order-none">
                   <img
                     alt={service.title}
                     className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"

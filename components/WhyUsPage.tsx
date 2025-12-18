@@ -32,10 +32,10 @@ export default function WhyUsPage() {
   return (
     <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[60px] lg:pb-[40px] overflow-hidden relative">
       {/* Background decorative elements */}
-      <div className="hidden lg:block absolute left-[1780px] top-[2238px] w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
+      <div className="hidden xl:block absolute left-[1780px] top-[2238px] w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-radial from-blue-200 via-blue-100 to-transparent blur-3xl" />
       </div>
-      <div className="hidden lg:block absolute left-[-4020px] top-[2238px] w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
+      <div className="hidden xl:block absolute left-[-4020px] top-[2238px] w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-radial from-blue-200 via-blue-100 to-transparent blur-3xl" />
       </div>
 
@@ -51,18 +51,18 @@ export default function WhyUsPage() {
         </div>
 
         {/* Unique Value Proposition */}
-        <div className="flex flex-col lg:flex-row gap-8 sm:gap-10 lg:gap-[118px] items-center mb-12 sm:mb-16 lg:mb-[50px]">
+        <div className="flex flex-col md:flex-row gap-8 sm:gap-10 md:gap-[60px] xl:gap-[118px] items-center mb-12 sm:mb-16 xl:mb-[50px]">
           {/* Mobile/Tablet: Image first */}
-          <div className="bg-[#959595] w-full sm:w-[500px] md:w-[600px] lg:w-[745px] h-[220px] sm:h-[260px] md:h-[300px] lg:h-[320px] rounded-[12px] sm:rounded-[16px] lg:rounded-[8px] flex items-center justify-center shrink-0 order-1 lg:order-2">
+          <div className="bg-[#959595] w-full sm:w-[500px] md:w-[380px] lg:w-[500px] xl:w-[745px] h-[220px] sm:h-[260px] md:h-[260px] lg:h-[300px] xl:h-[320px] rounded-[12px] sm:rounded-[16px] xl:rounded-[8px] flex items-center justify-center shrink-0 order-1 md:order-2">
             <img src={imgUniqueValueProposition} alt="Unique Value Proposition" className="w-full h-full object-contain" />
           </div>
           
           {/* Mobile/Tablet: Content second */}
-          <div className="flex-1 w-full lg:w-auto order-2 lg:order-1">
-            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-4 sm:mb-5 lg:mb-[20px]">
+          <div className="flex-1 w-full md:w-auto order-2 md:order-1">
+            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-4 sm:mb-5 xl:mb-[20px]">
               Unique Value Proposition
             </h2>
-            <p className="text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[60px]">
+            <p className="text-[17px] sm:text-[20px] md:text-[22px] xl:text-[24px] text-black leading-[1.6] sm:leading-[1.65] xl:leading-[60px]">
               Fueling Startups and emerging/growing businesses success – we leverage AI tools and open source programs to deliver faster, cost-effective solutions that unlock their growth potential.
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function WhyUsPage() {
           </p>
 
           {/* Expertise Cards - Modern Design */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-[20px]">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 xl:gap-[20px]">
             {/* Network of Tech SMES Card */}
             <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden">
               {/* Decorative corner accent */}
@@ -139,7 +139,7 @@ export default function WhyUsPage() {
           </p>
 
           {/* Desktop: Engagement Models Diagram with arrows and center card */}
-          <div className="hidden lg:block relative h-[1024px] w-full">
+          <div className="hidden xl:block relative h-[1024px] w-full">
             {/* Center Box */}
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black rounded-[20px] p-[50px] z-10">
               <p className="text-[40px] text-[#005c89] font-semibold leading-[60px] whitespace-nowrap">
@@ -248,7 +248,7 @@ L 380 510
           </div>
 
           {/* Mobile/Tablet: Vertical stacked cards with dotted connecting line */}
-          <div className="lg:hidden relative">
+          <div className="xl:hidden relative">
             {/* Dotted vertical line connecting cards - centered to screen */}
             <div className="absolute left-1/2 top-0 bottom-0 w-0 border-l-2 border-dashed border-[#66c2e2] -translate-x-1/2 z-0" style={{ height: '100%' }} />
             

@@ -122,8 +122,8 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Only auto-rotate on desktop (lg breakpoint and above)
-    const isDesktop = window.innerWidth >= 1024;
+    // Only auto-rotate on desktop (xl breakpoint and above)
+    const isDesktop = window.innerWidth >= 1280;
     if (!isDesktop) return;
 
     // Clear any existing timer
@@ -238,7 +238,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     setCurrentReasonIndex(index);
     
     // Restart autoplay after manual selection
-    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+    if (typeof window !== 'undefined' && window.innerWidth >= 1280) {
       autoplayTimerRef.current = setInterval(() => {
         if (!isTransitioning) {
           setCurrentReasonIndex((prev) => (prev + 1) % reasonsToChoose.length);
@@ -283,7 +283,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
       <div className="max-w-[1681px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[70px]">
         {/* Hero Section */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-[141px] items-start lg:items-center mb-[50px] sm:mb-[70px] lg:mb-[100px]">
+        <div className="flex flex-col xl:flex-row gap-6 xl:gap-[141px] items-start xl:items-center mb-[50px] sm:mb-[70px] xl:mb-[100px]">
           <div className="flex-1 w-full">
             <h1 className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] text-[#232323] font-semibold leading-[1.1] sm:leading-[1.2] lg:leading-[62.1px] mb-4 sm:mb-6 lg:mb-[24px]">
               Ignite your <span className="text-[#005c89]">Career with Us</span>
@@ -315,7 +315,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           </h2>
           
           {/* Desktop: Horizontal carousel with dot indicators */}
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <div ref={reasonToChooseRef} className="relative h-[347px] overflow-hidden">
               {reasonsToChoose.map((reason, index) => (
                 <div
@@ -355,7 +355,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           </div>
 
           {/* Mobile/Tablet: Vertical stacked cards */}
-          <div className="lg:hidden flex flex-col gap-6 sm:gap-8">
+          <div className="xl:hidden flex flex-col gap-6 sm:gap-8">
             {reasonsToChoose.map((reason, index) => (
               <div
                 key={index}
@@ -378,14 +378,14 @@ export default function CareersPage({ jobs }: CareersPageProps) {
         </div>
 
         {/* Talent Approach Section */}
-        <div className="relative min-h-[800px] sm:min-h-[1000px] md:min-h-[1200px] lg:h-[1439px] mb-[50px] sm:mb-[70px] lg:mb-[100px]">
+        <div className="relative min-h-[800px] sm:min-h-[1000px] md:min-h-[1200px] xl:h-[1439px] mb-[50px] sm:mb-[70px] xl:mb-[100px]">
           {/* Star decorations */}
-          <div ref={starLeftRef} className="hidden lg:block absolute left-[288px] top-[416px] w-[100px] h-[100px] opacity-30">
+          <div ref={starLeftRef} className="hidden xl:block absolute left-[288px] top-[416px] w-[100px] h-[100px] opacity-30">
             <svg viewBox="0 0 100 100" fill="none">
               <path d="M50 10 L55 45 L90 50 L55 55 L50 90 L45 55 L10 50 L45 45 Z" fill="#FFD700" />
             </svg>
           </div>
-          <div ref={starRightRef} className="hidden lg:block absolute right-[100px] bottom-[100px] w-[100px] h-[100px] opacity-30">
+          <div ref={starRightRef} className="hidden xl:block absolute right-[100px] bottom-[100px] w-[100px] h-[100px] opacity-30">
             <svg viewBox="0 0 100 100" fill="none">
               <path d="M50 10 L55 45 L90 50 L55 55 L50 90 L45 55 L10 50 L45 45 Z" fill="#FFD700" />
             </svg>
@@ -400,22 +400,22 @@ export default function CareersPage({ jobs }: CareersPageProps) {
             </p>
           </div>
 
-          <div className="relative lg:absolute lg:left-[397px] lg:top-[459px] w-full lg:w-[890px] mx-auto lg:mx-0">
+          <div className="relative xl:absolute xl:left-[397px] xl:top-[459px] w-full xl:w-[890px] mx-auto xl:mx-0">
             {/* Back card */}
-            <div className="hidden lg:block absolute top-0 left-0 right-0 flex items-center justify-center z-10">
+            <div className="hidden xl:block absolute top-0 left-0 right-0 flex items-center justify-center z-10">
               <div className="bg-white rounded-[20px] shadow-[0px_0px_9px_0px_rgba(0,0,0,0.25)] w-[834px] h-[834px]" style={{ transform: 'rotate(4deg)' }}>
               </div>
             </div>
 
             {/* Front card */}
-            <div className="relative lg:absolute lg:top-0 lg:-left-[20px] lg:right-0 flex items-center justify-center z-20">
+            <div className="relative xl:absolute xl:top-0 xl:-left-[20px] xl:right-0 flex items-center justify-center z-20">
               <div 
                 ref={frontCardRef}
-                className="bg-white rounded-[20px] shadow-[0px_0px_6px_0px_rgba(0,0,0,0.25)] w-full max-w-[834px] h-auto min-h-[600px] lg:w-[834px] lg:h-[834px] p-6 sm:p-8 md:p-12 lg:p-[74px] front-card-rotate"
+                className="bg-white rounded-[20px] shadow-[0px_0px_6px_0px_rgba(0,0,0,0.25)] w-full max-w-[834px] h-auto min-h-[600px] xl:w-[834px] xl:h-[834px] p-6 sm:p-8 md:p-12 xl:p-[74px] front-card-rotate"
               >
-                <div className="flex flex-col gap-6 sm:gap-8 lg:gap-[30px]">
+              <div className="flex flex-col gap-6 sm:gap-8 xl:gap-[30px]">
                   {talentApproach.map((item, index) => (
-                    <div key={index} className="talent-item flex gap-4 sm:gap-6 lg:gap-[44px] items-center">
+                    <div key={index} className="talent-item flex gap-4 sm:gap-6 xl:gap-[44px] items-center">
                       <div className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] lg:w-[94px] lg:h-[94px] shrink-0 flex items-center justify-center bg-primary/10 rounded-full">
                         <svg className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] lg:w-[50px] lg:h-[50px]" viewBox="0 0 50 50" fill="#005c89">
                           <path d="M25 5 L30 20 L45 25 L30 30 L25 45 L20 30 L5 25 L20 20 Z" />
@@ -448,7 +448,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
         </div>
 
         {/* Image Carousel */}
-        <div className="flex gap-4 sm:gap-6 lg:gap-[58px] items-center mb-[50px] sm:mb-[70px] lg:mb-[100px]">
+        <div className="flex gap-4 sm:gap-6 xl:gap-[58px] items-center mb-[50px] sm:mb-[70px] xl:mb-[100px]">
           <button 
             onClick={handlePrevImage}
             className="bg-[#969494] rounded-full p-3 sm:p-4 lg:p-[16px] hover:bg-gray-400 transition shrink-0"
@@ -480,15 +480,15 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Recent Job Openings */}
         <div id="recent-job-openings">
-          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-6 sm:mb-8 lg:mb-[36px]">
+          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-6 sm:mb-8 xl:mb-[36px]">
             <span className="font-normal">Recent</span> Job Openings
           </h2>
           
           {jobOpenings.length > 0 ? (
-            <div className="flex flex-col gap-6 sm:gap-8 lg:gap-[32px]">
+            <div className="flex flex-col gap-6 sm:gap-8 xl:gap-[32px]">
               {/* Desktop: Grid layout */}
               {jobOpenings.length >= 3 && (
-                <div className="hidden lg:grid grid-cols-3 gap-[20px]">
+                <div className="hidden xl:grid grid-cols-3 gap-[20px]">
                   {jobOpenings.slice(0, 3).map((job) => (
                     <HoverCard
                       key={job.id}
@@ -519,7 +519,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               )}
                
               {jobOpenings.length > 3 && (
-                <div className="hidden lg:block w-[500px]">
+                <div className="hidden xl:block w-[500px]">
                   <HoverCard
                     href={`/careers/${jobOpenings[3].slug}`}
                     as="link"
@@ -547,7 +547,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               )}
 
               {jobOpenings.length < 4 && jobOpenings.length > 0 && (
-                <div className="hidden lg:grid grid-cols-3 gap-[20px]">
+                <div className="hidden xl:grid grid-cols-3 gap-[20px]">
                   {jobOpenings.map((job) => (
                     <HoverCard
                       key={job.id}
@@ -578,7 +578,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               )}
 
               {/* Mobile/Tablet: Vertical stacked cards */}
-              <div className="lg:hidden flex flex-col gap-4 sm:gap-6">
+              <div className="xl:hidden flex flex-col gap-4 sm:gap-6">
                 {jobOpenings.map((job) => (
                   <HoverCard
                     key={job.id}
@@ -587,19 +587,19 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                     borderColor="border-[#005c89]"
                     borderWidth="border-2"
                     borderRadius="rounded-[20px] sm:rounded-[30px]"
-                    padding="p-4 sm:p-5 lg:p-[20px]"
+                    padding="p-4 sm:p-5"
                     shadow="hover:shadow-lg"
-                    className="gap-4 sm:gap-6 lg:gap-[27px]"
+                    className="gap-4 sm:gap-6"
                   >
-                    <h3 className="text-[20px] sm:text-[22px] lg:text-[24px] text-black font-medium leading-[1.3] sm:leading-[1.4] lg:leading-[34px]">
+                    <h3 className="text-[20px] sm:text-[22px] text-black font-medium leading-[1.3] sm:leading-[1.4]">
                       {job.title}
                     </h3>
-                    <p className="text-[14px] sm:text-[15px] lg:text-[16px] text-black leading-[1.6] sm:leading-[1.8] lg:leading-[44px] flex-1">
+                    <p className="text-[14px] sm:text-[15px] text-black leading-[1.6] sm:leading-[1.8] flex-1">
                       {job.description}
                     </p>
-                    <div className="flex items-center gap-3 sm:gap-[15px] text-[18px] sm:text-[20px] lg:text-[24px] text-black font-medium leading-[1.5] sm:leading-[1.6] lg:leading-[60px] hover:text-[#005c89] transition">
+                    <div className="flex items-center gap-3 sm:gap-[15px] text-[18px] sm:text-[20px] text-black font-medium leading-[1.5] sm:leading-[1.6] hover:text-[#005c89] transition">
                       View details
-                      <svg className="w-6 h-6 sm:w-8 sm:h-8 lg:w-[34px] lg:h-[34px] rotate-90" viewBox="0 0 34 34" fill="currentColor">
+                      <svg className="w-6 h-6 sm:w-8 sm:h-8 rotate-90" viewBox="0 0 34 34" fill="currentColor">
 <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
 </div>

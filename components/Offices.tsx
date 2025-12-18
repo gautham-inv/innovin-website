@@ -63,9 +63,9 @@ export default function OfficeLocations() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4 md:p-8">
-      <div className="w-full max-w-7xl">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 text-slate-800">
+    <section className="bg-gradient-to-br from-slate-50 to-slate-100 py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8">
+      <div className="w-full max-w-7xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 text-slate-800">
           Our Offices
         </h2>
 
@@ -212,6 +212,6 @@ export default function OfficeLocations() {
           })}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

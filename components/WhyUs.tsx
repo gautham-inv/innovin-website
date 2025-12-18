@@ -59,7 +59,7 @@ export default function WhyUs() {
   // Check if desktop on mount and window resize
   useEffect(() => {
     const checkDesktop = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+      setIsDesktop(window.innerWidth >= 1280);
     };
     
     checkDesktop();

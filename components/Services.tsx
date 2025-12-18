@@ -46,7 +46,7 @@ export default function Services() {
       touchMultiplier: 2,
     });
 
-    const isDesktop = window.innerWidth >= 1024;
+    const isDesktop = window.innerWidth >= 1280;
     const section = isDesktop ? sectionRef.current : mobileSectionRef.current;
     
     // Safety check
@@ -410,7 +410,7 @@ export default function Services() {
   return (
     <>
       {/* Desktop Version */}
-      <section ref={sectionRef} id="services" className="hidden lg:block bg-black relative h-screen overflow-hidden" style={{ willChange: 'transform' }}>
+      <section ref={sectionRef} id="services" className="hidden xl:block bg-black relative h-screen overflow-hidden" style={{ willChange: 'transform' }}>
         {/* Titles */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 xl:pl-20 space-y-1">
           <div ref={titleOurRef} className="overflow-hidden">
@@ -477,7 +477,7 @@ export default function Services() {
       </section>
 
       {/* Mobile/Tablet Version */}
-      <section ref={mobileSectionRef} id="services-mobile" className="lg:hidden bg-black relative py-16 sm:py-20 md:py-24 px-6 sm:px-8 md:px-10">
+      <section ref={mobileSectionRef} id="services-mobile" className="xl:hidden bg-black relative py-16 sm:py-20 md:py-24 px-6 sm:px-8 md:px-10">
         <div className="max-w-[800px] mx-auto">
           {/* Titles */}
           <div className="mb-12 sm:mb-16 md:mb-20">

@@ -139,11 +139,11 @@ export default function Navigation() {
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="py-4">
-          <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] flex items-center justify-between h-[60px]">
+        <div className="py-4 md:py-5">
+          <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] flex items-center justify-between h-[60px] md:h-[68px]">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-              <div className="h-[40px] relative">
+              <div className="h-[40px] md:h-[46px] relative">
                 <img 
                   src={imgLogoDark}
                   alt="Innovin Labs Logo"
@@ -229,7 +229,7 @@ export default function Navigation() {
             e.stopPropagation();
           }}
         >
-          <div className="flex flex-col items-stretch max-w-md mx-auto w-full px-4 space-y-2">
+          <div className="flex flex-col items-stretch w-full px-4 sm:px-6 md:px-10 space-y-2">
             <Link
               href="/services"
               className={mobileLinkClasses(pathname === "/services")}

@@ -232,7 +232,7 @@ export default async function BlogPost(props: Props) {
 
             {/* Related Posts - Mobile/Tablet: Below Author Section */}
             {relatedPosts.length > 0 && (
-              <div className="lg:hidden mt-12 sm:mt-14">
+              <div className="xl:hidden mt-12 sm:mt-14">
                 <h2 className="text-[24px] sm:text-[28px] font-semibold text-black mb-6 sm:mb-8 font-['Manrope',sans-serif]">
                   Related Posts
                 </h2>
@@ -296,10 +296,10 @@ export default async function BlogPost(props: Props) {
           </div>
 
           {/* Vertical Separator - Desktop Only */}
-          <div className="hidden lg:block w-px bg-[#E0E0E0] mx-4"></div>
+          <div className="hidden xl:block w-px bg-[#E0E0E0] mx-4"></div>
 
           {/* Related Posts Sidebar - Desktop Only */}
-          <aside className="hidden lg:block w-[12%] min-w-[200px]">
+          <aside className="hidden xl:block w-[12%] min-w-[200px]">
             <div className="sticky top-[146px]">
               <h2 className="text-[32px] font-semibold text-black mb-6 font-['Manrope',sans-serif]">
                 Related Posts

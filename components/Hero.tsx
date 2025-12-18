@@ -61,7 +61,7 @@ export default function Hero() {
           className="font-semibold text-[#232323] mb-6 sm:mb-8 md:mb-10 lg:mb-12 fade-in-blur"
         >
           {/* Mobile and Tablet */}
-          <span className="block lg:hidden">
+          <span className="block xl:hidden">
             <span className="block text-[32px] sm:text-[48px] md:text-[64px] leading-[1.1] tracking-[-0.02em]">
               <span className="font-normal">Rapidly Transforming</span>{" "}
               <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">Ideas</span>{" "}
@@ -74,7 +74,7 @@ export default function Hero() {
           </span>
 
           {/* Desktop - Centered */}
-          <span className="hidden lg:block">
+          <span className="hidden xl:block">
             <span className="block text-[80px] xl:text-[105px] leading-[1.1] tracking-[-0.02em]">
               <span className="font-normal">Rapidly Transforming</span>{" "}
               <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">Ideas</span>{" "}

@@ -215,12 +215,12 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
         </div>
 
         {/* Blog Posts Grid */}
-        <div className="flex flex-col gap-8 sm:gap-12 lg:gap-[94px] items-start py-8 sm:py-12 lg:py-[50px]">
+        <div className="flex flex-col gap-8 sm:gap-12 xl:gap-[94px] items-start py-8 sm:py-12 xl:py-[50px]">
           {filteredPosts.length > 0 ? (
             <>
               {/* Desktop: First Row */}
               {filteredPosts.length >= 3 && (
-                <div className="hidden lg:flex gap-[13px] items-start justify-center relative shrink-0 w-full">
+                <div className="hidden xl:flex gap-[13px] items-start justify-center relative shrink-0 w-full">
                   {filteredPosts.slice(0, 3).map((post) => (
                     <BlogCard key={post._id} {...post} />
                   ))}
@@ -229,7 +229,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
 
               {/* Desktop: Second Row */}
               {filteredPosts.length >= 6 && (
-                <div className="hidden lg:flex gap-[13px] items-start justify-center relative shrink-0 w-full">
+                <div className="hidden xl:flex gap-[13px] items-start justify-center relative shrink-0 w-full">
                   {filteredPosts.slice(3, 6).map((post) => (
                     <BlogCard key={post._id} {...post} />
                   ))}
@@ -238,7 +238,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
 
               {/* Desktop: Remaining Posts */}
               {filteredPosts.length > 6 && (
-                <div className="hidden lg:flex gap-[13px] items-start justify-center relative shrink-0 w-full flex-wrap">
+                <div className="hidden xl:flex gap-[13px] items-start justify-center relative shrink-0 w-full flex-wrap">
                   {filteredPosts.slice(6).map((post) => (
                     <BlogCard key={post._id} {...post} />
                   ))}
@@ -246,7 +246,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
               )}
 
               {/* Mobile/Tablet: Grid Layout */}
-              <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full">
+              <div className="xl:hidden grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full">
                 {filteredPosts.map((post) => (
                   <BlogCard key={post._id} {...post} />
                 ))}
@@ -254,7 +254,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
 
               {/* Desktop: If less than 3 posts, show them in a single row */}
               {filteredPosts.length < 3 && (
-                <div className="hidden lg:flex gap-[13px] items-start justify-center relative shrink-0 w-full flex-wrap">
+                <div className="hidden xl:flex gap-[13px] items-start justify-center relative shrink-0 w-full flex-wrap">
                   {filteredPosts.map((post) => (
                     <BlogCard key={post._id} {...post} />
                   ))}
@@ -263,7 +263,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
             </>
           ) : (
             <div className="text-center py-12 w-full">
-              <p className="text-[18px] sm:text-[20px] lg:text-[24px] text-gray-500">No blog posts found in this category.</p>
+              <p className="text-[18px] sm:text-[20px] xl:text-[24px] text-gray-500">No blog posts found in this category.</p>
             </div>
           )}
         </div>

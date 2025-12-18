@@ -49,19 +49,22 @@ export default function BlogCard({
   const categoryColor = primaryCategory?.color || "#1abcfe";
 
   return (
-    <Link href={`/blog/${slug}`} className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] group">
+    <Link
+      href={`/blog/${slug}`}
+      className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] group w-full min-w-0"
+    >
       {/* Image Container */}
       <div className="bg-white h-[244px] overflow-hidden relative rounded-[16px] w-full">
         {coverImage && (
-          <div className="absolute h-[305.333px] left-0 rounded-tl-[16px] rounded-tr-[16px] top-0 w-[458px]">
-            <div className="absolute inset-0 pointer-events-none rounded-tl-[16px] rounded-tr-[16px]">
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 pointer-events-none rounded-[16px]">
               <Image
-                src={urlFor(coverImage)?.width(458).height(305).url() || ''}
+                src={urlFor(coverImage)?.width(800).height(540).url() || ''}
                 alt={title}
                 fill
-                className="object-cover rounded-tl-[16px] rounded-tr-[16px]"
+                className="object-cover rounded-[16px]"
               />
-              <div className="absolute bg-[rgba(0,0,0,0.4)] inset-0 rounded-tl-[16px] rounded-tr-[16px]" />
+              <div className="absolute bg-[rgba(0,0,0,0.4)] inset-0 rounded-[16px]" />
             </div>
           </div>
         )}
@@ -91,7 +94,7 @@ export default function BlogCard({
       </div>
 
       {/* Author and Date */}
-      <div className="flex font-['Manrope',sans-serif] font-bold gap-[200px] items-center leading-[20.729px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.18px] w-full whitespace-pre">
+      <div className="flex items-center justify-between font-['Manrope',sans-serif] font-bold leading-[20.729px] text-[12px] text-black tracking-[-0.18px] w-full gap-4">
         <p className="relative shrink-0">{authorName}</p>
         <p className="relative shrink-0">{formattedDate}</p>
       </div>

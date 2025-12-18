@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type React from "react";
+import type { CSSProperties } from "react";
 
 const imgZirklyFullLogo1 = "/images/logo.png";
 
@@ -19,9 +21,11 @@ export default function Testimonials() {
 
   const autoplayRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
   const isDragging = useRef<boolean>(false);
+  const isScrolling = useRef<boolean>(false);
 
   const total = testimonials.length;
   const transitionMs = 600;
@@ -29,7 +33,7 @@ export default function Testimonials() {
   useEffect(() => {
     setMounted(true);
     const update = () => {
-      setIsDesktop(window.innerWidth >= 1024);
+      setIsDesktop(window.innerWidth >= 1280);
     };
     update();
     const onResize = () => {
@@ -39,13 +43,13 @@ export default function Testimonials() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const normalize = (i: number) => {
+  const normalize = (i: number): number => {
     let idx = i % total;
     if (idx < 0) idx += total;
     return idx;
   };
 
-  const getPosition = (cardIndex: number) => {
+  const getPosition = (cardIndex: number): number => {
     let diff = cardIndex - currentIndex;
     if (diff > total / 2) diff -= total;
     if (diff < -total / 2) diff += total;
@@ -55,11 +59,19 @@ export default function Testimonials() {
   useEffect(() => {
     startAutoplay();
     return stopAutoplay;
-  }, [currentIndex]);
+  }, [currentIndex, isDesktop]);
+
+  // Sync scroll position with currentIndex on mobile
+  useEffect(() => {
+    if (!isDesktop && scrollContainerRef.current && mounted) {
+      scrollToCard(currentIndex, true);
+    }
+  }, [currentIndex, isDesktop, mounted]);
 
   function startAutoplay() {
     stopAutoplay();
     autoplayRef.current = window.setInterval(() => {
+      if (isScrolling.current) return;
       setCurrentIndex((prev) => normalize(prev + 1));
     }, 5000);
   }
@@ -71,24 +83,47 @@ export default function Testimonials() {
     }
   }
 
+  const scrollToCard = (index: number, smooth = true) => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    
+    const card = container.children.item(index) as HTMLElement | null;
+    if (!card) return;
+
+    isScrolling.current = true;
+    
+    const containerWidth = container.offsetWidth;
+    const cardLeft = card.offsetLeft;
+    const cardWidth = card.offsetWidth;
+    const scrollLeft = cardLeft - (containerWidth - cardWidth) / 2;
+
+    container.scrollTo({
+      left: scrollLeft,
+      behavior: smooth ? "smooth" : "auto",
+    });
+
+    window.setTimeout(() => {
+      isScrolling.current = false;
+    }, smooth ? 600 : 0);
+  };
+
   const snapToCard = (target: number) => {
     if (isAnimating) return;
     setIsAnimating(true);
-    setCurrentIndex(normalize(target));
+    const normalizedTarget = normalize(target);
+    setCurrentIndex(normalizedTarget);
+    
+    if (!isDesktop && scrollContainerRef.current) {
+      scrollToCard(normalizedTarget);
+    }
+    
     window.setTimeout(() => setIsAnimating(false), transitionMs);
   };
 
   const handleCardClick = (index: number) => {
-    const pos = getPosition(index);
-    if (Math.abs(pos) <= 1) {
-      snapToCard(index);
-      stopAutoplay();
-      startAutoplay();
-    } else {
-      snapToCard(index);
-      stopAutoplay();
-      startAutoplay();
-    }
+    snapToCard(index);
+    stopAutoplay();
+    startAutoplay();
   };
 
   const handlePrev = (e: React.MouseEvent) => {
@@ -122,42 +157,75 @@ export default function Testimonials() {
     return () => window.removeEventListener("keydown", onKey);
   }, [currentIndex, isAnimating]);
 
+  // Detect scroll position and update currentIndex for mobile
+  useEffect(() => {
+    if (isDesktop || !scrollContainerRef.current) return;
+
+    const container = scrollContainerRef.current;
+    let scrollTimeout: number | null = null;
+
+    const handleScroll = () => {
+      if (isScrolling.current) return;
+      
+      stopAutoplay();
+      
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      scrollTimeout = window.setTimeout(() => {
+        const containerWidth = container.offsetWidth;
+        const scrollLeft = container.scrollLeft;
+        const firstChild = container.children.item(0) as HTMLElement | null;
+        const cardWidth = firstChild?.getBoundingClientRect().width || 0;
+        const gap = 16;
+        
+        const calculatedIndex = Math.round(scrollLeft / (cardWidth + gap));
+        const newIndex = Math.max(0, Math.min(calculatedIndex, total - 1));
+        
+        if (newIndex !== currentIndex) {
+          setCurrentIndex(newIndex);
+        }
+        
+        startAutoplay();
+      }, 150);
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
+  }, [isDesktop, currentIndex]);
+
   // Touch swipe handlers for mobile
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const container = scrollContainerRef.current;
+    if (!container || isDesktop) return;
 
     const onTouchStart = (e: TouchEvent) => {
       touchStartX.current = e.touches[0].clientX;
       touchEndX.current = null;
       isDragging.current = false;
+      stopAutoplay();
     };
     
     const onTouchMove = (e: TouchEvent) => {
       touchEndX.current = e.touches[0].clientX;
-      if (touchStartX.current && Math.abs(touchEndX.current - touchStartX.current) > 10) {
+      if (
+        touchStartX.current !== null &&
+        touchEndX.current !== null &&
+        Math.abs(touchEndX.current - touchStartX.current) > 10
+      ) {
         isDragging.current = true;
       }
     };
     
     const onTouchEnd = () => {
-      if (touchStartX.current == null || touchEndX.current == null) {
-        touchStartX.current = touchEndX.current = null;
-        isDragging.current = false;
-        return;
-      }
-      const dx = touchEndX.current - touchStartX.current;
-      if (Math.abs(dx) > 50) {
-        if (dx < 0) {
-          snapToCard(currentIndex + 1);
-        } else {
-          snapToCard(currentIndex - 1);
-        }
-        stopAutoplay();
-        startAutoplay();
-      }
       touchStartX.current = touchEndX.current = null;
       isDragging.current = false;
+      startAutoplay();
     };
 
     container.addEventListener("touchstart", onTouchStart, { passive: true });
@@ -165,13 +233,13 @@ export default function Testimonials() {
     container.addEventListener("touchend", onTouchEnd);
 
     return () => {
-      container.removeEventListener("touchstart", onTouchStart as EventListener);
-      container.removeEventListener("touchmove", onTouchMove as EventListener);
-      container.removeEventListener("touchend", onTouchEnd as EventListener);
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchmove", onTouchMove);
+      container.removeEventListener("touchend", onTouchEnd);
     };
-  }, [currentIndex]);
+  }, [currentIndex, isDesktop]);
 
-  function cardStyleForDesktop(position: number) {
+  function cardStyleForDesktop(position: number): CSSProperties & { zIndex: number; opacity: number } {
     const abs = Math.abs(position);
     const baseTranslate = position * 380;
     if (abs === 0) {
@@ -205,22 +273,7 @@ export default function Testimonials() {
   const isActiveIndicator = (i: number) => normalize(i) === normalize(currentIndex);
 
   return (
-    <section className="
-  testimonials-section
-  bg-white
-  w-full
-  flex
-  items-start
-  lg:items-center
-  justify-center
-  py-10
-  sm:py-10
-  lg:py-20
-  overflow-hidden
-  relative
-">
-
-
+    <section className="testimonials-section bg-white w-full flex items-start lg:items-center justify-center py-10 sm:py-10 lg:py-20 overflow-hidden relative">
       {/* decorative blobs */}
       <div className="absolute left-[-400px] top-[100px] w-[800px] h-[400px] opacity-20 mix-blend-multiply pointer-events-none">
         <div className="absolute inset-0 bg-gradient-radial from-blue-500/20 via-blue-400/10 to-transparent blur-2xl" />
@@ -235,28 +288,22 @@ export default function Testimonials() {
         </h2>
 
         {!mounted || !isDesktop ? (
-          // Mobile/Tablet Layout - Swipeable, no buttons
-          <div
-            className="relative w-full flex items-center justify-center"
-            ref={containerRef}
-            onMouseEnter={() => stopAutoplay()}
-            onMouseLeave={() => startAutoplay()}
-          >
-            <div className="w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px]">
-              <div className="relative touch-pan-y">
-                {testimonials.map((t, idx) => {
-                  const isCenter = normalize(idx) === normalize(currentIndex);
-                  return (
-                    <div
-                      key={idx}
-                      className={`mx-auto rounded-xl sm:rounded-2xl overflow-hidden shadow-xl transition-all duration-500 ${
-                        isCenter ? "relative opacity-100 scale-100" : "hidden opacity-0 scale-95"
-                      }`}
-                      style={{
-                        background: "white",
-                        pointerEvents: isCenter ? "auto" : "none",
-                      }}
-                    >
+          // Mobile/Tablet Layout - horizontally swipeable list (scroll-snap)
+          <div className="w-full">
+            <div 
+              ref={scrollContainerRef}
+              className="overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
+            >
+              <div className="flex gap-4 sm:gap-6 px-1 pb-2">
+                {testimonials.map((t, idx) => (
+                  <div
+                    key={idx}
+                    className="snap-center shrink-0 w-[86%] sm:w-[70%] md:w-[60%] transition-opacity duration-500"
+                    style={{
+                      opacity: currentIndex === idx ? 1 : 0.7
+                    }}
+                  >
+                    <div className="rounded-xl sm:rounded-2xl overflow-hidden shadow-xl bg-white border border-neutral-200">
                       <div className="h-full p-5 sm:p-6 md:p-8 flex flex-col justify-between gap-4 sm:gap-6">
                         <p className="text-base sm:text-lg md:text-xl text-neutral-700 leading-relaxed">
                           "{t.quote}"
@@ -276,8 +323,8 @@ export default function Testimonials() {
                         </div>
                       </div>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -350,7 +397,7 @@ export default function Testimonials() {
                 stopAutoplay();
                 startAutoplay();
               }}
-              className={`h-2 rounded-full transition-all ${
+              className={`h-2 rounded-full transition-all duration-300 ${
                 isActiveIndicator(i) ? "bg-black w-8 sm:w-10" : "bg-neutral-300 w-2"
               }`}
               aria-label={`Go to slide ${i + 1}`}

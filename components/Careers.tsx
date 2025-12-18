@@ -86,13 +86,12 @@ export default function Careers() {
                 setTimeout(() => {
                   setVisibleCards((prev) => {
                     const newCards = [...new Set([...prev, index])];
-                    // Show button after all cards are visible
                     if (newCards.length === teamQuotes.length) {
                       setTimeout(() => setShowButton(true), 300);
                     }
                     return newCards;
                   });
-                }, index * 150); // Staggered delay
+                }, index * 150);
               }
             });
           },
@@ -115,9 +114,9 @@ export default function Careers() {
   const router = useRouter();
 
   return (
-    <section className="bg-white overflow-hidden relative py-8 md:py-20">
-      {/* Desktop Layout */}
-      <div className="hidden lg:block min-h-[1111px]">
+    <section className="bg-white overflow-hidden relative py-8 xl:py-20">
+      {/* Desktop Layout - Only for XL screens */}
+      <div className="hidden xl:block min-h-[1111px]">
         <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-[70px] relative">
           {/* Header Section */}
           <div className="flex items-start xl:items-center justify-between gap-6 mb-[40px]">
@@ -234,15 +233,15 @@ export default function Careers() {
         </div>
       </div>
 
-      {/* Mobile Layout - Chat Bubble Style */}
-      <div className="lg:hidden px-4 sm:px-6 py-8">
-        {/* Mobile Header Section - Before Cards */}
-        <div className="mb-12 text-center space-y-6">
-          <h2 className="text-3xl text-black font-bold leading-tight">
+      {/* Mobile & Tablet Layout - Chat Bubble Style with Scroll Animations */}
+      <div className="xl:hidden px-4 sm:px-6 md:px-12 py-8 md:py-12">
+        {/* Header Section */}
+        <div className="mb-12 md:mb-16 text-center space-y-6 md:space-y-8">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl text-black font-bold leading-tight">
             The Next Big Move Is Yours
           </h2>
           
-          <p className="text-base text-[#005c89] leading-relaxed">
+          <p className="text-base md:text-lg lg:text-xl text-[#005c89] leading-relaxed max-w-4xl mx-auto">
             We're not just creating products we're crafting a team of product champions who push boundaries and deliver excellence.
             <br />
             Think you've got the spark?
@@ -250,7 +249,7 @@ export default function Careers() {
         </div>
 
         {/* Cards with scroll animation */}
-        <div className="space-y-6 mb-12">
+        <div className="space-y-6 md:space-y-8 mb-12 md:mb-16 max-w-3xl mx-auto">
           {teamQuotes.map((quote, index) => {
             const isLeft = index % 2 === 0;
             const isVisible = visibleCards.includes(index);
@@ -276,21 +275,21 @@ export default function Careers() {
                       ? 'bg-gradient-to-br from-[#005c89] to-[#00a3cc]' 
                       : 'bg-white border border-gray-200'
                     }
-                    rounded-2xl p-4 shadow-md max-w-[85%]
+                    rounded-2xl p-4 md:p-5 shadow-md max-w-[85%] md:max-w-[75%]
                     ${isLeft ? 'rounded-tl-sm' : 'rounded-tr-sm'}
                   `}
                 >
                   <p 
                     className={`
-                      text-sm leading-relaxed mb-3
+                      text-sm md:text-base leading-relaxed mb-3 md:mb-4
                       ${quote.gradient ? 'text-white' : 'text-gray-800'}
                     `}
                   >
                     "{quote.quote}"
                   </p>
 
-                  <div className="flex gap-3 items-center">
-                    <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0">
+                  <div className="flex gap-3 md:gap-4 items-center">
+                    <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden shrink-0">
                       <img 
                         src={quote.avatar} 
                         alt={quote.author}
@@ -301,7 +300,7 @@ export default function Careers() {
                     <div className="flex flex-col">
                       <p 
                         className={`
-                          text-xs font-bold
+                          text-xs md:text-sm font-bold
                           ${quote.gradient ? 'text-[#66c2e2]' : 'text-[#005c89]'}
                         `}
                       >
@@ -309,7 +308,7 @@ export default function Careers() {
                       </p>
                       <p 
                         className={`
-                          text-xs
+                          text-xs md:text-sm
                           ${quote.gradient ? 'text-[#66c2e2]/80' : 'text-[#005c89]/80'}
                         `}
                       >
@@ -329,7 +328,7 @@ export default function Careers() {
             onClick={() => router.push("/careers")} 
             className={`
               bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white 
-              px-12 py-4 rounded-full text-lg font-semibold 
+              px-12 md:px-16 py-4 md:py-5 rounded-full text-lg md:text-xl font-semibold 
               hover:opacity-90 transition-all duration-500
               ${showButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
             `}

@@ -22,7 +22,7 @@ const teamPhotoPositions = [
 
 const leadershipTeam = [
   { name: "Vidyanand Krishnan", role: "Founder, CEO", image: "/images/ea9ab769881ecbef17a1ee8f61ef0d854e440010.png" },
-  { name: "Sujith Chellappan", role: "MD, Sales and Operations, ANZ", image: "/images/1ff65672b25e8ee1fea3e17ba66c200d1c3294f2.png" },
+  { name: "Sujith Chellappan", role: "MD, S&O, ANZ", image: "/images/1ff65672b25e8ee1fea3e17ba66c200d1c3294f2.png" },
   { name: "Sreeprabha", role: "Program Lead", image: "/images/229320ea590322c52ad0db8e7533da4cd67039f2.png" },
   { name: "Stallon Selvan", role: "CTO", image: "/images/933fecc62b2892d17dfc22100b977c6d0d0c8765.png" },
   { name: "Vineetha Nambiar", role: "Technical Lead", image: "/images/7677f8afea32b88a8e5c37524020b9e07fcacbd5.png" },
@@ -221,7 +221,7 @@ export default function AboutUs() {
       <section className="bg-white px-6 sm:px-8 md:px-10 lg:px-[50px] py-10 sm:py-12 md:py-14 lg:py-[50px]">
         <div className="max-w-[1680px] mx-auto">
           {/* Desktop: Two Columns */}
-          <div className="hidden lg:flex gap-[20px]">
+          <div className="hidden xl:flex gap-[20px]">
             {/* Left Column - Our Journey */}
             <div className="flex-1 pl-[50px] pr-[20px]">
               <SectionHeading>Our Journey</SectionHeading>
@@ -272,7 +272,7 @@ export default function AboutUs() {
           </div>
 
           {/* Mobile/Tablet: Vertical Stack */}
-          <div className="lg:hidden flex flex-col gap-10 sm:gap-12 md:gap-14">
+          <div className="xl:hidden flex flex-col gap-10 sm:gap-12 md:gap-14">
             <div>
               <h2 className="text-[32px] sm:text-[38px] md:text-[44px] text-[#005c89] font-semibold leading-[1.2] sm:leading-[1.3] mb-4 sm:mb-5 md:mb-6">
                 Our Journey
@@ -305,39 +305,13 @@ export default function AboutUs() {
             </div>
 
             {/* Team Photos - Mobile/Tablet */}
-            <div className="grid grid-cols-2 gap-4 md:hidden max-w-[700px] mx-auto">
+            <div className="grid grid-cols-2 gap-4 max-w-[700px] mx-auto">
               {teamPhotos.map((img, index) => (
                 <TeamPhotoCard key={index} src={img} alt={`Team ${index + 1}`} className="w-full p-2 sm:p-[6px]" />
               ))}
             </div>
 
-            {/* Team Photos - Tablet (scaled tilted layout) */}
-            <div className="hidden md:block lg:hidden relative h-[320px] sm:h-[400px] md:h-[480px] w-full mx-auto max-w-[600px]">
-              {teamPhotos.map((img, index) => {
-                const mobilePositions = [
-                  { left: "5%", top: "8%", rotation: -6 },
-                  { right: "5%", top: "8%", rotation: 7 },
-                  { left: "8%", bottom: "8%", rotation: -5 },
-                  { right: "8%", bottom: "12%", rotation: 3 },
-                ];
-                const mobilePos = mobilePositions[index];
-                return (
-                  <div
-                    key={index}
-                    className="absolute"
-                    style={{
-                      ...(mobilePos.left && { left: mobilePos.left }),
-                      ...(mobilePos.right && { right: mobilePos.right }),
-                      ...(mobilePos.top && { top: mobilePos.top }),
-                      ...(mobilePos.bottom && { bottom: mobilePos.bottom }),
-                      transform: `rotate(${mobilePos.rotation}deg)`,
-                    }}
-                  >
-                    <TeamPhotoCard src={img} alt={`Team photo ${index + 1}`} className="w-[42%] sm:w-[45%] p-2 sm:p-[6px] md:p-2" />
-                  </div>
-                );
-              })}
-            </div>
+            {/* Tablet previously used a tilted absolute layout; keep a clean grid so md behaves like mobile */}
           </div>
         </div>
       </section>
@@ -350,7 +324,7 @@ export default function AboutUs() {
           </h2>
 
           {/* Desktop: 3x2 Grid with proper centering */}
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <div className="flex justify-center items-start gap-[150px] mb-[90px]">
               {coreValues.slice(0, 3).map((value, index) => (
                 <CoreValueCard key={index} icon={value.icon} title={value.title} delay={index * 150} />
@@ -364,7 +338,7 @@ export default function AboutUs() {
           </div>
 
           {/* Mobile/Tablet: 2 per row */}
-          <div className="lg:hidden grid grid-cols-2 gap-x-6 sm:gap-x-10 md:gap-x-16 gap-y-10 sm:gap-y-12 md:gap-y-16 max-w-[700px] mx-auto">
+          <div className="xl:hidden grid grid-cols-2 gap-x-6 sm:gap-x-10 md:gap-x-16 gap-y-10 sm:gap-y-12 md:gap-y-16 max-w-[700px] mx-auto">
             {coreValues.map((value, index) => (
               <CoreValueCardMobile key={index} icon={value.icon} title={value.title} delay={index * 100} />
             ))}
@@ -386,7 +360,7 @@ export default function AboutUs() {
           </div>
 
           {/* Desktop: 3 columns grid with center-aligned last row */}
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <div className="grid grid-cols-3 gap-x-[116px] gap-y-[60px]">
               {leadershipTeam.map((leader, index) => {
                 const isInLastRow = index >= leadershipTeam.length - lastRowCount;
@@ -414,7 +388,7 @@ export default function AboutUs() {
           </div>
 
           {/* Mobile/Tablet: 2 columns */}
-          <div className="lg:hidden grid grid-cols-2 gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-8 sm:gap-y-10 md:gap-y-12 justify-items-center">
+          <div className="xl:hidden grid grid-cols-2 gap-x-6 sm:gap-x-8 md:gap-x-12 gap-y-8 sm:gap-y-10 md:gap-y-12 justify-items-center">
             {leadershipTeam.map((leader, index) => {
               const isLastOdd = leadershipTeam.length % 2 === 1 && index === leadershipTeam.length - 1;
               return (
