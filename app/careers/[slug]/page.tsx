@@ -84,9 +84,9 @@ export default async function JobDetailPage(props: Props) {
       <div className="max-w-[1542px] mx-auto px-4 sm:px-5">
         {/* Job Title and Apply Button Section */}
         <div className="flex flex-col gap-6 sm:gap-8 md:gap-[50px] items-start px-3 sm:px-4 md:px-5 py-8 sm:py-10 md:py-[60px]">
-          <div className="flex flex-col gap-6 sm:gap-8 md:gap-[50px] items-start w-full">
-            <div className="flex flex-col items-start justify-center w-full">
-              <h1 className="font-medium leading-tight sm:leading-snug md:leading-[60px] text-3xl sm:text-4xl md:text-[48px] text-black w-full" style={{fontFamily: 'Inter, sans-serif'}}>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 w-full">
+            <div className="flex flex-col items-start justify-center w-full sm:flex-1 sm:pr-6">
+              <h1 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-4xl md:text-[48px] lg:text-[56px] text-black w-full">
                 {job.title}
               </h1>
             </div>
@@ -109,14 +109,14 @@ export default async function JobDetailPage(props: Props) {
           <div className="flex flex-col gap-5 sm:gap-6 md:gap-[30px] items-start w-full">
             <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
               <div className="flex flex-col items-start w-full">
-                <h2 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-3xl md:text-[40px] text-black w-full" style={{fontFamily: 'Inter, sans-serif'}}>
+                <h2 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-3xl md:text-[40px] lg:text-[44px] text-black w-full" style={{fontFamily: 'Inter, sans-serif'}}>
                   Job Description
                 </h2>
               </div>
             </div>
             <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
               {job.jobDescription && job.jobDescription.length > 0 && (
-                <div className="font-medium leading-relaxed sm:leading-normal md:leading-[60px] text-base sm:text-xl md:text-[24px] text-black w-full" style={{fontFamily: 'Inter, sans-serif'}}>
+                <div className="font-medium text-black w-full">
                   <PortableText className="job-description" value={job.jobDescription as PortableTextBlock[]} />
                 </div>
               )}
@@ -129,7 +129,7 @@ export default async function JobDetailPage(props: Props) {
           <div className="flex flex-col gap-5 sm:gap-6 md:gap-[30px] items-start w-full">
             <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
               <div className="flex flex-col items-start w-full">
-                <h2 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-3xl md:text-[40px] text-black w-full mb-0" style={{fontFamily: 'Inter, sans-serif'}}>
+                <h2 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-3xl md:text-[40px] lg:text-[44px] text-black w-full mb-0" style={{fontFamily: 'Inter, sans-serif'}}>
                   Roles and Responsibilities:
                 </h2>
                 {job.rolesAndResponsibilities && job.rolesAndResponsibilities.length > 0 && (
@@ -147,7 +147,7 @@ export default async function JobDetailPage(props: Props) {
           <div className="flex flex-col items-start w-full">
             <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
               <div className="flex flex-col items-start w-full">
-                <h2 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-3xl md:text-[40px] text-black w-full mb-0" style={{fontFamily: 'Inter, sans-serif'}}>
+                <h2 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-3xl md:text-[40px] lg:text-[44px] text-black w-full mb-0" style={{fontFamily: 'Inter, sans-serif'}}>
                   Qualifications:
                 </h2>
                 {job.qualifications && job.qualifications.length > 0 && (
@@ -165,7 +165,7 @@ export default async function JobDetailPage(props: Props) {
           <div className="flex flex-col items-start w-full">
             <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
               <div className="flex flex-col items-start w-full">
-                <h2 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-3xl md:text-[40px] text-black w-full mb-0" style={{fontFamily: 'Inter, sans-serif'}}>
+                <h2 className="font-semibold leading-tight sm:leading-snug md:leading-[60px] text-2xl sm:text-3xl md:text-[40px] lg:text-[44px] text-black w-full mb-0" style={{fontFamily: 'Inter, sans-serif'}}>
                   Benefits:
                 </h2>
                 {job.benefits && job.benefits.length > 0 && (

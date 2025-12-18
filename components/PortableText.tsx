@@ -44,10 +44,18 @@ export default function CustomPortableText({
       normal: ({children}) => {
         // Check if className includes job-specific styling
         if (isJobContent) {
-          return <p className="font-normal leading-[60px] text-[20px] text-black">{children}</p>
+          return (
+            <p className="font-normal text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-black">
+              {children}
+            </p>
+          )
         }
         if (className?.includes('job-description')) {
-          return <p className="font-medium leading-[60px] text-[24px] text-black">{children}</p>
+          return (
+            <p className="font-medium text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-black">
+              {children}
+            </p>
+          )
         }
         // Blog content styling - larger, more readable
         if (className?.includes('blog-content')) {
@@ -83,7 +91,9 @@ export default function CustomPortableText({
         if (isJobContent) {
           return (
             <li className="mb-0">
-              <span className="font-normal leading-[60px] text-[20px] text-black">{children}</span>
+              <span className="font-normal text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-black">
+                {children}
+              </span>
             </li>
           )
         }
@@ -93,7 +103,9 @@ export default function CustomPortableText({
         if (isJobContent) {
           return (
             <li className="mb-0">
-              <span className="font-normal leading-[60px] text-[20px] text-black">{children}</span>
+              <span className="font-normal text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-black">
+                {children}
+              </span>
             </li>
           )
         }

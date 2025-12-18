@@ -140,7 +140,7 @@ export default function Navigation() {
         }`}
       >
         <div className="py-4">
-          <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-1 flex items-center justify-between h-[60px]">
+          <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] flex items-center justify-between h-[60px]">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="h-[40px] relative">
@@ -153,7 +153,7 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop Nav links */}
-            <div className="hidden lg:flex bg-[rgba(215,237,248,0.8)] rounded-[26.282px] items-center absolute left-1/2 -translate-x-1/2">
+            <div className="hidden xl:flex bg-[rgba(215,237,248,0.8)] rounded-[26.282px] items-center absolute left-1/2 -translate-x-1/2">
               <Link 
                 href="/services" 
                 className={linkClasses("", true, false, pathname === "/services")}
@@ -191,7 +191,7 @@ export default function Navigation() {
             </div>
 
             {/* Desktop CTA Button */}
-            <div className="hidden lg:block">
+            <div className="hidden xl:block">
               <AnimatedButton onClick={openModal} className="scale-110">
                 Get in touch
               </AnimatedButton>
@@ -200,7 +200,7 @@ export default function Navigation() {
             {/* Mobile Hamburger Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden flex items-center justify-center w-10 h-10 text-black focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-lg transition-transform"
+              className="xl:hidden flex items-center justify-center w-10 h-10 text-black focus:outline-none focus:ring-2 focus:ring-primary/40 rounded-lg transition-transform"
               aria-label="Toggle menu"
             >
               <Menu className={`w-6 h-6 transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-0 absolute" : "opacity-100"}`} />
@@ -212,7 +212,7 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-lg transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-lg transition-opacity duration-300 xl:hidden ${
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIsMobileMenuOpen(false)}

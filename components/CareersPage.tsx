@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import HoverCard from "./HoverCard";
+
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,7 +13,7 @@ if (typeof window !== "undefined") {
 
 // Image assets
 const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg";
-const life="images/compressed_2a10271a41c28441412779781963630458378940.webp";
+const life = "images/compressed_2a10271a41c28441412779781963630458378940.webp";
 
 const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
 const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
@@ -34,10 +35,13 @@ interface CareersPageProps {
 export default function CareersPage({ jobs }: CareersPageProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentReasonIndex, setCurrentReasonIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false); // NEW: Transition lock
   const reasonToChooseRef = useRef<HTMLDivElement>(null);
   const frontCardRef = useRef<HTMLDivElement>(null);
   const starLeftRef = useRef<HTMLDivElement>(null);
   const starRightRef = useRef<HTMLDivElement>(null);
+  const activeTimelineRef = useRef<gsap.core.Timeline | null>(null); // NEW: Track active timeline
+  const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null); // NEW: Track autoplay timer
 
   const images = [img1, img2, img3];
   const reasonsToChoose = [
@@ -58,16 +62,32 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     },
   ];
 
-  // Update Reasons to Choose Us with slide and fade animations
+  // FIXED: Update Reasons to Choose Us with proper animation management
   useEffect(() => {
     const container = reasonToChooseRef.current;
-    if (!container) return;
+    if (!container || isTransitioning) return;
 
     const items = Array.from(container.querySelectorAll<HTMLElement>(".reason-item"));
     if (!items.length) return;
 
-    // Create a timeline to sequence animations: first fade out, then fade in
-    const tl = gsap.timeline();
+    // Kill any existing timeline
+    if (activeTimelineRef.current) {
+      activeTimelineRef.current.kill();
+      activeTimelineRef.current = null;
+    }
+
+    // Set transition lock
+    setIsTransitioning(true);
+
+    // Create a fresh timeline
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsTransitioning(false);
+        activeTimelineRef.current = null;
+      }
+    });
+
+    activeTimelineRef.current = tl;
 
     // Find outgoing items (all except current)
     const outgoingItems = items.filter((_, index) => index !== currentReasonIndex);
@@ -78,27 +98,27 @@ export default function CareersPage({ jobs }: CareersPageProps) {
       tl.to(outgoingItems, {
         opacity: 0,
         x: -100,
-        duration: 0.7,
+        duration: 0.5,
         ease: "power2.in",
       });
     }
 
-    // Then: fade in and slide in the new item (only after outgoing fully completes)
+    // Then: fade in and slide in the new item
     if (incomingItem) {
       // Set initial state for incoming item
       gsap.set(incomingItem, { opacity: 0, x: 100 });
       
-      // Add to timeline after outgoing animation fully completes
+      // Add to timeline - starts after previous animation ends
       tl.to(incomingItem, {
         opacity: 1,
         x: 0,
-        duration: 0.7,
+        duration: 0.5,
         ease: "power2.out",
-      }); // No overlap - starts after previous animation ends
+      });
     }
   }, [currentReasonIndex]);
 
-  // Auto-rotate Reasons to Choose Us every 5 seconds (desktop only)
+  // FIXED: Auto-rotate with proper cleanup and reset
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -106,12 +126,26 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     const isDesktop = window.innerWidth >= 1024;
     if (!isDesktop) return;
 
-    const interval = setInterval(() => {
-      setCurrentReasonIndex((prev) => (prev + 1) % reasonsToChoose.length);
+    // Clear any existing timer
+    if (autoplayTimerRef.current) {
+      clearInterval(autoplayTimerRef.current);
+    }
+
+    // Set new timer
+    autoplayTimerRef.current = setInterval(() => {
+      // Only advance if not currently transitioning
+      if (!isTransitioning) {
+        setCurrentReasonIndex((prev) => (prev + 1) % reasonsToChoose.length);
+      }
     }, 5000);
 
-    return () => clearInterval(interval);
-  }, [reasonsToChoose.length]);
+    return () => {
+      if (autoplayTimerRef.current) {
+        clearInterval(autoplayTimerRef.current);
+        autoplayTimerRef.current = null;
+      }
+    };
+  }, [reasonsToChoose.length, isTransitioning]);
 
   // Scroll animation for front card items - responsive
   useLayoutEffect(() => {
@@ -128,14 +162,13 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     const isMobile = window.innerWidth < 768;
     const startPosition = isMobile ? "top 80%" : "top 70%";
 
-    // IMPORTANT: make the animations play only once on first reveal
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: frontCard,
         start: startPosition,
         end: "bottom 20%",
-        toggleActions: "play none none none", // don't replay on re-enter
-        once: true, // ensure it only fires once
+        toggleActions: "play none none none",
+        once: true,
         invalidateOnRefresh: true,
       },
     });
@@ -149,24 +182,22 @@ export default function CareersPage({ jobs }: CareersPageProps) {
       stagger: 0.15,
     });
 
-    // Animate stars (desktop only) with a springy effect — also only once
+    // Animate stars (desktop only)
     const leftStar = starLeftRef.current;
     const rightStar = starRightRef.current;
 
     if (leftStar && rightStar) {
-      // set initial state
       gsap.set([leftStar, rightStar], { scale: 0.6, opacity: 0 });
 
-      // Add star animation to same timeline so they animate together when revealed
       tl.to(
         leftStar,
         { scale: 1, opacity: 0.3, duration: 1.2, ease: "elastic.out(1, 0.6)" },
-        "-=" // play overlapping with items
+        "-=0.6"
       );
       tl.to(
         rightStar,
         { scale: 1, opacity: 0.3, duration: 1.2, ease: "elastic.out(1, 0.6)" },
-        "-="
+        "-=1.2"
       );
     }
 
@@ -178,7 +209,6 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      // Kill ScrollTrigger and timeline created by this effect
       try {
         tl.scrollTrigger && tl.scrollTrigger.kill();
         tl.kill();
@@ -196,8 +226,25 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  // FIXED: Handle reason click with transition lock and timer reset
   const handleReasonClick = (index: number) => {
+    if (isTransitioning || index === currentReasonIndex) return;
+    
+    // Clear and restart autoplay timer
+    if (autoplayTimerRef.current) {
+      clearInterval(autoplayTimerRef.current);
+    }
+    
     setCurrentReasonIndex(index);
+    
+    // Restart autoplay after manual selection
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      autoplayTimerRef.current = setInterval(() => {
+        if (!isTransitioning) {
+          setCurrentReasonIndex((prev) => (prev + 1) % reasonsToChoose.length);
+        }
+      }, 5000);
+    }
   };
 
   const jobOpenings = jobs.map((job) => ({
@@ -291,15 +338,16 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               ))}
             </div>
             
-            {/* Dot indicators */}
+            {/* Dot indicators - FIXED: Added disabled state */}
             <div className="flex justify-center gap-3 mt-6">
               {reasonsToChoose.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => handleReasonClick(index)}
+                  disabled={isTransitioning}
                   className={`h-2 rounded-full transition-all ${
                     index === currentReasonIndex ? 'bg-black w-10' : 'bg-neutral-300 w-2'
-                  }`}
+                  } ${isTransitioning ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-neutral-400'}`}
                   aria-label={`Go to ${reasonsToChoose[index].title}`}
                 />
               ))}
@@ -331,7 +379,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Talent Approach Section */}
         <div className="relative min-h-[800px] sm:min-h-[1000px] md:min-h-[1200px] lg:h-[1439px] mb-[50px] sm:mb-[70px] lg:mb-[100px]">
-          {/* Star decorations - hidden on mobile */}
+          {/* Star decorations */}
           <div ref={starLeftRef} className="hidden lg:block absolute left-[288px] top-[416px] w-[100px] h-[100px] opacity-30">
             <svg viewBox="0 0 100 100" fill="none">
               <path d="M50 10 L55 45 L90 50 L55 55 L50 90 L45 55 L10 50 L45 45 Z" fill="#FFD700" />
@@ -353,14 +401,13 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           </div>
 
           <div className="relative lg:absolute lg:left-[397px] lg:top-[459px] w-full lg:w-[890px] mx-auto lg:mx-0">
-            {/* Back card - rotated 4 degrees (desktop only), empty, positioned behind */}
+            {/* Back card */}
             <div className="hidden lg:block absolute top-0 left-0 right-0 flex items-center justify-center z-10">
               <div className="bg-white rounded-[20px] shadow-[0px_0px_9px_0px_rgba(0,0,0,0.25)] w-[834px] h-[834px]" style={{ transform: 'rotate(4deg)' }}>
-                {/* Empty back card - just for visual depth effect */}
               </div>
             </div>
 
-            {/* Front card - rotated 359 degrees with scroll animation, contains all text, completely overlaps back card */}
+            {/* Front card */}
             <div className="relative lg:absolute lg:top-0 lg:-left-[20px] lg:right-0 flex items-center justify-center z-20">
               <div 
                 ref={frontCardRef}

@@ -118,15 +118,15 @@ export default function Careers() {
     <section className="bg-white overflow-hidden relative py-8 md:py-20">
       {/* Desktop Layout */}
       <div className="hidden lg:block min-h-[1111px]">
-        <div className="max-w-[1681px] mx-auto px-5 relative">
+        <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-[70px] relative">
           {/* Header Section */}
-          <div className="flex items-center justify-between mb-[40px]">
-            <h2 className="text-[48px] text-black font-bold leading-[85.4px] tracking-[1.44px] max-w-[1183px]">
+          <div className="flex items-start xl:items-center justify-between gap-6 mb-[40px]">
+            <h2 className="text-[36px] xl:text-[48px] text-black font-bold leading-tight xl:leading-[85.4px] tracking-[1.44px] max-w-[1183px]">
               The Next Big Move Is Yours
             </h2>
             <button 
               onClick={() => router.push("/careers")} 
-              className="bg-gradient-to-r cursor-pointer from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition scale-[1.45] z-20"
+              className="bg-gradient-to-r cursor-pointer from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition z-20 whitespace-nowrap"
             >
               Explore Roles
             </button>
@@ -134,7 +134,7 @@ export default function Careers() {
 
           {/* Description Text */}
           <div className="mb-[60px]">
-            <p className="text-[24px] text-[#005c89] leading-[40px] tracking-[0.72px] max-w-[1526px]">
+            <p className="text-[18px] xl:text-[24px] text-[#005c89] leading-relaxed xl:leading-[40px] tracking-[0.72px] max-w-[1526px]">
               We're not just creating products we're crafting a team of product champions who push boundaries and deliver excellence.
               <br />
               Think you've got the spark?
@@ -235,14 +235,14 @@ export default function Careers() {
       </div>
 
       {/* Mobile Layout - Chat Bubble Style */}
-      <div className="lg:hidden px-4 py-8">
+      <div className="lg:hidden px-4 sm:px-6 py-8">
         {/* Mobile Header Section - Before Cards */}
         <div className="mb-12 text-center space-y-6">
-          <h2 className="text-3xl text-black font-bold leading-tight px-4">
+          <h2 className="text-3xl text-black font-bold leading-tight">
             The Next Big Move Is Yours
           </h2>
           
-          <p className="text-base text-[#005c89] leading-relaxed px-4">
+          <p className="text-base text-[#005c89] leading-relaxed">
             We're not just creating products we're crafting a team of product champions who push boundaries and deliver excellence.
             <br />
             Think you've got the spark?

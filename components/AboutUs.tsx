@@ -380,7 +380,7 @@ export default function AboutUs() {
             <h2 className="text-[32px] sm:text-[38px] md:text-[44px] lg:text-[48px] text-black font-bold leading-[1.3] sm:leading-[1.5] lg:leading-[97.8px] tracking-[-0.02em] lg:tracking-[-0.48px] mb-2 sm:mb-3">
               Our Leadership Team
             </h2>
-            <p className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black font-semibold leading-[1.6] sm:leading-[1.8] lg:leading-[97.8px] tracking-[-0.01em] lg:tracking-[-0.24px]">
+            <p className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black font-medium leading-[1.6] sm:leading-[1.8] lg:leading-[97.8px] tracking-[-0.01em] lg:tracking-[-0.24px]">
               Visionaries behind our promise to build world-class products together.
             </p>
           </div>

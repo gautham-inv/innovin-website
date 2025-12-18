@@ -412,10 +412,10 @@ export default function Services() {
       {/* Desktop Version */}
       <section ref={sectionRef} id="services" className="hidden lg:block bg-black relative h-screen overflow-hidden" style={{ willChange: 'transform' }}>
         {/* Titles */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-20 space-y-1">
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 xl:pl-20 space-y-1">
           <div ref={titleOurRef} className="overflow-hidden">
             <h2 
-              className="text-[82px] text-white font-medium leading-[90px] tracking-[-1.2px] inline-block"
+              className="text-[56px] xl:text-[82px] text-white font-medium leading-[62px] xl:leading-[90px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               our
@@ -423,7 +423,7 @@ export default function Services() {
           </div>
           <div ref={titleServicesRef} className="overflow-hidden">
             <h2 
-              className="text-[82px] text-white font-medium leading-[90px] tracking-[-1.2px] inline-block"
+              className="text-[56px] xl:text-[82px] text-white font-medium leading-[62px] xl:leading-[90px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               services
@@ -439,7 +439,7 @@ export default function Services() {
         </div>
 
         {/* Cards */}
-        <div className="absolute left-[60%] top-1/2 -translate-x-1/2 w-[1100px] h-[700px]">
+        <div className="absolute left-[62%] xl:left-[60%] top-1/2 -translate-x-1/2 w-[900px] xl:w-[1100px] h-[620px] xl:h-[700px]">
           {services.map((service, index) => (
             <a
               key={index}
