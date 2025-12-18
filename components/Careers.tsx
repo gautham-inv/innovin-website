@@ -71,6 +71,7 @@ const teamQuotes = [
 export default function Careers() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const [showButton, setShowButton] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -83,14 +84,21 @@ export default function Careers() {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 setTimeout(() => {
-                  setVisibleCards((prev) => [...new Set([...prev, index])]);
+                  setVisibleCards((prev) => {
+                    const newCards = [...new Set([...prev, index])];
+                    // Show button after all cards are visible
+                    if (newCards.length === teamQuotes.length) {
+                      setTimeout(() => setShowButton(true), 300);
+                    }
+                    return newCards;
+                  });
                 }, index * 150); // Staggered delay
               }
             });
           },
           {
-            threshold: 0.5,
-            rootMargin: '-100px 0px'
+            threshold: 0.2,
+            rootMargin: '100px 0px'
           }
         );
         
@@ -228,7 +236,21 @@ export default function Careers() {
 
       {/* Mobile Layout - Chat Bubble Style */}
       <div className="lg:hidden px-4 py-8">
-        <div className="space-y-6">
+        {/* Mobile Header Section - Before Cards */}
+        <div className="mb-12 text-center space-y-6">
+          <h2 className="text-3xl text-black font-bold leading-tight px-4">
+            The Next Big Move Is Yours
+          </h2>
+          
+          <p className="text-base text-[#005c89] leading-relaxed px-4">
+            We're not just creating products we're crafting a team of product champions who push boundaries and deliver excellence.
+            <br />
+            Think you've got the spark?
+          </p>
+        </div>
+
+        {/* Cards with scroll animation */}
+        <div className="space-y-6 mb-12">
           {teamQuotes.map((quote, index) => {
             const isLeft = index % 2 === 0;
             const isVisible = visibleCards.includes(index);
@@ -301,19 +323,17 @@ export default function Careers() {
           })}
         </div>
 
-        {/* Mobile Header Section - After Cards */}
-        <div className="mt-12 text-center space-y-6">
-          <h2 className="text-3xl text-black font-bold leading-tight px-4">
-            The Next Big Move Is Yours
-          </h2>
-          
-          <p className="text-base text-[#005c89] leading-relaxed px-4">
-            We're not just creating products we're crafting a team of product champions who push boundaries and deliver excellence.
-            <br />
-            Think you've got the spark?
-          </p>
-          
-          <button onClick={() => router.push("/careers")} className="bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition">
+        {/* Button at the end */}
+        <div className="text-center">
+          <button 
+            onClick={() => router.push("/careers")} 
+            className={`
+              bg-gradient-to-r from-[#005c89] to-[#00a3cc] text-white 
+              px-12 py-4 rounded-full text-lg font-semibold 
+              hover:opacity-90 transition-all duration-500
+              ${showButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
+            `}
+          >
             Explore Roles
           </button>
         </div>

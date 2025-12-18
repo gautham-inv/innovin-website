@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { type PortableTextBlock } from "next-sanity";
 import { sanityFetch } from "@/lib/sanity/lib/live";
+import { getSanityFetchConfig } from "@/lib/sanity/lib/preview";
 import { postQuery, postSlugs, relatedPostsQuery } from "@/lib/sanity/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,11 +35,12 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
+  const { perspective, stega } = await getSanityFetchConfig();
   const { data: post } = await sanityFetch({
     query: postQuery,
     params: { slug: params.slug },
-    perspective: "published",
-    stega: false,
+    perspective,
+    stega,
   });
 
   if (!post) {
@@ -65,11 +67,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function BlogPost(props: Props) {
   const params = await props.params;
+  const { perspective, stega } = await getSanityFetchConfig();
   const { data: post } = await sanityFetch({
     query: postQuery,
     params: { slug: params.slug },
-    perspective: "published",
-    stega: false,
+    perspective,
+    stega,
   });
 
   if (!post) {
@@ -93,8 +96,8 @@ export default async function BlogPost(props: Props) {
         currentSlug: params.slug,
         categoryId: primaryCategoryId 
       },
-      perspective: "published",
-      stega: false,
+      perspective,
+      stega,
     });
     relatedPosts = data || [];
   }

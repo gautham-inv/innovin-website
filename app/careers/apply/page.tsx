@@ -244,12 +244,12 @@ function ApplyForm() {
   return (
     <div className="bg-white min-h-screen">
       <Navigation />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-24">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 text-sm sm:text-base">
         <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-black mb-2">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-black mb-2 leading-tight">
             Apply for {jobTitle}
           </h1>
-          <p className="text-gray-600 text-sm sm:text-base">
+          <p className="text-gray-600 text-xs sm:text-sm">
             Please fill in all the required fields below.
           </p>
         </div>
@@ -277,7 +277,7 @@ function ApplyForm() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Name */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="name" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 Name of the Applicant <span className="text-red-500">*</span>
               </label>
               <input
@@ -286,17 +286,17 @@ function ApplyForm() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                   errors.name ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="Full Name"
               />
-              {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+              {errors.name && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.name}</p>}
             </div>
 
             {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 Email Id <span className="text-red-500">*</span>
               </label>
               <input
@@ -305,17 +305,17 @@ function ApplyForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                   errors.email ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="abc@example.com"
               />
-              {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
+              {errors.email && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.email}</p>}
             </div>
 
             {/* WhatsApp */}
             <div>
-              <label htmlFor="whatsapp" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="whatsapp" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 WhatsApp Contact <span className="text-red-500">*</span>
               </label>
               <div className="flex gap-2">
@@ -323,7 +323,7 @@ function ApplyForm() {
                   name="countryCode"
                   value={formData.countryCode}
                   onChange={handleChange}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] bg-white"
+                  className="px-2.5 sm:px-3 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] bg-white"
                 >
                   <option value="+1">🇺🇸 +1</option>
                   <option value="+44">🇬🇧 +44</option>
@@ -342,19 +342,19 @@ function ApplyForm() {
                   name="whatsapp"
                   value={formData.whatsapp}
                   onChange={handleChange}
-                  className={`flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+                  className={`flex-1 px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                     errors.whatsapp ? "border-red-500" : "border-gray-300"
                   }`}
                   placeholder="1234567890"
                 />
               </div>
-              {errors.whatsapp && <p className="mt-1 text-sm text-red-500">{errors.whatsapp}</p>}
+              {errors.whatsapp && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.whatsapp}</p>}
               <p className="mt-1 text-xs text-gray-500">Enter number without country code</p>
             </div>
 
             {/* Specialization */}
             <div>
-              <label htmlFor="specialization" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="specialization" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 BE/BTech Specialization <span className="text-red-500">*</span>
               </label>
               <input
@@ -363,19 +363,19 @@ function ApplyForm() {
                 name="specialization"
                 value={formData.specialization}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                   errors.specialization ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="Eg: Computer Science"
               />
               {errors.specialization && (
-                <p className="mt-1 text-sm text-red-500">{errors.specialization}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.specialization}</p>
               )}
             </div>
 
             {/* CGPA */}
             <div>
-              <label htmlFor="cgpa" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="cgpa" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 CGPA <span className="text-red-500">*</span>
                 <span className="text-xs text-gray-500 ml-2">
                   (if 2025 pass outs SGPA upto 7th semester)
@@ -390,17 +390,17 @@ function ApplyForm() {
                 step="0.01"
                 min="0"
                 max="10"
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                   errors.cgpa ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="8.5"
               />
-              {errors.cgpa && <p className="mt-1 text-sm text-red-500">{errors.cgpa}</p>}
+              {errors.cgpa && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.cgpa}</p>}
             </div>
 
             {/* College */}
             <div>
-              <label htmlFor="college" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="college" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 College <span className="text-red-500">*</span>
               </label>
               <input
@@ -409,17 +409,17 @@ function ApplyForm() {
                 name="college"
                 value={formData.college}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                   errors.college ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="University Name"
               />
-              {errors.college && <p className="mt-1 text-sm text-red-500">{errors.college}</p>}
+              {errors.college && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.college}</p>}
             </div>
 
             {/* Year of Graduation */}
             <div>
-              <label htmlFor="yearOfGrad" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="yearOfGrad" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 Year of Graduation <span className="text-red-500">*</span>
               </label>
               <select
@@ -427,7 +427,7 @@ function ApplyForm() {
                 name="yearOfGrad"
                 value={formData.yearOfGrad}
                 onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                   errors.yearOfGrad ? "border-red-500" : "border-gray-300"
                 }`}
               >
@@ -444,22 +444,22 @@ function ApplyForm() {
                   value={formData.yearOfGradOther}
                   onChange={handleChange}
                   placeholder="Enter year"
-                  className={`w-full mt-2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+                  className={`w-full mt-2 px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                     errors.yearOfGradOther ? "border-red-500" : "border-gray-300"
                   }`}
                 />
               )}
               {errors.yearOfGrad && (
-                <p className="mt-1 text-sm text-red-500">{errors.yearOfGrad}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.yearOfGrad}</p>
               )}
               {errors.yearOfGradOther && (
-                <p className="mt-1 text-sm text-red-500">{errors.yearOfGradOther}</p>
+                <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.yearOfGradOther}</p>
               )}
             </div>
 
             {/* Backlogs */}
             <div>
-              <label htmlFor="backlogs" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="backlogs" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                 No of Backlogs <span className="text-red-500">*</span>
               </label>
               <select
@@ -467,7 +467,7 @@ function ApplyForm() {
                 name="backlogs"
                 value={formData.backlogs}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89]"
+                className="w-full px-3 sm:px-4 py-2 text-sm sm:text-base border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89]"
               >
                 <option value="Nil">Nil</option>
                 <option value="<=2">&lt;=2</option>
@@ -478,7 +478,7 @@ function ApplyForm() {
 
           {/* Resume Upload */}
           <div>
-            <label htmlFor="resume" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="resume" className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
               Upload your Latest Resume <span className="text-red-500">*</span>
             </label>
             <input
@@ -487,13 +487,13 @@ function ApplyForm() {
               name="resume"
               accept="application/pdf"
               onChange={handleFileChange}
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
+              className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
                 errors.resume ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {errors.resume && <p className="mt-1 text-sm text-red-500">{errors.resume}</p>}
+            {errors.resume && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.resume}</p>}
             {formData.resume && (
-              <p className="mt-2 text-sm text-gray-600">Selected: {formData.resume.name}</p>
+              <p className="mt-2 text-xs sm:text-sm text-gray-600">Selected: {formData.resume.name}</p>
             )}
             <p className="mt-1 text-xs text-gray-500">PDF only, max 5MB</p>
           </div>
@@ -503,14 +503,14 @@ function ApplyForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 bg-gradient-to-r from-[#66c2e2] to-[#005c89] text-white font-semibold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-gradient-to-r from-[#66c2e2] to-[#005c89] text-white font-semibold text-sm sm:text-base py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Submitting..." : "Submit Application"}
             </button>
             <button
               type="button"
               onClick={() => router.back()}
-              className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancel
             </button>

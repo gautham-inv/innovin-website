@@ -89,7 +89,7 @@ function CoreValueCard({ icon, title, delay = 0 }: { icon: string; title: string
       <div className="w-[200px] h-[165px] mb-[13px] text-[80px] flex items-center justify-center">
         {icon}
       </div>
-      <p className="text-[25px] text-white leading-[54px] tracking-[-0.375px]">
+      <p className="text-[25px] text-white leading-[54px] tracking-[-0.375px] text-center">
         {title}
       </p>
     </div>
@@ -147,7 +147,7 @@ function CoreValueCardMobile({ icon, title, delay = 0 }: { icon: string; title: 
 function LeadershipCard({ name, role, image }: { name: string; role: string; image: string }) {
   return (
     <div className="flex flex-col gap-[24px]">
-      <div className="w-full h-[503px] rounded-[10px] overflow-hidden">
+      <div className="w-full h-[450px] rounded-[10px] overflow-hidden">
         <img src={image} alt={name} className="w-full h-full object-cover" />
       </div>
       <div className="flex flex-col gap-[9px] leading-[34px]">
@@ -184,6 +184,10 @@ export default function AboutUs() {
     "That experience birthed our mission: to help startups and scale-ups become successful companies. Today, we work hand-in-hand with founders, offering tailored tech solutions, product expertise, and the support needed to overcome technical barriers. Treating every product as our own, we transform raw ideas into thriving realities and walk alongside our partners through every stage of product development.",
     "Our story isn't just about technology — it's about shared experience, collaboration, and a commitment to helping your vision succeed. Don't let tech challenges slow your momentum. Partner with Innovin Labs, and let us empower your journey.",
   ];
+
+  // Calculate how many items in the last row for leadership team
+  const lastRowCount = leadershipTeam.length % 3;
+  const needsCentering = lastRowCount !== 0;
 
   return (
     <div className="bg-white w-full">
@@ -345,14 +349,14 @@ export default function AboutUs() {
             The <span className="text-[#66c2e2] text-[32px] sm:text-[40px] md:text-[52px] lg:text-[70px] font-medium">6 core values</span> that are embedded in our everyday work practices:
           </h2>
 
-          {/* Desktop: 3x2 Grid */}
+          {/* Desktop: 3x2 Grid with proper centering */}
           <div className="hidden lg:block">
-            <div className="flex justify-center gap-[200px] mb-[90px]">
+            <div className="flex justify-center items-start gap-[150px] mb-[90px]">
               {coreValues.slice(0, 3).map((value, index) => (
                 <CoreValueCard key={index} icon={value.icon} title={value.title} delay={index * 150} />
               ))}
             </div>
-            <div className="flex justify-center gap-[200px]">
+            <div className="flex justify-center items-start gap-[150px]">
               {coreValues.slice(3, 6).map((value, index) => (
                 <CoreValueCard key={index + 3} icon={value.icon} title={value.title} delay={(index + 3) * 150} />
               ))}
@@ -381,11 +385,32 @@ export default function AboutUs() {
             </p>
           </div>
 
-          {/* Desktop: 3 columns grid */}
-          <div className="hidden lg:grid grid-cols-3 gap-x-[116px] gap-y-[60px]">
-            {leadershipTeam.map((leader, index) => (
-              <LeadershipCard key={index} name={leader.name} role={leader.role} image={leader.image} />
-            ))}
+          {/* Desktop: 3 columns grid with center-aligned last row */}
+          <div className="hidden lg:block">
+            <div className="grid grid-cols-3 gap-x-[116px] gap-y-[60px]">
+              {leadershipTeam.map((leader, index) => {
+                const isInLastRow = index >= leadershipTeam.length - lastRowCount;
+                const shouldCenter = needsCentering && isInLastRow;
+                
+                return (
+                  <div
+                    key={index}
+                    className={shouldCenter ? "col-start-2" : ""}
+                    style={
+                      shouldCenter && lastRowCount === 1
+                        ? { gridColumn: "2 / 3" }
+                        : shouldCenter && lastRowCount === 2 && index === leadershipTeam.length - 2
+                        ? { gridColumn: "1 / 2", marginLeft: "auto", marginRight: "58px" }
+                        : shouldCenter && lastRowCount === 2 && index === leadershipTeam.length - 1
+                        ? { gridColumn: "2 / 3", marginLeft: "58px", marginRight: "auto" }
+                        : {}
+                    }
+                  >
+                    <LeadershipCard name={leader.name} role={leader.role} image={leader.image} />
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Mobile/Tablet: 2 columns */}

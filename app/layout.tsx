@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import { draftMode } from "next/headers";
-import { VisualEditing } from "next-sanity";
-import { Toaster } from "sonner";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
-import { SanityLive } from "@/lib/sanity/lib/live";
-import { handleError } from "./client-utils";
 import { Manrope } from "next/font/google";
 import { ContactModalProvider } from "@/components/ContactModal";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -39,19 +34,25 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { isEnabled: isDraftMode } = await draftMode();
+  // IMPORTANT FOR PERFORMANCE:
+  // Calling `draftMode()` (or `cookies()` / `headers()`) in the root layout makes the whole app dynamic,
+  // which can significantly slow down a hosted site by disabling static optimization.
+  //
+  // We only load Sanity Live + Visual Editing in non-production builds by default.
+  // To explicitly enable them in production, set:
+  //   NEXT_PUBLIC_ENABLE_SANITY_PREVIEW=true
+  const enableSanityPreviewTools =
+    process.env.NODE_ENV !== "production" ||
+    process.env.NEXT_PUBLIC_ENABLE_SANITY_PREVIEW === "true";
+
+  const SanityPreviewTools = enableSanityPreviewTools
+    ? (await import("./sanity-preview-tools")).default
+    : null;
 
   return (
     <html lang="en" className={manrope.variable}>
       <body className="antialiased">
-        {/* Toast notifications for Sanity Live errors - only show in draft mode */}
-        {isDraftMode && <Toaster />}
-        {/* SanityLive enables live updates - ONLY render in draft mode to prevent CORS errors for end users */}
-        {isDraftMode && <SanityLive onError={handleError} />}
-        {/* VisualEditing shows edit overlays - only render in draft mode */}
-        {isDraftMode && (
-          <VisualEditing />
-        )}
+        {SanityPreviewTools ? <SanityPreviewTools /> : null}
         <ContactModalProvider>
           <ScrollToTop />
           <SessionTracker />

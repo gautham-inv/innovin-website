@@ -70,7 +70,13 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="lg:absolute lg:left-[79.11px] lg:top-[789.17px] lg:w-[1466.03px] flex flex-col sm:flex-row gap-4 sm:gap-0 items-start sm:items-center justify-between text-white text-[13px] sm:text-[14px] lg:text-[15.627px] leading-[1.5] sm:leading-[27.884px]">
           <p>Innovin Labs ©,2025, All rights reserved</p>
-          <p className="hover:text-[#b4b7bc] transition-colors cursor-pointer">Privacy Policy</p>
+          <button
+            type="button"
+            onClick={() => router.push("/privacy")}
+            className="hover:text-[#b4b7bc] transition-colors cursor-pointer"
+          >
+            Privacy Policy
+          </button>
         </div>
       </div>
     </footer>

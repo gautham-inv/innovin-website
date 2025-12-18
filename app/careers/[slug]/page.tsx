@@ -3,6 +3,7 @@ import type {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import {type PortableTextBlock} from 'next-sanity'
 import {sanityFetch} from '@/lib/sanity/lib/live'
+import {getSanityFetchConfig} from '@/lib/sanity/lib/preview'
 import {jobSlugs, jobQuery} from '@/lib/sanity/lib/queries'
 import PortableText from '@/components/PortableText'
 import Footer from '@/components/Footer'
@@ -37,10 +38,12 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   try {
+    const {perspective, stega} = await getSanityFetchConfig()
     const {data: job} = await sanityFetch({
       query: jobQuery,
       params,
-      stega: false,
+      perspective,
+      stega,
     })
 
     if (!job) {
@@ -62,9 +65,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function JobDetailPage(props: Props) {
   const params = await props.params
+  const {perspective, stega} = await getSanityFetchConfig()
   const {data: job} = await sanityFetch({
     query: jobQuery,
     params,
+    perspective,
+    stega,
   })
 
   if (!job?._id) {

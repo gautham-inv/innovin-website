@@ -81,6 +81,14 @@ This project is configured for static export. You can deploy to:
 - ✅ Ready for Sanity CMS integration (placeholder functions included)
 - ✅ Ready for Supabase integration (placeholder functions included)
 
+## Sanity live preview / visual editing (performance note)
+
+This website integrates `next-sanity` Live Preview / Visual Editing.
+
+- **Why the hosted site can feel slower**: calling `draftMode()` (or `cookies()` / `headers()`) in the root `app/layout.tsx` forces the whole app to be dynamically rendered, which can disable static optimizations and slow down production.
+- **What we changed**: preview tooling is now gated and **disabled in production by default** to keep the public site fast.
+- **Enable in production (optional)**: set `NEXT_PUBLIC_ENABLE_SANITY_PREVIEW=true`
+
 ## Current Status
 
 The website is fully functional with placeholder content. All components are built and styled according to the Figma design. External services (Sanity CMS and Supabase) are not required to run the site.

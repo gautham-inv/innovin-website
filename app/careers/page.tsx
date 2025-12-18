@@ -1,5 +1,6 @@
 import CareersPage from "@/components/CareersPage";
 import { sanityFetch } from "@/lib/sanity/lib/live";
+import { getSanityFetchConfig } from "@/lib/sanity/lib/preview";
 import { allJobsQuery } from "@/lib/sanity/lib/queries";
 import Footer from "@/components/Footer";
 
@@ -13,10 +14,11 @@ export default async function Careers() {
   let jobs: any[] = [];
   
   try {
+    const { perspective, stega } = await getSanityFetchConfig();
     const result = await sanityFetch({
       query: allJobsQuery,
-      perspective: 'published',
-      stega: false,
+      perspective,
+      stega,
     });
     jobs = result.data || [];
     console.log(`✅ Fetched ${jobs.length} active jobs from Sanity`);
