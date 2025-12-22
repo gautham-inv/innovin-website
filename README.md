@@ -49,6 +49,9 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# Webmaster / SEO Configuration
+NEXT_PUBLIC_SITE_URL=https://innovinlabs.com  # Base URL for sitemap and robots.txt
 ```
 
 **Note:** The site currently uses placeholder content and works without any external services.
@@ -80,6 +83,22 @@ This project is configured for static export. You can deploy to:
 - ✅ Modern UI/UX
 - ✅ Ready for Sanity CMS integration (placeholder functions included)
 - ✅ Ready for Supabase integration (placeholder functions included)
+
+## Webmaster / SEO Configuration
+
+The website includes automatic sitemap and robots.txt generation:
+
+- **Sitemap** (`/sitemap.xml`): Automatically generated at build time, includes:
+  - All static pages (home, about, services, why-us, blog, careers, privacy)
+  - Dynamic blog posts from Sanity CMS
+  - Dynamic job postings from Sanity CMS
+- **Robots.txt** (`/robots.txt`): Configured to allow all crawlers, disallows:
+  - `/api/` routes
+  - `/admin/` routes
+  - `/_next/` internal Next.js files
+  - `/draft-mode/` preview routes
+
+**Configuration**: Set `NEXT_PUBLIC_SITE_URL` environment variable (defaults to `https://innovinlabs.com`).
 
 ## Sanity live preview / visual editing (performance note)
 

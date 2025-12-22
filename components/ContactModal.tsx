@@ -356,11 +356,11 @@ function ContactModal() {
         {/* Header */}
         <div className="bg-[#131518] flex flex-col sm:flex-row gap-2 sm:gap-[361px] min-h-[54px] h-auto sm:h-[54px] items-start sm:items-center px-4 sm:px-[30px] py-3 sm:py-[10px] rounded-tl-[12px] sm:rounded-tl-[16px] lg:rounded-tl-[20px] rounded-tr-[12px] sm:rounded-tr-[16px] lg:rounded-tr-[20px] shrink-0 relative">
           <div className="flex-1 w-full sm:w-auto">
-            {!showSuccess && currentStep === 1 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your name?</p>}
-            {!showSuccess && currentStep === 2 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your company name</p>}
-            {!showSuccess && currentStep === 3 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap">What's your email</p>}
-            {!showSuccess && currentStep === 4 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px] text-nowrap whitespace-nowrap lg:whitespace-nowrap">What can we help you with</p>}
-            {!showSuccess && currentStep === 5 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#878787] text-[14px] sm:text-[16px]">Confirm messsage</p>}
+            {!showSuccess && currentStep === 1 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your name?</p>}
+            {!showSuccess && currentStep === 2 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your company name</p>}
+            {!showSuccess && currentStep === 3 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] text-nowrap">What's your email</p>}
+            {!showSuccess && currentStep === 4 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] text-nowrap whitespace-nowrap lg:whitespace-nowrap">What can we help you with</p>}
+            {!showSuccess && currentStep === 5 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px]">Confirm messsage</p>}
             {showSuccess && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#66c2e2] text-[14px] sm:text-[16px]">Thank you!</p>}
           </div>
         </div>

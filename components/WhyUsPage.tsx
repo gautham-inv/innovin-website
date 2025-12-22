@@ -1,8 +1,8 @@
 "use client";
 
 // Icon assets
-const iconNetwork = "/images/4076a00dcf114223bee46321b8b5539570416f58.svg";
-const iconTalents = "/images/30e10ea8e914fc7e3b7c930fb0ab9e24eedb665b.svg";
+const iconNetwork = "/images/techstack/4076a00dcf114223bee46321b8b5539570416f58.svg";
+const iconTalents = "/images/techstack/30e10ea8e914fc7e3b7c930fb0ab9e24eedb665b.svg";
 const imgUniqueValueProposition = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
 export default function WhyUsPage() {
 

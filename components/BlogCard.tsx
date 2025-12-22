@@ -51,7 +51,7 @@ export default function BlogCard({
   return (
     <Link
       href={`/blog/${slug}`}
-      className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] group w-full min-w-0"
+      className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] group xl:max-w-[520px] w-full min-w-0"
     >
       {/* Image Container */}
       <div className="bg-white h-[244px] overflow-hidden relative rounded-[16px] w-full">

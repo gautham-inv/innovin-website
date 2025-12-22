@@ -59,7 +59,7 @@ export default function ServicesPage() {
     <div className="bg-white flex flex-col items-start px-0 py-5 sm:py-6 lg:py-[20px] relative min-h-screen w-full pt-24 sm:pt-28 lg:pt-32">
       {/* Hero Section */}
       <div className="w-full px-4 sm:px-6 lg:px-8 py-5 sm:py-6 lg:py-[20px]">
-          <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[150px] items-start relative w-full max-w-[1542px] mx-auto">
+          <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[80px] items-start relative w-full max-w-[1542px] mx-auto">
           {/* Header Section */}
           <div className="flex flex-col items-start px-4 sm:px-5 lg:px-[20px] py-0 relative w-full">
             <div className="flex items-start pl-0 pr-4 sm:pr-5 lg:pr-[20px] py-4 sm:py-5 lg:py-[20px] relative w-full">

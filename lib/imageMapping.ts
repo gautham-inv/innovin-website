@@ -35,9 +35,9 @@ export const images = {
 // These are the 39 SVG files downloaded - mapping needs to be verified against Figma design
 export const techStackLogos = {
   // Common tech stack logos (order may need adjustment based on Figma design)
-  html5: "/images/d1f3457c582c326cacd5999f9462244cd0b086a6.svg",
-  javascript: "/images/d1fe1a927e11f7d2b0833f603607ab2e0464cb5b.svg",
-  googleCloud: "/images/d6bfd701a788246b82a09a8007bc04b677cc62ba.svg",
+  html5: "/images/techstack/d1f3457c582c326cacd5999f9462244cd0b086a6.svg",
+  javascript: "/images/techstack/d1fe1a927e11f7d2b0833f603607ab2e0464cb5b.svg",
+  googleCloud: "/images/techstack/d6bfd701a788246b82a09a8007bc04b677cc62ba.svg",
   // Add more mappings as needed - there are 39 SVG files total
 } as const;
 

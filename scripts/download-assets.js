@@ -28,12 +28,7 @@ const requiredAssets = {
 
 // Core values SVG icons
 const coreValuesIcons = [
-  'imgVector2X71.svg',  // Be Customer Obsessed
-  'imgVector2X81.svg',  // Excellence
-  'imgVector2X91.svg',  // Honesty and Integrity
-  'imgVector2X101.svg', // Entrepreneurial Mindset
-  'imgVector2X111.svg', // Give more than you take
-  'imgVector2X121.svg', // Make progress over perfection
+  'c1.png'// Make progress over perfection
 ];
 
 function checkAsset(filename) {

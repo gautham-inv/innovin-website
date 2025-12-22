@@ -31,12 +31,12 @@ const leadershipTeam = [
 ];
 
 const coreValues = [
-  { title: "Be Customer Obsessed", icon: "🎯" },
-  { title: "Excellence", icon: "🏆" },
-  { title: "Honesty and Integrity", icon: "⚖️" },
-  { title: "Entrepreneurial Mindset", icon: "💡" },
-  { title: "Give more than you take", icon: "🤝" },
-  { title: "Make progress over perfection", icon: "📈" },
+  { title: "Be Customer Obsessed", icon: "/images/c1.png" },
+  { title: "Excellence", icon: "/images/c2.png" },
+  { title: "Honesty and Integrity", icon: "/images/c3.png" },
+  { title: "Entrepreneurial Mindset", icon: "/images/c4.png" },
+  { title: "Give more than you take", icon: "/images/c5.png" },
+  { title: "Make progress over perfection", icon: "/images/c6.png" },
 ];
 
 // Reusable Components
@@ -47,6 +47,7 @@ function TeamPhotoCard({ src, alt, className = "", style = {} }: { src: string; 
     </div>
   );
 }
+
 
 function CoreValueCard({ icon, title, delay = 0 }: { icon: string; title: string; delay?: number }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -81,15 +82,15 @@ function CoreValueCard({ icon, title, delay = 0 }: { icon: string; title: string
   return (
     <div 
       ref={cardRef}
-      className={`flex flex-col items-center transition-all duration-700 ease-out ${
+      className={`flex flex-col items-center transition-all duration-700 ease-out w-[200px] ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="w-[200px] h-[165px] mb-[13px] text-[80px] flex items-center justify-center">
-        {icon}
+      <div className="w-[200px] h-[165px] mb-[13px] text-[80px] flex items-center justify-center flex-shrink-0">
+        <img src={icon} alt={title} className="w-full h-full object-cover" />
       </div>
-      <p className="text-[25px] text-white leading-[54px] tracking-[-0.375px] text-center">
+      <p className="text-[25px] text-white leading-[1.4] tracking-[-0.375px] text-center break-words">
         {title}
       </p>
     </div>
@@ -135,7 +136,7 @@ function CoreValueCardMobile({ icon, title, delay = 0 }: { icon: string; title: 
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] mb-3 sm:mb-4 text-[50px] sm:text-[60px] md:text-[70px] flex items-center justify-center">
-        {icon}
+        <img src={icon} alt={title} className="w-full h-full object-cover" />
       </div>
       <p className="text-[15px] sm:text-[17px] md:text-[20px] text-white leading-[1.5] sm:leading-[1.6] text-center">
         {title}
@@ -319,18 +320,18 @@ export default function AboutUs() {
       {/* Core Values Section */}
       <section className="bg-black py-16 sm:py-20 md:py-24 lg:py-[126px] overflow-hidden relative px-6 sm:px-8 md:px-10">
         <div className="max-w-[1680px] mx-auto text-center">
-          <h2 className="text-[28px] sm:text-[36px] md:text-[48px] lg:text-[64px] text-white leading-[1.3] sm:leading-[1.4] lg:leading-[60px] tracking-[-0.02em] lg:tracking-[-0.96px] mb-12 sm:mb-16 md:mb-24 lg:mb-[200px] px-4">
+          <h2 className="text-[28px] sm:text-[36px] md:text-[48px] lg:text-[64px] text-white leading-[1.3] sm:leading-[1.4] lg:leading-[60px] tracking-[-0.02em] lg:tracking-[-0.96px] mb-12 sm:mb-16 md:mb-24 lg:mb-[100px] px-4">
             The <span className="text-[#66c2e2] text-[32px] sm:text-[40px] md:text-[52px] lg:text-[70px] font-medium">6 core values</span> that are embedded in our everyday work practices:
           </h2>
 
           {/* Desktop: 3x2 Grid with proper centering */}
           <div className="hidden xl:block">
-            <div className="flex justify-center items-start gap-[150px] mb-[90px]">
+            <div className="flex justify-center items-start gap-[300px] mb-[90px]">
               {coreValues.slice(0, 3).map((value, index) => (
                 <CoreValueCard key={index} icon={value.icon} title={value.title} delay={index * 150} />
               ))}
             </div>
-            <div className="flex justify-center items-start gap-[150px]">
+            <div className="flex justify-center items-start gap-[300px]">
               {coreValues.slice(3, 6).map((value, index) => (
                 <CoreValueCard key={index + 3} icon={value.icon} title={value.title} delay={(index + 3) * 150} />
               ))}
@@ -394,7 +395,7 @@ export default function AboutUs() {
               return (
                 <div
                   key={index}
-                  className="flex flex-col gap-4 sm:gap-5 md:gap-6"
+                  className="flex flex-col gap-4 sm:gap-5 md:gap-6 items-center"
                   style={isLastOdd ? { justifySelf: "center", gridColumn: "1 / -1" } : {}}
                 >
                   <div className="w-full max-w-[140px] sm:max-w-[160px] md:max-w-[180px] aspect-[3/4] rounded-[8px] sm:rounded-[10px] overflow-hidden">
