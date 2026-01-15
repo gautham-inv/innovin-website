@@ -1,31 +1,33 @@
 "use client";
 
+import { Users, Target, Cpu, Repeat } from "lucide-react";
+
 // Icon assets
-const iconNetwork = "/images/techstack/4076a00dcf114223bee46321b8b5539570416f58.svg";
-const iconTalents = "/images/techstack/30e10ea8e914fc7e3b7c930fb0ab9e24eedb665b.svg";
-const imgUniqueValueProposition = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
+const iconNetwork = "/images/network.webp";
+const iconTalents = "/images/star.png";
+const imgUniqueValueProposition = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&h=800&fit=crop";
 export default function WhyUsPage() {
 
   const engagementModels = [
     {
       title: "Tap India's Tech Talent Pool",
       description: "Enabling access to India's exceptional talent by tapping into a diverse pool of skilled professionals to drive project success.",
-      icon: iconNetwork,
+      Icon: Users,
     },
     {
       title: "Project-Based Execution",
       description: "From defining tasks and timelines to building and delivering the final product, we ensure smooth execution and set the stage for ongoing improvement.",
-      icon: iconNetwork,
+      Icon: Target,
     },
     {
       title: "Remote CTO & Technology Team",
       description: "Enhance your business with our CTO and expert tech team, seamlessly filling skill gaps and offering flexible, scalable, and cost-effective solutions without the overhead of in-house hiring.",
-      icon: iconNetwork,
+      Icon: Cpu,
     },
     {
       title: "Build, Operate, Transfer",
       description: "We build the team, operate it for a set period, and then transfer full ownership to the client, ensuring a smooth transition.",
-      icon: iconNetwork,
+      Icon: Repeat,
     },
   ];
 
@@ -53,10 +55,10 @@ export default function WhyUsPage() {
         {/* Unique Value Proposition */}
         <div className="flex flex-col md:flex-row gap-8 sm:gap-10 md:gap-[60px] xl:gap-[118px] items-center mb-12 sm:mb-16 xl:mb-[50px]">
           {/* Mobile/Tablet: Image first */}
-          <div className="bg-[#959595] w-full sm:w-[500px] md:w-[380px] lg:w-[500px] xl:w-[745px] h-[220px] sm:h-[260px] md:h-[260px] lg:h-[300px] xl:h-[320px] rounded-[12px] sm:rounded-[16px] xl:rounded-[8px] flex items-center justify-center shrink-0 order-1 md:order-2">
-            <img src={imgUniqueValueProposition} alt="Unique Value Proposition" className="w-full h-full object-contain" />
+          <div className="bg-[#959595] w-full sm:w-[500px] md:w-[380px] lg:w-[500px] xl:w-[745px] h-[220px] sm:h-[260px] md:h-[260px] lg:h-[300px] xl:h-[320px] rounded-[12px] sm:rounded-[16px] xl:rounded-[8px] flex items-center justify-center shrink-0 order-1 md:order-2 overflow-hidden">
+            <img src={imgUniqueValueProposition} alt="Unique Value Proposition" className="w-full h-full object-cover" />
           </div>
-          
+
           {/* Mobile/Tablet: Content second */}
           <div className="flex-1 w-full md:w-auto order-2 md:order-1">
             <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-4 sm:mb-5 xl:mb-[20px]">
@@ -80,51 +82,45 @@ export default function WhyUsPage() {
           {/* Expertise Cards - Modern Design */}
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 xl:gap-[20px]">
             {/* Network of Tech SMES Card */}
-            <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden">
+            <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2">
               {/* Decorative corner accent */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
-              
+
               <div className="relative z-10">
                 {/* Icon with background */}
                 <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <img src={iconNetwork} alt="Network icon" className="w-full h-full object-contain filter brightness-0 invert" />
                 </div>
-                
+
                 <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
                   Network of Tech SMES
                 </h3>
-                
+
                 <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
                   Our expert network comprises accomplished industry leaders from around the globe, bringing together a wealth of diverse insights and unparalleled expertise to foster collaboration, drive innovation, and offer strategic guidance across various sectors.
                 </p>
               </div>
-
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#66c2e2] via-[#005c89] to-[#66c2e2] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
             </div>
 
             {/* Top tech talents Card */}
-            <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden">
+            <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2">
               {/* Decorative corner accent */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
-              
+
               <div className="relative z-10">
                 {/* Icon with background */}
                 <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <img src={iconTalents} alt="Talents icon" className="w-full h-full object-contain filter brightness-0 invert" />
                 </div>
-                
+
                 <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
                   Top tech talents
                 </h3>
-                
+
                 <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
                   At the core of our top tech talents lies an unwavering commitment to excellence, cultivated through meticulous hiring practices, hands-on training, and mentorship-led assimilation, ensuring a dynamic and proficient team ready to tackle the most complex technological challenges.
                 </p>
               </div>
-
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#66c2e2] via-[#005c89] to-[#66c2e2] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
             </div>
           </div>
         </div>
@@ -148,9 +144,9 @@ export default function WhyUsPage() {
             </div>
 
             {/* Top Left Card - Tap India's Tech Talent Pool */}
-            <div className="absolute left-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20">
-              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
-                <img src={iconNetwork} alt="Icon" className="w-full h-full" />
+            <div className="absolute left-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                <Users className="w-12 h-12 text-[#005c89]" />
               </div>
               <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
                 Tap India's Tech Talent Pool
@@ -161,9 +157,9 @@ export default function WhyUsPage() {
             </div>
 
             {/* Top Right Card - Project-Based Execution */}
-            <div className="absolute right-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20">
-              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
-                <img src={iconNetwork} alt="Icon" className="w-full h-full" />
+            <div className="absolute right-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                <Target className="w-12 h-12 text-[#005c89]" />
               </div>
               <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
                 Project-Based Execution
@@ -174,9 +170,9 @@ export default function WhyUsPage() {
             </div>
 
             {/* Bottom Left Card - Remote CTO & Technology Team */}
-            <div className="absolute left-0 bottom-0 w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20">
-              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
-                <img src={iconNetwork} alt="Icon" className="w-full h-full" />
+            <div className="absolute left-0 bottom-0 w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                <Cpu className="w-12 h-12 text-[#005c89]" />
               </div>
               <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
                 Remote CTO & Technology Team
@@ -187,9 +183,9 @@ export default function WhyUsPage() {
             </div>
 
             {/* Bottom Right Card - Build, Operate, Transfer */}
-            <div className="absolute right-0 bottom-[100px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20">
-              <div className="w-[94px] h-[94px] mb-[13px] overflow-hidden">
-                <img src={iconNetwork} alt="Icon" className="w-full h-full" />
+            <div className="absolute right-0 bottom-[100px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                <Repeat className="w-12 h-12 text-[#005c89]" />
               </div>
               <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
                 Build, Operate, Transfer
@@ -251,16 +247,16 @@ L 380 510
           <div className="xl:hidden relative">
             {/* Dotted vertical line connecting cards - centered to screen */}
             <div className="absolute left-1/2 top-0 bottom-0 w-0 border-l-2 border-dashed border-[#66c2e2] -translate-x-1/2 z-0" style={{ height: '100%' }} />
-            
+
             {/* Cards */}
             <div className="relative z-10 flex flex-col gap-6 sm:gap-8">
               {engagementModels.map((model, index) => (
                 <div
                   key={index}
-                  className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)]"
+                  className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]"
                 >
-                  <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] mb-4 sm:mb-5 overflow-hidden">
-                    <img src={model.icon} alt="Icon" className="w-full h-full" />
+                  <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] mb-4 sm:mb-5 flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                    <model.Icon className="w-10 h-10 sm:w-12 sm:h-12 text-[#005c89]" />
                   </div>
                   <h3 className="text-[22px] sm:text-[26px] md:text-[28px] text-black font-medium leading-[1.3] sm:leading-[1.4] mb-3 sm:mb-4">
                     {model.title}

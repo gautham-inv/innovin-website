@@ -6,7 +6,10 @@ import { AnimatedButton } from "./AnimatedButton";
 const imgLogoDark = "/images/logo.png";
 const imgEllipse2 = "/images/blue_gradient.svg";
 // Using a placeholder image - replace with actual service images
-const serviceImage = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
+const imgProductDev = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=800&fit=crop";
+const imgDesign = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=800&fit=crop";
+const imgConsulting = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
+const imgAIConsulting = "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200&h=800&fit=crop";
 
 export default function ServicesPage() {
   const { openModal } = useContactModal();
@@ -19,7 +22,7 @@ export default function ServicesPage() {
         "Boost your coding superpowers with AI-simplify complexity, code naturally, and enhance reliability and speed!",
         "AI handles entry-level coding, allowing developers to focus on complex tasks, integration, and strategic innovation.",
       ],
-      image: serviceImage,
+      image: imgProductDev,
       imageLeft: false,
     },
     {
@@ -29,7 +32,7 @@ export default function ServicesPage() {
         "We develop innovative design options and generate multiple solutions based on AI-driven algorithms and constraints.",
         "We simulate user journeys and anticipate potential bottlenecks using AI-based modeling, informing design iterations and optimization.",
       ],
-      image: serviceImage,
+      image: imgDesign,
       imageLeft: true,
     },
     {
@@ -40,7 +43,7 @@ export default function ServicesPage() {
         "Offer Smart Solutions: We use powerful off-the-shelf tools, like AI-powered data analysis, to fit your specific needs and budget.",
         "Capacity Building:",
       ],
-      image: serviceImage,
+      image: imgConsulting,
       imageLeft: false,
     },
     {
@@ -50,7 +53,7 @@ export default function ServicesPage() {
         "Tailored intelligence that crafts solutions optimized for your unique industry challenges, for maximum impact.",
         "Combine expert-driven AI tools with deep industry knowledge, ensuring solutions that seamlessly integrate with your existing operations.",
       ],
-      image: serviceImage,
+      image: imgAIConsulting,
       imageLeft: true,
     },
   ];
@@ -59,7 +62,7 @@ export default function ServicesPage() {
     <div className="bg-white flex flex-col items-start px-0 py-5 sm:py-6 lg:py-[20px] relative min-h-screen w-full pt-24 sm:pt-28 lg:pt-32">
       {/* Hero Section */}
       <div className="w-full px-4 sm:px-6 lg:px-8 py-5 sm:py-6 lg:py-[20px]">
-          <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[80px] items-start relative w-full max-w-[1542px] mx-auto">
+        <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[80px] items-start relative w-full max-w-[1542px] mx-auto">
           {/* Header Section */}
           <div className="flex flex-col items-start px-4 sm:px-5 lg:px-[20px] py-0 relative w-full">
             <div className="flex items-start pl-0 pr-4 sm:pr-5 lg:pr-[20px] py-4 sm:py-5 lg:py-[20px] relative w-full">
@@ -79,9 +82,8 @@ export default function ServicesPage() {
             {services.map((service, index) => (
               <div
                 key={index}
-                className={`flex flex-col xl:flex-row gap-[30px] sm:gap-[50px] xl:gap-[195px] items-center xl:items-start relative w-full ${
-                  service.imageLeft ? "xl:flex-row-reverse" : ""
-                }`}
+                className={`flex flex-col xl:flex-row gap-[30px] sm:gap-[50px] xl:gap-[195px] items-center xl:items-start relative w-full ${service.imageLeft ? "xl:flex-row-reverse" : ""
+                  }`}
               >
                 {/* Content */}
                 <div className="flex-1 flex flex-col gap-3 sm:gap-[13px] items-start relative text-[#232323] w-full xl:w-auto order-2 xl:order-none">

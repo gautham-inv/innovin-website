@@ -2,39 +2,52 @@
 
 import { useLayoutEffect, useState } from "react";
 import LogoLoop from "./LogoLoop";
+import { getTechLogo, getTechName, hasValidLogo } from "@/lib/techLogos";
 
 const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
 const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
 const img3 = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop";
 
+// Define tech stack using API-based logos
 const techLogosTop = [
-  { src: "/images/techstack/d1f3457c582c326cacd5999f9462244cd0b086a6.svg", alt: "WordPress", title: "WordPress", href: "https://wordpress.org" },
-  { src: "/images/techstack/d1fe1a927e11f7d2b0833f603607ab2e0464cb5b.svg", alt: "npm", title: "npm", href: "https://www.npmjs.com" },
-  { src: "/images/techstack/d6bfd701a788246b82a09a8007bc04b677cc62ba.svg", alt: "PostgreSQL", title: "PostgreSQL", href: "https://www.postgresql.org" },
-  { src: "/images/techstack/0af3641ecb5ea7fd5f0667678b682dac4173e8be.svg", alt: "JavaScript", title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
-  { src: "/images/techstack/2c612ef9a4f9e0710604d17da4a52c460b490b54.svg", alt: "Spring Boot", title: "Spring Boot", href: "https://spring.io/projects/spring-boot" },
-  { src: "/images/techstack/6d43c8088e8df9a142241e9404a0f9ab98633139.svg", alt: "Next.js", title: "Next.js", href: "https://nextjs.org" },
-  { src: "/images/techstack/7dd42279941dabce7e0b301fe90d489ca26ea081.svg", alt: "Azure", title: "Microsoft Azure", href: "https://azure.microsoft.com" },
-  { src: "/images/techstack/96c0167700032892ddce94d351d540bacced94d7.svg", alt: "Google Cloud", title: "Google Cloud", href: "https://cloud.google.com" },
-  { src: "/images/techstack/4076a00dcf114223bee46321b8b5539570416f58.svg", alt: "Figma", title: "Figma", href: "https://www.figma.com" },
-  { src: "/images/techstack/4dd2dc87d646964956fdd937a05639c2b1e8ca99.svg", alt: "React", title: "React", href: "https://react.dev" },
-  { src: "/images/techstack/736b413565258b845495ca4fece9c434674f0611.svg", alt: "Svelte", title: "Svelte", href: "https://svelte.dev" },
-  { src: "/images/techstack/bfe81755eb2f120ba86e7beea698930ea938c495.svg", alt: "JavaScript", title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+  { techKey: "wordpress", href: "https://wordpress.org" },
+  { techKey: "npm", href: "https://www.npmjs.com" },
+  { techKey: "postgresql", href: "https://www.postgresql.org" },
+  { techKey: "javascript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+  { techKey: "nodejs", href: "https://nodejs.org" },
+  { techKey: "aws", href: "https://aws.amazon.com" },
+  { techKey: "azure", href: "https://azure.microsoft.com" },
+  { techKey: "gcp", href: "https://cloud.google.com" },
+  { techKey: "figma", href: "https://www.figma.com" },
+  { techKey: "react", href: "https://react.dev" },
+  { techKey: "firebase", href: "https://firebase.google.com" },
+  { techKey: "html5", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
 ];
 
 const techLogosBottom = [
-  { src: "/images/techstack/812700fa752137f1c86e9fdec5ec4cc56ad26459.svg", alt: "PHP", title: "PHP", href: "https://www.php.net" },
-  { src: "/images/techstack/92237671aae3581d2a3e9740ba5ef3e9575a751a.svg", alt: "Tailwind CSS", title: "Tailwind CSS", href: "https://tailwindcss.com" },
-  { src: "/images/techstack/03f9caf8cbeb5f4da09a55c0ea692347b6b54889.svg", alt: "HTML5", title: "HTML5", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
-  { src: "/images/techstack/237b207eba33736dfdb80b599e5e675452062bf7.svg", alt: "CSS3", title: "CSS3", href: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
-  { src: "/images/techstack/243f3f2659df6453521c052e5106e549d31abe60.svg", alt: "Firebase", title: "Firebase", href: "https://firebase.google.com" },
-  { src: "/images/techstack/2434594fe1772d6aba5c914d628d96ae9e7b83bc.svg", alt: "Vercel", title: "Vercel", href: "https://vercel.com" },
-  { src: "/images/techstack/30e10ea8e914fc7e3b7c930fb0ab9e24eedb665b.svg", alt: "Angular", title: "Angular", href: "https://angular.io" },
-  { src: "/images/techstack/df845869ea73e5f1c42dcc143944798263077906.svg", alt: "Kubernetes", title: "Kubernetes", href: "https://kubernetes.io" },
-  { src: "/images/techstack/4e43daeb50bac0ce6e6f985139ee196def02c494.svg", alt: "Laravel", title: "Laravel", href: "https://laravel.com" },
-  { src: "/images/techstack/37443694e9095109910764ac096467df5beab4fb.svg", alt: "Flutter", title: "Flutter", href: "https://flutter.dev" },
-  { src: "/images/techstack/907350fc7dc8e6714e16460d08bac7c6cdcbc976.svg", alt: "MySQL", title: "MySQL", href: "https://www.mysql.com" },
+  { techKey: "mysql", href: "https://www.mysql.com" },
+  { techKey: "kubernetes", href: "https://kubernetes.io" },
+  { techKey: "cloudflare", href: "https://www.cloudflare.com" },
+  { techKey: "docker", href: "https://www.docker.com" },
+  { techKey: "git", href: "https://git-scm.com" },
+  { techKey: "github", href: "https://github.com" },
+  { techKey: "nextjs", href: "https://nextjs.org" },
+  { techKey: "tailwind", href: "https://tailwindcss.com" },
+  { techKey: "typescript", href: "https://www.typescriptlang.org" },
+  { techKey: "python", href: "https://www.python.org" },
+  { techKey: "mongodb", href: "https://www.mongodb.com" },
 ];
+
+// Transform tech data to logo format
+const getLogos = (techArray: typeof techLogosTop) => 
+  techArray
+    .filter(({ techKey }) => hasValidLogo(techKey))
+    .map(({ techKey, href }) => ({
+      src: getTechLogo(techKey),
+      alt: getTechName(techKey),
+      title: getTechName(techKey),
+      href,
+    }));
 
 export default function TechStack() {
   // Responsive control for logo size + speed
@@ -104,7 +117,7 @@ export default function TechStack() {
           {/* Top row: scrolls left → right (direction="right") */}
           <div className="w-full">
             <LogoLoop
-              logos={techLogosTop}
+              logos={getLogos(techLogosTop)}
               speed={speed}
               direction="right"
               logoHeight={logoHeight}
@@ -120,7 +133,7 @@ export default function TechStack() {
           {/* Bottom row: scrolls right → left (direction="left") */}
           <div className="w-full">
             <LogoLoop
-              logos={techLogosBottom}
+              logos={getLogos(techLogosBottom)}
               speed={speed}
               direction="left"
               logoHeight={logoHeight}

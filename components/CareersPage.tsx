@@ -15,9 +15,9 @@ if (typeof window !== "undefined") {
 const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg";
 const life = "images/compressed_2a10271a41c28441412779781963630458378940.webp";
 
-const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
-const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
-const img3 = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop";
+const img1 = "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1200&h=800&fit=crop";
+const img2 = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=800&fit=crop";
+const img3 = "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=800&fit=crop";
 
 interface Job {
   _id: string;
@@ -107,7 +107,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     if (incomingItem) {
       // Set initial state for incoming item
       gsap.set(incomingItem, { opacity: 0, x: 100 });
-      
+
       // Add to timeline - starts after previous animation ends
       tl.to(incomingItem, {
         opacity: 1,
@@ -229,14 +229,14 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   // FIXED: Handle reason click with transition lock and timer reset
   const handleReasonClick = (index: number) => {
     if (isTransitioning || index === currentReasonIndex) return;
-    
+
     // Clear and restart autoplay timer
     if (autoplayTimerRef.current) {
       clearInterval(autoplayTimerRef.current);
     }
-    
+
     setCurrentReasonIndex(index);
-    
+
     // Restart autoplay after manual selection
     if (typeof window !== 'undefined' && window.innerWidth >= 1280) {
       autoplayTimerRef.current = setInterval(() => {
@@ -292,7 +292,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               Join a team of product champions powering innovation at global scale.
             </p>
           </div>
-          <button 
+          <button
             onClick={() => {
               const jobOpeningsSection = document.getElementById('recent-job-openings');
               if (jobOpeningsSection) {
@@ -313,7 +313,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           <h2 className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] text-[#232323] font-semibold leading-[1.1] sm:leading-[1.2] lg:leading-[62.1px] mb-6 sm:mb-8 lg:mb-[30px]">
             Reason to Choose Us
           </h2>
-          
+
           {/* Desktop: Horizontal carousel with dot indicators */}
           <div className="hidden xl:block">
             <div ref={reasonToChooseRef} className="relative h-[347px] overflow-hidden">
@@ -337,7 +337,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                 </div>
               ))}
             </div>
-            
+
             {/* Dot indicators - FIXED: Added disabled state */}
             <div className="flex justify-center gap-3 mt-6">
               {reasonsToChoose.map((_, index) => (
@@ -345,9 +345,8 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                   key={index}
                   onClick={() => handleReasonClick(index)}
                   disabled={isTransitioning}
-                  className={`h-2 rounded-full transition-all ${
-                    index === currentReasonIndex ? 'bg-black w-10' : 'bg-neutral-300 w-2'
-                  } ${isTransitioning ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-neutral-400'}`}
+                  className={`h-2 rounded-full transition-all ${index === currentReasonIndex ? 'bg-black w-10' : 'bg-neutral-300 w-2'
+                    } ${isTransitioning ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-neutral-400'}`}
                   aria-label={`Go to ${reasonsToChoose[index].title}`}
                 />
               ))}
@@ -380,12 +379,12 @@ export default function CareersPage({ jobs }: CareersPageProps) {
         {/* Talent Approach Section */}
         <div className="relative min-h-[800px] sm:min-h-[1000px] md:min-h-[1200px] xl:h-[1439px] mb-[50px] sm:mb-[70px] xl:mb-[100px]">
           {/* Star decorations */}
-          <div ref={starLeftRef} className="hidden xl:block absolute left-[288px] top-[416px] w-[100px] h-[100px] opacity-30">
+          <div ref={starLeftRef} className="hidden xl:block absolute left-1/2 -ml-[580px] top-[416px] w-[100px] h-[100px] opacity-30">
             <svg viewBox="0 0 100 100" fill="none">
               <path d="M50 10 L55 45 L90 50 L55 55 L50 90 L45 55 L10 50 L45 45 Z" fill="#FFD700" />
             </svg>
           </div>
-          <div ref={starRightRef} className="hidden xl:block absolute right-[100px] bottom-[100px] w-[100px] h-[100px] opacity-30">
+          <div ref={starRightRef} className="hidden xl:block absolute left-1/2 ml-[480px] bottom-[100px] w-[100px] h-[100px] opacity-30">
             <svg viewBox="0 0 100 100" fill="none">
               <path d="M50 10 L55 45 L90 50 L55 55 L50 90 L45 55 L10 50 L45 45 Z" fill="#FFD700" />
             </svg>
@@ -400,7 +399,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
             </p>
           </div>
 
-          <div className="relative xl:absolute xl:left-[397px] xl:top-[459px] w-full xl:w-[890px] mx-auto xl:mx-0">
+          <div className="relative xl:absolute xl:left-1/2 xl:top-[459px] xl:-translate-x-1/2 w-full xl:w-[890px] mx-auto">
             {/* Back card */}
             <div className="hidden xl:block absolute top-0 left-0 right-0 flex items-center justify-center z-10">
               <div className="bg-white rounded-[20px] shadow-[0px_0px_9px_0px_rgba(0,0,0,0.25)] w-[834px] h-[834px]" style={{ transform: 'rotate(4deg)' }}>
@@ -409,11 +408,11 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
             {/* Front card */}
             <div className="relative xl:absolute xl:top-0 xl:-left-[20px] xl:right-0 flex items-center justify-center z-20">
-              <div 
+              <div
                 ref={frontCardRef}
                 className="bg-white rounded-[20px] shadow-[0px_0px_6px_0px_rgba(0,0,0,0.25)] w-full max-w-[834px] h-auto min-h-[600px] xl:w-[834px] xl:h-[834px] p-6 sm:p-8 md:p-12 xl:p-[74px] front-card-rotate"
               >
-              <div className="flex flex-col gap-6 sm:gap-8 xl:gap-[30px]">
+                <div className="flex flex-col gap-6 sm:gap-8 xl:gap-[30px]">
                   {talentApproach.map((item, index) => (
                     <div key={index} className="talent-item flex gap-4 sm:gap-6 xl:gap-[44px] items-center">
                       <div className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] lg:w-[94px] lg:h-[94px] shrink-0 flex items-center justify-center bg-primary/10 rounded-full">
@@ -449,31 +448,31 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Image Carousel */}
         <div className="flex gap-4 sm:gap-6 xl:gap-[58px] items-center mb-[50px] sm:mb-[70px] xl:mb-[100px]">
-          <button 
+          <button
             onClick={handlePrevImage}
             className="bg-[#969494] rounded-full p-3 sm:p-4 lg:p-[16px] hover:bg-gray-400 transition shrink-0"
             aria-label="Previous image"
           >
             <svg className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" viewBox="0 0 48 48" fill="none" style={{ transform: 'rotate(180deg)' }}>
-              <path d="M18 12 L30 24 L18 36" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M18 12 L30 24 L18 36" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-          
+
           <div className="flex-1 h-[250px] sm:h-[350px] md:h-[400px] lg:h-[489px] rounded-[30px] sm:rounded-[40px] lg:rounded-[50px] overflow-hidden">
-            <img 
-              src={images[currentImageIndex]} 
-              alt="Office life" 
+            <img
+              src={images[currentImageIndex]}
+              alt="Office life"
               className="w-full h-full object-cover"
             />
           </div>
-          
-          <button 
+
+          <button
             onClick={handleNextImage}
             className="bg-[#969494] rounded-full p-3 sm:p-4 lg:p-[16px] hover:bg-gray-400 transition shrink-0"
             aria-label="Next image"
           >
             <svg className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" viewBox="0 0 48 48" fill="none">
-              <path d="M18 12 L30 24 L18 36" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M18 12 L30 24 L18 36" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
         </div>
@@ -483,7 +482,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-6 sm:mb-8 xl:mb-[36px]">
             <span className="font-normal">Recent</span> Job Openings
           </h2>
-          
+
           {jobOpenings.length > 0 ? (
             <div className="flex flex-col gap-6 sm:gap-8 xl:gap-[32px]">
               {/* Desktop: Grid layout */}
@@ -510,14 +509,14 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                       <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
                         View details
                         <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
-                          <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
                     </HoverCard>
                   ))}
                 </div>
               )}
-               
+
               {jobOpenings.length > 3 && (
                 <div className="hidden xl:block w-[500px]">
                   <HoverCard
@@ -539,7 +538,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                     <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
                       View details
                       <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
-                        <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                   </HoverCard>
@@ -569,7 +568,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                       <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
                         View details
                         <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
-                          <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
                     </HoverCard>
@@ -600,20 +599,20 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                     <div className="flex items-center gap-3 sm:gap-[15px] text-[18px] sm:text-[20px] text-black font-medium leading-[1.5] sm:leading-[1.6] hover:text-[#005c89] transition">
                       View details
                       <svg className="w-6 h-6 sm:w-8 sm:h-8 rotate-90" viewBox="0 0 34 34" fill="currentColor">
-<path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-</svg>
-</div>
-</HoverCard>
-))}
-</div>
-</div>
-) : (
-<div className="text-center py-8 sm:py-12">
-<p className="text-[18px] sm:text-[20px] lg:text-[24px] text-gray-500">No job openings at the moment. Check back soon!</p>
-</div>
-)}
-</div>
-</div>
-</div>
-);
+                        <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
+                  </HoverCard>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-8 sm:py-12">
+              <p className="text-[18px] sm:text-[20px] lg:text-[24px] text-gray-500">No job openings at the moment. Check back soon!</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }

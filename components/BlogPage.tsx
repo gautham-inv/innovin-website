@@ -75,7 +75,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
     <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
       <div className="max-w-[1681px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[70px]">
         {/* Header Section */}
-        <div className="flex flex-col gap-8 sm:gap-10 lg:gap-[50px] items-center justify-center py-8 sm:py-12 lg:py-[70px]">
+        <div className="flex flex-col gap-8 sm:gap-10 lg:gap-[50px] items-center justify-center py-8 sm:py-12 lg:py-[10px]">
           <h1 className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.3] lg:leading-[90.6px] relative shrink-0 text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] text-black tracking-[-0.02em] lg:tracking-[-0.84px] w-full text-center">
             Unlock the Secrets of Tech: Engineering Excellence Uncovered
           </h1>

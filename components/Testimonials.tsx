@@ -3,15 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type React from "react";
 import type { CSSProperties } from "react";
-
-const imgZirklyFullLogo1 = "/images/logo.png";
-
-const testimonials = new Array(5).fill(null).map(() => ({
-  quote:
-    "As an entrepreneur, I needed to get my new website delivered in a timely and effective manner. Finding someone to do the work was not difficult, but finding someone that could do the work by sharing my company values and vision, wasn't. They delivered the project on time with high quality and excellent communication.",
-  author: "Sujith Chellappan",
-  logo: imgZirklyFullLogo1,
-}));
+import { testimonials } from "@/lib/testimonials";
 
 export default function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState<number>(2);
@@ -87,7 +79,8 @@ export default function Testimonials() {
     const container = scrollContainerRef.current;
     if (!container) return;
     
-    const card = container.children.item(index) as HTMLElement | null;
+    // Find the specific card element by its data-index attribute
+    const card = container.querySelector(`[data-index="${index}"]`) as HTMLElement | null;
     if (!card) return;
 
     isScrolling.current = true;
@@ -95,6 +88,7 @@ export default function Testimonials() {
     const containerWidth = container.offsetWidth;
     const cardLeft = card.offsetLeft;
     const cardWidth = card.offsetWidth;
+    // Calculate scroll position to center the card
     const scrollLeft = cardLeft - (containerWidth - cardWidth) / 2;
 
     container.scrollTo({
@@ -176,11 +170,21 @@ export default function Testimonials() {
       scrollTimeout = window.setTimeout(() => {
         const containerWidth = container.offsetWidth;
         const scrollLeft = container.scrollLeft;
-        const firstChild = container.children.item(0) as HTMLElement | null;
-        const cardWidth = firstChild?.getBoundingClientRect().width || 0;
-        const gap = 16;
         
-        const calculatedIndex = Math.round(scrollLeft / (cardWidth + gap));
+        // Mobile cards are children of the flex container (the first and only child of the scroll container)
+        const innerFlex = container.children[0] as HTMLElement;
+        const firstCard = innerFlex.querySelector('[data-index="0"]') as HTMLElement | null;
+        if (!firstCard) return;
+
+        const cardWidth = firstCard.offsetWidth;
+        const gap = window.innerWidth >= 640 ? 24 : 16; // gap-4 is 16px, gap-6 is 24px
+        
+        const card0Left = firstCard.offsetLeft;
+        const centerOffset = (containerWidth - cardWidth) / 2;
+        const zeroScroll = card0Left - centerOffset;
+        
+        // Calculate which card is closest to the center
+        const calculatedIndex = Math.round((scrollLeft - zeroScroll) / (cardWidth + gap));
         const newIndex = Math.max(0, Math.min(calculatedIndex, total - 1));
         
         if (newIndex !== currentIndex) {
@@ -294,10 +298,11 @@ export default function Testimonials() {
               ref={scrollContainerRef}
               className="overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
             >
-              <div className="flex gap-4 sm:gap-6 px-1 pb-2">
+              <div className="flex gap-4 sm:gap-6 px-[7%] sm:px-[15%] md:px-[20%] pb-2">
                 {testimonials.map((t, idx) => (
                   <div
                     key={idx}
+                    data-index={idx}
                     className="snap-center shrink-0 w-[86%] sm:w-[70%] md:w-[60%] transition-opacity duration-500"
                     style={{
                       opacity: currentIndex === idx ? 1 : 0.7
