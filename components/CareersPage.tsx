@@ -13,11 +13,16 @@ if (typeof window !== "undefined") {
 
 // Image assets
 const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg";
-const life = "images/compressed_2a10271a41c28441412779781963630458378940.webp";
+const life = "/images/compressed_2a10271a41c28441412779781963630458378940.webp";
 
 const img1 = "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1200&h=800&fit=crop";
 const img2 = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=800&fit=crop";
 const img3 = "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=800&fit=crop";
+
+const careers1 = "/images/careers1.webp"
+const careers2 = "/images/careers2.webp"
+const careers3 = "/images/careers3.webp"
+
 
 interface Job {
   _id: string;
@@ -43,7 +48,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   const activeTimelineRef = useRef<gsap.core.Timeline | null>(null); // NEW: Track active timeline
   const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null); // NEW: Track autoplay timer
 
-  const images = [img1, img2, img3];
+  const images = [careers1, careers2, careers3];
   const reasonsToChoose = [
     {
       title: "Education",

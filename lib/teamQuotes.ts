@@ -16,7 +16,7 @@ export const teamQuotes = [
         gradient: false,
         rotation: "rotate-[-1deg]",
         position: { top: "328px", left: "209px" },
-        link: "https://www.linkedin.com/in/jibin-b-94b53a200/",
+        link: "https://www.linkedin.com/in/jibin-b-3365a822b/",
     },
     {
         id: 2,
@@ -28,7 +28,7 @@ export const teamQuotes = [
         gradient: false,
         rotation: "rotate-[4deg]",
         position: { top: "634px", left: "292px" },  
-        link: "https://www.linkedin.com/in/sreyas-k-94b53a200/",
+        link: "https://www.linkedin.com/in/sreyask555/",
     },
     {
         id: 3,
@@ -40,7 +40,7 @@ export const teamQuotes = [
         gradient: true,
         rotation: "rotate-[-3deg]",
         position: { top: "334px", left: "671px" },  
-        link: "https://www.linkedin.com/in/ashwathy-k-94b53a200/",
+        link: "https://www.linkedin.com/in/ashwathya/",
     },
     {
         id: 4,
@@ -52,7 +52,7 @@ export const teamQuotes = [
         gradient: false,
         rotation: "rotate-[-3deg]",
         position: { top: "697px", left: "697px" },  
-        link: "https://www.linkedin.com/in/aswin-krishnan-94b53a200/",
+        link: "https://www.linkedin.com/in/aswin-krishnan-r-91845126a/",
     },
     {
         id: 5,
@@ -64,7 +64,7 @@ export const teamQuotes = [
         gradient: true,
         rotation: "rotate-[1deg]",
         position: { top: "314px", left: "1116px" }, 
-        link: "https://www.linkedin.com/in/sidharth-k-94b53a200/",
+        link: "https://www.linkedin.com/in/sidharthns/"
     },
     {
         id: 6,
@@ -76,6 +76,6 @@ export const teamQuotes = [
         gradient: true,
         rotation: "rotate-[2deg]",
         position: { top: "645px", left: "1121px" }, 
-        link: "https://www.linkedin.com/in/edwin-k-94b53a200/",
+        link: "https://www.linkedin.com/in/edwin-emmanuel-roy-74a381205/",
     },
 ];

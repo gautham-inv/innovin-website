@@ -22,7 +22,7 @@ export const testimonials = [
     {
       quote:
         "As an entrepreneur, I needed to get my new website delivered in a timely and effective manner. Finding someone to do the work was not difficult, but finding someone that could do the work by sharing my company values and vision, wasn't. They delivered the project on time with high quality and excellent communication.",
-      author: "Fincepta",
+      author: "Ankit Tanwar, Founder, CEO",
       logo: finceptaLogo,
     },
     {
