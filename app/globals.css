@@ -44,7 +44,7 @@ body {
 
 /* hide scrollbar for the page's horizontal overflow (if any) */
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 

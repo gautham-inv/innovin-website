@@ -1,12 +1,36 @@
 "use client";
 
+import { useEffect, useRef, useState, ReactNode } from "react";
 import { Users, Target, Cpu, Repeat } from "lucide-react";
+import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+
+const Word = ({ children, progress, range }: { children: ReactNode, progress: MotionValue<number>, range: [number, number] }) => {
+  const opacity = useTransform(progress, range, [0.1, 1]);
+  return (
+    <motion.span style={{ opacity }} className="mr-[0.2em] relative inline-block">
+      {children}
+    </motion.span>
+  )
+}
 
 // Icon assets
 const iconNetwork = "/images/network.webp";
 const iconTalents = "/images/star.png";
 const imgUniqueValueProposition = "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&h=800&fit=crop";
+
 export default function WhyUsPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const headingText = "Unique Value Proposition";
+  const contentText = "Fueling Startups and emerging/growing businesses success – we leverage AI tools and open source programs to deliver faster, cost-effective solutions that unlock their growth potential.";
+
+  const headingWords = headingText.split(" ");
+  const contentWords = contentText.split(" ");
+  const totalWords = headingWords.length + contentWords.length;
 
   const engagementModels = [
     {
@@ -32,244 +56,337 @@ export default function WhyUsPage() {
   ];
 
   return (
-    <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[60px] lg:pb-[40px] overflow-hidden relative">
-      {/* Background decorative elements */}
-      <div className="hidden xl:block absolute left-[1780px] top-[2238px] w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-blue-200 via-blue-100 to-transparent blur-3xl" />
-      </div>
-      <div className="hidden xl:block absolute left-[-4020px] top-[2238px] w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-blue-200 via-blue-100 to-transparent blur-3xl" />
-      </div>
+    <>
+      <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] overflow-clip relative">
+        <div className="max-w-[1593px] mx-auto px-5 sm:px-8 md:px-10 lg:px-4">
+          {/* Header Section */}
+          {/* Hero Section */}
+          {/* Hero Section */}
+          {/* Hero Section */}
+          <div className="relative w-full max-w-[1920px] mx-auto min-h-[600px] lg:min-h-[700px] flex items-center justify-center mb-16 lg:mb-24 overflow-visible">
+            {/* Background Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-[#E0F2FE]/60 pointer-events-none" />
 
-      <div className="max-w-[1593px] mx-auto px-5 sm:px-8 md:px-10 lg:px-4">
-        {/* Header Section */}
-        <div className="text-center mb-12 sm:mb-16 lg:mb-[50px]">
-          <h1 className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] text-[#232323] font-semibold leading-[1.1] sm:leading-[1.2] lg:leading-[62.1px] mb-5 sm:mb-6 lg:mb-[20px]">
-            Why us
-          </h1>
-          <p className="text-[18px] sm:text-[22px] md:text-[26px] lg:text-[31px] text-[#005c89] leading-[1.4] sm:leading-[1.6] lg:leading-[62.1px] max-w-[900px] mx-auto">
-            Discover the values, expertise, and commitment that set us apart and make us the ideal partner for your journey.
-          </p>
-        </div>
+            {/* Left Image Group - Visible on XL screens */}
+            <div className="hidden xl:block absolute left-[6%] top-1/2 -translate-y-1/2 w-[400px] h-[400px]">
+              {/* Top Left - Vertical image */}
+              <div className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white">
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop"
+                  alt="Professional woman"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-        {/* Unique Value Proposition */}
-        <div className="flex flex-col md:flex-row gap-8 sm:gap-10 md:gap-[60px] xl:gap-[118px] items-center mb-12 sm:mb-16 xl:mb-[50px]">
-          {/* Mobile/Tablet: Image first */}
-          <div className="bg-[#959595] w-full sm:w-[500px] md:w-[380px] lg:w-[500px] xl:w-[745px] h-[220px] sm:h-[260px] md:h-[260px] lg:h-[300px] xl:h-[320px] rounded-[12px] sm:rounded-[16px] xl:rounded-[8px] flex items-center justify-center shrink-0 order-1 md:order-2 overflow-hidden">
-            <img src={imgUniqueValueProposition} alt="Unique Value Proposition" className="w-full h-full object-cover" />
+              {/* Top Right - Horizontal image */}
+              <div className="absolute left-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white">
+                <img
+                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop"
+                  alt="Team collaboration"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Bottom Left - Horizontal image */}
+              <div className="absolute left-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white">
+                <img
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop"
+                  alt="Team working"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+            {/* Center Content */}
+            <div className="relative z-30 text-center max-w-[800px] px-4 mx-auto">
+              <h1 className="text-[64px] sm:text-[80px] lg:text-[96px] text-[#1a1a1a] font-medium leading-[1.1] tracking-tight mb-6 font-['Manrope',sans-serif]">
+                Why us
+              </h1>
+              <p className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#4a4a4a] leading-[1.6] max-w-[600px] mx-auto font-['Manrope',sans-serif]">
+                Discover the values, expertise, and commitment that set us apart and make us the ideal partner for your journey.
+              </p>
+            </div>
+
+            {/* Right Image Group - Visible on XL screens */}
+            <div className="hidden xl:block absolute right-[6%] top-1/2 -translate-y-1/2 w-[400px] h-[400px]">
+              {/* Top Right - Vertical image */}
+              <div className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white">
+                <img
+                  src="https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?w=400&h=600&fit=crop"
+                  alt="Working on laptop"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Top Left - Horizontal image */}
+              <div className="absolute right-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white">
+                <img
+                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=300&fit=crop"
+                  alt="Meeting discussion"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Bottom Right - Horizontal image */}
+              <div className="absolute right-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white">
+                <img
+                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=400&h=300&fit=crop"
+                  alt="Modern office"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
 
-          {/* Mobile/Tablet: Content second */}
-          <div className="flex-1 w-full md:w-auto order-2 md:order-1">
-            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-4 sm:mb-5 xl:mb-[20px]">
-              Unique Value Proposition
+      <div
+        ref={containerRef}
+        className="relative w-full bg-black"
+        style={{ height: '250vh' }}
+      >
+        <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-20 py-20 overflow-hidden">
+          <div className="w-full max-w-[1366px] mx-auto flex flex-col gap-[30px] sm:gap-[40px] lg:gap-[50px]">
+            <h2 className="text-[28px] sm:text-[48px] lg:text-[64px] text-white font-semibold leading-[1.1] lg:leading-[72px] tracking-[-0.96px] font-['Manrope',sans-serif] text-left flex flex-wrap gap-x-[0.3em] gap-y-2">
+              {headingWords.map((word, i) => {
+                // Map to 0-0.3 range for heading (first 30% of scroll)
+                const start = (i / totalWords) * 0.85 + 0.1;
+                const end = start + (0.85 / totalWords);
+                return (
+                  <Word key={i} progress={scrollYProgress} range={[start, end]}>
+                    {word}
+                  </Word>
+                );
+              })}
             </h2>
-            <p className="text-[17px] sm:text-[20px] md:text-[22px] xl:text-[24px] text-black leading-[1.6] sm:leading-[1.65] xl:leading-[60px]">
-              Fueling Startups and emerging/growing businesses success – we leverage AI tools and open source programs to deliver faster, cost-effective solutions that unlock their growth potential.
+            <p className="text-[18px] sm:text-[36px] lg:text-[56px] text-white font-normal leading-[1.4] lg:leading-[74px] font-['Manrope',sans-serif] text-left flex flex-wrap gap-x-[0.3em] gap-y-2">
+              {contentWords.map((word, i) => {
+                const globalIndex = i + headingWords.length;
+                // Map to compressed range
+                const start = (globalIndex / totalWords) * 0.95 + 0.05;
+                const end = start + (0.95 / totalWords);
+                return (
+                  <Word key={i} progress={scrollYProgress} range={[start, end]}>
+                    {word}
+                  </Word>
+                );
+              })}
             </p>
           </div>
         </div>
+      </div>
 
-        {/* Our Expertise */}
-        <div className="mb-12 sm:mb-16 lg:mb-[30px]">
-          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-4 sm:mb-5 lg:mb-[20px]">
-            Our Expertise
-          </h2>
-          <p className="text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[60px] mb-8 sm:mb-10 lg:mb-[30px]">
-            We believe in nurturing diverse talent, fostering creativity, and empowering individuals to reach their full potential.
-          </p>
-
-          {/* Expertise Cards - Modern Design */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 xl:gap-[20px]">
-            {/* Network of Tech SMES Card */}
-            <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2">
-              {/* Decorative corner accent */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
-
-              <div className="relative z-10">
-                {/* Icon with background */}
-                <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <img src={iconNetwork} alt="Network icon" className="w-full h-full object-contain filter brightness-0 invert" />
-                </div>
-
-                <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
-                  Network of Tech SMES
-                </h3>
-
-                <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
-                  Our expert network comprises accomplished industry leaders from around the globe, bringing together a wealth of diverse insights and unparalleled expertise to foster collaboration, drive innovation, and offer strategic guidance across various sectors.
-                </p>
-              </div>
-            </div>
-
-            {/* Top tech talents Card */}
-            <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2">
-              {/* Decorative corner accent */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
-
-              <div className="relative z-10">
-                {/* Icon with background */}
-                <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <img src={iconTalents} alt="Talents icon" className="w-full h-full object-contain filter brightness-0 invert" />
-                </div>
-
-                <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
-                  Top tech talents
-                </h3>
-
-                <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
-                  At the core of our top tech talents lies an unwavering commitment to excellence, cultivated through meticulous hiring practices, hands-on training, and mentorship-led assimilation, ensuring a dynamic and proficient team ready to tackle the most complex technological challenges.
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="bg-white w-full pb-[50px] sm:pb-[60px] lg:pb-[40px] overflow-clip relative">
+        {/* Background decorative elements - Moved here */}
+        <div className="hidden xl:block absolute left-[1780px] top-0 w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-radial from-blue-200 via-blue-100 to-transparent blur-3xl" />
+        </div>
+        <div className="hidden xl:block absolute left-[-4020px] top-0 w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-radial from-blue-200 via-blue-100 to-transparent blur-3xl" />
         </div>
 
-        {/* Our Engagement Models */}
-        <div className="mb-8 sm:mb-10 lg:mb-[30px]">
-          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-4 sm:mb-5 lg:mb-[20px]">
-            Our Engagement Models
-          </h2>
-          <p className="text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[60px] mb-10 sm:mb-12 lg:mb-[50px]">
-            We offer flexible engagement models as per the client requirements.
-          </p>
+        <div className="max-w-[1593px] mx-auto px-5 sm:px-8 md:px-10 lg:px-4">
+          {/* Our Expertise */}
+          <div className="mb-12 sm:mb-16 lg:mb-[30px] pt-20">
+            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-4 sm:mb-5 lg:mb-[20px]">
+              Our Expertise
+            </h2>
+            <p className="text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[60px] mb-8 sm:mb-10 lg:mb-[30px]">
+              We believe in nurturing diverse talent, fostering creativity, and empowering individuals to reach their full potential.
+            </p>
 
-          {/* Desktop: Engagement Models Diagram with arrows and center card */}
-          <div className="hidden xl:block relative h-[1024px] w-full">
-            {/* Center Box */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black rounded-[20px] p-[50px] z-10">
-              <p className="text-[40px] text-[#005c89] font-semibold leading-[60px] whitespace-nowrap">
-                Our Engagement Models
-              </p>
-            </div>
+            {/* Expertise Cards - Modern Design */}
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 xl:gap-[20px]">
+              {/* Network of Tech SMES Card */}
+              <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2">
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
 
-            {/* Top Left Card - Tap India's Tech Talent Pool */}
-            <div className="absolute left-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
-              <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                <Users className="w-12 h-12 text-[#005c89]" />
-              </div>
-              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
-                Tap India's Tech Talent Pool
-              </h3>
-              <p className="text-[16px] text-black leading-[44px]">
-                Enabling access to India's exceptional talent by tapping into a diverse pool of skilled professionals to drive project success.
-              </p>
-            </div>
-
-            {/* Top Right Card - Project-Based Execution */}
-            <div className="absolute right-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
-              <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                <Target className="w-12 h-12 text-[#005c89]" />
-              </div>
-              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
-                Project-Based Execution
-              </h3>
-              <p className="text-[16px] text-black leading-[44px]">
-                From defining tasks and timelines to building and delivering the final product, we ensure smooth execution and set the stage for ongoing improvement.
-              </p>
-            </div>
-
-            {/* Bottom Left Card - Remote CTO & Technology Team */}
-            <div className="absolute left-0 bottom-0 w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
-              <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                <Cpu className="w-12 h-12 text-[#005c89]" />
-              </div>
-              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
-                Remote CTO & Technology Team
-              </h3>
-              <p className="text-[16px] text-black leading-[44px]">
-                Enhance your business with our CTO and expert tech team, seamlessly filling skill gaps and offering flexible, scalable, and cost-effective solutions without the overhead of in-house hiring.
-              </p>
-            </div>
-
-            {/* Bottom Right Card - Build, Operate, Transfer */}
-            <div className="absolute right-0 bottom-[100px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
-              <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                <Repeat className="w-12 h-12 text-[#005c89]" />
-              </div>
-              <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
-                Build, Operate, Transfer
-              </h3>
-              <p className="text-[16px] text-black leading-[44px]">
-                We build the team, operate it for a set period, and then transfer full ownership to the client, ensuring a smooth transition.
-              </p>
-            </div>
-
-            {/* Static Arrow SVG Paths - matching Figma design exactly */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-[5]" viewBox="0 0 1240 720" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
-              {/* Top Left Arrow - from center to top-left card */}
-              <path
-                d="M 466 319 L 466 265 Q 460 255 450 255 L 308 255"
-                stroke="#000000"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
-              />
-
-              {/* Top Right Arrow - from center to top-right card */}
-              <path
-                d="M 773 319 L 773 265 Q 779 255 789 255 L 966 255"
-                stroke="#000000"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
-              />
-
-              {/* Bottom Left Arrow - from center to bottom-left card */}
-              <path
-                d="M 584 410
-L 584 500
-Q 578 510 568 510
-L 380 510
-"
-                stroke="#000000"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
-              />
-
-              {/* Bottom Right Arrow - from center to bottom-right card */}
-              <path
-                d="M 721 400 L 721 460 Q 731 470 741 470 L 919 470"
-                stroke="#000000"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                vectorEffect="non-scaling-stroke"
-              />
-            </svg>
-          </div>
-
-          {/* Mobile/Tablet: Vertical stacked cards with dotted connecting line */}
-          <div className="xl:hidden relative">
-            {/* Dotted vertical line connecting cards - centered to screen */}
-            <div className="absolute left-1/2 top-0 bottom-0 w-0 border-l-2 border-dashed border-[#66c2e2] -translate-x-1/2 z-0" style={{ height: '100%' }} />
-
-            {/* Cards */}
-            <div className="relative z-10 flex flex-col gap-6 sm:gap-8">
-              {engagementModels.map((model, index) => (
-                <div
-                  key={index}
-                  className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]"
-                >
-                  <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] mb-4 sm:mb-5 flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                    <model.Icon className="w-10 h-10 sm:w-12 sm:h-12 text-[#005c89]" />
+                <div className="relative z-10">
+                  {/* Icon with background */}
+                  <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <img src={iconNetwork} alt="Network icon" className="w-full h-full object-contain filter brightness-0 invert" />
                   </div>
-                  <h3 className="text-[22px] sm:text-[26px] md:text-[28px] text-black font-medium leading-[1.3] sm:leading-[1.4] mb-3 sm:mb-4">
-                    {model.title}
+
+                  <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
+                    Network of Tech SMES
                   </h3>
-                  <p className="text-[16px] sm:text-[18px] text-black leading-[1.6] sm:leading-[1.65]">
-                    {model.description}
+
+                  <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
+                    Our expert network comprises accomplished industry leaders from around the globe, bringing together a wealth of diverse insights and unparalleled expertise to foster collaboration, drive innovation, and offer strategic guidance across various sectors.
                   </p>
                 </div>
-              ))}
+              </div>
+
+              {/* Top tech talents Card */}
+              <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2">
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
+
+                <div className="relative z-10">
+                  {/* Icon with background */}
+                  <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <img src={iconTalents} alt="Talents icon" className="w-full h-full object-contain filter brightness-0 invert" />
+                  </div>
+
+                  <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
+                    Top tech talents
+                  </h3>
+
+                  <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
+                    At the core of our top tech talents lies an unwavering commitment to excellence, cultivated through meticulous hiring practices, hands-on training, and mentorship-led assimilation, ensuring a dynamic and proficient team ready to tackle the most complex technological challenges.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Our Engagement Models */}
+          <div className="mb-8 sm:mb-10 lg:mb-[30px]">
+            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-4 sm:mb-5 lg:mb-[20px]">
+              Our Engagement Models
+            </h2>
+            <p className="text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[60px] mb-10 sm:mb-12 lg:mb-[50px]">
+              We offer flexible engagement models as per the client requirements.
+            </p>
+
+            {/* Desktop: Engagement Models Diagram with arrows and center card */}
+            <div className="hidden xl:block relative h-[1024px] w-full">
+              {/* Center Box */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black rounded-[20px] p-[50px] z-10">
+                <p className="text-[40px] text-[#005c89] font-semibold leading-[60px] whitespace-nowrap">
+                  Our Engagement Models
+                </p>
+              </div>
+
+              {/* Top Left Card - Tap India's Tech Talent Pool */}
+              <div className="absolute left-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+                <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                  <Users className="w-12 h-12 text-[#005c89]" />
+                </div>
+                <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                  Tap India's Tech Talent Pool
+                </h3>
+                <p className="text-[16px] text-black leading-[44px]">
+                  Enabling access to India's exceptional talent by tapping into a diverse pool of skilled professionals to drive project success.
+                </p>
+              </div>
+
+              {/* Top Right Card - Project-Based Execution */}
+              <div className="absolute right-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+                <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                  <Target className="w-12 h-12 text-[#005c89]" />
+                </div>
+                <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                  Project-Based Execution
+                </h3>
+                <p className="text-[16px] text-black leading-[44px]">
+                  From defining tasks and timelines to building and delivering the final product, we ensure smooth execution and set the stage for ongoing improvement.
+                </p>
+              </div>
+
+              {/* Bottom Left Card - Remote CTO & Technology Team */}
+              <div className="absolute left-0 bottom-0 w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+                <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                  <Cpu className="w-12 h-12 text-[#005c89]" />
+                </div>
+                <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                  Remote CTO & Technology Team
+                </h3>
+                <p className="text-[16px] text-black leading-[44px]">
+                  Enhance your business with our CTO and expert tech team, seamlessly filling skill gaps and offering flexible, scalable, and cost-effective solutions without the overhead of in-house hiring.
+                </p>
+              </div>
+
+              {/* Bottom Right Card - Build, Operate, Transfer */}
+              <div className="absolute right-0 bottom-[100px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+                <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                  <Repeat className="w-12 h-12 text-[#005c89]" />
+                </div>
+                <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
+                  Build, Operate, Transfer
+                </h3>
+                <p className="text-[16px] text-black leading-[44px]">
+                  We build the team, operate it for a set period, and then transfer full ownership to the client, ensuring a smooth transition.
+                </p>
+              </div>
+
+              {/* Static Arrow SVG Paths - matching Figma design exactly */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none z-[5]" viewBox="0 0 1240 720" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
+                {/* Top Left Arrow - from center to top-left card */}
+                <path
+                  d="M 466 319 L 466 265 Q 460 255 450 255 L 308 255"
+                  stroke="#000000"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+
+                {/* Top Right Arrow - from center to top-right card */}
+                <path
+                  d="M 773 319 L 773 265 Q 779 255 789 255 L 966 255"
+                  stroke="#000000"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+
+                {/* Bottom Left Arrow - from center to bottom-left card */}
+                <path
+                  d="M 584 410
+  L 584 500
+  Q 578 510 568 510
+  L 380 510
+  "
+                  stroke="#000000"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+
+                {/* Bottom Right Arrow - from center to bottom-right card */}
+                <path
+                  d="M 721 400 L 721 460 Q 731 470 741 470 L 919 470"
+                  stroke="#000000"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              </svg>
+            </div>
+
+            {/* Mobile/Tablet: Vertical stacked cards with dotted connecting line */}
+            <div className="xl:hidden relative">
+              {/* Dotted vertical line connecting cards - centered to screen */}
+              <div className="absolute left-1/2 top-0 bottom-0 w-0 border-l-2 border-dashed border-[#66c2e2] -translate-x-1/2 z-0" style={{ height: '100%' }} />
+
+              {/* Cards */}
+              <div className="relative z-10 flex flex-col gap-6 sm:gap-8">
+                {engagementModels.map((model, index) => (
+                  <div
+                    key={index}
+                    className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]"
+                  >
+                    <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] mb-4 sm:mb-5 flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
+                      <model.Icon className="w-10 h-10 sm:w-12 sm:h-12 text-[#005c89]" />
+                    </div>
+                    <h3 className="text-[22px] sm:text-[26px] md:text-[28px] text-black font-medium leading-[1.3] sm:leading-[1.4] mb-3 sm:mb-4">
+                      {model.title}
+                    </h3>
+                    <p className="text-[16px] sm:text-[18px] text-black leading-[1.6] sm:leading-[1.65]">
+                      {model.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
