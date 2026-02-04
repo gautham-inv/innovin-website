@@ -27,7 +27,7 @@ export default function Navigation() {
     window.addEventListener("hashchange", updateActive);
     // Also check hash on pathname change (for programmatic navigation)
     updateActive();
-    
+
     return () => window.removeEventListener("hashchange", updateActive);
   }, [pathname]);
 
@@ -67,7 +67,7 @@ export default function Navigation() {
     };
 
     window.addEventListener("scroll", throttledHandleScroll, { passive: true });
-    
+
     return () => {
       window.removeEventListener("scroll", throttledHandleScroll);
     };
@@ -109,7 +109,7 @@ export default function Navigation() {
     const isHashActive = hash && pathname === "/" && activeHash === hash;
     // Check if page-based link is active
     const isActive = isPageActive || isHashActive;
-    
+
     return `
       border-[1.195px] border-solid border-white 
       flex items-center justify-center px-[16.95px] py-[12.95px] 
@@ -134,17 +134,16 @@ export default function Navigation() {
 
   return (
     <>
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[100px] bg-white/80 transition-transform duration-300 ease-in-out ${
-          isVisible ? "translate-y-0" : "-translate-y-full"
-        }`}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[100px] bg-white/80 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
+          }`}
       >
         <div className="py-4 md:py-5">
           <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] flex items-center justify-between h-[60px] md:h-[68px]">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="h-[40px] md:h-[46px] relative">
-                <img 
+                <img
                   src={imgLogoDark}
                   alt="Innovin Labs Logo"
                   className="h-full object-contain"
@@ -154,36 +153,36 @@ export default function Navigation() {
 
             {/* Desktop Nav links */}
             <div className="hidden xl:flex bg-[rgba(215,237,248,0.8)] rounded-[26.282px] items-center absolute left-1/2 -translate-x-1/2">
-              <Link 
-                href="/services" 
+              <Link
+                href="/services"
                 className={linkClasses("", true, false, pathname === "/services")}
               >
                 Services
               </Link>
 
-              <Link 
-                href="/why-us" 
+              <Link
+                href="/why-us"
                 className={linkClasses("", false, false, pathname === "/why-us")}
               >
                 Why us
               </Link>
 
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className={linkClasses("", false, false, pathname === "/about")}
               >
                 About us
               </Link>
 
-              <Link 
-                href="/blog" 
+              <Link
+                href="/blog"
                 className={linkClasses("", false, false, pathname === "/blog")}
               >
                 Knowledge Hub
               </Link>
 
-              <Link 
-                href="/careers" 
+              <Link
+                href="/careers"
                 className={linkClasses("", false, true, pathname === "/careers")}
               >
                 Career
@@ -212,9 +211,8 @@ export default function Navigation() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-lg transition-opacity duration-300 xl:hidden ${
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-lg transition-opacity duration-300 xl:hidden ${isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
         onClick={() => setIsMobileMenuOpen(false)}
       >
         <div

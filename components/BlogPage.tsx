@@ -73,14 +73,14 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
 
   return (
     <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
-      <div className="max-w-[1681px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[70px]">
+      <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px]">
         {/* Header Section */}
         <div className="flex flex-col gap-8 sm:gap-10 lg:gap-[50px] items-center justify-center py-8 sm:py-12 lg:py-[10px]">
           <h1 className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.3] lg:leading-[90.6px] relative shrink-0 text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] text-black tracking-[-0.02em] lg:tracking-[-0.84px] w-full text-center">
-            Unlock the Secrets of Tech: Engineering Excellence Uncovered
+            Knowledge Hub
           </h1>
           <p className="font-['Inter',sans-serif] font-normal leading-[1.4] sm:leading-[1.5] lg:leading-[1.2] not-italic relative shrink-0 text-[#005c89] text-[18px] sm:text-[22px] md:text-[26px] lg:text-[31px] w-full text-center">
-            Explore the minds of our engineers — real-world challenges, innovative solutions, and insights on AI, DevOps, Analytics, UI/UX, and more.
+            Stay updated with the latest trends and insights in the world of technology.
           </p>
 
           {/* Recent Posts Carousel with Arrow Buttons - Shows One at a Time */}
@@ -89,7 +89,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
               <h2 className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.3] lg:leading-[47.6px] relative shrink-0 text-[20px] sm:text-[22px] lg:text-[24px] text-black tracking-[-0.02em] lg:tracking-[-0.36px] w-full mb-4 sm:mb-5 lg:mb-6">
                 Recent Blog Posts
               </h2>
-              
+
               <div className="relative">
                 {/* Left Arrow Button */}
                 <button
@@ -113,10 +113,10 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
                         : "Unknown Author";
                     const postDate = post.date
                       ? new Date(post.date).toLocaleDateString("en-US", {
-                          month: "long",
-                          day: "numeric",
-                          year: "numeric",
-                        })
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })
                       : "";
 
                     return (
@@ -180,11 +180,10 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
               {/* All Category Chip */}
               <button
                 onClick={() => setSelectedCategory("all")}
-                className={`border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-colors ${
-                  selectedCategory === "all"
-                    ? "bg-[rgba(215,237,248,0.6)] border-[#005c89]"
-                    : "bg-white border-[#E0E0E0] hover:bg-gray-50"
-                }`}
+                className={`border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-colors ${selectedCategory === "all"
+                  ? "bg-[rgba(215,237,248,0.6)] border-[#005c89]"
+                  : "bg-white border-[#E0E0E0] hover:bg-gray-50"
+                  }`}
               >
                 <p className="font-['Manrope',sans-serif] font-normal leading-[1.4] sm:leading-[27.964px] relative shrink-0 text-[14px] sm:text-[16px] text-black text-nowrap tracking-[0.0067px] whitespace-pre">
                   All
@@ -198,11 +197,10 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
                   <button
                     key={category._id}
                     onClick={() => setSelectedCategory(category._id)}
-                    className={`border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-colors ${
-                      isSelected
-                        ? "bg-[rgba(215,237,248,0.6)] border-[#005c89]"
-                        : "bg-white border-[#E0E0E0] hover:bg-gray-50"
-                    }`}
+                    className={`border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-colors ${isSelected
+                      ? "bg-[rgba(215,237,248,0.6)] border-[#005c89]"
+                      : "bg-white border-[#E0E0E0] hover:bg-gray-50"
+                      }`}
                   >
                     <p className="font-['Manrope',sans-serif] font-normal leading-[1.4] sm:leading-[27.964px] relative shrink-0 text-[14px] sm:text-[16px] text-black text-nowrap tracking-[0.0067px] whitespace-pre">
                       {category.title}

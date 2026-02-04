@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,8 +5,10 @@
 /* Base font-size - CRITICAL: Ensures consistent rem calculations across all environments */
 /* This prevents layout shifts between localhost and production */
 html {
-  font-size: 16px !important; /* Explicit base size - prevents browser default differences */
-  -webkit-text-size-adjust: 100%; /* Prevent iOS font scaling */
+  font-size: 16px !important;
+  /* Explicit base size - prevents browser default differences */
+  -webkit-text-size-adjust: 100%;
+  /* Prevent iOS font scaling */
   text-size-adjust: 100%;
 }
 
@@ -18,7 +19,8 @@ html {
 
 body {
   font-family: var(--font-manrope), sans-serif;
-  font-size: 1rem; /* Explicit size based on html font-size */
+  font-size: 1rem;
+  /* Explicit size based on html font-size */
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -37,13 +39,15 @@ body {
 
 /* Navbar active link highlight */
 .nav-active {
-  background: #66C2E2 !important; /* Dark blue */
+  background: #66C2E2 !important;
+  /* Dark blue */
   color: white !important;
   border-color: #66C2E2 !important;
 }
 
 /* hide scrollbar for the page's horizontal overflow (if any) */
-html, body {
+html,
+body {
   overflow-x: clip;
   scroll-behavior: smooth;
 }
@@ -60,18 +64,22 @@ html, body {
 
 @layer utilities {
   .h-screen-navbar {
-    height: calc(100vh - 85px); /* navbar = 85px */
+    height: calc(100vh - 85px);
+    /* navbar = 85px */
   }
-  
+
   .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
-  
+
   .scrollbar-hide::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari and Opera */
+    display: none;
+    /* Chrome, Safari and Opera */
   }
-  
+
   .overscroll-none {
     overscroll-behavior: none;
   }
@@ -82,4 +90,27 @@ html, body {
   .front-card-rotate {
     transform: rotate(359deg) !important;
   }
+}
+
+/* Careers page hero dotted background */
+.hero-dotted-bg {
+  background-image: radial-gradient(#d1d5db 1px, transparent 1px);
+  background-size: 25px 25px;
+  background-position: 0 0;
+}
+
+/* Mesh background with horizontal and vertical lines */
+.mesh-bg {
+  background-image:
+    radial-gradient(circle, rgba(0, 92, 137, 0.35) 1.5px, transparent 1.5px);
+  background-size: 40px 40px;
+}
+
+
+
+.mesh-bg-light {
+  background-image:
+    linear-gradient(to right, rgba(229, 231, 235, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(229, 231, 235, 0.4) 1px, transparent 1px);
+  background-size: 30px 30px;
 }

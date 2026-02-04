@@ -48,7 +48,7 @@ export default function Services() {
 
     const isDesktop = window.innerWidth >= 1280;
     const section = isDesktop ? sectionRef.current : mobileSectionRef.current;
-    
+
     // Safety check
     if (!section) return;
 
@@ -110,20 +110,20 @@ export default function Services() {
             const servicesLetters = splitText(servicesH2);
 
             // Initial states
-            gsap.set([...ourLetters, ...servicesLetters], { 
-              y: 80, 
+            gsap.set([...ourLetters, ...servicesLetters], {
+              y: 80,
               opacity: 0,
               force3D: true
             });
-            gsap.set(subtitle, { 
+            gsap.set(subtitle, {
               opacity: 0,
               force3D: true
             });
-            
+
             // Card 1: Visible and centered
-            gsap.set(cards[0], { 
-              y: "-50%", 
-              scale: 1, 
+            gsap.set(cards[0], {
+              y: "-50%",
+              scale: 1,
               opacity: 1,
               force3D: true
             });
@@ -135,11 +135,11 @@ export default function Services() {
               opacity: 0.4,
               force3D: true
             });
-            
+
             // Cards 2 and 3: Hidden initially
-            gsap.set(cards.slice(1), { 
-              y: "20vh", 
-              scale: 0.9, 
+            gsap.set(cards.slice(1), {
+              y: "20vh",
+              scale: 0.9,
               opacity: 0,
               force3D: true
             });
@@ -154,35 +154,35 @@ export default function Services() {
 
             // Preload animations
             const preloadTl = gsap.timeline({
-              scrollTrigger: { 
-                trigger: section, 
-                start: "top bottom-=500", 
-                end: "top bottom", 
-                scrub: false, 
+              scrollTrigger: {
+                trigger: section,
+                start: "top bottom-=500",
+                end: "top bottom",
+                scrub: false,
                 once: true,
                 invalidateOnRefresh: true,
               },
             });
 
-            preloadTl.to(ourLetters, { 
-              y: 0, 
-              opacity: 1, 
-              stagger: 0.05, 
-              duration: 1.2, 
+            preloadTl.to(ourLetters, {
+              y: 0,
+              opacity: 1,
+              stagger: 0.05,
+              duration: 1.2,
               ease: "power3.out",
               force3D: true
             }, 0);
-            preloadTl.to(servicesLetters, { 
-              y: 0, 
-              opacity: 1, 
-              stagger: 0.05, 
-              duration: 1.2, 
+            preloadTl.to(servicesLetters, {
+              y: 0,
+              opacity: 1,
+              stagger: 0.05,
+              duration: 1.2,
               ease: "power3.out",
               force3D: true
             }, 0.2);
-            preloadTl.to(subtitle, { 
-              opacity: 1, 
-              duration: 0.8, 
+            preloadTl.to(subtitle, {
+              opacity: 1,
+              duration: 0.8,
               ease: "power2.out",
               force3D: true
             }, 0.8);
@@ -205,8 +205,8 @@ export default function Services() {
             });
 
             // Transition 1: Card 1 to Card 2 - FASTER
-            pinnedTl.to(cards[0], { 
-              scale: 0.85, 
+            pinnedTl.to(cards[0], {
+              scale: 0.85,
               duration: 0.5, // Reduced from 0.8
               ease: "power2.inOut", // Changed to power2 for snappier feel
               force3D: true
@@ -223,10 +223,10 @@ export default function Services() {
               ease: "power2.inOut",
               force3D: true
             }, 0);
-            
-            pinnedTl.to(cards[1], { 
-              y: "-50%", 
-              scale: 1, 
+
+            pinnedTl.to(cards[1], {
+              y: "-50%",
+              scale: 1,
               opacity: 1,
               duration: 0.5,
               ease: "power2.inOut",
@@ -248,8 +248,8 @@ export default function Services() {
             pinnedTl.to({}, { duration: 0.3 }, 0.5); // Reduced pause from 0.4
 
             // Transition 2: Card 2 to Card 3 - FASTER
-            pinnedTl.to(cards[1], { 
-              scale: 0.85, 
+            pinnedTl.to(cards[1], {
+              scale: 0.85,
               duration: 0.5,
               ease: "power2.inOut",
               force3D: true
@@ -266,10 +266,10 @@ export default function Services() {
               ease: "power2.inOut",
               force3D: true
             }, 0.8);
-            
-            pinnedTl.to(cards[2], { 
-              y: "-50%", 
-              scale: 1, 
+
+            pinnedTl.to(cards[2], {
+              y: "-50%",
+              scale: 1,
               opacity: 1,
               duration: 0.5,
               ease: "power2.inOut",
@@ -300,12 +300,12 @@ export default function Services() {
             const ourLetters = splitText(ourH2);
             const servicesLetters = splitText(servicesH2);
 
-            gsap.set([...ourLetters, ...servicesLetters], { 
-              y: 80, 
+            gsap.set([...ourLetters, ...servicesLetters], {
+              y: 80,
               opacity: 0,
               force3D: true
             });
-            gsap.set(subtitle, { 
+            gsap.set(subtitle, {
               opacity: 0,
               force3D: true
             });
@@ -316,35 +316,35 @@ export default function Services() {
             });
 
             const preloadTl = gsap.timeline({
-              scrollTrigger: { 
-                trigger: section, 
-                start: "top bottom-=300", 
-                end: "top bottom", 
-                scrub: false, 
+              scrollTrigger: {
+                trigger: section,
+                start: "top bottom-=300",
+                end: "top bottom",
+                scrub: false,
                 once: true,
                 invalidateOnRefresh: true,
               },
             });
 
-            preloadTl.to(ourLetters, { 
-              y: 0, 
-              opacity: 1, 
-              stagger: 0.05, 
-              duration: 1.2, 
+            preloadTl.to(ourLetters, {
+              y: 0,
+              opacity: 1,
+              stagger: 0.05,
+              duration: 1.2,
               ease: "power3.out",
               force3D: true
             }, 0);
-            preloadTl.to(servicesLetters, { 
-              y: 0, 
-              opacity: 1, 
-              stagger: 0.05, 
-              duration: 1.2, 
+            preloadTl.to(servicesLetters, {
+              y: 0,
+              opacity: 1,
+              stagger: 0.05,
+              duration: 1.2,
               ease: "power3.out",
               force3D: true
             }, 0.2);
-            preloadTl.to(subtitle, { 
-              opacity: 1, 
-              duration: 0.8, 
+            preloadTl.to(subtitle, {
+              opacity: 1,
+              duration: 0.8,
               ease: "power2.out",
               force3D: true
             }, 0.8);
@@ -399,7 +399,7 @@ export default function Services() {
           }
         });
         ctx.revert();
-        
+
         // --- 3. CLEANUP LENIS ---
         lenis.destroy();
         gsap.ticker.remove(lenis.raf); // Important: remove the listener
@@ -414,7 +414,7 @@ export default function Services() {
         {/* Titles */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 xl:pl-20 space-y-1">
           <div ref={titleOurRef} className="overflow-hidden">
-            <h2 
+            <h2
               className="text-[56px] xl:text-[82px] text-white font-medium leading-[62px] xl:leading-[90px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
@@ -422,15 +422,15 @@ export default function Services() {
             </h2>
           </div>
           <div ref={titleServicesRef} className="overflow-hidden">
-            <h2 
+            <h2
               className="text-[56px] xl:text-[82px] text-white font-medium leading-[62px] xl:leading-[90px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               services
             </h2>
           </div>
-          <p 
-            ref={subtitleRef} 
+          <p
+            ref={subtitleRef}
             className="text-[21px] text-neutral-500 leading-[30px] tracking-[0.325px] w-[272px] mt-3"
             style={{ willChange: 'opacity' }}
           >
@@ -446,29 +446,37 @@ export default function Services() {
               href="/services"
               ref={(el) => { cardsRef.current[index] = el; }}
               className="absolute left-1/2 -translate-x-1/2 w-full h-full rounded-3xl overflow-hidden shadow-2xl cursor-pointer transition-transform hover:scale-[1.02]"
-              style={{ 
-                background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)", 
+              style={{
+                background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
                 zIndex: 30 + index,
                 willChange: 'transform, opacity'
               }}
             >
               <div className="absolute inset-0">
-                <img 
+                <img
                   ref={(el) => { cardImagesRef.current[index] = el; }}
-                  src={service.image} 
-                  alt={service.title} 
-                  className="w-full h-full object-cover" 
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover"
                   style={{ willChange: 'opacity' }}
                 />
-                <div 
+                <div
                   ref={(el) => { cardOverlaysRef.current[index] = el; }}
                   className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"
                   style={{ willChange: 'opacity' }}
                 />
               </div>
               <div className="relative h-full flex flex-col justify-end p-12">
-                <h3 className="text-4xl text-white font-semibold mb-6 leading-tight">{service.title}</h3>
-                <p className="text-xl text-neutral-300 leading-relaxed max-w-[600px]">{service.description}</p>
+                {/* Bottom Fade Gradient for Text Readability */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 h-1/2 z-0 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)',
+                  }}
+                />
+
+                <h3 className="relative z-10 text-4xl text-white font-semibold mb-6 leading-tight">{service.title}</h3>
+                <p className="relative z-10 text-xl text-neutral-300 leading-relaxed max-w-[600px]">{service.description}</p>
               </div>
               <div className="absolute top-10 right-10 text-8xl font-bold text-white/10">{String(index + 1).padStart(2, "0")}</div>
             </a>
@@ -482,7 +490,7 @@ export default function Services() {
           {/* Titles */}
           <div className="mb-12 sm:mb-16 md:mb-20">
             <div ref={titleOurRef} className="overflow-hidden">
-              <h2 
+              <h2
                 className="text-[48px] sm:text-[56px] md:text-[64px] text-white font-medium leading-[1.1] tracking-[-0.02em] inline-block"
                 style={{ willChange: 'transform, opacity' }}
               >
@@ -490,15 +498,15 @@ export default function Services() {
               </h2>
             </div>
             <div ref={titleServicesRef} className="overflow-hidden">
-              <h2 
+              <h2
                 className="text-[48px] sm:text-[56px] md:text-[64px] text-white font-medium leading-[1.1] tracking-[-0.02em] inline-block"
                 style={{ willChange: 'transform, opacity' }}
               >
                 services
               </h2>
             </div>
-            <p 
-              ref={subtitleRef} 
+            <p
+              ref={subtitleRef}
               className="text-[17px] sm:text-[19px] md:text-[21px] text-neutral-500 leading-[1.5] mt-4 sm:mt-5 max-w-[400px]"
               style={{ willChange: 'opacity' }}
             >
@@ -509,23 +517,23 @@ export default function Services() {
           {/* Cards - Vertical Stack */}
           <div className="flex flex-col gap-8 sm:gap-10 md:gap-12">
             {services.map((service, index) => (
-              
-                <a
+
+              <a
                 key={index}
                 href="/services"
                 ref={(el) => { mobileCardsRef.current[index] = el; }}
                 className="relative w-full h-[400px] sm:h-[450px] md:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl cursor-pointer transition-transform hover:scale-[1.02]"
-                style={{ 
+                style={{
                   background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)",
                 }}
               >
                 <div className="absolute inset-0">
-                  <img 
-                    src={service.image} 
-                    alt={service.title} 
-                    className="w-full h-full object-cover opacity-100" 
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover opacity-100"
                   />
-                  <div 
+                  <div
                     className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30"
                   />
                 </div>

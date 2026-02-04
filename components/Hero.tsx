@@ -6,7 +6,7 @@ export default function Hero() {
       {/* Animated Gradient Background - Optimized */}
       <div className="absolute inset-0 overflow-hidden will-change-transform">
         {/* Base gradient that moves */}
-        <div 
+        <div
           className="absolute inset-0 opacity-60"
           style={{
             background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(135,206,250,0.3) 50%, rgba(0,149,255,0.5) 100%)',
@@ -14,9 +14,9 @@ export default function Hero() {
             willChange: 'transform'
           }}
         />
-        
+
         {/* Animated blur circles - Optimized for performance */}
-        <div 
+        <div
           className="absolute w-[800px] h-[800px] rounded-full opacity-30"
           style={{
             background: 'radial-gradient(circle, rgba(135,206,250,0.8) 0%, rgba(0,149,255,0.4) 50%, transparent 70%)',
@@ -28,8 +28,8 @@ export default function Hero() {
             willChange: 'transform'
           }}
         />
-        
-        <div 
+
+        <div
           className="absolute w-[600px] h-[600px] rounded-full opacity-20"
           style={{
             background: 'radial-gradient(circle, rgba(100,200,255,0.6) 0%, rgba(0,149,255,0.3) 50%, transparent 70%)',
@@ -40,8 +40,8 @@ export default function Hero() {
             willChange: 'transform'
           }}
         />
-        
-        <div 
+
+        <div
           className="absolute w-[700px] h-[700px] rounded-full opacity-20"
           style={{
             background: 'radial-gradient(circle, rgba(135,206,250,0.7) 0%, rgba(0,149,255,0.3) 50%, transparent 70%)',
@@ -55,9 +55,9 @@ export default function Hero() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto text-center px-4 sm:px-6 py-16 sm:py-20">
+      <div className="relative z-10 max-w-[1681px] mx-auto text-center px-4 sm:px-6 lg:px-6 xl:px-[70px] py-16 sm:py-20">
         {/* Main headline with smooth blur fade-in animation */}
-        <h1 
+        <h1
           className="font-semibold text-[#232323] mb-6 sm:mb-8 md:mb-10 lg:mb-12 fade-in-blur"
         >
           {/* Mobile and Tablet */}
@@ -68,7 +68,7 @@ export default function Hero() {
               <span className="font-normal">into</span>
             </span>
             <span className="block text-[32px] sm:text-[48px] md:text-[64px] leading-[1.1] tracking-[-0.02em] mt-2">
-              <span className="font-normal">robust</span>{" "}
+              <span className="font-normal">Robust</span>{" "}
               <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">Digital Solutions</span>
             </span>
           </span>
@@ -81,21 +81,21 @@ export default function Hero() {
               <span className="font-normal">into</span>
             </span>
             <span className="block text-[80px] xl:text-[105px] leading-[1.1] tracking-[-0.02em] mt-2">
-              <span className="font-normal">robust</span>{" "}
+              <span className="font-normal">Robust</span>{" "}
               <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">Digital Solutions</span>
             </span>
           </span>
         </h1>
-        
+
         {/* Tagline with delayed smooth fade-in */}
-        <p 
+        <p
           className="text-[#005c89] text-[16px] sm:text-[20px] md:text-[24px] lg:text-[28px] xl:text-[31px] leading-[1.4] sm:leading-[1.5] lg:leading-[1.6] max-w-[90%] sm:max-w-4xl mx-auto font-medium fade-in-blur"
           style={{ animationDelay: '0.2s' }}
         >
           We help startups and small businesses build bold, scalable tech fast.
         </p>
 
-        
+
       </div>
 
       {/* Optimized CSS Animations */}

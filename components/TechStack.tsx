@@ -8,46 +8,27 @@ const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h
 const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
 const img3 = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop";
 
-// Define tech stack using API-based logos
-const techLogosTop = [
-  { techKey: "wordpress", href: "https://wordpress.org" },
-  { techKey: "npm", href: "https://www.npmjs.com" },
-  { techKey: "postgresql", href: "https://www.postgresql.org" },
-  { techKey: "javascript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
-  { techKey: "nodejs", href: "https://nodejs.org" },
-  { techKey: "aws", href: "https://aws.amazon.com" },
-  { techKey: "azure", href: "https://azure.microsoft.com" },
-  { techKey: "gcp", href: "https://cloud.google.com" },
-  { techKey: "figma", href: "https://www.figma.com" },
-  { techKey: "react", href: "https://react.dev" },
-  { techKey: "firebase", href: "https://firebase.google.com" },
-  { techKey: "html5", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
-];
+import Link from "next/link";
+import { techStackData } from "@/lib/techStackData";
 
-const techLogosBottom = [
-  { techKey: "mysql", href: "https://www.mysql.com" },
-  { techKey: "kubernetes", href: "https://kubernetes.io" },
-  { techKey: "cloudflare", href: "https://www.cloudflare.com" },
-  { techKey: "docker", href: "https://www.docker.com" },
-  { techKey: "git", href: "https://git-scm.com" },
-  { techKey: "github", href: "https://github.com" },
-  { techKey: "nextjs", href: "https://nextjs.org" },
-  { techKey: "tailwind", href: "https://tailwindcss.com" },
-  { techKey: "typescript", href: "https://www.typescriptlang.org" },
-  { techKey: "python", href: "https://www.python.org" },
-  { techKey: "mongodb", href: "https://www.mongodb.com" },
-];
+// Extract all items from techStackData for the loop
+const allTechItems = techStackData.flatMap(category => category.items);
 
-// Transform tech data to logo format
-const getLogos = (techArray: typeof techLogosTop) => 
-  techArray
-    .filter(({ techKey }) => hasValidLogo(techKey))
-    .map(({ techKey, href }) => ({
-      src: getTechLogo(techKey),
-      alt: getTechName(techKey),
-      title: getTechName(techKey),
-      href,
-    }));
+// Split them into top and bottom rows for the animation
+const midIndex = Math.ceil(allTechItems.length / 2);
+const techLogosTop = allTechItems.slice(0, midIndex).map(item => ({
+  src: item.icon,
+  alt: item.name,
+  title: item.name,
+  href: item.href
+}));
+
+const techLogosBottom = allTechItems.slice(midIndex).map(item => ({
+  src: item.icon,
+  alt: item.name,
+  title: item.name,
+  href: item.href
+}));
 
 export default function TechStack() {
   // Responsive control for logo size + speed
@@ -96,12 +77,12 @@ export default function TechStack() {
   }, []);
 
   return (
-    <div className="p-6 sm:p-8 md:p-10 lg:p-[45px]">
+    <div className="px-4 sm:px-6 lg:px-6 xl:px-[70px]">
       <section
         className="bg-[#131518] rounded-[23.408px] relative overflow-hidden"
         style={{ minHeight: 0 }}
       >
-        <div className="max-w-[1593px] mx-auto px-5 py-12 md:py-16 lg:py-20 flex flex-col gap-12 md:gap-20">
+        <div className="max-w-[1681px] mx-auto px-5 py-12 md:py-16 lg:py-20 flex flex-col gap-12 md:gap-20">
           {/* Heading Section */}
           <div className="text-center flex flex-col gap-4 md:gap-6 px-4">
             <h2
@@ -117,7 +98,7 @@ export default function TechStack() {
           {/* Top row: scrolls left → right (direction="right") */}
           <div className="w-full">
             <LogoLoop
-              logos={getLogos(techLogosTop)}
+              logos={techLogosTop}
               speed={speed}
               direction="right"
               logoHeight={logoHeight}
@@ -133,7 +114,7 @@ export default function TechStack() {
           {/* Bottom row: scrolls right → left (direction="left") */}
           <div className="w-full">
             <LogoLoop
-              logos={getLogos(techLogosBottom)}
+              logos={techLogosBottom}
               speed={speed}
               direction="left"
               logoHeight={logoHeight}
@@ -144,6 +125,16 @@ export default function TechStack() {
               fadeOutColor="#131518"
               ariaLabel="Bottom row tech stack logos"
             />
+          </div>
+
+          {/* View All Button */}
+          <div className="flex justify-center mt-8">
+            <Link
+              href="/tech-stack"
+              className="text-white border border-white/20 px-8 py-3 rounded-full hover:bg-white hover:text-[#131518] transition-all duration-300 font-medium"
+            >
+              View Full Tech Stack
+            </Link>
           </div>
         </div>
       </section>

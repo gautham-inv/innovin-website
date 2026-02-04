@@ -131,7 +131,7 @@ function ContactModal() {
 
       // Prevent scrolling on desktop
       document.body.style.overflow = "hidden";
-      
+
       // Prevent scrolling on mobile (especially iOS)
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
@@ -152,10 +152,10 @@ function ContactModal() {
         document.body.style.position = originalPosition;
         document.body.style.top = originalTop;
         document.body.style.width = originalWidth;
-        
+
         // Restore scroll position
         window.scrollTo(0, scrollY);
-        
+
         // Remove event listener
         document.body.removeEventListener("touchmove", preventTouchMove);
       };
@@ -299,9 +299,8 @@ function ContactModal() {
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`bg-[#5e5e5e] flex items-center justify-center p-[4.8px] rounded-[42px] shrink-0 transition-opacity ${
-        disabled ? "opacity-50 cursor-not-allowed" : "hover:opacity-80 cursor-pointer"
-      }`}
+      className={`bg-[#5e5e5e] flex items-center justify-center p-[4.8px] rounded-[42px] shrink-0 transition-opacity ${disabled ? "opacity-50 cursor-not-allowed" : "hover:opacity-80 cursor-pointer"
+        }`}
     >
       <div className={`flex items-center justify-center size-[14.4px] ${rotate ? "rotate-[180deg] scale-y-[-100%]" : ""}`}>
         <ChevronUp className="size-[14.4px] rotate-[270deg] text-white" />
@@ -311,27 +310,23 @@ function ContactModal() {
 
   const StepIndicator = ({ step }: { step: number }) => (
     <div className="flex gap-2 sm:gap-[12px] h-[28px] sm:h-[32px] items-center shrink-0">
-      <div className="relative shrink-0 size-[14px] sm:size-[16px]">
-        <div className="absolute inset-0 rounded-full border border-white/30" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="size-[6px] sm:size-[8px] rounded-full bg-white" />
-        </div>
-      </div>
       <p className="font-['Manrope',sans-serif] font-light leading-[1.2] sm:leading-[60px] shrink-0 text-[12px] sm:text-[14px] text-nowrap text-white whitespace-pre">
-        {step}/5
+        Step {step}/5
       </p>
     </div>
   );
 
   const PleaseEnterButton = ({ onClick }: { onClick: () => void }) => (
-    <div className="flex gap-2 sm:gap-[10px] items-center shrink-0">
+    <div
+      className="flex gap-2 sm:gap-[10px] items-center shrink-0 cursor-pointer hover:opacity-80 transition-opacity"
+      onClick={onClick}
+    >
       <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#ababab] text-[14px] sm:text-[16px] text-nowrap whitespace-pre">
         Please enter
       </p>
       <button
-        onClick={onClick}
         disabled={isSubmitting}
-        className="relative shrink-0 size-[20px] sm:size-[24px] flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        className="relative shrink-0 size-[20px] sm:size-[24px] flex items-center justify-center transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         aria-label="Enter"
       >
         <ArrowRight className="size-[18px] sm:size-[20px] text-[#ababab]" />
@@ -363,6 +358,12 @@ function ContactModal() {
             {!showSuccess && currentStep === 5 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px]">Confirm messsage</p>}
             {showSuccess && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#66c2e2] text-[14px] sm:text-[16px]">Thank you!</p>}
           </div>
+
+          {!showSuccess && (
+            <div className="hidden sm:block">
+              <StepIndicator step={currentStep} />
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -388,9 +389,8 @@ function ContactModal() {
                     onChange={(e) => handleInputChange("name", e.target.value)}
                     onKeyDown={(e) => handleKeyDown(e, handleEnter)}
                     placeholder="Your name..."
-                    className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${
-                      errors.name ? "text-red-400" : ""
-                    }`}
+                    className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.name ? "text-red-400" : ""
+                      }`}
                   />
                   {errors.name && (
                     <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.name}</p>
@@ -418,9 +418,8 @@ function ContactModal() {
                     onChange={(e) => handleInputChange("company", e.target.value)}
                     onKeyDown={(e) => handleKeyDown(e, handleEnter)}
                     placeholder="Your company..."
-                    className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${
-                      errors.company ? "text-red-400" : ""
-                    }`}
+                    className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.company ? "text-red-400" : ""
+                      }`}
                   />
                   {errors.company && (
                     <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.company}</p>
@@ -444,9 +443,8 @@ function ContactModal() {
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     onKeyDown={(e) => handleKeyDown(e, handleEnter)}
                     placeholder="your.email@example.com"
-                    className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${
-                      errors.email ? "text-red-400" : ""
-                    }`}
+                    className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.email ? "text-red-400" : ""
+                      }`}
                   />
                   {errors.email && (
                     <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.email}</p>
@@ -475,9 +473,9 @@ function ContactModal() {
                     }}
                     placeholder="Your message..."
                     rows={3}
-                    className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] resize-none ${
-                      errors.message ? "text-red-400" : ""
-                    }`}
+                    maxLength={500}
+                    className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] resize-none ${errors.message ? "text-red-400" : ""
+                      }`}
                   />
                   {errors.message && (
                     <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.message}</p>

@@ -4,27 +4,27 @@ import { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 // ServiceCard component
-function ServiceCard({ 
-  title, 
-  subtitle, 
-  description, 
+function ServiceCard({
+  title,
+  subtitle,
+  description,
   className = "",
   isMobile = false,
   isVisible = false,
   delay = 0
-}: { 
-  title: string; 
-  subtitle: string; 
-  description: string; 
+}: {
+  title: string;
+  subtitle: string;
+  description: string;
   className?: string;
   isMobile?: boolean;
   isVisible?: boolean;
   delay?: number;
 }) {
   return (
-    <div 
+    <div
       className={`bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow ${className}`}
-      style={isMobile ? { 
+      style={isMobile ? {
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
         transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
@@ -61,10 +61,10 @@ export default function WhyUs() {
     const checkDesktop = () => {
       setIsDesktop(window.innerWidth >= 1280);
     };
-    
+
     checkDesktop();
     window.addEventListener('resize', checkDesktop);
-    
+
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
@@ -104,7 +104,7 @@ export default function WhyUs() {
     const loadGSAP = async () => {
       const gsap = (await import('gsap')).default;
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      
+
       gsap.registerPlugin(ScrollTrigger);
 
       const section = sectionRef.current;
@@ -121,8 +121,8 @@ export default function WhyUs() {
       });
 
       // Reset all GSAP properties to initial state
-      gsap.set([title, content, ...letterRefs.current.filter(Boolean)], { 
-        clearProps: "all" 
+      gsap.set([title, content, ...letterRefs.current.filter(Boolean)], {
+        clearProps: "all"
       });
 
       let rafId: number;
@@ -130,28 +130,28 @@ export default function WhyUs() {
       let initTimeout: NodeJS.Timeout;
       let handleResize: (() => void) | null = null;
       let handleImageLoad: (() => void) | null = null;
-      
+
       const ctx = gsap.context(() => {
         rafId = requestAnimationFrame(() => {
           void section.offsetHeight;
-        
+
           // Set initial states
-          gsap.set(content, { 
-            opacity: 0, 
+          gsap.set(content, {
+            opacity: 0,
             y: 50,
             force3D: true
           });
-          
+
           gsap.set(title, {
             scale: 1,
             y: 0,
             force3D: true,
             transformOrigin: "center center"
           });
-          
+
           letterRefs.current.forEach((letterEl) => {
             if (letterEl) {
-              gsap.set(letterEl, { 
+              gsap.set(letterEl, {
                 color: "#c8c8c8",
                 force3D: true
               });
@@ -165,7 +165,7 @@ export default function WhyUs() {
 
           // Create main timeline
           let scrollTriggerInstance: ScrollTrigger | null = null;
-          
+
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: section,
@@ -188,33 +188,33 @@ export default function WhyUs() {
                   if (el) gsap.set(el, { color: "#c8c8c8", force3D: true });
                 });
               },
-              onComplete: function(this: ScrollTrigger) {
+              onComplete: function (this: ScrollTrigger) {
                 scrollTriggerInstance = this;
                 this.kill();
-                
+
                 gsap.set(title, {
                   scale: titleScale,
                   y: titleYPosition,
                   force3D: true,
                   clearProps: "transform"
                 });
-                
+
                 gsap.set(content, {
                   opacity: 1,
                   y: 0,
                   force3D: true,
                   clearProps: "transform,opacity"
                 });
-                
+
                 letterRefs.current.forEach((el) => {
                   if (el) {
-                    gsap.set(el, { 
+                    gsap.set(el, {
                       color: "#232323",
                       clearProps: "color"
                     });
                   }
                 });
-                
+
                 if (section) {
                   section.style.position = 'relative';
                   section.style.height = 'auto';
@@ -226,7 +226,7 @@ export default function WhyUs() {
           // Phase 1: Letter color fade
           letterRefs.current.forEach((letterEl, index) => {
             if (!letterEl) return;
-            
+
             tl.to(letterEl, {
               color: "#232323",
               duration: 0.25 / letters.length,
@@ -268,7 +268,7 @@ export default function WhyUs() {
 
           window.addEventListener("resize", handleResize);
           window.addEventListener("load", handleImageLoad);
-          
+
           initTimeout = setTimeout(() => {
             ScrollTrigger.refresh();
             setTimeout(() => {
@@ -296,7 +296,7 @@ export default function WhyUs() {
         if (handleResize) window.removeEventListener("resize", handleResize);
         if (handleImageLoad) window.removeEventListener("load", handleImageLoad);
         if (pathnameRefreshTimeout) clearTimeout(pathnameRefreshTimeout);
-        
+
         ScrollTrigger.getAll().forEach((trigger) => {
           if (trigger.vars?.trigger === section || trigger.trigger === section) {
             trigger.kill();
@@ -317,15 +317,14 @@ export default function WhyUs() {
     >
       <div className={isDesktop ? "h-screen w-full relative" : "w-full"}>
         {/* Title */}
-        <div className={`${
-          isDesktop 
-            ? 'absolute inset-0 flex items-center justify-center pointer-events-none z-30' 
-            : 'flex items-center justify-center mb-8 sm:mb-12'
-        }`}>
-          <h2 
+        <div className={`${isDesktop
+          ? 'absolute inset-0 flex items-center justify-center pointer-events-none z-30'
+          : 'flex items-center justify-center mb-8 sm:mb-12'
+          }`}>
+          <h2
             ref={titleRef}
             className={`text-[60px] sm:text-[80px] md:text-[120px] lg:text-[279.273px] leading-[1.25] text-center font-['Manrope',sans-serif] px-4`}
-            style={!isDesktop ? { 
+            style={!isDesktop ? {
               color: '#232323',
               opacity: isMounted && isVisible ? 1 : 0,
               transition: 'opacity 0.8s ease-out 0.1s'
@@ -349,12 +348,11 @@ export default function WhyUs() {
         {/* Content */}
         <div
           ref={contentRef}
-          className={`${
-            isDesktop 
-              ? 'absolute inset-0 flex flex-col justify-start lg:justify-center items-center pt-[160px] sm:pt-[180px] lg:pt-[180px] px-4 sm:px-6 lg:px-8 z-10 overflow-y-auto'
-              : 'flex flex-col items-center px-4 sm:px-6'
-          }`}
-          style={!isDesktop ? { 
+          className={`${isDesktop
+            ? 'absolute inset-0 flex flex-col justify-start lg:justify-center items-center pt-[160px] sm:pt-[180px] lg:pt-[180px] px-4 sm:px-6 lg:px-6 xl:px-[70px] z-10 overflow-y-auto'
+            : 'flex flex-col items-center px-4 sm:px-6'
+            }`}
+          style={!isDesktop ? {
             opacity: isMounted && isVisible ? 1 : 0,
             transform: isMounted && isVisible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s'
@@ -371,7 +369,7 @@ export default function WhyUs() {
           </div>
 
           {/* Service Cards */}
-          <div className="max-w-[1200px] w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pb-8 sm:pb-12 lg:pb-20">
+          <div className="max-w-[1681px] w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pb-8 sm:pb-12 lg:pb-20">
             <ServiceCard
               title="Product Strategy"
               subtitle="Craft clarity before code."

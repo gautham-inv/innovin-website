@@ -20,6 +20,9 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
   description: "We help startups and small businesses build bold, scalable tech fast.",
+  icons: {
+    icon: "/images/favicon.png",
+  },
 };
 
 // Viewport configuration for Next.js 15 (must be exported separately)
@@ -60,7 +63,7 @@ export default async function RootLayout({
           {children}
         </ContactModalProvider>
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
-        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
         )}
       </body>
     </html>

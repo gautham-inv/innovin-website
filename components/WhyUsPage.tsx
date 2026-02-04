@@ -4,10 +4,10 @@ import { useEffect, useRef, useState, ReactNode } from "react";
 import { Users, Target, Cpu, Repeat } from "lucide-react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 
-const Word = ({ children, progress, range }: { children: ReactNode, progress: MotionValue<number>, range: [number, number] }) => {
+const Word = ({ children, progress, range, highlight = false }: { children: ReactNode, progress: MotionValue<number>, range: [number, number], highlight?: boolean }) => {
   const opacity = useTransform(progress, range, [0.1, 1]);
   return (
-    <motion.span style={{ opacity }} className="mr-[0.2em] relative inline-block">
+    <motion.span style={{ opacity }} className={`mr-[0.2em] relative inline-block ${highlight ? 'text-[#66c2e2]' : ''}`}>
       {children}
     </motion.span>
   )
@@ -58,7 +58,7 @@ export default function WhyUsPage() {
   return (
     <>
       <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] overflow-clip relative">
-        <div className="max-w-[1593px] mx-auto px-5 sm:px-8 md:px-10 lg:px-4">
+        <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px]">
           {/* Header Section */}
           {/* Hero Section */}
           {/* Hero Section */}
@@ -99,10 +99,10 @@ export default function WhyUsPage() {
 
             {/* Center Content */}
             <div className="relative z-30 text-center max-w-[800px] px-4 mx-auto">
-              <h1 className="text-[64px] sm:text-[80px] lg:text-[96px] text-[#1a1a1a] font-medium leading-[1.1] tracking-tight mb-6 font-['Manrope',sans-serif]">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#1a1a1a] font-medium leading-tight tracking-tight mb-6">
                 Why us
               </h1>
-              <p className="text-[16px] sm:text-[18px] lg:text-[20px] text-[#4a4a4a] leading-[1.6] max-w-[600px] mx-auto font-['Manrope',sans-serif]">
+              <p className="text-base sm:text-lg lg:text-xl text-[#4a4a4a] leading-relaxed max-w-[600px] mx-auto">
                 Discover the values, expertise, and commitment that set us apart and make us the ideal partner for your journey.
               </p>
             </div>
@@ -147,7 +147,7 @@ export default function WhyUsPage() {
       >
         <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-20 py-20 overflow-hidden">
           <div className="w-full max-w-[1366px] mx-auto flex flex-col gap-[30px] sm:gap-[40px] lg:gap-[50px]">
-            <h2 className="text-[28px] sm:text-[48px] lg:text-[64px] text-white font-semibold leading-[1.1] lg:leading-[72px] tracking-[-0.96px] font-['Manrope',sans-serif] text-left flex flex-wrap gap-x-[0.3em] gap-y-2">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl text-white font-semibold leading-tight tracking-tight text-left flex flex-wrap gap-x-[0.3em] gap-y-2">
               {headingWords.map((word, i) => {
                 // Map to 0-0.3 range for heading (first 30% of scroll)
                 const start = (i / totalWords) * 0.85 + 0.1;
@@ -159,14 +159,16 @@ export default function WhyUsPage() {
                 );
               })}
             </h2>
-            <p className="text-[18px] sm:text-[36px] lg:text-[56px] text-white font-normal leading-[1.4] lg:leading-[74px] font-['Manrope',sans-serif] text-left flex flex-wrap gap-x-[0.3em] gap-y-2">
+            <p className="text-xl sm:text-3xl lg:text-5xl text-white font-normal leading-relaxed text-left flex flex-wrap gap-x-[0.3em] gap-y-2">
               {contentWords.map((word, i) => {
                 const globalIndex = i + headingWords.length;
                 // Map to compressed range
                 const start = (globalIndex / totalWords) * 0.95 + 0.05;
                 const end = start + (0.95 / totalWords);
+                const text = String(word).toLowerCase();
+                const isHighlight = text.includes("faster") || text.includes("cost-effective");
                 return (
-                  <Word key={i} progress={scrollYProgress} range={[start, end]}>
+                  <Word key={i} progress={scrollYProgress} range={[start, end]} highlight={isHighlight}>
                     {word}
                   </Word>
                 );
@@ -188,19 +190,19 @@ export default function WhyUsPage() {
         <div className="max-w-[1593px] mx-auto px-5 sm:px-8 md:px-10 lg:px-4">
           {/* Our Expertise */}
           <div className="mb-12 sm:mb-16 lg:mb-[30px] pt-20">
-            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-4 sm:mb-5 lg:mb-[20px]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-6">
               Our Expertise
             </h2>
-            <p className="text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[60px] mb-8 sm:mb-10 lg:mb-[30px]">
+            <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed mb-8 sm:mb-10 lg:mb-[30px] max-w-4xl">
               We believe in nurturing diverse talent, fostering creativity, and empowering individuals to reach their full potential.
             </p>
 
             {/* Expertise Cards - Modern Design */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 xl:gap-[20px]">
               {/* Network of Tech SMES Card */}
-              <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2">
+              <div className="group bg-white rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2 hover:bg-gradient-to-br hover:from-white hover:to-blue-50">
                 {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
 
                 <div className="relative z-10">
                   {/* Icon with background */}
@@ -209,7 +211,7 @@ export default function WhyUsPage() {
                   </div>
 
                   <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
-                    Network of Tech SMES
+                    Network of Tech SMEs
                   </h3>
 
                   <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
@@ -219,9 +221,9 @@ export default function WhyUsPage() {
               </div>
 
               {/* Top tech talents Card */}
-              <div className="group bg-gradient-to-br from-white to-blue-50 border-2 border-[#66c2e2] rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2">
+              <div className="group bg-white rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2 hover:bg-gradient-to-br hover:from-white hover:to-blue-50">
                 {/* Decorative corner accent */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-50" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
 
                 <div className="relative z-10">
                   {/* Icon with background */}
@@ -243,10 +245,10 @@ export default function WhyUsPage() {
 
           {/* Our Engagement Models */}
           <div className="mb-8 sm:mb-10 lg:mb-[30px]">
-            <h2 className="text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] lg:leading-[60px] mb-4 sm:mb-5 lg:mb-[20px]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-6">
               Our Engagement Models
             </h2>
-            <p className="text-[17px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black leading-[1.6] sm:leading-[1.65] lg:leading-[60px] mb-10 sm:mb-12 lg:mb-[50px]">
+            <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed mb-10 sm:mb-12 lg:mb-[50px] max-w-4xl">
               We offer flexible engagement models as per the client requirements.
             </p>
 
@@ -286,7 +288,7 @@ export default function WhyUsPage() {
               </div>
 
               {/* Bottom Left Card - Remote CTO & Technology Team */}
-              <div className="absolute left-0 bottom-0 w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="absolute left-0 bottom-[50px] w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
                 <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
                   <Cpu className="w-12 h-12 text-[#005c89]" />
                 </div>
@@ -299,7 +301,7 @@ export default function WhyUsPage() {
               </div>
 
               {/* Bottom Right Card - Build, Operate, Transfer */}
-              <div className="absolute right-0 bottom-[100px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="absolute right-0 bottom-[140px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
                 <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
                   <Repeat className="w-12 h-12 text-[#005c89]" />
                 </div>

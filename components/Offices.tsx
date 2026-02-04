@@ -21,7 +21,7 @@ const offices: Office[] = [
     location: "Trivandrum, India",
     company: "InnoAI Technologies Pvt. Ltd.",
     cin: "U72900KL2023PTC078123",
-    address: "Technopark Campus, Trivandrum, Kerala, India",
+    address: "VRA A 39, TC 91/828, Anayara (PO), Thiruvananthapuram- 695029, Kerala",
     image:
       "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80",
     mapUrl:
@@ -63,8 +63,8 @@ export default function OfficeLocations() {
   };
 
   return (
-    <section className="bg-gradient-to-br from-slate-50 to-slate-100 py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8">
-      <div className="w-full max-w-7xl mx-auto">
+    <section className="bg-gradient-to-br from-slate-50 to-slate-100 py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-6 xl:px-[70px]">
+      <div className="w-full max-w-[1681px] mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 text-slate-800">
           Our Offices
         </h2>
@@ -78,9 +78,8 @@ export default function OfficeLocations() {
               <div
                 key={office.id}
                 onMouseEnter={() => setHoveredId(office.id)}
-                className={`relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${
-                  isExpanded ? "flex-[2]" : "flex-[0.5]"
-                }`}
+                className={`relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-700 ease-in-out ${isExpanded ? "flex-[2]" : "flex-[0.5]"
+                  }`}
               >
                 {/* Background Image */}
                 <div
@@ -93,19 +92,23 @@ export default function OfficeLocations() {
 
                 {/* Overlay */}
                 <div
-                  className={`absolute inset-0 bg-black transition-opacity duration-700 ${
-                    isExpanded ? "opacity-30" : "opacity-60"
-                  }`}
+                  className={`absolute inset-0 bg-black transition-opacity duration-700 ${isExpanded ? "opacity-30" : "opacity-60"
+                    }`}
+                />
+
+                {/* Text readability gradient */}
+                <div
+                  className={`absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-700 ${isExpanded ? "opacity-100" : "opacity-80"
+                    }`}
                 />
 
                 {/* Content */}
                 <div className="relative h-full flex flex-col justify-end p-6">
                   <div
-                    className={`transition-all duration-700 ${
-                      isExpanded
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-4"
-                    }`}
+                    className={`transition-all duration-700 ${isExpanded
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                      }`}
                   >
                     <h3 className="text-3xl font-bold text-white mb-2">
                       {office.location}
@@ -131,11 +134,10 @@ export default function OfficeLocations() {
 
                   {/* Collapsed label */}
                   <div
-                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ${
-                      isExpanded
-                        ? "opacity-0 pointer-events-none"
-                        : "opacity-100"
-                    }`}
+                    className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ${isExpanded
+                      ? "opacity-0 pointer-events-none"
+                      : "opacity-100"
+                      }`}
                   >
                     <p className="text-white text-2xl font-bold -rotate-90">
                       {office.name}
@@ -156,9 +158,8 @@ export default function OfficeLocations() {
               <div
                 key={office.id}
                 onClick={() => setMobileExpanded(office.id)}
-                className={`relative rounded-2xl overflow-hidden transition-all duration-500 ${
-                  isExpanded ? "h-[400px]" : "h-[100px]"
-                }`}
+                className={`relative rounded-2xl overflow-hidden transition-all duration-500 ${isExpanded ? "h-[400px]" : "h-[100px]"
+                  }`}
               >
                 <div
                   className="absolute inset-0 bg-cover bg-center"
@@ -166,9 +167,14 @@ export default function OfficeLocations() {
                 />
 
                 <div
-                  className={`absolute inset-0 bg-black transition-opacity duration-500 ${
-                    isExpanded ? "opacity-30" : "opacity-60"
-                  }`}
+                  className={`absolute inset-0 bg-black transition-opacity duration-500 ${isExpanded ? "opacity-30" : "opacity-60"
+                    }`}
+                />
+
+                {/* Text readability gradient */}
+                <div
+                  className={`absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/50 to-transparent transition-opacity duration-500 ${isExpanded ? "opacity-100" : "opacity-80"
+                    }`}
                 />
 
                 <div className="relative h-full flex flex-col justify-end p-6">

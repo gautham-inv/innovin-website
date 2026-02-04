@@ -12,7 +12,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <main className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[60px] lg:pb-[40px] overflow-hidden relative">
-        <div className="max-w-[1593px] mx-auto px-5 sm:px-8 md:px-10 lg:px-4">
+        <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px]">
           <header className="text-center mb-10 sm:mb-12 lg:mb-[50px]">
             <h1 className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] text-[#232323] font-semibold leading-[1.1] sm:leading-[1.2] lg:leading-[62.1px] mb-4 sm:mb-5 lg:mb-[20px]">
               Privacy Policy
@@ -165,7 +165,7 @@ export default function PrivacyPolicyPage() {
               <h2 className="text-[22px] sm:text-[26px] md:text-[30px] text-black font-semibold leading-[1.3] mb-3">
                 8. Contact us
               </h2>
-              
+
               <p className="text-[16px] sm:text-[18px] text-black leading-[1.9] font-light">
                 If you have questions about this Privacy Policy, please contact us at{" "}
                 <Link
@@ -178,7 +178,7 @@ export default function PrivacyPolicyPage() {
               </p>
 
               <p className="text-[16px] sm:text-[18px] text-black leading-[1.9] font-light">
-              By using our website, products, and services, you consent to the terms outlined in this Privacy Policy.
+                By using our website, products, and services, you consent to the terms outlined in this Privacy Policy.
               </p>
             </section>
           </div>

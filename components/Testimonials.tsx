@@ -67,7 +67,7 @@ export default function Testimonials() {
       setCurrentIndex((prev) => normalize(prev + 1));
     }, 5000);
   }
-  
+
   function stopAutoplay() {
     if (autoplayRef.current) {
       clearInterval(autoplayRef.current);
@@ -78,13 +78,13 @@ export default function Testimonials() {
   const scrollToCard = (index: number, smooth = true) => {
     const container = scrollContainerRef.current;
     if (!container) return;
-    
+
     // Find the specific card element by its data-index attribute
     const card = container.querySelector(`[data-index="${index}"]`) as HTMLElement | null;
     if (!card) return;
 
     isScrolling.current = true;
-    
+
     const containerWidth = container.offsetWidth;
     const cardLeft = card.offsetLeft;
     const cardWidth = card.offsetWidth;
@@ -106,11 +106,11 @@ export default function Testimonials() {
     setIsAnimating(true);
     const normalizedTarget = normalize(target);
     setCurrentIndex(normalizedTarget);
-    
+
     if (!isDesktop && scrollContainerRef.current) {
       scrollToCard(normalizedTarget);
     }
-    
+
     window.setTimeout(() => setIsAnimating(false), transitionMs);
   };
 
@@ -160,9 +160,9 @@ export default function Testimonials() {
 
     const handleScroll = () => {
       if (isScrolling.current) return;
-      
+
       stopAutoplay();
-      
+
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
@@ -170,7 +170,7 @@ export default function Testimonials() {
       scrollTimeout = window.setTimeout(() => {
         const containerWidth = container.offsetWidth;
         const scrollLeft = container.scrollLeft;
-        
+
         // Mobile cards are children of the flex container (the first and only child of the scroll container)
         const innerFlex = container.children[0] as HTMLElement;
         const firstCard = innerFlex.querySelector('[data-index="0"]') as HTMLElement | null;
@@ -178,19 +178,19 @@ export default function Testimonials() {
 
         const cardWidth = firstCard.offsetWidth;
         const gap = window.innerWidth >= 640 ? 24 : 16; // gap-4 is 16px, gap-6 is 24px
-        
+
         const card0Left = firstCard.offsetLeft;
         const centerOffset = (containerWidth - cardWidth) / 2;
         const zeroScroll = card0Left - centerOffset;
-        
+
         // Calculate which card is closest to the center
         const calculatedIndex = Math.round((scrollLeft - zeroScroll) / (cardWidth + gap));
         const newIndex = Math.max(0, Math.min(calculatedIndex, total - 1));
-        
+
         if (newIndex !== currentIndex) {
           setCurrentIndex(newIndex);
         }
-        
+
         startAutoplay();
       }, 150);
     };
@@ -214,7 +214,7 @@ export default function Testimonials() {
       isDragging.current = false;
       stopAutoplay();
     };
-    
+
     const onTouchMove = (e: TouchEvent) => {
       touchEndX.current = e.touches[0].clientX;
       if (
@@ -225,7 +225,7 @@ export default function Testimonials() {
         isDragging.current = true;
       }
     };
-    
+
     const onTouchEnd = () => {
       touchStartX.current = touchEndX.current = null;
       isDragging.current = false;
@@ -286,7 +286,7 @@ export default function Testimonials() {
         <div className="absolute inset-0 bg-gradient-radial from-cyan-500/15 via-cyan-400/8 to-transparent blur-2xl" />
       </div>
 
-      <div className="max-w-[1681px] mx-auto px-4 sm:px-5 w-full relative z-10">
+      <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] w-full relative z-10">
         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[82px] text-black font-medium leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-8 sm:mb-12 lg:mb-24">
           Trusted by companies
         </h2>
@@ -294,7 +294,7 @@ export default function Testimonials() {
         {!mounted || !isDesktop ? (
           // Mobile/Tablet Layout - horizontally swipeable list (scroll-snap)
           <div className="w-full">
-            <div 
+            <div
               ref={scrollContainerRef}
               className="overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
             >
@@ -303,7 +303,7 @@ export default function Testimonials() {
                   <div
                     key={idx}
                     data-index={idx}
-                    className="snap-center shrink-0 w-[86%] sm:w-[70%] md:w-[60%] transition-opacity duration-500"
+                    className="snap-center shrink-0 w-[86%] sm:w-[70%] md:w-[60%] h-[400px] transition-opacity duration-500"
                     style={{
                       opacity: currentIndex === idx ? 1 : 0.7
                     }}
@@ -359,14 +359,15 @@ export default function Testimonials() {
                     className="testimonial-card absolute top-1/2 left-1/2 cursor-pointer"
                     style={{
                       width: 700,
+                      height: 420,
                       marginLeft: -350,
-                      marginTop: -300,
+                      marginTop: -210,
                       transformOrigin: "center center",
                       transition: `transform ${transitionMs}ms cubic-bezier(.33,1,.68,1), filter ${transitionMs}ms cubic-bezier(.33,1,.68,1), opacity ${transitionMs}ms cubic-bezier(.33,1,.68,1)`,
                       ...style,
                     }}
                   >
-                    <div className="rounded-3xl shadow-2xl p-8 md:p-10 flex flex-col gap-8 md:gap-12 h-full bg-white border border-neutral-200">
+                    <div className="rounded-3xl shadow-2xl p-8 md:p-10 flex flex-col justify-between h-full bg-white border border-neutral-200">
                       <p className="text-xl md:text-2xl text-neutral-700 leading-relaxed md:leading-[38px] tracking-wide">
                         "{t.quote}"
                       </p>
@@ -402,9 +403,8 @@ export default function Testimonials() {
                 stopAutoplay();
                 startAutoplay();
               }}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                isActiveIndicator(i) ? "bg-black w-8 sm:w-10" : "bg-neutral-300 w-2"
-              }`}
+              className={`h-2 rounded-full transition-all duration-300 ${isActiveIndicator(i) ? "bg-black w-8 sm:w-10" : "bg-neutral-300 w-2"
+                }`}
               aria-label={`Go to slide ${i + 1}`}
             />
           ))}

@@ -39,10 +39,10 @@ export default function BlogCard({
 
   const formattedDate = date
     ? new Date(date).toLocaleDateString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
-        year: "numeric",
-      })
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+    })
     : "";
 
   const primaryCategory = categories && categories.length > 0 ? categories[0] : null;
@@ -51,7 +51,7 @@ export default function BlogCard({
   return (
     <Link
       href={`/blog/${slug}`}
-      className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] group xl:max-w-[520px] w-full min-w-0"
+      className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] group xl:max-w-[520px] w-full min-w-0 h-full hover:bg-[#F2FBFF] hover:border-[#66C2E2] transition-colors duration-300"
     >
       {/* Image Container */}
       <div className="bg-white h-[244px] overflow-hidden relative rounded-[16px] w-full">
@@ -68,7 +68,7 @@ export default function BlogCard({
             </div>
           </div>
         )}
-        
+
         {/* Category Chip */}
         {primaryCategory && (
           <div
@@ -82,12 +82,12 @@ export default function BlogCard({
       </div>
 
       {/* Content */}
-      <div className="flex flex-col items-start relative shrink-0 w-full">
+      <div className="flex flex-col items-start relative shrink-0 w-full flex-1">
         <div className="flex flex-col gap-[5px] items-start relative shrink-0 text-black w-full">
           <p className="font-['Manrope',sans-serif] font-medium leading-[38.709px] min-w-full relative shrink-0 text-[16px] tracking-[-0.24px] w-[min-content]">
             {title.split(":")[0]}{title.includes(":") ? ":" : ""}
           </p>
-          <p className="font-['Manrope',sans-serif] font-semibold leading-[30.7px] relative shrink-0 text-[24px] tracking-[-0.36px] w-full group-hover:text-[#005c89] transition-colors">
+          <p className="font-['Manrope',sans-serif] font-semibold leading-[30.7px] relative shrink-0 text-[24px] tracking-[-0.36px] w-full group-hover:text-[#005c89] transition-colors group-hover:underline underline-offset-4 decoration-2">
             {title.includes(":") ? title.split(":")[1].trim() : title}
           </p>
         </div>

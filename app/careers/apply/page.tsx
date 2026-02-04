@@ -145,7 +145,7 @@ function ApplyForm() {
       if (!presignedUrlResponse.ok) {
         const errorData = await presignedUrlResponse.json().catch(() => ({ error: "Unknown error" }));
         console.error("Upload URL error:", errorData);
-        
+
         let errorMessage = "Failed to get upload URL. Please try again.";
         if (errorData.error) {
           errorMessage = errorData.error;
@@ -156,7 +156,7 @@ function ApplyForm() {
             errorMessage = errorData.details.message;
           }
         }
-        
+
         throw new Error(errorMessage);
       }
 
@@ -186,19 +186,19 @@ function ApplyForm() {
         headers: {
           "Content-Type": "application/json",
         },
-          body: JSON.stringify({
-            jobId: jobId || "",
-            jobTitle: jobTitle || null,
-            name: formData.name,
-            email: formData.email,
-            whatsapp: `${formData.countryCode}${formData.whatsapp.replace(/[\s\-()]/g, "")}`,
-            specialization: formData.specialization,
-            cgpa: parseFloat(formData.cgpa),
-            college: formData.college,
-            yearOfGrad: formData.yearOfGrad === "Other" ? formData.yearOfGradOther : formData.yearOfGrad,
-            backlogs: formData.backlogs,
-            resumeUrl: resumeUrl || filePath,
-          }),
+        body: JSON.stringify({
+          jobId: jobId || "",
+          jobTitle: jobTitle || null,
+          name: formData.name,
+          email: formData.email,
+          whatsapp: `${formData.countryCode}${formData.whatsapp.replace(/[\s\-()]/g, "")}`,
+          specialization: formData.specialization,
+          cgpa: parseFloat(formData.cgpa),
+          college: formData.college,
+          yearOfGrad: formData.yearOfGrad === "Other" ? formData.yearOfGradOther : formData.yearOfGrad,
+          backlogs: formData.backlogs,
+          resumeUrl: resumeUrl || filePath,
+        }),
       });
 
       if (!applicationResponse.ok) {
@@ -209,7 +209,7 @@ function ApplyForm() {
       }
 
       setSubmitStatus("success");
-      
+
       // Track form submission
       const { trackEvent } = await import("@/lib/analytics");
       trackEvent("application_form_submit", "form", jobId || "general");
@@ -244,7 +244,7 @@ function ApplyForm() {
   return (
     <div className="bg-white min-h-screen">
       <Navigation />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24 text-sm sm:text-base">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-30 lg:pt-35 lg:pb-24 text-sm sm:text-base">
         <div className="mb-8">
           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-black mb-2 leading-tight">
             Apply for {jobTitle}
@@ -286,9 +286,8 @@ function ApplyForm() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                  errors.name ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.name ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="Full Name"
               />
               {errors.name && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.name}</p>}
@@ -305,9 +304,8 @@ function ApplyForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.email ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="abc@example.com"
               />
               {errors.email && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.email}</p>}
@@ -342,9 +340,8 @@ function ApplyForm() {
                   name="whatsapp"
                   value={formData.whatsapp}
                   onChange={handleChange}
-                  className={`flex-1 px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                    errors.whatsapp ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`flex-1 px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.whatsapp ? "border-red-500" : "border-gray-300"
+                    }`}
                   placeholder="1234567890"
                 />
               </div>
@@ -363,9 +360,8 @@ function ApplyForm() {
                 name="specialization"
                 value={formData.specialization}
                 onChange={handleChange}
-                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                  errors.specialization ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.specialization ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="Eg: Computer Science"
               />
               {errors.specialization && (
@@ -390,9 +386,8 @@ function ApplyForm() {
                 step="0.01"
                 min="0"
                 max="10"
-                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                  errors.cgpa ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.cgpa ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="8.5"
               />
               {errors.cgpa && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.cgpa}</p>}
@@ -409,9 +404,8 @@ function ApplyForm() {
                 name="college"
                 value={formData.college}
                 onChange={handleChange}
-                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                  errors.college ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.college ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="University Name"
               />
               {errors.college && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.college}</p>}
@@ -427,9 +421,8 @@ function ApplyForm() {
                 name="yearOfGrad"
                 value={formData.yearOfGrad}
                 onChange={handleChange}
-                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                  errors.yearOfGrad ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.yearOfGrad ? "border-red-500" : "border-gray-300"
+                  }`}
               >
                 <option value="">Select Year</option>
                 <option value="2023">2023</option>
@@ -444,9 +437,8 @@ function ApplyForm() {
                   value={formData.yearOfGradOther}
                   onChange={handleChange}
                   placeholder="Enter year"
-                  className={`w-full mt-2 px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                    errors.yearOfGradOther ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`w-full mt-2 px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.yearOfGradOther ? "border-red-500" : "border-gray-300"
+                    }`}
                 />
               )}
               {errors.yearOfGrad && (
@@ -487,9 +479,8 @@ function ApplyForm() {
               name="resume"
               accept="application/pdf"
               onChange={handleFileChange}
-              className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${
-                errors.resume ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full px-3 sm:px-4 py-2 text-sm sm:text-base border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#005C89] ${errors.resume ? "border-red-500" : "border-gray-300"
+                }`}
             />
             {errors.resume && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.resume}</p>}
             {formData.resume && (
