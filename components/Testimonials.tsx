@@ -287,7 +287,7 @@ export default function Testimonials() {
       </div>
 
       <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] w-full relative z-10">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[82px] text-black font-medium leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-8 sm:mb-12 lg:mb-24">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[82px] text-black font-medium leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-8 sm:mb-12 lg:mb-12">
           Trusted by companies
         </h2>
 
@@ -296,19 +296,20 @@ export default function Testimonials() {
           <div className="w-full">
             <div
               ref={scrollContainerRef}
-              className="overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
+              className="overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               <div className="flex gap-4 sm:gap-6 px-[7%] sm:px-[15%] md:px-[20%] pb-2">
                 {testimonials.map((t, idx) => (
                   <div
                     key={idx}
                     data-index={idx}
-                    className="snap-center shrink-0 w-[86%] sm:w-[70%] md:w-[60%] h-[400px] transition-opacity duration-500"
+                    className="snap-center shrink-0 w-[86%] sm:w-[70%] md:w-[60%] h-[450px] transition-opacity duration-500"
                     style={{
                       opacity: currentIndex === idx ? 1 : 0.7
                     }}
                   >
-                    <div className="rounded-xl sm:rounded-2xl overflow-hidden shadow-xl bg-white border border-neutral-200">
+                    <div className="rounded-xl sm:rounded-2xl overflow-hidden shadow-xl bg-white border border-neutral-200 h-full">
                       <div className="h-full p-5 sm:p-6 md:p-8 flex flex-col justify-between gap-4 sm:gap-6">
                         <p className="text-base sm:text-lg md:text-xl text-neutral-700 leading-relaxed">
                           "{t.quote}"
@@ -336,7 +337,7 @@ export default function Testimonials() {
         ) : (
           // Desktop layout
           <div
-            className="relative w-full h-[600px] flex items-center justify-center overflow-visible px-4"
+            className="relative w-full h-[420px] flex items-center justify-center overflow-visible px-4"
             ref={containerRef}
             onMouseEnter={() => stopAutoplay()}
             onMouseLeave={() => startAutoplay()}

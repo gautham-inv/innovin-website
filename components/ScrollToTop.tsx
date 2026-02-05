@@ -26,7 +26,11 @@ export default function ScrollToTop() {
     if (window.location.hash) return;
 
     // Scroll to top whenever the route changes (and on initial mount, because pathname is set).
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    // Using requestAnimationFrame ensures this runs after the current frame is painted,
+    // which helps in concurrent mode and when navigating to pages with heavy initial processing.
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
   }, [pathname]);
 
   return null; // This component doesn't render anything

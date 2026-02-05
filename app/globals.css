@@ -28,75 +28,110 @@ body {
 }
 
 /* CTA Button Gradient Slide Animation */
-.btn-grad {
+.group:hover .bg-gradient-to-r {
   background-size: 200% auto;
-  transition: background-position 0.5s ease;
+  animation: gradientSlide 1.5s linear infinite;
 }
 
-.btn-grad:hover {
-  background-position: right center;
+@keyframes gradientSlide {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-/* Navbar active link highlight */
-.nav-active {
-  background: #66C2E2 !important;
-  /* Dark blue */
-  color: white !important;
-  border-color: #66C2E2 !important;
+/* Custom Utilities */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
 }
 
-/* hide scrollbar for the page's horizontal overflow (if any) */
-html,
-body {
-  overflow-x: clip;
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Hero text reveal animation */
+.reveal-text {
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+/* Navigation Link Hover */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #005C89;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Smooth Scrolling */
+html {
   scroll-behavior: smooth;
 }
 
-/* if needed for scroller element: */
-[data-card] {
-  scroll-snap-align: start;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  /* Width of the scrollbar */
 }
 
-/* optional - hide scrollbar on webkit for any scrollable container */
-.scroller::-webkit-scrollbar {
-  display: none;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  /* Background of the track */
 }
 
-@layer utilities {
-  .h-screen-navbar {
-    height: calc(100vh - 85px);
-    /* navbar = 85px */
-  }
-
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-  }
-
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari and Opera */
-  }
-
-  .overscroll-none {
-    overscroll-behavior: none;
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  /* Color of the thumb */
+  border-radius: 10px;
+  /* Rounded corners */
 }
 
-/* Front card rotation for desktop only */
-@media (min-width: 1024px) {
-  .front-card-rotate {
-    transform: rotate(359deg) !important;
-  }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  /* Color on hover */
 }
 
-/* Careers page hero dotted background */
+.leadingUnderline {
+  text-decoration: underline;
+  text-decoration-color: #005c89;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 12px;
+}
+
 .hero-dotted-bg {
-  background-image: radial-gradient(#d1d5db 1px, transparent 1px);
-  background-size: 25px 25px;
-  background-position: 0 0;
+  background-image: radial-gradient(#E2E8F0 2px, transparent 2px);
+  background-size: 30px 30px;
 }
 
 /* Mesh background with horizontal and vertical lines */
@@ -113,4 +148,17 @@ body {
     linear-gradient(to right, rgba(229, 231, 235, 0.4) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(229, 231, 235, 0.4) 1px, transparent 1px);
   background-size: 30px 30px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }

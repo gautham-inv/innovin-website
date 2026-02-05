@@ -77,7 +77,7 @@ export default function TechStack() {
   }, []);
 
   return (
-    <div className="px-4 sm:px-6 lg:px-6 xl:px-[70px]">
+    <div className="px-4 sm:px-6 lg:px-6 xl:px-[70px] mb-10 sm:mb-16 lg:mb-20">
       <section
         className="bg-[#131518] rounded-[23.408px] relative overflow-hidden"
         style={{ minHeight: 0 }}

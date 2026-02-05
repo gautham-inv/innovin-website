@@ -11,7 +11,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-white min-h-[600px] sm:min-h-[650px] md:min-h-[700px] xl:h-[962px] overflow-hidden relative pt-8 sm:pt-10 md:pt-12 xl:pt-0 px-4 sm:px-6 md:px-8 xl:px-[70px] pb-4 sm:pb-6 md:pb-8 xl:pb-[70px] xl:flex xl:items-center">
-      <div className="relative bg-black min-h-[550px] sm:min-h-[600px] md:min-h-[700px] xl:h-[850.707px] w-full max-w-[1593px] mx-auto rounded-[20px] sm:rounded-[24px] md:rounded-[28px] xl:rounded-[29.301px] overflow-hidden p-6 sm:p-8 md:p-12 xl:p-0">
+      <div className="relative bg-black min-h-[550px] sm:min-h-[600px] md:min-h-[700px] xl:h-[850.707px] w-full max-w-[1681px] mx-auto rounded-[20px] sm:rounded-[24px] md:rounded-[28px] xl:rounded-[29.301px] overflow-hidden p-6 sm:p-8 md:p-12 xl:p-0">
         {/* Main Tagline */}
         <p className="xl:absolute xl:left-[79.11px] xl:top-[48.84px] text-[32px] sm:text-[42px] md:text-[56px] xl:text-[72.276px] text-white font-medium leading-[1.3] sm:leading-[1.28] md:leading-[1.26] xl:leading-[90.833px] tracking-[1.5px] sm:tracking-[2px] md:tracking-[2.8px] xl:tracking-[3.6138px] md:w-[90%] xl:w-[1003.07px] mb-8 sm:mb-10 md:mb-12 xl:mb-0">
           Fueling bold ideas with AI to help startups scale, innovate, and lead the future.
