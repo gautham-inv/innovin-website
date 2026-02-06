@@ -7,6 +7,8 @@ import Link from "next/link";
 import Image from "next/image";
 import HoverCard from "./HoverCard";
 
+import { TEAM_IMAGE_BASE } from "@/lib/cloudinary";
+
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -329,26 +331,26 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   // Team member polaroid images
   const teamPhotos = [
     // Left side
-    { name: "Akshay", img: "/team/akshay.png", style: { top: "5%", left: "3%" }, rotate: "-8deg" },
-    { name: "Ashwanth", img: "/team/ashwanth.png", style: { top: "15%", left: "14%" }, rotate: "10deg" },
-    { name: "Ananth", img: "/team/ananth.png", style: { top: "32%", left: "4%" }, rotate: "-5deg" },
-    { name: "Rajath", img: "/team/rajath.png", style: { top: "52%", left: "2%" }, rotate: "-10deg" },
+    { name: "Akshay", img: `${TEAM_IMAGE_BASE}/akshay_ydanyj.png`, style: { top: "5%", left: "3%" }, rotate: "-8deg" },
+    { name: "Ashwanth", img: `${TEAM_IMAGE_BASE}/ashwanth_uam0je.png`, style: { top: "15%", left: "14%" }, rotate: "10deg" },
+    { name: "Ananth", img: `${TEAM_IMAGE_BASE}/ananth_wicnv5.png`, style: { top: "32%", left: "4%" }, rotate: "-5deg" },
+    { name: "Rajath", img: `${TEAM_IMAGE_BASE}/rajath_mmlovq.png`, style: { top: "52%", left: "2%" }, rotate: "-10deg" },
     // Bottom left
-    { name: "Alias", img: "/team/alias.png", style: { bottom: "8%", left: "10%" }, rotate: "6deg" },
-    { name: "Amit", img: "/team/amit.png", style: { bottom: "5%", left: "22%" }, rotate: "-4deg" },
+    { name: "Alias", img: `${TEAM_IMAGE_BASE}/alias_ajo9j2.png`, style: { bottom: "8%", left: "10%" }, rotate: "6deg" },
+    { name: "Amit", img: `${TEAM_IMAGE_BASE}/amit_zwqnfl.png`, style: { bottom: "5%", left: "22%" }, rotate: "-4deg" },
     // Bottom center
-    { name: "Rishikesh", img: "/team/rishikesh.png", style: { bottom: "12%", left: "35%" }, rotate: "3deg" },
-    { name: "Sayooj", img: "/team/sayooj.png", style: { bottom: "5%", left: "47%" }, rotate: "-5deg" },
-    { name: "Dias", img: "/team/dias.png", style: { bottom: "8%", right: "35%" }, rotate: "7deg" },
+    { name: "Rishikesh", img: `${TEAM_IMAGE_BASE}/rishikesh_kxrool.png`, style: { bottom: "12%", left: "35%" }, rotate: "3deg" },
+    { name: "Sayooj", img: `${TEAM_IMAGE_BASE}/sayooj_ynbezz.png`, style: { bottom: "5%", left: "47%" }, rotate: "-5deg" },
+    { name: "Dias", img: `${TEAM_IMAGE_BASE}/dias_otwvqu.png`, style: { bottom: "8%", right: "35%" }, rotate: "7deg" },
     // Bottom right
-    { name: "Hinan", img: "/team/hinan.png", style: { bottom: "5%", right: "22%" }, rotate: "-2deg" },
-    { name: "Niranjan", img: "/team/niranjan.png", style: { bottom: "10%", right: "8%" }, rotate: "5deg" },
+    { name: "Hinan", img: `${TEAM_IMAGE_BASE}/hinan_fjy71v.png`, style: { bottom: "5%", right: "22%" }, rotate: "-2deg" },
+    { name: "Niranjan", img: `${TEAM_IMAGE_BASE}/niranjan_vetpkx.png`, style: { bottom: "10%", right: "8%" }, rotate: "5deg" },
     // Right side
-    { name: "Arjun", img: "/team/arjun.png", style: { top: "5%", right: "14%" }, rotate: "-6deg" },
-    { name: "Gautham", img: "/team/gautham.png", style: { top: "8%", right: "2%" }, rotate: "8deg" },
-    { name: "Niranjana", img: "/team/niranjana.png", style: { top: "28%", right: "10%" }, rotate: "5deg" },
-    { name: "Vishnu", img: "/team/vishnu.png", style: { top: "32%", right: "0%" }, rotate: "10deg" },
-    { name: "Aswin", img: "/team/aswin.png", style: { top: "52%", right: "3%" }, rotate: "6deg" },
+    { name: "Arjun", img: `${TEAM_IMAGE_BASE}/arjun_icynux.png`, style: { top: "5%", right: "14%" }, rotate: "-6deg" },
+    { name: "Gautham", img: `${TEAM_IMAGE_BASE}/gautham_sj5wbz.png`, style: { top: "8%", right: "2%" }, rotate: "8deg" },
+    { name: "Niranjana", img: `${TEAM_IMAGE_BASE}/niranjana_aszqzx.png`, style: { top: "28%", right: "10%" }, rotate: "5deg" },
+    { name: "Vishnu", img: `${TEAM_IMAGE_BASE}/vishnu_w5qv17.png`, style: { top: "32%", right: "0%" }, rotate: "10deg" },
+    { name: "Aswin", img: `${TEAM_IMAGE_BASE}/aswin_lvyolg.png`, style: { top: "52%", right: "3%" }, rotate: "6deg" },
   ];
 
   return (

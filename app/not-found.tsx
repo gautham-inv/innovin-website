@@ -28,20 +28,20 @@ export default function NotFound() {
 
           {/* Description */}
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 sm:mb-10 lg:mb-12 max-w-2xl px-4">
-            Oops! The page you&apos;re looking for doesn&apos;t exist or has been moved. 
+            Oops! The page you&apos;re looking for doesn&apos;t exist or has been moved.
             Let&apos;s get you back on track.
           </p>
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center w-full sm:w-auto">
-            <AnimatedButton 
-              onClick={() => router.push("/")} 
+            <AnimatedButton
+              onClick={() => router.push("/")}
               className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg"
             >
               Go to Homepage
             </AnimatedButton>
-            
-            
+
+
           </div>
 
           {/* Additional Links */}
@@ -76,7 +76,7 @@ export default function NotFound() {
           </div>
         </div>
       </div>
-      
+
       {/* Footer */}
       <Footer />
     </>

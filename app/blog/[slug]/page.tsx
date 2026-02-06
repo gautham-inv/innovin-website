@@ -55,11 +55,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     openGraph: {
       images: post.coverImage
         ? [
-            {
-              url: urlFor(post.coverImage)?.width(1200).height(627).url() || "",
-              alt: post.title,
-            },
-          ]
+          {
+            url: urlFor(post.coverImage)?.width(1200).height(627).url() || "",
+            alt: post.title,
+          },
+        ]
         : [],
     },
   };
@@ -84,17 +84,17 @@ export default async function BlogPost(props: Props) {
   }
 
   // Fetch related posts from the same category
-  const primaryCategoryId = post.categories && post.categories.length > 0 
-    ? post.categories[0]._id 
+  const primaryCategoryId = post.categories && post.categories.length > 0
+    ? post.categories[0]._id
     : null;
 
   let relatedPosts: any[] = [];
   if (primaryCategoryId) {
     const { data } = await sanityFetch({
       query: relatedPostsQuery,
-      params: { 
+      params: {
         currentSlug: params.slug,
-        categoryId: primaryCategoryId 
+        categoryId: primaryCategoryId
       },
       perspective,
       stega,
@@ -109,10 +109,10 @@ export default async function BlogPost(props: Props) {
 
   const formattedDate = post.date
     ? new Date(post.date).toLocaleDateString("en-US", {
-        month: "long",
-        day: "numeric",
-        year: "numeric",
-      })
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    })
     : "";
 
   return (
@@ -120,18 +120,24 @@ export default async function BlogPost(props: Props) {
       <div className="max-w-[1681px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[70px]">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Main Content */}
-          <div className="flex-1 lg:max-w-[88%]">
+          <div className="flex-1 lg:max-w-[75%]">
             {/* Header */}
             <header className="mb-8 sm:mb-10 lg:mb-12">
               {post.categories && post.categories.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-4 sm:mb-5 lg:mb-6">
                   {post.categories.map((category: any) => {
+                    const chipColor = category.color || "#66C2E2";
                     return (
                       <div
                         key={category._id}
-                        className="bg-white flex gap-[2.115px] items-center px-[5.288px] py-[4.231px] rounded-[52.881px] border border-gray-200"
+                        className="flex gap-[2.115px] items-center px-4 py-1.5 rounded-full border"
+                        style={{
+                          borderColor: chipColor,
+                          backgroundColor: `${chipColor}15`, // Light filling
+                          color: chipColor // Solid text
+                        }}
                       >
-                        <span className="font-['Inter',sans-serif] font-normal text-[10px] sm:text-[11px] lg:text-[12.692px] text-black">
+                        <span className="font-['Manrope',sans-serif] font-bold text-[10px] sm:text-[11px] lg:text-[12.692px]">
                           {category.title}
                         </span>
                       </div>
@@ -174,7 +180,7 @@ export default async function BlogPost(props: Props) {
             {/* Content */}
             {post.content && (
               <div className="prose prose-xl max-w-none">
-                <PortableText 
+                <PortableText
                   value={post.content as PortableTextBlock[]}
                   className="blog-content"
                 />
@@ -244,47 +250,59 @@ export default async function BlogPost(props: Props) {
                         : "Unknown Author";
                     const relatedFormattedDate = relatedPost.date
                       ? new Date(relatedPost.date).toLocaleDateString("en-US", {
-                          month: "2-digit",
-                          day: "2-digit",
-                          year: "numeric",
-                        })
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      })
                       : "";
-                    const primaryCategory = relatedPost.categories && relatedPost.categories.length > 0 
-                      ? relatedPost.categories[0] 
+                    const primaryCategory = relatedPost.categories && relatedPost.categories.length > 0
+                      ? relatedPost.categories[0]
                       : null;
+                    const relatedCategoryColor = primaryCategory?.color || "#66C2E2";
 
                     return (
                       <Link
                         key={relatedPost._id}
                         href={`/blog/${relatedPost.slug}`}
-                        className="w-full"
+                        className="group w-full"
                       >
-                        <div className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] w-full">
+                        <div
+                          className="flex flex-col gap-3 p-5 border border-gray-100 rounded-2xl w-full transition-all duration-300 group-hover:bg-[var(--m-related-light)] group-hover:border-[var(--m-related)]"
+                          style={{
+                            ['--m-related' as any]: relatedCategoryColor,
+                            ['--m-related-light' as any]: `${relatedCategoryColor}10`,
+                          } as any}
+                        >
                           {/* Category Chip */}
                           {primaryCategory && (
-                            <div className="bg-white flex gap-[2.115px] items-center px-[5.288px] py-[4.231px] rounded-[52.881px] border border-gray-200 w-fit">
-                              <p className="font-['Inter',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[12.692px] text-black text-nowrap tracking-[-0.1904px] whitespace-pre">
+                            <div
+                              className="px-3 py-1 rounded-full w-fit border"
+                              style={{
+                                borderColor: relatedCategoryColor,
+                                backgroundColor: `${relatedCategoryColor}15`,
+                                color: relatedCategoryColor
+                              }}
+                            >
+                              <p className="font-['Manrope',sans-serif] font-bold text-[11px]">
                                 {primaryCategory.title}
                               </p>
                             </div>
                           )}
 
                           {/* Content */}
-                          <div className="flex flex-col items-start relative shrink-0 w-full">
-                            <div className="flex flex-col gap-[5px] items-start relative shrink-0 text-black w-full">
-                              <p className="font-['Manrope',sans-serif] font-medium leading-[38.709px] min-w-full relative shrink-0 text-[16px] tracking-[-0.24px] w-[min-content]">
-                                {relatedPost.title.split(":")[0]}{relatedPost.title.includes(":") ? ":" : ""}
-                              </p>
-                              <p className="font-['Manrope',sans-serif] font-semibold leading-[30.7px] relative shrink-0 text-[24px] tracking-[-0.36px] w-full">
-                                {relatedPost.title.includes(":") ? relatedPost.title.split(":")[1].trim() : relatedPost.title}
-                              </p>
-                            </div>
+                          <div className="flex flex-col gap-1 w-full min-w-0">
+                            <p className="font-['Manrope',sans-serif] font-medium text-[14px] transition-colors" style={{ color: relatedCategoryColor }}>
+                              {relatedPost.title.split(":")[0]}{relatedPost.title.includes(":") ? ":" : ""}
+                            </p>
+                            <p className="font-['Manrope',sans-serif] font-semibold text-[20px] leading-[1.3] text-black line-clamp-2 group-hover:underline transition-all">
+                              {relatedPost.title.includes(":") ? relatedPost.title.split(":")[1].trim() : relatedPost.title}
+                            </p>
                           </div>
 
                           {/* Author and Date */}
-                          <div className="flex font-['Manrope',sans-serif] font-bold gap-4 sm:gap-8 items-center leading-[20.729px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.18px] w-full whitespace-pre">
-                            <p className="relative shrink-0">{relatedAuthorName}</p>
-                            <p className="relative shrink-0">{relatedFormattedDate}</p>
+                          <div className="flex justify-between items-center font-['Manrope',sans-serif] font-medium text-[12px] text-neutral-400 mt-1">
+                            <span>{relatedAuthorName}</span>
+                            <span>{relatedFormattedDate}</span>
                           </div>
                         </div>
                       </Link>
@@ -296,10 +314,10 @@ export default async function BlogPost(props: Props) {
           </div>
 
           {/* Vertical Separator - Desktop Only */}
-          <div className="hidden xl:block w-px bg-[#E0E0E0] mx-4"></div>
+          <div className="hidden xl:block w-px bg-gray-100 mx-8"></div>
 
           {/* Related Posts Sidebar - Desktop Only */}
-          <aside className="hidden xl:block w-[12%] min-w-[200px]">
+          <aside className="hidden lg:block lg:w-[20%]">
             <div className="sticky top-[146px]">
               <h2 className="text-[32px] font-semibold text-black mb-6 font-['Manrope',sans-serif]">
                 Related Posts
@@ -313,46 +331,59 @@ export default async function BlogPost(props: Props) {
                         : "Unknown Author";
                     const relatedFormattedDate = relatedPost.date
                       ? new Date(relatedPost.date).toLocaleDateString("en-US", {
-                          month: "2-digit",
-                          day: "2-digit",
-                          year: "numeric",
-                        })
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                      })
                       : "";
-                    const primaryCategory = relatedPost.categories && relatedPost.categories.length > 0 
-                      ? relatedPost.categories[0] 
+                    const primaryCategory = relatedPost.categories && relatedPost.categories.length > 0
+                      ? relatedPost.categories[0]
                       : null;
+                    const relatedCategoryColor = primaryCategory?.color || "#66C2E2";
 
                     return (
                       <Link
                         key={relatedPost._id}
                         href={`/blog/${relatedPost.slug}`}
+                        className="group"
                       >
-                        <div className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] w-full">
+                        <div
+                          className="flex flex-col gap-[12px] p-[18px] border border-gray-100 rounded-[14px] w-full transition-all duration-300 group-hover:bg-[var(--related-theme-light)] group-hover:border-[var(--related-theme)]"
+                          style={{
+                            ['--related-theme' as any]: relatedCategoryColor,
+                            ['--related-theme-light' as any]: `${relatedCategoryColor}10`,
+                          } as any}
+                        >
                           {/* Category Chip */}
                           {primaryCategory && (
-                            <div className="bg-white flex gap-[2.115px] items-center px-[5.288px] py-[4.231px] rounded-[52.881px] border border-gray-200 w-fit">
-                              <p className="font-['Inter',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[12.692px] text-black text-nowrap tracking-[-0.1904px] whitespace-pre">
+                            <div
+                              className="px-2.5 py-1 rounded-full w-fit mb-1 border"
+                              style={{
+                                borderColor: relatedCategoryColor,
+                                backgroundColor: `${relatedCategoryColor}15`,
+                                color: relatedCategoryColor
+                              }}
+                            >
+                              <p className="font-['Manrope',sans-serif] font-bold text-[10px]">
                                 {primaryCategory.title}
                               </p>
                             </div>
                           )}
 
                           {/* Content */}
-                          <div className="flex flex-col items-start relative shrink-0 w-full">
-                            <div className="flex flex-col gap-[5px] items-start relative shrink-0 text-black w-full">
-                              <p className="font-['Manrope',sans-serif] font-medium leading-[38.709px] min-w-full relative shrink-0 text-[16px] tracking-[-0.24px] w-[min-content]">
-                                {relatedPost.title.split(":")[0]}{relatedPost.title.includes(":") ? ":" : ""}
-                              </p>
-                              <p className="font-['Manrope',sans-serif] font-semibold leading-[30.7px] relative shrink-0 text-[24px] tracking-[-0.36px] w-full">
-                                {relatedPost.title.includes(":") ? relatedPost.title.split(":")[1].trim() : relatedPost.title}
-                              </p>
-                            </div>
+                          <div className="flex flex-col gap-1 w-full min-w-0">
+                            <p className="font-['Manrope',sans-serif] font-medium text-[13px] text-neutral-500 truncate" style={{ color: relatedCategoryColor }}>
+                              {relatedPost.title.split(":")[0]}{relatedPost.title.includes(":") ? ":" : ""}
+                            </p>
+                            <p className="font-['Manrope',sans-serif] font-semibold text-[17px] leading-[1.3] text-black line-clamp-2 group-hover:underline transition-all">
+                              {relatedPost.title.includes(":") ? relatedPost.title.split(":")[1].trim() : relatedPost.title}
+                            </p>
                           </div>
 
                           {/* Author and Date */}
-                          <div className="flex font-['Manrope',sans-serif] font-bold gap-4 items-center leading-[20.729px] relative shrink-0 text-[12px] text-black text-nowrap tracking-[-0.18px] w-full whitespace-pre">
-                            <p className="relative shrink-0">{relatedAuthorName}</p>
-                            <p className="relative shrink-0">{relatedFormattedDate}</p>
+                          <div className="flex justify-between items-center font-['Manrope',sans-serif] font-medium text-[11px] text-neutral-400 mt-1">
+                            <span>{relatedAuthorName}</span>
+                            <span>{relatedFormattedDate}</span>
                           </div>
                         </div>
                       </Link>

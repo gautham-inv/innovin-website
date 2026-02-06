@@ -135,10 +135,10 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[100px] bg-white/80 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/40 border-b border-white/20 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
           }`}
       >
-        <div className="py-4 md:py-5">
+        <div className="py-1">
           <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] flex items-center justify-between h-[60px] md:h-[68px]">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
@@ -152,7 +152,7 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop Nav links */}
-            <div className="hidden xl:flex bg-[rgba(215,237,248,0.8)] rounded-[26.282px] items-center absolute left-1/2 -translate-x-1/2">
+            <div className="hidden xl:flex bg-[rgba(215,237,248,0.4)] backdrop-blur-md border border-white/30 rounded-[26.282px] items-center absolute left-1/2 -translate-x-1/2">
               <Link
                 href="/services"
                 className={linkClasses("", true, false, pathname === "/services")}

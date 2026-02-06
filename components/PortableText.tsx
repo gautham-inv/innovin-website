@@ -7,12 +7,12 @@
  * https://portabletext.org/
  */
 
-import {stegaClean} from '@sanity/client/stega'
-import {Image} from 'next-sanity/image'
-import {getImageDimensions} from '@sanity/asset-utils'
-import {PortableText, type PortableTextComponents, type PortableTextBlock} from 'next-sanity'
+import { stegaClean } from '@sanity/client/stega'
+import { Image } from 'next-sanity/image'
+import { getImageDimensions } from '@sanity/asset-utils'
+import { PortableText, type PortableTextComponents, type PortableTextBlock } from 'next-sanity'
 
-import {urlForImage} from '@/lib/sanity/lib/utils'
+import { urlForImage } from '@/lib/sanity/lib/utils'
 
 export default function CustomPortableText({
   className,
@@ -22,50 +22,54 @@ export default function CustomPortableText({
   value: PortableTextBlock[]
 }) {
   const isJobContent = className?.includes('job-content')
-  
+
   const components: PortableTextComponents = {
     block: {
-      h1: ({children}) => {
+      h1: ({ children }) => {
         const isBlogContent = className?.includes('blog-content');
         return (
-          <h1 className={`group relative ${isBlogContent ? 'text-[42px] font-semibold leading-[1.3] mb-6 mt-8 font-["Manrope",sans-serif]' : ''}`}>
+          <h1 className={`group relative font-['Manrope',sans-serif] ${isBlogContent ? 'text-[32px] sm:text-[42px] font-semibold leading-[1.3] mb-6 mt-8' : 'text-[28px] sm:text-[36px] font-semibold mb-4 mt-6'}`}>
             {children}
           </h1>
         )
       },
-      h2: ({children}) => {
+      h2: ({ children }) => {
         const isBlogContent = className?.includes('blog-content');
         return (
-          <h2 className={`group relative ${isBlogContent ? 'text-[36px] font-semibold leading-[1.3] mb-5 mt-7 font-["Manrope",sans-serif]' : ''}`}>
+          <h2 className={`group relative font-['Manrope',sans-serif] ${isBlogContent ? 'text-[28px] sm:text-[36px] font-semibold leading-[1.3] mb-5 mt-7' : 'text-[24px] sm:text-[30px] font-semibold mb-4 mt-6'}`}>
             {children}
           </h2>
         )
       },
-      normal: ({children}) => {
-        // Check if className includes job-specific styling
-        if (isJobContent) {
-          return (
-            <p className="font-normal text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-black">
-              {children}
-            </p>
-          )
+      h3: ({ children }) => {
+        return (
+          <h3 className="group relative font-['Manrope',sans-serif] text-[20px] sm:text-[24px] font-semibold mb-3 mt-5">
+            {children}
+          </h3>
+        )
+      },
+      normal: ({ children }) => {
+        const isBlogContent = className?.includes('blog-content');
+        const isJobDescription = className?.includes('job-description');
+        const isJobContent = className?.includes('job-content');
+
+        let textStyles = "font-['Manrope',sans-serif] leading-[1.7] sm:leading-[1.8] text-black mb-4";
+
+        if (isBlogContent) {
+          textStyles += " text-[18px] sm:text-[20px]";
+        } else if (isJobDescription) {
+          textStyles += " text-[16px] sm:text-[18px] md:text-[20px]";
+        } else if (isJobContent) {
+          textStyles += " text-[15px] sm:text-[16px] md:text-[18px]";
+        } else {
+          textStyles += " text-base";
         }
-        if (className?.includes('job-description')) {
-          return (
-            <p className="font-medium text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-black">
-              {children}
-            </p>
-          )
-        }
-        // Blog content styling - larger, more readable
-        if (className?.includes('blog-content')) {
-          return <p className="font-normal leading-[1.8] text-[20px] text-black mb-6 font-['Manrope',sans-serif]">{children}</p>
-        }
-        return <p>{children}</p>
+
+        return <p className={textStyles}>{children}</p>
       },
     },
     list: {
-      bullet: ({children}) => {
+      bullet: ({ children }) => {
         if (isJobContent) {
           return (
             <ul className="list-disc pl-6 space-y-0">
@@ -75,7 +79,7 @@ export default function CustomPortableText({
         }
         return <ul>{children}</ul>
       },
-      number: ({children}) => {
+      number: ({ children }) => {
         if (isJobContent) {
           return (
             <ol className="list-decimal pl-6 space-y-0">
@@ -87,39 +91,53 @@ export default function CustomPortableText({
       },
     },
     listItem: {
-      bullet: ({children}) => {
-        if (isJobContent) {
-          return (
-            <li className="mb-0">
-              <span className="font-normal text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-black">
-                {children}
-              </span>
-            </li>
-          )
+      bullet: ({ children }) => {
+        const isBlogContent = className?.includes('blog-content');
+        const isJobContent = className?.includes('job-content');
+
+        let textStyles = "font-['Manrope',sans-serif] leading-[1.7] sm:leading-[1.8] text-black";
+        if (isBlogContent) {
+          textStyles += " text-[18px] sm:text-[20px]";
+        } else if (isJobContent) {
+          textStyles += " text-[15px] sm:text-[16px] md:text-[18px]";
         }
-        return <li>{children}</li>
+
+        return (
+          <li className="mb-2">
+            <span className={textStyles}>
+              {children}
+            </span>
+          </li>
+        )
       },
-      number: ({children}) => {
-        if (isJobContent) {
-          return (
-            <li className="mb-0">
-              <span className="font-normal text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] leading-[1.7] sm:leading-[1.8] md:leading-[1.9] text-black">
-                {children}
-              </span>
-            </li>
-          )
+      number: ({ children }) => {
+        const isBlogContent = className?.includes('blog-content');
+        const isJobContent = className?.includes('job-content');
+
+        let textStyles = "font-['Manrope',sans-serif] leading-[1.7] sm:leading-[1.8] text-black";
+        if (isBlogContent) {
+          textStyles += " text-[18px] sm:text-[20px]";
+        } else if (isJobContent) {
+          textStyles += " text-[15px] sm:text-[16px] md:text-[18px]";
         }
-        return <li>{children}</li>
+
+        return (
+          <li className="mb-2">
+            <span className={textStyles}>
+              {children}
+            </span>
+          </li>
+        )
       },
     },
     marks: {
-      link: ({children, value: link}) => {
+      link: ({ children, value: link }) => {
         const href = link?.href || '#'
         return <a href={href}>{children}</a>
       },
     },
     types: {
-      image: ({value}) => {
+      image: ({ value }) => {
         if (!value?.asset?._ref) {
           return null
         }
@@ -129,7 +147,7 @@ export default function CustomPortableText({
           return null
         }
 
-        const {width, height} = getImageDimensions(value.asset._ref)
+        const { width, height } = getImageDimensions(value.asset._ref)
         const alt = stegaClean(value?.alt) || ''
 
         return (

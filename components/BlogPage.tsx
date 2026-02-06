@@ -180,12 +180,14 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
               {/* All Category Chip */}
               <button
                 onClick={() => setSelectedCategory("all")}
-                className={`border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-colors ${selectedCategory === "all"
-                  ? "bg-[rgba(215,237,248,0.6)] border-[#005c89]"
-                  : "bg-white border-[#E0E0E0] hover:bg-gray-50"
-                  }`}
+                className="border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-all duration-300"
+                style={{
+                  borderColor: selectedCategory === "all" ? "#005c89" : "#E0E0E0",
+                  backgroundColor: selectedCategory === "all" ? "rgba(215, 237, 248, 0.4)" : "white",
+                  color: selectedCategory === "all" ? "#005c89" : "black",
+                }}
               >
-                <p className="font-['Manrope',sans-serif] font-normal leading-[1.4] sm:leading-[27.964px] relative shrink-0 text-[14px] sm:text-[16px] text-black text-nowrap tracking-[0.0067px] whitespace-pre">
+                <p className="font-['Manrope',sans-serif] font-bold leading-[1.4] sm:leading-[27.964px] relative shrink-0 text-[14px] sm:text-[16px] text-nowrap tracking-[0.0067px] whitespace-pre">
                   All
                 </p>
               </button>
@@ -193,16 +195,20 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
               {/* Category Chips */}
               {categories.map((category) => {
                 const isSelected = selectedCategory === category._id;
+                const categoryColor = category.color || "#66C2E2";
+
                 return (
                   <button
                     key={category._id}
                     onClick={() => setSelectedCategory(category._id)}
-                    className={`border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-colors ${isSelected
-                      ? "bg-[rgba(215,237,248,0.6)] border-[#005c89]"
-                      : "bg-white border-[#E0E0E0] hover:bg-gray-50"
-                      }`}
+                    className="border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-all duration-300"
+                    style={{
+                      borderColor: isSelected ? categoryColor : "#E0E0E0",
+                      backgroundColor: isSelected ? `${categoryColor}15` : "white",
+                      color: isSelected ? categoryColor : "black",
+                    }}
                   >
-                    <p className="font-['Manrope',sans-serif] font-normal leading-[1.4] sm:leading-[27.964px] relative shrink-0 text-[14px] sm:text-[16px] text-black text-nowrap tracking-[0.0067px] whitespace-pre">
+                    <p className="font-['Manrope',sans-serif] font-bold leading-[1.4] sm:leading-[27.964px] relative shrink-0 text-[14px] sm:text-[16px] text-nowrap tracking-[0.0067px] whitespace-pre">
                       {category.title}
                     </p>
                   </button>
@@ -216,32 +222,12 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
         <div className="flex flex-col gap-8 sm:gap-12 xl:gap-[94px] items-start py-8 sm:py-12 xl:py-[50px]">
           {filteredPosts.length > 0 ? (
             <>
-              {/* Desktop: First Row */}
-              {filteredPosts.length >= 3 && (
-                <div className="hidden xl:flex gap-[13px] items-start justify-center relative shrink-0 w-full">
-                  {filteredPosts.slice(0, 3).map((post) => (
-                    <BlogCard key={post._id} {...post} />
-                  ))}
-                </div>
-              )}
-
-              {/* Desktop: Second Row */}
-              {filteredPosts.length >= 6 && (
-                <div className="hidden xl:flex gap-[13px] items-start justify-center relative shrink-0 w-full">
-                  {filteredPosts.slice(3, 6).map((post) => (
-                    <BlogCard key={post._id} {...post} />
-                  ))}
-                </div>
-              )}
-
-              {/* Desktop: Remaining Posts */}
-              {filteredPosts.length > 6 && (
-                <div className="hidden xl:flex gap-[13px] items-start justify-center relative shrink-0 w-full flex-wrap">
-                  {filteredPosts.slice(6).map((post) => (
-                    <BlogCard key={post._id} {...post} />
-                  ))}
-                </div>
-              )}
+              {/* Desktop: Grid Layout */}
+              <div className="hidden xl:grid grid-cols-3 gap-[13px] w-full">
+                {filteredPosts.map((post) => (
+                  <BlogCard key={post._id} {...post} />
+                ))}
+              </div>
 
               {/* Mobile/Tablet: Grid Layout */}
               <div className="xl:hidden grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full">
@@ -249,15 +235,6 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
                   <BlogCard key={post._id} {...post} />
                 ))}
               </div>
-
-              {/* Desktop: If less than 3 posts, show them in a single row */}
-              {filteredPosts.length < 3 && (
-                <div className="hidden xl:flex gap-[13px] items-start justify-center relative shrink-0 w-full flex-wrap">
-                  {filteredPosts.map((post) => (
-                    <BlogCard key={post._id} {...post} />
-                  ))}
-                </div>
-              )}
             </>
           ) : (
             <div className="text-center py-12 w-full">

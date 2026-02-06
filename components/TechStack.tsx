@@ -11,23 +11,49 @@ const img3 = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=120
 import Link from "next/link";
 import { techStackData } from "@/lib/techStackData";
 
-// Extract all items from techStackData for the loop
-const allTechItems = techStackData.flatMap(category => category.items);
+const EXCLUDED_LOGOS = [
+  "AWS",
+  "S3",
+  "EC2",
+  "BeautifulSoup",
+  "Flask",
+  "Expo",
+  "Sonarqube",
+  "OpenAI",
+  "LangChain",
+  "Mixpanel",
+  "JWT",
+  "Auth0",
+  "Cursor",
+  "Windsurf",
+  "Locofy",
+  "Vercel",
+  "Bluehost",
+  "GoDaddy",
+  "Squarespace",
+  "Render",
+  "GitHub",
+];
+
+// Extract all items from techStackData for the loop, filtering out logos that don't look good on dark BG
+const allTechItems = techStackData
+  .flatMap((category) => category.items)
+  .filter((item) => !EXCLUDED_LOGOS.includes(item.name));
 
 // Split them into top and bottom rows for the animation
 const midIndex = Math.ceil(allTechItems.length / 2);
-const techLogosTop = allTechItems.slice(0, midIndex).map(item => ({
+const techLogosTop = allTechItems.slice(0, midIndex).map((item) => ({
   src: item.icon,
   alt: item.name,
   title: item.name,
-  href: item.href
+  href: item.href,
 }));
 
-const techLogosBottom = allTechItems.slice(midIndex).map(item => ({
+const techLogosBottom = allTechItems.slice(midIndex).map((item) => ({
   src: item.icon,
   alt: item.name,
   title: item.name,
-  href: item.href
+  href: item.href,
 }));
 
 export default function TechStack() {
@@ -77,9 +103,9 @@ export default function TechStack() {
   }, []);
 
   return (
-    <div className="px-4 sm:px-6 lg:px-6 xl:px-[70px] mb-10 sm:mb-16 lg:mb-20">
+    <div className="px-4 sm:px-6 lg:px-6 xl:px-[70px] mt-10 sm:mt-16 lg:mt-20 mb-10 sm:mb-16 lg:mb-20">
       <section
-        className="bg-[#131518] rounded-[23.408px] relative overflow-hidden"
+        className="bg-[#131518] rounded-[23.408px] relative overflow-hidden max-w-[1681px] mx-auto"
         style={{ minHeight: 0 }}
       >
         <div className="max-w-[1681px] mx-auto px-5 py-12 md:py-16 lg:py-20 flex flex-col gap-12 md:gap-20">

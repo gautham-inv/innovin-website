@@ -47,6 +47,7 @@ export default function WhyUs() {
   const [isDesktop, setIsDesktop] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [gsapReady, setGsapReady] = useState(false);
 
   const text = "why us";
   const letters = text.split("");
@@ -101,6 +102,9 @@ export default function WhyUs() {
   useLayoutEffect(() => {
     if (!isDesktop || typeof window === 'undefined') return;
 
+    // Store cleanup function so we can call it on unmount
+    let cleanupFn: (() => void) | null = null;
+
     const loadGSAP = async () => {
       const gsap = (await import('gsap')).default;
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
@@ -120,9 +124,10 @@ export default function WhyUs() {
         }
       });
 
-      // Reset all GSAP properties to initial state
-      gsap.set([title, content, ...letterRefs.current.filter(Boolean)], {
-        clearProps: "all"
+      // Clear any stale GSAP inline styles from previous navigation
+      gsap.set([title, content], { clearProps: "all" });
+      letterRefs.current.forEach((el) => {
+        if (el) gsap.set(el, { clearProps: "all" });
       });
 
       let rafId: number;
@@ -131,32 +136,33 @@ export default function WhyUs() {
       let handleResize: (() => void) | null = null;
       let handleImageLoad: (() => void) | null = null;
 
-      const ctx = gsap.context(() => {
-        rafId = requestAnimationFrame(() => {
-          void section.offsetHeight;
+      // Set initial states IMMEDIATELY (before RAF) to prevent flash
+      gsap.set(content, {
+        opacity: 0,
+        y: 50,
+        force3D: true
+      });
 
-          // Set initial states
-          gsap.set(content, {
-            opacity: 0,
-            y: 50,
+      gsap.set(title, {
+        scale: 1,
+        y: 0,
+        force3D: true,
+        transformOrigin: "center center"
+      });
+
+      letterRefs.current.forEach((letterEl) => {
+        if (letterEl) {
+          gsap.set(letterEl, {
+            color: "#c8c8c8",
             force3D: true
           });
+        }
+      });
 
-          gsap.set(title, {
-            scale: 1,
-            y: 0,
-            force3D: true,
-            transformOrigin: "center center"
-          });
-
-          letterRefs.current.forEach((letterEl) => {
-            if (letterEl) {
-              gsap.set(letterEl, {
-                color: "#c8c8c8",
-                force3D: true
-              });
-            }
-          });
+      const ctx = gsap.context(() => {
+        rafId = requestAnimationFrame(() => {
+          // Force a reflow to ensure measurements are accurate
+          void section.offsetHeight;
 
           const vh = window.innerHeight;
           const scrollDistance = vh * 2.5;
@@ -164,8 +170,6 @@ export default function WhyUs() {
           const titleYPosition = -vh * 0.25;
 
           // Create main timeline
-          let scrollTriggerInstance: ScrollTrigger | null = null;
-
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: section,
@@ -178,47 +182,10 @@ export default function WhyUs() {
               invalidateOnRefresh: true,
               refreshPriority: -1,
               markers: false,
-              onEnter: () => {
-                gsap.set([title, content, ...letterRefs.current.filter(Boolean)], {
-                  clearProps: "all"
-                });
-                gsap.set(content, { opacity: 0, y: 50, force3D: true });
-                gsap.set(title, { scale: 1, y: 0, force3D: true });
-                letterRefs.current.forEach((el) => {
-                  if (el) gsap.set(el, { color: "#c8c8c8", force3D: true });
-                });
-              },
-              onComplete: function (this: ScrollTrigger) {
-                scrollTriggerInstance = this;
-                this.kill();
-
-                gsap.set(title, {
-                  scale: titleScale,
-                  y: titleYPosition,
-                  force3D: true,
-                  clearProps: "transform"
-                });
-
-                gsap.set(content, {
-                  opacity: 1,
-                  y: 0,
-                  force3D: true,
-                  clearProps: "transform,opacity"
-                });
-
-                letterRefs.current.forEach((el) => {
-                  if (el) {
-                    gsap.set(el, {
-                      color: "#232323",
-                      clearProps: "color"
-                    });
-                  }
-                });
-
-                if (section) {
-                  section.style.position = 'relative';
-                  section.style.height = 'auto';
-                }
+              onRefresh: (self: { update: () => void }) => {
+                // When ScrollTrigger refreshes, update to correct position
+                // This prevents blank screen if user scrolled before GSAP initialized
+                self.update();
               }
             } as any
           });
@@ -254,6 +221,13 @@ export default function WhyUs() {
             force3D: true
           }, 0.4);
 
+          // Force immediate update to reflect current scroll position
+          // This is critical to prevent blank screen when user has already scrolled
+          ScrollTrigger.refresh();
+
+          // Mark GSAP as ready - content visibility is now controlled by GSAP
+          setGsapReady(true);
+
           // Handle resize with debounce
           handleResize = () => {
             clearTimeout(resizeTimeout);
@@ -269,12 +243,10 @@ export default function WhyUs() {
           window.addEventListener("resize", handleResize);
           window.addEventListener("load", handleImageLoad);
 
+          // Additional refresh after a short delay for layout stability
           initTimeout = setTimeout(() => {
             ScrollTrigger.refresh();
-            setTimeout(() => {
-              ScrollTrigger.refresh();
-            }, 300);
-          }, 100);
+          }, 150);
         });
       }, section);
 
@@ -288,8 +260,8 @@ export default function WhyUs() {
         }, 200);
       }
 
-      // Cleanup
-      return () => {
+      // Store the cleanup function
+      cleanupFn = () => {
         if (rafId) cancelAnimationFrame(rafId);
         if (resizeTimeout) clearTimeout(resizeTimeout);
         if (initTimeout) clearTimeout(initTimeout);
@@ -303,10 +275,18 @@ export default function WhyUs() {
           }
         });
         ctx.revert();
+        setGsapReady(false);
       };
     };
 
     loadGSAP();
+
+    // Return cleanup function that will be called on unmount/dependency change
+    return () => {
+      if (cleanupFn) {
+        cleanupFn();
+      }
+    };
   }, [pathname, isDesktop]);
 
   return (
@@ -356,7 +336,11 @@ export default function WhyUs() {
             opacity: isMounted && isVisible ? 1 : 0,
             transform: isMounted && isVisible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s'
-          } : { willChange: 'transform, opacity' }}
+          } : {
+            // Only hide content once GSAP is ready to control it
+            // Before GSAP loads, content stays visible to prevent blank screen
+            willChange: 'transform, opacity'
+          }}
         >
           {/* Description */}
           <div className="mb-6 sm:mb-8 lg:mb-16 max-w-[95%] sm:max-w-[600px] lg:max-w-[837px] text-center">

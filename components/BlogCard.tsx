@@ -46,12 +46,17 @@ export default function BlogCard({
     : "";
 
   const primaryCategory = categories && categories.length > 0 ? categories[0] : null;
-  const categoryColor = primaryCategory?.color || "#1abcfe";
+  const categoryColor = primaryCategory?.color || "#66C2E2";
 
   return (
     <Link
       href={`/blog/${slug}`}
-      className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] group xl:max-w-[520px] w-full min-w-0 h-full hover:bg-[#F2FBFF] hover:border-[#66C2E2] transition-colors duration-300"
+      className="flex flex-col gap-[15px] p-[20px] border border-[#E0E0E0] rounded-[16px] group w-full min-w-0 h-full transition-all duration-300 hover:bg-[var(--theme-color-light)] hover:border-[var(--theme-color)]"
+      style={{
+        // Define CSS variable for the theme color
+        ['--theme-color' as any]: categoryColor,
+        ['--theme-color-light' as any]: `${categoryColor}15`, // ~8% opacity hex suffix
+      } as any}
     >
       {/* Image Container */}
       <div className="bg-white h-[244px] overflow-hidden relative rounded-[16px] w-full">
@@ -62,9 +67,9 @@ export default function BlogCard({
                 src={urlFor(coverImage)?.width(800).height(540).url() || ''}
                 alt={title}
                 fill
-                className="object-cover rounded-[16px]"
+                className="object-cover rounded-[16px] transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute bg-[rgba(0,0,0,0.4)] inset-0 rounded-[16px]" />
+              <div className="absolute bg-[rgba(0,0,0,0.3)] inset-0 rounded-[16px]" />
             </div>
           </div>
         )}
@@ -72,11 +77,13 @@ export default function BlogCard({
         {/* Category Chip */}
         {primaryCategory && (
           <div
-            className="absolute bg-white flex gap-[2.115px] items-center left-[18px] px-[5.288px] py-[4.231px] rounded-[52.881px] top-[28px] z-10"
+            className="absolute flex items-center left-[18px] px-3 py-1.5 rounded-full top-[18px] z-10 font-['Manrope',sans-serif] font-bold text-[12px] shadow-sm border bg-white"
+            style={{
+              borderColor: categoryColor,
+              color: categoryColor
+            }}
           >
-            <p className="font-['Inter',sans-serif] font-normal leading-[normal] not-italic relative shrink-0 text-[12.692px] text-black text-nowrap tracking-[-0.1904px] whitespace-pre">
-              {primaryCategory.title}
-            </p>
+            {primaryCategory.title}
           </div>
         )}
       </div>
@@ -84,17 +91,19 @@ export default function BlogCard({
       {/* Content */}
       <div className="flex flex-col items-start relative shrink-0 w-full flex-1">
         <div className="flex flex-col gap-[5px] items-start relative shrink-0 text-black w-full">
-          <p className="font-['Manrope',sans-serif] font-medium leading-[38.709px] min-w-full relative shrink-0 text-[16px] tracking-[-0.24px] w-[min-content]">
+          <p
+            className="font-['Manrope',sans-serif] font-medium leading-[38.709px] min-w-full relative shrink-0 text-[16px] tracking-[-0.24px] w-[min-content] transition-colors"
+          >
             {title.split(":")[0]}{title.includes(":") ? ":" : ""}
           </p>
-          <p className="font-['Manrope',sans-serif] font-semibold leading-[30.7px] relative shrink-0 text-[24px] tracking-[-0.36px] w-full group-hover:text-[#005c89] transition-colors group-hover:underline underline-offset-4 decoration-2">
+          <p className="font-['Manrope',sans-serif] font-semibold leading-[30.7px] relative shrink-0 text-[24px] tracking-[-0.36px] w-full group-hover:underline underline-offset-4 transition-colors">
             {title.includes(":") ? title.split(":")[1].trim() : title}
           </p>
         </div>
       </div>
 
       {/* Author and Date */}
-      <div className="flex items-center justify-between font-['Manrope',sans-serif] font-bold leading-[20.729px] text-[12px] text-black tracking-[-0.18px] w-full gap-4">
+      <div className="flex items-center justify-between font-['Manrope',sans-serif] font-bold leading-[20.729px] text-[12px] text-neutral-500 tracking-[-0.18px] w-full gap-4 pt-2">
         <p className="relative shrink-0">{authorName}</p>
         <p className="relative shrink-0">{formattedDate}</p>
       </div>
