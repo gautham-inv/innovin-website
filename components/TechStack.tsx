@@ -45,14 +45,12 @@ const midIndex = Math.ceil(allTechItems.length / 2);
 const techLogosTop = allTechItems.slice(0, midIndex).map((item) => ({
   src: item.icon,
   alt: item.name,
-  title: item.name,
   href: item.href,
 }));
 
 const techLogosBottom = allTechItems.slice(midIndex).map((item) => ({
   src: item.icon,
   alt: item.name,
-  title: item.name,
   href: item.href,
 }));
 

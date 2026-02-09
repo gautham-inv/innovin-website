@@ -13,7 +13,7 @@ import Footer from "./Footer";
 export default function HomeScreen() {
   return (
     <div className="bg-white relative w-full overflow-x-hidden">
-      <main className="w-full">
+      <main id="main-content" className="w-full">
         <Hero />
         <WhyUs />
         <Services />

@@ -225,7 +225,7 @@ export default function AboutUs() {
   const needsCentering = lastRowCount !== 0;
 
   return (
-    <div className="bg-white w-full">
+    <main id="main-content" className="bg-white w-full">
       {/* Hero Section */}
       <section className="relative w-full px-4 sm:px-6 lg:px-6 xl:px-[70px] py-16 sm:py-20 md:py-24 lg:py-28 min-h-[350px] sm:min-h-[450px] lg:min-h-[550px] flex flex-col justify-center">
         <div className="absolute inset-0">
@@ -537,6 +537,6 @@ export default function AboutUs() {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

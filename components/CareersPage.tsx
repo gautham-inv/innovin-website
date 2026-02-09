@@ -354,7 +354,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   ];
 
   return (
-    <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
+    <main id="main-content" className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
       <div className="max-w-[1681px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[70px]">
         {/* Hero Section with CSS Dotted Background */}
         <div className="relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[550px] xl:min-h-[600px] mb-[40px] sm:mb-[60px] xl:mb-[80px] hero-dotted-bg">
@@ -730,6 +730,6 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

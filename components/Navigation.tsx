@@ -134,7 +134,15 @@ export default function Navigation() {
 
   return (
     <>
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-[#005c89] focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        Skip to main content
+      </a>
       <nav
+        aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[200px] bg-white/60 border-b border-white/20 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
           }`}
       >

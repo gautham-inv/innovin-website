@@ -10,7 +10,7 @@ export default function TechStackPage() {
     const { openModal } = useContactModal();
 
     return (
-        <div className="bg-white min-h-screen flex flex-col">
+        <main id="main-content" className="bg-white min-h-screen flex flex-col">
             {/* Hero Section */}
             <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-6 xl:px-[70px] bg-neutral-50 border-b border-neutral-100">
                 <div className="max-w-[1681px] mx-auto text-center">
@@ -83,6 +83,6 @@ export default function TechStackPage() {
             </section>
 
             <Footer />
-        </div>
+        </main>
     );
 }

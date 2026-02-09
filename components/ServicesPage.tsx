@@ -59,7 +59,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="bg-white flex flex-col items-start px-0 py-5 sm:py-6 lg:py-[20px] relative min-h-screen w-full pt-24 sm:pt-28 lg:pt-32">
+    <main id="main-content" className="bg-white flex flex-col items-start px-0 py-5 sm:py-6 lg:py-[20px] relative min-h-screen w-full pt-24 sm:pt-28 lg:pt-32">
       {/* Hero Section */}
       <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-[70px] py-5 sm:py-6 lg:py-[20px]">
         <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[80px] items-start relative w-full max-w-[1681px] mx-auto">
@@ -120,7 +120,7 @@ export default function ServicesPage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

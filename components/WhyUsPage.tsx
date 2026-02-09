@@ -56,7 +56,7 @@ export default function WhyUsPage() {
   ];
 
   return (
-    <>
+    <main id="main-content">
       <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] overflow-clip relative">
         <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px]">
           {/* Header Section */}
@@ -389,6 +389,6 @@ export default function WhyUsPage() {
           </div>
         </div>
       </div>
-    </>
+    </main>
   );
 }

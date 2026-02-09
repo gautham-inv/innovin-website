@@ -72,7 +72,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
   };
 
   return (
-    <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
+    <main id="main-content" className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
       <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px]">
         {/* Header Section */}
         <div className="flex flex-col gap-8 sm:gap-10 lg:gap-[50px] items-center justify-center py-8 sm:py-12 lg:py-[10px]">
@@ -243,6 +243,6 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

@@ -5,7 +5,7 @@ const ANIMATION_CONFIG = { SMOOTH_TAU: 0.25, MIN_COPIES: 2, COPY_HEADROOM: 2 };
 
 type CssLength = number | string | undefined;
 
-const toCssLength = (value: CssLength): string | undefined => 
+const toCssLength = (value: CssLength): string | undefined =>
   (typeof value === 'number' ? `${value}px` : (value ?? undefined));
 
 type ResizeCallback = () => void;
@@ -13,8 +13,8 @@ type RefObject<T> = React.RefObject<T>;
 type DependencyArray = unknown[];
 
 const useResizeObserver = (
-  callback: ResizeCallback, 
-  elements: RefObject<HTMLElement>[], 
+  callback: ResizeCallback,
+  elements: RefObject<HTMLElement>[],
   dependencies: DependencyArray
 ) => {
   useEffect(() => {
@@ -40,8 +40,8 @@ const useResizeObserver = (
 type ImageLoadCallback = () => void;
 
 const useImageLoader = (
-  seqRef: RefObject<HTMLElement>, 
-  onLoad: ImageLoadCallback, 
+  seqRef: RefObject<HTMLElement>,
+  onLoad: ImageLoadCallback,
   dependencies: DependencyArray
 ) => {
   useEffect(() => {
@@ -74,12 +74,12 @@ const useImageLoader = (
 };
 
 const useAnimationLoop = (
-  trackRef: RefObject<HTMLDivElement>, 
-  targetVelocity: number, 
-  seqWidth: number, 
-  seqHeight: number, 
-  isHovered: boolean, 
-  hoverSpeed: number | undefined, 
+  trackRef: RefObject<HTMLDivElement>,
+  targetVelocity: number,
+  seqWidth: number,
+  seqHeight: number,
+  isHovered: boolean,
+  hoverSpeed: number | undefined,
   isVertical: boolean
 ) => {
   const rafRef = useRef<number | null>(null);
@@ -140,23 +140,23 @@ const useAnimationLoop = (
   }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, trackRef]);
 };
 
-export type LogoItem = 
+export type LogoItem =
   | {
-      node: ReactNode;
-      title?: string;
-      href?: string;
-      ariaLabel?: string;
-    }
+    node: ReactNode;
+    title?: string;
+    href?: string;
+    ariaLabel?: string;
+  }
   | {
-      src: string;
-      srcSet?: string;
-      sizes?: string;
-      width?: number;
-      height?: number;
-      alt?: string;
-      title?: string;
-      href?: string;
-    };
+    src: string;
+    srcSet?: string;
+    sizes?: string;
+    width?: number;
+    height?: number;
+    alt?: string;
+    title?: string;
+    href?: string;
+  };
 
 export interface LogoLoopProps {
   logos: LogoItem[];
@@ -307,7 +307,6 @@ export const LogoLoop = memo<LogoLoopProps>(
             width={item.width}
             height={item.height}
             alt={item.alt ?? ''}
-            title={item.title}
             loading="lazy"
             decoding="async"
             draggable={false}
