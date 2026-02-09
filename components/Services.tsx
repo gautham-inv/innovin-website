@@ -38,6 +38,8 @@ export default function Services() {
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
+    let isComponentMounted = true;
+
     // --- 1. INITIALIZE SMOOTH SCROLL (LENIS) ---
     const lenis = new Lenis({
       duration: 1.2,
@@ -56,6 +58,12 @@ export default function Services() {
       import('gsap'),
       import('gsap/ScrollTrigger')
     ]).then(([{ gsap }, { ScrollTrigger }]) => {
+      // Check if component is still mounted after async imports
+      if (!isComponentMounted) {
+        lenis.destroy();
+        return;
+      }
+
       gsap.registerPlugin(ScrollTrigger);
 
       // --- 2. SYNC LENIS WITH GSAP ---
@@ -405,6 +413,12 @@ export default function Services() {
         gsap.ticker.remove(lenis.raf); // Important: remove the listener
       };
     });
+
+    // Return cleanup function
+    return () => {
+      isComponentMounted = false;
+      lenis.destroy();
+    };
   }, []);
 
   return (

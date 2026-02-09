@@ -104,10 +104,14 @@ export default function WhyUs() {
 
     // Store cleanup function so we can call it on unmount
     let cleanupFn: (() => void) | null = null;
+    let isComponentMounted = true;
 
     const loadGSAP = async () => {
       const gsap = (await import('gsap')).default;
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+
+      // Check if component is still mounted after async imports
+      if (!isComponentMounted) return;
 
       gsap.registerPlugin(ScrollTrigger);
 
@@ -283,6 +287,7 @@ export default function WhyUs() {
 
     // Return cleanup function that will be called on unmount/dependency change
     return () => {
+      isComponentMounted = false;
       if (cleanupFn) {
         cleanupFn();
       }
