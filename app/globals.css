@@ -162,3 +162,32 @@ html {
   scrollbar-width: none;
   /* Firefox */
 }
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes lineFlow {
+  from {
+    stroke-dashoffset: 100;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-line-flow {
+  stroke-dasharray: 40 160;
+  animation: lineFlow 3s linear infinite;
+}

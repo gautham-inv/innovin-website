@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, ReactNode } from "react";
-import { Users, Target, Cpu, Repeat } from "lucide-react";
+import { useRef, ReactNode } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import EngagementModelsAnimated from "./EngagementModelsAnimated";
 
 const Word = ({ children, progress, range, highlight = false }: { children: ReactNode, progress: MotionValue<number>, range: [number, number], highlight?: boolean }) => {
   const opacity = useTransform(progress, range, [0.1, 1]);
@@ -32,28 +32,7 @@ export default function WhyUsPage() {
   const contentWords = contentText.split(" ");
   const totalWords = headingWords.length + contentWords.length;
 
-  const engagementModels = [
-    {
-      title: "Tap India's Tech Talent Pool",
-      description: "Enabling access to India's exceptional talent by tapping into a diverse pool of skilled professionals to drive project success.",
-      Icon: Users,
-    },
-    {
-      title: "Project-Based Execution",
-      description: "From defining tasks and timelines to building and delivering the final product, we ensure smooth execution and set the stage for ongoing improvement.",
-      Icon: Target,
-    },
-    {
-      title: "Remote CTO & Technology Team",
-      description: "Enhance your business with our CTO and expert tech team, seamlessly filling skill gaps and offering flexible, scalable, and cost-effective solutions without the overhead of in-house hiring.",
-      Icon: Cpu,
-    },
-    {
-      title: "Build, Operate, Transfer",
-      description: "We build the team, operate it for a set period, and then transfer full ownership to the client, ensuring a smooth transition.",
-      Icon: Repeat,
-    },
-  ];
+
 
   return (
     <main id="main-content">
@@ -63,9 +42,15 @@ export default function WhyUsPage() {
           {/* Hero Section */}
           {/* Hero Section */}
           {/* Hero Section */}
-          <div className="relative w-full max-w-[1920px] mx-auto min-h-[600px] lg:min-h-[700px] flex items-center justify-center mb-16 lg:mb-24 overflow-visible">
-            {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-[#E0F2FE]/60 pointer-events-none" />
+          <div className="relative w-full min-h-[calc(100vh-100px)] sm:min-h-[calc(100vh-120px)] lg:min-h-[calc(100vh-146px)] flex items-center justify-center mb-16 lg:mb-24 overflow-visible">
+            {/* Background Gradient & Animated Blur */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-[#E0F2FE]/40 pointer-events-none" />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[150%] bg-[#66c2e2]/15 blur-[80px] rounded-full -z-10 pointer-events-none mix-blend-multiply"
+            />
 
             {/* Left Image Group - Visible on XL screens */}
             <div className="hidden xl:block absolute left-[6%] top-1/2 -translate-y-1/2 w-[400px] h-[400px]">
@@ -77,8 +62,8 @@ export default function WhyUsPage() {
                 className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop"
-                  alt="Professional woman"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654379/20260209_160659.jpg_cbpvzb.jpg"
+                  alt="Feature showcase 1"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -91,8 +76,8 @@ export default function WhyUsPage() {
                 className="absolute left-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop"
-                  alt="Team collaboration"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654378/20260209_160612.jpg_gc3qk1.jpg"
+                  alt="Feature showcase 2"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -105,8 +90,8 @@ export default function WhyUsPage() {
                 className="absolute left-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop"
-                  alt="Team working"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654373/20260209_160751.jpg_ceunj0.jpg"
+                  alt="Feature showcase 3"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -114,12 +99,22 @@ export default function WhyUsPage() {
 
             {/* Center Content */}
             <div className="relative z-30 text-center max-w-[800px] px-4 mx-auto">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6"
+              >
                 Why us
-              </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[600px] mx-auto">
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[600px] mx-auto"
+              >
                 Discover the values, expertise, and commitment that set us apart and make us the ideal partner for your journey.
-              </p>
+              </motion.p>
             </div>
 
             {/* Right Image Group - Visible on XL screens */}
@@ -132,8 +127,8 @@ export default function WhyUsPage() {
                 className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?w=400&h=600&fit=crop"
-                  alt="Working on laptop"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654372/IMG_0484_kofvre.jpg"
+                  alt="Feature showcase 4"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -146,8 +141,8 @@ export default function WhyUsPage() {
                 className="absolute right-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=300&fit=crop"
-                  alt="Meeting discussion"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654380/IMG_0552_gshpuk.heic"
+                  alt="Feature showcase 5"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -160,8 +155,8 @@ export default function WhyUsPage() {
                 className="absolute right-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=400&h=300&fit=crop"
-                  alt="Modern office"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654370/IMG_4985_jiuwmy.jpg"
+                  alt="Feature showcase 6"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -175,8 +170,8 @@ export default function WhyUsPage() {
         className="relative w-full bg-black"
         style={{ height: '180vh' }}
       >
-        <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-20 py-20 overflow-hidden">
-          <div className="w-full max-w-[1366px] mx-auto flex flex-col gap-[30px] sm:gap-[40px] lg:gap-[50px]">
+        <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 xl:px-[70px] py-20 overflow-hidden">
+          <div className="w-full max-w-[1681px] mx-auto flex flex-col gap-[30px] sm:gap-[40px] lg:gap-[50px]">
             <h2 className="text-3xl sm:text-5xl lg:text-6xl text-white font-semibold leading-tight tracking-tight text-left flex flex-wrap gap-x-[0.3em] gap-y-2">
               {headingWords.map((word, i) => {
                 // Map to 0-0.3 range for heading (first 30% of scroll)
@@ -208,7 +203,7 @@ export default function WhyUsPage() {
         </div>
       </div>
 
-      <div className="bg-white w-full pb-[50px] sm:pb-[60px] lg:pb-[40px] overflow-clip relative">
+      <div className="bg-white w-full pb-[50px] sm:pb-[60px] lg:pb-[40px] overflow-clip relative px-4 sm:px-6 md:px-8 xl:px-[70px]">
         {/* Background decorative elements - Moved here */}
         <div className="hidden xl:block absolute left-[1780px] top-0 w-[3888px] h-[2104px] pointer-events-none opacity-20 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-radial from-blue-200 via-blue-100 to-transparent blur-3xl" />
@@ -217,7 +212,7 @@ export default function WhyUsPage() {
           <div className="absolute inset-0 bg-gradient-radial from-blue-200 via-blue-100 to-transparent blur-3xl" />
         </div>
 
-        <div className="max-w-[1593px] mx-auto px-5 sm:px-8 md:px-10 lg:px-4">
+        <div className="max-w-[1681px] mx-auto">
           {/* Our Expertise */}
           <div className="mb-12 sm:mb-16 lg:mb-[30px] pt-20">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
@@ -274,7 +269,7 @@ export default function WhyUsPage() {
           </div>
 
           {/* Our Engagement Models */}
-          <div className="mb-8 sm:mb-10  pt-20 the footer margin">
+          <div className="mb-8 sm:mb-10 pt-20">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
               Our Engagement Models
             </h2>
@@ -282,140 +277,7 @@ export default function WhyUsPage() {
               We offer flexible engagement models as per the client requirements.
             </p>
 
-            {/* Desktop: Engagement Models Diagram with arrows and center card */}
-            <div className="hidden xl:block relative h-[1024px] w-full">
-              {/* Center Box */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black rounded-[20px] p-[50px] z-10">
-                <p className="text-[40px] text-[#005c89] font-semibold leading-[60px] whitespace-nowrap">
-                  Our Engagement Models
-                </p>
-              </div>
-
-              {/* Top Left Card - Tap India's Tech Talent Pool */}
-              <div className="absolute left-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]">
-                <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                  <Users className="w-12 h-12 text-[#005c89]" />
-                </div>
-                <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
-                  Tap India's Tech Talent Pool
-                </h3>
-                <p className="text-[16px] text-black leading-[44px]">
-                  Enabling access to India's exceptional talent by tapping into a diverse pool of skilled professionals to drive project success.
-                </p>
-              </div>
-
-              {/* Top Right Card - Project-Based Execution */}
-              <div className="absolute right-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]">
-                <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                  <Target className="w-12 h-12 text-[#005c89]" />
-                </div>
-                <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
-                  Project-Based Execution
-                </h3>
-                <p className="text-[16px] text-black leading-[44px]">
-                  From defining tasks and timelines to building and delivering the final product, we ensure smooth execution and set the stage for ongoing improvement.
-                </p>
-              </div>
-
-              {/* Bottom Left Card - Remote CTO & Technology Team */}
-              <div className="absolute left-0 bottom-[50px] w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]">
-                <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                  <Cpu className="w-12 h-12 text-[#005c89]" />
-                </div>
-                <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
-                  Remote CTO & Technology Team
-                </h3>
-                <p className="text-[16px] text-black leading-[44px]">
-                  Enhance your business with our CTO and expert tech team, seamlessly filling skill gaps and offering flexible, scalable, and cost-effective solutions without the overhead of in-house hiring.
-                </p>
-              </div>
-
-              {/* Bottom Right Card - Build, Operate, Transfer */}
-              <div className="absolute right-0 bottom-[140px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]">
-                <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                  <Repeat className="w-12 h-12 text-[#005c89]" />
-                </div>
-                <h3 className="text-[31px] text-black font-medium leading-[60px] mb-[13px]">
-                  Build, Operate, Transfer
-                </h3>
-                <p className="text-[16px] text-black leading-[44px]">
-                  We build the team, operate it for a set period, and then transfer full ownership to the client, ensuring a smooth transition.
-                </p>
-              </div>
-
-              {/* Static Arrow SVG Paths - matching Figma design exactly */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none z-[5]" viewBox="0 0 1240 720" preserveAspectRatio="none" style={{ overflow: 'visible' }}>
-                {/* Top Left Arrow - from center to top-left card */}
-                <path
-                  d="M 466 319 L 466 265 Q 460 255 450 255 L 308 255"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                />
-
-                {/* Top Right Arrow - from center to top-right card */}
-                <path
-                  d="M 773 319 L 773 265 Q 779 255 789 255 L 966 255"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                />
-
-                {/* Bottom Left Arrow - from center to bottom-left card */}
-                <path
-                  d="M 584 410
-  L 584 500
-  Q 578 510 568 510
-  L 380 510
-  "
-                  stroke="#000000"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                />
-
-                {/* Bottom Right Arrow - from center to bottom-right card */}
-                <path
-                  d="M 721 400 L 721 460 Q 731 470 741 470 L 919 470"
-                  stroke="#000000"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                />
-              </svg>
-            </div>
-
-            {/* Mobile/Tablet: Vertical stacked cards with dotted connecting line */}
-            <div className="xl:hidden relative">
-              {/* Dotted vertical line connecting cards - centered to screen */}
-              <div className="absolute left-1/2 top-0 bottom-0 w-0 border-l-2 border-dashed border-[#66c2e2] -translate-x-1/2 z-0" style={{ height: '100%' }} />
-
-              {/* Cards */}
-              <div className="relative z-10 flex flex-col gap-6 sm:gap-8">
-                {engagementModels.map((model, index) => (
-                  <div
-                    key={index}
-                    className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]"
-                  >
-                    <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] mb-4 sm:mb-5 flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
-                      <model.Icon className="w-10 h-10 sm:w-12 sm:h-12 text-[#005c89]" />
-                    </div>
-                    <h3 className="text-[22px] sm:text-[26px] md:text-[28px] text-black font-medium leading-[1.3] sm:leading-[1.4] mb-3 sm:mb-4">
-                      {model.title}
-                    </h3>
-                    <p className="text-[16px] sm:text-[18px] text-black leading-[1.6] sm:leading-[1.65]">
-                      {model.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <EngagementModelsAnimated />
           </div>
         </div>
       </div>

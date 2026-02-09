@@ -300,7 +300,11 @@ export default function WhyUs() {
       id="why-us"
       className={`relative bg-white overflow-hidden ${isDesktop ? 'min-h-screen' : 'py-12 sm:py-16'}`}
     >
-      <div className={isDesktop ? "h-screen w-full relative" : "w-full"}>
+      <div className={isDesktop ? "h-screen w-full relative" : "w-full relative"}>
+        {/* Animated Background Blur */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] max-w-[1200px] pointer-events-none -z-0">
+          <div className="absolute inset-0 bg-[#66c2e2]/10 blur-[120px] rounded-full animate-pulse-slow" />
+        </div>
         {/* Title */}
         <div className={`${isDesktop
           ? 'absolute inset-0 flex items-center justify-center pointer-events-none z-30'
@@ -334,7 +338,7 @@ export default function WhyUs() {
         <div
           ref={contentRef}
           className={`${isDesktop
-            ? 'absolute inset-0 flex flex-col justify-start lg:justify-center items-center pt-[160px] sm:pt-[180px] lg:pt-[180px] px-4 sm:px-6 lg:px-6 xl:px-[70px] z-10 overflow-y-auto'
+            ? 'absolute inset-0 flex flex-col justify-start lg:justify-center items-center pt-[160px] sm:pt-[180px] lg:pt-[180px] px-4 sm:px-6 md:px-8 xl:px-[70px] z-10 overflow-y-auto'
             : 'flex flex-col items-center px-4 sm:px-6'
             }`}
           style={!isDesktop ? {
@@ -389,6 +393,6 @@ export default function WhyUs() {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 }

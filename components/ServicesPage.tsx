@@ -2,14 +2,15 @@
 
 import { useContactModal } from "./ContactModal";
 import { AnimatedButton } from "./AnimatedButton";
+import { CLOUDINARY_TRANSFORM_BASE } from "@/lib/cloudinary";
 
 const imgLogoDark = "/images/logo.png";
 const imgEllipse2 = "/images/blue_gradient.svg";
 // Using a placeholder image - replace with actual service images
-const imgProductDev = "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=800&fit=crop";
-const imgDesign = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&h=800&fit=crop";
-const imgConsulting = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
-const imgAIConsulting = "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200&h=800&fit=crop";
+const imgProductDev = `${CLOUDINARY_TRANSFORM_BASE}/v1770657009/smart_product_dev_d6xfgr.png`;
+const imgDesign = `${CLOUDINARY_TRANSFORM_BASE}/v1770657008/startup-metaphor-flat-icon_1262-18784_isvbsr.avif`;
+const imgConsulting = `${CLOUDINARY_TRANSFORM_BASE}/v1770657009/consultingServices_y44b4q.png`;
+const imgAIConsulting = `${CLOUDINARY_TRANSFORM_BASE}/v1770657007/ai_y5o6pt.avif`;
 
 export default function ServicesPage() {
   const { openModal } = useContactModal();

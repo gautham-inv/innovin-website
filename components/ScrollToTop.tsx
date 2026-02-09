@@ -25,12 +25,22 @@ export default function ScrollToTop() {
     // If a hash is present, let the browser handle scrolling to the anchor.
     if (window.location.hash) return;
 
-    // Scroll to top whenever the route changes (and on initial mount, because pathname is set).
-    // Using requestAnimationFrame ensures this runs after the current frame is painted,
-    // which helps in concurrent mode and when navigating to pages with heavy initial processing.
+    // Immediate scroll for fastest response
+    window.scrollTo(0, 0);
+
+    // Double RAF to ensure scroll happens after Next.js page transition is complete
     requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+      });
     });
+
+    // Fallback with a small delay for edge cases where content loads asynchronously
+    const timeoutId = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50);
+
+    return () => clearTimeout(timeoutId);
   }, [pathname]);
 
   return null; // This component doesn't render anything

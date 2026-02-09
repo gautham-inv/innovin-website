@@ -54,7 +54,7 @@ export default function Careers() {
   const router = useRouter();
 
   return (
-    <section className="bg-white overflow-hidden relative py-8 xl:py-20 mesh-bg">
+    <section className="bg-white overflow-hidden relative pt-8 xl:pt-20 mesh-bg">
       {/* Desktop Layout - Only for XL screens */}
       <div className="hidden xl:block min-h-[1111px]">
         <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-[70px] relative">

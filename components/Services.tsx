@@ -3,10 +3,11 @@
 import { useLayoutEffect, useRef } from "react";
 // @ts-ignore - Lenis types may not be available
 import Lenis from "lenis";
+import { CLOUDINARY_TRANSFORM_BASE } from "@/lib/cloudinary";
 
-const img1 = "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=800&fit=crop";
-const img2 = "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=800&fit=crop";
-const img3 = "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop";
+const img1 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/20260209_160659.jpg_cbpvzb.jpg`;
+const img2 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654378/20260209_160612.jpg_gc3qk1.jpg`;
+const img3 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654373/20260209_160751.jpg_ceunj0.jpg`;
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);

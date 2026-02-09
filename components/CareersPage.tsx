@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import HoverCard from "./HoverCard";
 
-import { TEAM_IMAGE_BASE } from "@/lib/cloudinary";
+import { TEAM_IMAGE_BASE, CLOUDINARY_TRANSFORM_BASE } from "@/lib/cloudinary";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -18,9 +18,9 @@ if (typeof window !== "undefined") {
 const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg";
 const life = "/images/compressed_2a10271a41c28441412779781963630458378940.webp";
 
-const img1 = "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1200&h=800&fit=crop";
-const img2 = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=800&fit=crop";
-const img3 = "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200&h=800&fit=crop";
+const img1 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654380/IMG_0552_gshpuk.heic`;
+const img2 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654372/IMG_0484_kofvre.jpg`;
+const img3 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654369/IMG_4983_vmhgas.jpg`;
 
 const careers1 = "/images/careers1.webp"
 const careers2 = "/images/careers2.webp"
@@ -43,7 +43,9 @@ interface CareersPageProps {
 export default function CareersPage({ jobs }: CareersPageProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentReasonIndex, setCurrentReasonIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false); // NEW: Transition lock
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
   const reasonToChooseRef = useRef<HTMLDivElement>(null);
   const frontCardRef = useRef<HTMLDivElement>(null);
   const starLeftRef = useRef<HTMLDivElement>(null);
@@ -51,6 +53,27 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   const activeTimelineRef = useRef<gsap.core.Timeline | null>(null); // NEW: Track active timeline
   const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null); // NEW: Track autoplay timer
   const backCardRef = useRef<HTMLDivElement>(null);
+
+  // Gallery images for masonry layout with slight random tilts
+  const galleryImages = [
+    // Row 1
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654380/IMG_0552_gshpuk.heic`, alt: "Team event 1", rotate: -3 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/IMG_3420_wt9qlf.jpg`, alt: "Team event 2", rotate: 2 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/IMG_3361_hqzld4.heic`, alt: "Team event 3", rotate: -1.5 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/20260209_160659.jpg_cbpvzb.jpg`, alt: "Team event 4", rotate: 3 },
+    // Row 2
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654378/20260209_160812.jpg_cbf8yh.jpg`, alt: "Team event 5", rotate: -2 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654378/20260209_160612.jpg_gc3qk1.jpg`, alt: "Team event 6", rotate: 1.5 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654377/IMG_0446_xxv9m7.jpg`, alt: "Team event 7", rotate: -2.5 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654373/20260209_160751.jpg_ceunj0.jpg`, alt: "Team event 8", rotate: 2 },
+    // Row 3
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654372/20260209_160738.jpg_zhvln9.jpg`, alt: "Team event 9", rotate: -1 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654371/IMG_2189_crwvtj.heic`, alt: "Team event 10", rotate: 1 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654372/IMG_0484_kofvre.jpg`, alt: "Team event 11", rotate: -3.5 },
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654370/IMG_4985_jiuwmy.jpg`, alt: "Team event 12", rotate: 2.5 },
+    // Row 4
+    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654369/IMG_4983_vmhgas.jpg`, alt: "Team event 13", rotate: -1.5 },
+  ];
 
   const images = [careers1, careers2, careers3];
   const reasonsToChoose = [
@@ -240,6 +263,38 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   const handleNextImage = () => {
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
+
+  // Lightbox handlers
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = '';
+  };
+
+  const lightboxPrev = () => {
+    setLightboxIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+  };
+
+  const lightboxNext = () => {
+    setLightboxIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+  };
+
+  // Handle keyboard navigation for lightbox
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lightboxPrev();
+      if (e.key === 'ArrowRight') lightboxNext();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen]);
 
   // FIXED: Handle reason click with transition lock and timer reset
   const handleReasonClick = (index: number) => {
@@ -510,7 +565,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
             </svg>
           </div>
 
-          <div className="mb-8">
+          <div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
               Talent approach
             </h2>
@@ -566,36 +621,87 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           </p>
         </div>
 
-        {/* Image Carousel */}
-        <div className="flex gap-4 sm:gap-6 xl:gap-[58px] items-center mb-[50px] sm:mb-[70px] xl:mb-[100px]">
-          <button
-            onClick={handlePrevImage}
-            className="bg-[#969494] rounded-full p-3 sm:p-4 lg:p-[16px] hover:bg-gray-400 transition shrink-0"
-            aria-label="Previous image"
-          >
-            <svg className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" viewBox="0 0 48 48" fill="none" style={{ transform: 'rotate(180deg)' }}>
-              <path d="M18 12 L30 24 L18 36" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-
-          <div className="flex-1 h-[250px] sm:h-[350px] md:h-[400px] lg:h-[489px] rounded-[30px] sm:rounded-[40px] lg:rounded-[50px] overflow-hidden">
-            <img
-              src={images[currentImageIndex]}
-              alt="Office life"
-              className="w-full h-full object-cover"
-            />
+        {/* Masonry Photo Gallery */}
+        <div className="mb-[50px] sm:mb-[70px] xl:mb-[100px]">
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-4">
+            {galleryImages.map((image, index) => (
+              <div
+                key={index}
+                className="break-inside-avoid mb-4 cursor-pointer group"
+                style={{ transform: `rotate(${image.rotate}deg)` }}
+                onClick={() => openLightbox(index)}
+              >
+                <div className="relative overflow-hidden rounded-[12px] sm:rounded-[16px] shadow-md">
+                  <img
+                    src={image.src}
+                    alt={image.alt}
+                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                </div>
+              </div>
+            ))}
           </div>
-
-          <button
-            onClick={handleNextImage}
-            className="bg-[#969494] rounded-full p-3 sm:p-4 lg:p-[16px] hover:bg-gray-400 transition shrink-0"
-            aria-label="Next image"
-          >
-            <svg className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12" viewBox="0 0 48 48" fill="none">
-              <path d="M18 12 L30 24 L18 36" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
         </div>
+
+        {/* Lightbox Modal */}
+        {lightboxOpen && (
+          <div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+            onClick={closeLightbox}
+          >
+            {/* Close button */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 text-white hover:text-gray-300 transition z-50"
+              aria-label="Close lightbox"
+            >
+              <svg className="w-8 h-8 sm:w-10 sm:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Previous button */}
+            <button
+              onClick={(e) => { e.stopPropagation(); lightboxPrev(); }}
+              className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-2 sm:p-4 transition z-50"
+              aria-label="Previous image"
+            >
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Image */}
+            <div
+              className="max-w-[90vw] max-h-[85vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={galleryImages[lightboxIndex].src.replace(/w=\d+&h=\d+/, 'w=1400&h=900')}
+                alt={galleryImages[lightboxIndex].alt}
+                className="max-w-full max-h-[85vh] object-contain rounded-lg"
+              />
+            </div>
+
+            {/* Next button */}
+            <button
+              onClick={(e) => { e.stopPropagation(); lightboxNext(); }}
+              className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 rounded-full p-2 sm:p-4 transition z-50"
+              aria-label="Next image"
+            >
+              <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Image counter */}
+            <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 text-white text-sm sm:text-base">
+              {lightboxIndex + 1} / {galleryImages.length}
+            </div>
+          </div>
+        )}
 
         {/* Recent Job Openings */}
         <div id="recent-job-openings">
