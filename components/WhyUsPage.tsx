@@ -62,7 +62,7 @@ export default function WhyUsPage() {
                 className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654379/20260209_160659.jpg_cbpvzb.jpg"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/IMG_0484_ttemgz.webp"
                   alt="Feature showcase 1"
                   className="w-full h-full object-cover"
                 />
@@ -76,8 +76,7 @@ export default function WhyUsPage() {
                 className="absolute left-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654378/20260209_160612.jpg_gc3qk1.jpg"
-                  alt="Feature showcase 2"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663511/IMG_4985_dwhn4x.webp"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -90,7 +89,7 @@ export default function WhyUsPage() {
                 className="absolute left-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654373/20260209_160751.jpg_ceunj0.jpg"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160659.jpg_khmgno.webp"
                   alt="Feature showcase 3"
                   className="w-full h-full object-cover"
                 />
@@ -127,7 +126,7 @@ export default function WhyUsPage() {
                 className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654372/IMG_0484_kofvre.jpg"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663509/20260209_160612.jpg_lexrge.webp"
                   alt="Feature showcase 4"
                   className="w-full h-full object-cover"
                 />
@@ -155,7 +154,7 @@ export default function WhyUsPage() {
                 className="absolute right-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654370/IMG_4985_jiuwmy.jpg"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160751.jpg_hspmpm.webp"
                   alt="Feature showcase 6"
                   className="w-full h-full object-cover"
                 />
