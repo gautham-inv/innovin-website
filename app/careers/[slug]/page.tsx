@@ -48,17 +48,17 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
     if (!job) {
       return {
-        title: 'Job Not Found',
+        title: 'Job Not Found | Innovin Labs',
       }
     }
 
     return {
-      title: job.title,
-      description: job.heading,
+      title: `${job.title} | Careers | Innovin Labs`,
+      description: job.heading || `Apply for the ${job.title} position at Innovin Labs. Join our team of product champions.`,
     }
   } catch (error) {
     return {
-      title: 'Job Not Found',
+      title: 'Job Not Found | Innovin Labs',
     }
   }
 }

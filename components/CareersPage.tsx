@@ -354,8 +354,8 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   ];
 
   return (
-    <main id="main-content" className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
-      <div className="max-w-[1681px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[70px]">
+    <main id="main-content" className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px] px-4 sm:px-6 md:px-8 xl:px-[70px]">
+      <div className="max-w-[1681px] mx-auto">
         {/* Hero Section with CSS Dotted Background */}
         <div className="relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[550px] xl:min-h-[600px] mb-[40px] sm:mb-[60px] xl:mb-[80px] hero-dotted-bg">
 
@@ -392,10 +392,10 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
           {/* Centered Content Overlay */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 sm:px-12 md:px-20 lg:px-32 z-20">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold leading-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
               Ignite your <span className="text-[#005c89]">Career with Us</span>
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-[#7c7c7c] leading-relaxed max-w-[700px]">
+            <p className="text-lg sm:text-xl lg:text-2xl text-[#5a5a5a] leading-relaxed max-w-[700px]">
               Join a team of product champions powering innovation at global scale.
             </p>
           </div>
@@ -405,7 +405,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Reason to Choose Us */}
         <div className="mb-[40px] sm:mb-[60px] lg:mb-[80px]">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-8 lg:mb-[30px]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-6 sm:mb-8 lg:mb-10">
             Reason to Choose Us
           </h2>
 
@@ -511,7 +511,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           </div>
 
           <div className="mb-8">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-7">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
               Talent approach
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed max-w-full lg:max-w-[1472px]">
@@ -558,7 +558,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Experience life inside our home */}
         <div className="mb-8 sm:mb-12 lg:mb-[69px]">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
             Experience life inside our home
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed">
@@ -599,7 +599,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Recent Job Openings */}
         <div id="recent-job-openings">
-          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-6 sm:mb-8 xl:mb-[36px]">
+          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-6 sm:mb-8 lg:mb-10">
             <span className="font-normal">Recent</span> Job Openings
           </h2>
 

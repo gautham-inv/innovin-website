@@ -227,7 +227,7 @@ export default function AboutUs() {
   return (
     <main id="main-content" className="bg-white w-full">
       {/* Hero Section */}
-      <section className="relative w-full px-4 sm:px-6 lg:px-6 xl:px-[70px] py-16 sm:py-20 md:py-24 lg:py-28 min-h-[350px] sm:min-h-[450px] lg:min-h-[550px] flex flex-col justify-center">
+      <section className="relative w-full px-4 sm:px-6 md:px-8 xl:px-[70px] py-16 sm:py-20 md:py-24 lg:py-28 min-h-[350px] sm:min-h-[450px] lg:min-h-[550px] flex flex-col justify-center">
         <div className="absolute inset-0">
           <img
             src={imgHeroBackground}
@@ -243,7 +243,7 @@ export default function AboutUs() {
         </div>
 
         <div className="relative z-10 mt-8 max-w-[1400px] mx-auto w-full">
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl text-white font-semibold leading-tight tracking-tight mb-4 sm:mb-6 lg:mb-8">
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl text-white font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6">
             About Us
           </h1>
           <p className="text-lg sm:text-xl lg:text-2xl text-white font-medium leading-relaxed max-w-[900px]">
@@ -253,7 +253,7 @@ export default function AboutUs() {
       </section>
 
       {/* Our Journey / Vision / Mission Section */}
-      <section className="bg-white pt-10 sm:pt-12 md:pt-14 lg:pt-[50px] pb-2 sm:pb-4 lg:pb-[40px] px-4 sm:px-6 lg:px-6 xl:px-[70px]">
+      <section className="bg-white pt-10 sm:pt-12 md:pt-14 lg:pt-[50px] pb-2 sm:pb-4 lg:pb-[40px] px-4 sm:px-6 md:px-8 xl:px-[70px]">
         <div className="max-w-[1681px] mx-auto">
           {/* Desktop: Two Columns */}
           <div className="hidden xl:flex gap-[20px] items-stretch">

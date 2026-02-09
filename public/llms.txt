@@ -1,0 +1,38 @@
+# Innovin Labs - LLM Information
+
+> Innovin Labs is a technology consulting and software development company that helps startups and small businesses build bold, scalable tech fast.
+
+## About Us
+Innovin Labs is more than a name — it's a reflection of how we turn raw ideas into purposeful products. We partner closely with founders as an extension of their team—delivering tailored tech solutions, strong product thinking, and hands-on engineering support across every stage of product development.
+
+## Our Services
+- Smart Product Development: AI-enhanced coding and development solutions
+- AI-Enhanced Design and Prototyping: Data-driven design with rapid prototyping
+- Strategic Technology Consulting: Custom technology roadmaps and solutions
+- Strategic AI Consulting: Tailored AI solutions for business challenges
+
+## Our Expertise
+- Network of Tech SMEs with 20+ companies in our partner ecosystem
+- 50+ vetted tech experts across all domains
+- Full-stack development with React, Next.js, Node.js, Python
+- Mobile development with React Native, Flutter
+- AI/ML solutions with OpenAI, LangChain, and custom models
+- Cloud infrastructure on AWS, GCP, Azure
+
+## Contact
+- Website: https://innovinlabs.com
+- Email: info@innovinlabs.com
+
+## Tech Stack
+We leverage world-class technologies including:
+- Frontend: React, Next.js, TypeScript, Tailwind CSS
+- Backend: Node.js, Python, NestJS, Django
+- Mobile: React Native, Flutter, Expo
+- Database: PostgreSQL, MongoDB, Redis
+- Cloud: AWS, Google Cloud, Vercel
+- AI/ML: OpenAI, LangChain, TensorFlow
+
+## Locations
+- Trivandrum, India (Headquarters)
+- Melbourne, Australia
+- San Francisco, CA, USA

@@ -169,7 +169,7 @@ export default function WhyUs() {
           void section.offsetHeight;
 
           const vh = window.innerHeight;
-          const scrollDistance = vh * 2.5;
+          const scrollDistance = vh * 1.8;
           const titleScale = 0.23;
           const titleYPosition = -vh * 0.25;
 
@@ -200,10 +200,10 @@ export default function WhyUs() {
 
             tl.to(letterEl, {
               color: "#232323",
-              duration: 0.25 / letters.length,
+              duration: 0.15 / letters.length,
               ease: "none",
               force3D: true
-            }, index * (0.25 / letters.length));
+            }, index * (0.15 / letters.length));
           });
 
           // Phase 2: Scale and position title
@@ -214,7 +214,7 @@ export default function WhyUs() {
             ease: "power2.inOut",
             force3D: true,
             transformOrigin: "center center"
-          }, 0.25);
+          }, 0.15);
 
           // Phase 3: Fade in content
           tl.to(content, {
@@ -223,7 +223,7 @@ export default function WhyUs() {
             duration: 0.3,
             ease: "power2.out",
             force3D: true
-          }, 0.4);
+          }, 0.3);
 
           // Force immediate update to reflect current scroll position
           // This is critical to prevent blank screen when user has already scrolled

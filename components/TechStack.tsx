@@ -41,15 +41,21 @@ const allTechItems = techStackData
   .filter((item) => !EXCLUDED_LOGOS.includes(item.name));
 
 // Split them into top and bottom rows for the animation
+const DARK_BG_OVERRIDES: Record<string, string> = {
+  "MCP": "https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770624325/mcp-new_1_lhbrcq.png",
+  "Django": "https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770624326/django-white_nc5wnz.png",
+  "Sentry": "https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770624326/sentry-red_pzyerv.png"
+};
+
 const midIndex = Math.ceil(allTechItems.length / 2);
 const techLogosTop = allTechItems.slice(0, midIndex).map((item) => ({
-  src: item.icon,
+  src: DARK_BG_OVERRIDES[item.name] || item.icon,
   alt: item.name,
   href: item.href,
 }));
 
 const techLogosBottom = allTechItems.slice(midIndex).map((item) => ({
-  src: item.icon,
+  src: DARK_BG_OVERRIDES[item.name] || item.icon,
   alt: item.name,
   href: item.href,
 }));
@@ -108,7 +114,7 @@ export default function TechStack() {
       >
         <div className="max-w-[1681px] mx-auto px-5 py-12 md:py-16 lg:py-20 flex flex-col gap-12 md:gap-20">
           {/* Heading Section */}
-          <div className="text-center flex flex-col gap-4 md:gap-6 px-4">
+          <div className="text-center flex flex-col gap-4 sm:gap-5 lg:gap-6 px-4">
             <h2
               className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[62px] text-white font-medium tracking-[0.6px] lg:tracking-[1.88px] leading-[1.05] lg:leading-[84px] font-['Manrope',sans-serif]"
             >

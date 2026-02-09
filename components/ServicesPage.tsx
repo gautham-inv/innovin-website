@@ -61,21 +61,21 @@ export default function ServicesPage() {
   return (
     <main id="main-content" className="bg-white flex flex-col items-start px-0 py-5 sm:py-6 lg:py-[20px] relative min-h-screen w-full pt-24 sm:pt-28 lg:pt-32">
       {/* Hero Section */}
-      <div className="w-full px-4 sm:px-6 lg:px-6 xl:px-[70px] py-5 sm:py-6 lg:py-[20px]">
+      <div className="w-full px-4 sm:px-6 md:px-8 xl:px-[70px] py-5 sm:py-6 lg:py-[20px]">
         <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[80px] items-start relative w-full max-w-[1681px] mx-auto">
           {/* Header Section */}
           <div className="flex flex-col items-center px-4 sm:px-5 lg:px-[20px] py-0 relative w-full">
-            <div className="flex items-start pl-0 pr-4 sm:pr-5 lg:pr-[20px] py-4 sm:py-5 lg:py-[20px] relative w-full">
+            <div className="flex items-start pl-0 pr-4 sm:pr-5 lg:pr-[20px] relative w-full">
               <div className="flex flex-col items-center justify-center relative w-full">
                 {/* Blur Banner Effect */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[150%] bg-[#66c2e2]/15 blur-[60px] rounded-full -z-10 pointer-events-none mix-blend-multiply" />
 
-                <h1 className="font-semibold leading-[1.1] relative text-[#232323] text-4xl sm:text-5xl lg:text-7xl w-full text-center tracking-tight">
+                <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6 w-full text-center">
                   Our Services
                 </h1>
               </div>
             </div>
-            <p className="leading-[1.4] sm:leading-[1.6] xl:leading-[1.8] relative text-[#005c89] text-lg sm:text-xl md:text-2xl w-full text-center mt-4 sm:mt-6 font-medium max-w-4xl">
+            <p className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[600px] mx-auto w-full text-center">
               We infuse AI into all aspects of technology and development, delivering smarter outcomes and smoother experiences.
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function ServicesPage() {
                 {/* Content */}
                 <div className="flex-1 flex flex-col gap-4 sm:gap-6 items-start relative text-[#232323] w-full xl:w-auto order-2 xl:order-none">
                   <div className="flex flex-col gap-3 sm:gap-4 items-start relative w-full">
-                    <h2 className="font-semibold leading-[1.2] sm:leading-[1.3] relative text-3xl sm:text-4xl lg:text-5xl w-full mb-6 tracking-tight">
+                    <h2 className="font-semibold leading-[1.2] sm:leading-[1.3] relative text-3xl sm:text-4xl lg:text-5xl w-full tracking-tight">
                       {service.title}
                     </h2>
                     <p className="font-normal leading-relaxed relative text-base sm:text-lg text-gray-700 w-full mt-2">

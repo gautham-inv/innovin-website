@@ -299,7 +299,7 @@ export default function Testimonials() {
       </div>
 
       <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] w-full relative z-10">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[82px] text-black font-medium leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-8 sm:mb-12 lg:mb-12">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[82px] text-black font-medium leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-6 sm:mb-8 lg:mb-10">
           Trusted by companies
         </h2>
 

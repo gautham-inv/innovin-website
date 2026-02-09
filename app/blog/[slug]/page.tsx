@@ -45,13 +45,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   if (!post) {
     return {
-      title: "Post Not Found",
+      title: "Post Not Found | Innovin Labs Blog",
     };
   }
 
   return {
-    title: post.title,
-    description: post.excerpt || "",
+    title: `${post.title} | Innovin Labs Blog`,
+    description: post.excerpt || `Read ${post.title} on the Innovin Labs blog.`,
     openGraph: {
       images: post.coverImage
         ? [

@@ -57,8 +57,8 @@ export default function WhyUsPage() {
 
   return (
     <main id="main-content">
-      <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] overflow-clip relative">
-        <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px]">
+      <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] overflow-clip relative px-4 sm:px-6 md:px-8 xl:px-[70px]">
+        <div className="max-w-[1681px] mx-auto">
           {/* Header Section */}
           {/* Hero Section */}
           {/* Hero Section */}
@@ -70,39 +70,54 @@ export default function WhyUsPage() {
             {/* Left Image Group - Visible on XL screens */}
             <div className="hidden xl:block absolute left-[6%] top-1/2 -translate-y-1/2 w-[400px] h-[400px]">
               {/* Top Left - Vertical image */}
-              <div className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
+                className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
+              >
                 <img
                   src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop"
                   alt="Professional woman"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Top Right - Horizontal image */}
-              <div className="absolute left-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, x: 20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
+                className="absolute left-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
+              >
                 <img
                   src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop"
                   alt="Team collaboration"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Bottom Left - Horizontal image */}
-              <div className="absolute left-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8, type: "spring", stiffness: 100 }}
+                className="absolute left-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
+              >
                 <img
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop"
                   alt="Team working"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
             </div>
 
             {/* Center Content */}
             <div className="relative z-30 text-center max-w-[800px] px-4 mx-auto">
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#1a1a1a] font-medium leading-tight tracking-tight mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6">
                 Why us
               </h1>
-              <p className="text-base sm:text-lg lg:text-xl text-[#4a4a4a] leading-relaxed max-w-[600px] mx-auto">
+              <p className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[600px] mx-auto">
                 Discover the values, expertise, and commitment that set us apart and make us the ideal partner for your journey.
               </p>
             </div>
@@ -110,31 +125,46 @@ export default function WhyUsPage() {
             {/* Right Image Group - Visible on XL screens */}
             <div className="hidden xl:block absolute right-[6%] top-1/2 -translate-y-1/2 w-[400px] h-[400px]">
               {/* Top Right - Vertical image */}
-              <div className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
+                className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
+              >
                 <img
                   src="https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?w=400&h=600&fit=crop"
                   alt="Working on laptop"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Top Left - Horizontal image */}
-              <div className="absolute right-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 100 }}
+                className="absolute right-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
+              >
                 <img
                   src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=300&fit=crop"
                   alt="Meeting discussion"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
 
               {/* Bottom Right - Horizontal image */}
-              <div className="absolute right-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.9, type: "spring", stiffness: 100 }}
+                className="absolute right-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
+              >
                 <img
                   src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=400&h=300&fit=crop"
                   alt="Modern office"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -143,14 +173,14 @@ export default function WhyUsPage() {
       <div
         ref={containerRef}
         className="relative w-full bg-black"
-        style={{ height: '250vh' }}
+        style={{ height: '180vh' }}
       >
         <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-20 py-20 overflow-hidden">
           <div className="w-full max-w-[1366px] mx-auto flex flex-col gap-[30px] sm:gap-[40px] lg:gap-[50px]">
             <h2 className="text-3xl sm:text-5xl lg:text-6xl text-white font-semibold leading-tight tracking-tight text-left flex flex-wrap gap-x-[0.3em] gap-y-2">
               {headingWords.map((word, i) => {
                 // Map to 0-0.3 range for heading (first 30% of scroll)
-                const start = (i / totalWords) * 0.85 + 0.1;
+                const start = (i / totalWords) * 0.75 + 0.02;
                 const end = start + (0.85 / totalWords);
                 return (
                   <Word key={i} progress={scrollYProgress} range={[start, end]}>
@@ -163,7 +193,7 @@ export default function WhyUsPage() {
               {contentWords.map((word, i) => {
                 const globalIndex = i + headingWords.length;
                 // Map to compressed range
-                const start = (globalIndex / totalWords) * 0.95 + 0.05;
+                const start = (globalIndex / totalWords) * 0.8 + 0.02;
                 const end = start + (0.95 / totalWords);
                 const text = String(word).toLowerCase();
                 const isHighlight = text.includes("faster") || text.includes("cost-effective");
@@ -190,7 +220,7 @@ export default function WhyUsPage() {
         <div className="max-w-[1593px] mx-auto px-5 sm:px-8 md:px-10 lg:px-4">
           {/* Our Expertise */}
           <div className="mb-12 sm:mb-16 lg:mb-[30px] pt-20">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
               Our Expertise
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed mb-8 sm:mb-10 lg:mb-[30px] max-w-4xl">
@@ -244,8 +274,8 @@ export default function WhyUsPage() {
           </div>
 
           {/* Our Engagement Models */}
-          <div className="mb-8 sm:mb-10 lg:mb-[30px]">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-6">
+          <div className="mb-8 sm:mb-10  pt-20 the footer margin">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
               Our Engagement Models
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed mb-10 sm:mb-12 lg:mb-[50px] max-w-4xl">

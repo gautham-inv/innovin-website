@@ -8,17 +8,20 @@ import { MetadataRoute } from 'next'
  */
 export default function robots(): MetadataRoute.Robots {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://innovinlabs.com'
-  
+
   return {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: [
+          '/',
+          '/_next/static/',  // Allow static assets (CSS, JS, images)
+        ],
         disallow: [
           '/api/',
           '/admin/',
-          '/_next/',
           '/draft-mode/',
+          '/_next/data/',  // Block Next.js data fetching routes
         ],
       },
     ],

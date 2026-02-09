@@ -58,7 +58,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-[1681px] mx-auto text-center px-4 sm:px-6 lg:px-6 xl:px-[70px] py-16 sm:py-20">
         {/* Main headline with smooth blur fade-in animation */}
         <h1
-          className="font-semibold text-[#232323] mb-6 sm:mb-8 md:mb-10 lg:mb-12 fade-in-blur"
+          className="font-semibold text-[#232323] mb-4 sm:mb-5 lg:mb-6 fade-in-blur"
         >
           {/* Mobile and Tablet */}
           <span className="block xl:hidden">
