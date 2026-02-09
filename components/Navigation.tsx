@@ -135,7 +135,7 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/40 border-b border-white/20 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[200px] bg-white/60 border-b border-white/20 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
           }`}
       >
         <div className="py-1">

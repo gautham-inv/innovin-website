@@ -200,7 +200,7 @@ export default function WhyUsPage() {
             {/* Expertise Cards - Modern Design */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 xl:gap-[20px]">
               {/* Network of Tech SMES Card */}
-              <div className="group bg-white rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2 hover:bg-gradient-to-br hover:from-white hover:to-blue-50">
+              <div className="group bg-white rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_6px_24px_rgba(102,194,226,0.2)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:bg-gradient-to-br hover:from-white hover:to-blue-50">
                 {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
 
@@ -221,7 +221,7 @@ export default function WhyUsPage() {
               </div>
 
               {/* Top tech talents Card */}
-              <div className="group bg-white rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_8px_30px_rgba(102,194,226,0.3)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:-translate-y-2 hover:bg-gradient-to-br hover:from-white hover:to-blue-50">
+              <div className="group bg-white rounded-[20px] sm:rounded-[24px] lg:rounded-[20px] p-6 sm:p-8 lg:p-[32px] shadow-[0px_4px_20px_rgba(102,194,226,0.15)] hover:shadow-[0px_6px_24px_rgba(102,194,226,0.2)] transition-all duration-300 h-auto lg:h-[448px] relative overflow-hidden hover:bg-gradient-to-br hover:from-white hover:to-blue-50">
                 {/* Decorative corner accent */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#66c2e2]/20 to-transparent rounded-bl-full opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
 
@@ -262,7 +262,7 @@ export default function WhyUsPage() {
               </div>
 
               {/* Top Left Card - Tap India's Tech Talent Pool */}
-              <div className="absolute left-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="absolute left-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]">
                 <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
                   <Users className="w-12 h-12 text-[#005c89]" />
                 </div>
@@ -275,7 +275,7 @@ export default function WhyUsPage() {
               </div>
 
               {/* Top Right Card - Project-Based Execution */}
-              <div className="absolute right-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="absolute right-0 top-[40px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]">
                 <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
                   <Target className="w-12 h-12 text-[#005c89]" />
                 </div>
@@ -288,7 +288,7 @@ export default function WhyUsPage() {
               </div>
 
               {/* Bottom Left Card - Remote CTO & Technology Team */}
-              <div className="absolute left-0 bottom-[50px] w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="absolute left-0 bottom-[50px] w-[624px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]">
                 <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
                   <Cpu className="w-12 h-12 text-[#005c89]" />
                 </div>
@@ -301,7 +301,7 @@ export default function WhyUsPage() {
               </div>
 
               {/* Bottom Right Card - Build, Operate, Transfer */}
-              <div className="absolute right-0 bottom-[140px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]">
+              <div className="absolute right-0 bottom-[140px] w-[463px] bg-white border border-[#66c2e2] rounded-[16px] p-[24px] shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] z-20 text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]">
                 <div className="w-[94px] h-[94px] mb-[13px] flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
                   <Repeat className="w-12 h-12 text-[#005c89]" />
                 </div>
@@ -371,7 +371,7 @@ export default function WhyUsPage() {
                 {engagementModels.map((model, index) => (
                   <div
                     key={index}
-                    className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0px_10px_20px_0px_rgba(102,194,226,0.4)]"
+                    className="bg-white border border-[#66c2e2] rounded-[16px] sm:rounded-[20px] p-6 sm:p-8 shadow-[0px_0px_10px_0px_rgba(102,194,226,0.5)] text-center transition-all duration-300 hover:shadow-[0px_4px_14px_0px_rgba(102,194,226,0.35)]"
                   >
                     <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] mb-4 sm:mb-5 flex items-center justify-center bg-[#f0f9ff] rounded-2xl mx-auto">
                       <model.Icon className="w-10 h-10 sm:w-12 sm:h-12 text-[#005c89]" />

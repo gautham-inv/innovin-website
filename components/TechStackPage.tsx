@@ -14,7 +14,7 @@ export default function TechStackPage() {
             {/* Hero Section */}
             <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-6 xl:px-[70px] bg-neutral-50 border-b border-neutral-100">
                 <div className="max-w-[1681px] mx-auto text-center">
-                    <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold mb-6 tracking-tight">
+                    <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold mb-6">
                         Our <span className="text-[#005c89]">Tech Stack</span>
                     </h1>
                     <p className="text-lg sm:text-xl lg:text-2xl text-neutral-600 leading-relaxed max-w-3xl mx-auto font-medium">

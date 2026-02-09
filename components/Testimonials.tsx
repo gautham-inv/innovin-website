@@ -114,10 +114,22 @@ export default function Testimonials() {
     window.setTimeout(() => setIsAnimating(false), transitionMs);
   };
 
-  const handleCardClick = (index: number) => {
+  const handleCardClick = (index: number, link: string | null) => {
+    // If clicking the active card and it has a link, open the link
+    if (index === currentIndex && link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    // Otherwise just navigate to that card
     snapToCard(index);
     stopAutoplay();
     startAutoplay();
+  };
+
+  const handleMobileCardClick = (link: string | null) => {
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
   };
 
   const handlePrev = (e: React.MouseEvent) => {
@@ -304,12 +316,18 @@ export default function Testimonials() {
                   <div
                     key={idx}
                     data-index={idx}
-                    className="snap-center shrink-0 w-[86%] sm:w-[70%] md:w-[60%] h-[450px] transition-opacity duration-500"
+                    className={`snap-center shrink-0 w-[86%] sm:w-[70%] md:w-[60%] h-[450px] transition-opacity duration-500 ${t.link ? 'cursor-pointer' : ''}`}
                     style={{
                       opacity: currentIndex === idx ? 1 : 0.7
                     }}
+                    onClick={() => handleMobileCardClick(t.link)}
+                    role={t.link ? "link" : undefined}
+                    tabIndex={t.link ? 0 : undefined}
+                    onKeyDown={(e) => {
+                      if (t.link && (e.key === "Enter" || e.key === " ")) handleMobileCardClick(t.link);
+                    }}
                   >
-                    <div className="rounded-xl sm:rounded-2xl overflow-hidden shadow-xl bg-white border border-neutral-200 h-full">
+                    <div className={`rounded-xl sm:rounded-2xl overflow-hidden shadow-xl bg-white border border-neutral-200 h-full ${t.link ? 'hover:shadow-2xl hover:border-blue-200 transition-all duration-300' : ''}`}>
                       <div className="h-full p-5 sm:p-6 md:p-8 flex flex-col justify-between gap-4 sm:gap-6">
                         <p className="text-base sm:text-lg md:text-xl text-neutral-700 leading-relaxed">
                           "{t.quote}"
@@ -351,13 +369,13 @@ export default function Testimonials() {
                   <div
                     key={idx}
                     role="button"
-                    aria-label={`testimonial ${idx + 1}`}
+                    aria-label={`testimonial ${idx + 1}${t.link && pos === 0 ? ' - click to visit website' : ''}`}
                     tabIndex={0}
-                    onClick={() => handleCardClick(idx)}
+                    onClick={() => handleCardClick(idx, t.link)}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") handleCardClick(idx);
+                      if (e.key === "Enter" || e.key === " ") handleCardClick(idx, t.link);
                     }}
-                    className="testimonial-card absolute top-1/2 left-1/2 cursor-pointer"
+                    className={`testimonial-card absolute top-1/2 left-1/2 cursor-pointer ${pos === 0 && t.link ? 'group' : ''}`}
                     style={{
                       width: 700,
                       height: 420,
@@ -368,7 +386,7 @@ export default function Testimonials() {
                       ...style,
                     }}
                   >
-                    <div className="rounded-3xl shadow-2xl p-8 md:p-10 flex flex-col justify-between h-full bg-white border border-neutral-200">
+                    <div className={`rounded-3xl shadow-2xl p-8 md:p-10 flex flex-col justify-between h-full bg-white border border-neutral-200 ${pos === 0 && t.link ? 'group-hover:shadow-[0_25px_60px_rgba(0,0,0,0.15)] group-hover:border-blue-200 transition-all duration-300' : ''}`}>
                       <p className="text-xl md:text-2xl text-neutral-700 leading-relaxed md:leading-[38px] tracking-wide">
                         "{t.quote}"
                       </p>
@@ -382,9 +400,21 @@ export default function Testimonials() {
                             draggable={false}
                           />
                         </div>
-                        <p className="text-lg md:text-xl text-black leading-relaxed font-semibold whitespace-nowrap">
-                          {t.author}
-                        </p>
+                        <div className="flex items-center gap-3">
+                          <p className="text-lg md:text-xl text-black leading-relaxed font-semibold whitespace-nowrap">
+                            {t.author}
+                          </p>
+                          {pos === 0 && t.link && (
+                            <svg
+                              className="w-5 h-5 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>

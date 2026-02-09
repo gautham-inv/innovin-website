@@ -23,7 +23,7 @@ function ServiceCard({
 }) {
   return (
     <div
-      className={`bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-xl transition-shadow ${className}`}
+      className={`bg-white rounded-2xl p-6 sm:p-8 shadow-md hover:shadow-lg transition-shadow ${className}`}
       style={isMobile ? {
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(30px)',

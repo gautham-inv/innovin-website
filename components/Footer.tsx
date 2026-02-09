@@ -83,13 +83,22 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="xl:absolute xl:left-[79.11px] xl:right-[79.11px] xl:bottom-[55px] xl:top-auto xl:w-auto flex flex-col sm:flex-row flex-wrap gap-4 md:gap-6 items-start sm:items-center justify-between text-white text-[13px] sm:text-[14px] md:text-[15px] xl:text-[15.627px] leading-[1.5] sm:leading-[1.6] md:leading-[1.7] xl:leading-[27.884px]">
           <p>Innovin Labs ©,2026, All rights reserved</p>
-          <button
-            type="button"
-            onClick={() => router.push("/privacy")}
-            className="hover:text-[#b4b7bc] transition-colors cursor-pointer"
-          >
-            Privacy Policy
-          </button>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <button
+              type="button"
+              onClick={() => router.push("/privacy")}
+              className="hover:text-[#b4b7bc] transition-colors cursor-pointer"
+            >
+              Privacy Policy
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push("/terms")}
+              className="hover:text-[#b4b7bc] transition-colors cursor-pointer"
+            >
+              Terms & Conditions
+            </button>
+          </div>
         </div>
       </div>
     </footer>
