@@ -44,7 +44,8 @@ const allTechItems = techStackData
 const DARK_BG_OVERRIDES: Record<string, string> = {
   "MCP": "https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770624325/mcp-new_1_lhbrcq.png",
   "Django": "https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770624326/django-white_nc5wnz.png",
-  "Sentry": "https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770624326/sentry-red_pzyerv.png"
+  "Sentry": "https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770624326/sentry-red_pzyerv.png",
+  "gRPC": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grpc/grpc-original.svg"
 };
 
 const midIndex = Math.ceil(allTechItems.length / 2);

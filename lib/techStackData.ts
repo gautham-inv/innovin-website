@@ -143,7 +143,7 @@ export const techStackData: TechCategory[] = [
         title: "Auth / Security",
         items: [
             { name: "JWT", icon: `${CLOUDINARY_BASE}/jwt_psgukb.webp`, href: "https://jwt.io/" },
-            { name: "gRPC", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grpc/grpc-original.svg", href: "https://grpc.io/" },
+            { name: "gRPC", icon: "https://res.cloudinary.com/dejb29i0k/image/upload/v1770713147/grpc_ybpffw.svg", href: "https://grpc.io/" },
             { name: "Auth0", icon: `${CLOUDINARY_BASE}/auth0_q1drnx.webp`, href: "https://auth0.com/" },
             { name: "Better-auth", icon: `${CLOUDINARY_BASE}/better-auth_pqs19x.png`, href: "https://www.better-auth.com/" },
         ],

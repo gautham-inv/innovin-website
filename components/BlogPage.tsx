@@ -124,7 +124,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
                     <Link
                       key={post._id}
                       href={`/blog/${post.slug}`}
-                      className="relative flex-shrink-0 w-full snap-start rounded-[20px] overflow-hidden p-4 sm:p-6 lg:p-[30px] min-h-[200px] sm:min-h-[230px] lg:min-h-[262px] group"
+                      className="relative flex-shrink-0 w-full snap-start rounded-[20px] overflow-hidden p-4 sm:p-6 lg:p-[30px] min-h-[280px] sm:min-h-[320px] lg:min-h-[360px] group"
                     >
                       {/* Background Image */}
                       <div className="absolute inset-0 pointer-events-none rounded-[20px]">

@@ -25,7 +25,7 @@ export const testimonials = [
       "Goodlife partnered with Innovin Labs to bring their product vision to life efficiently and at scale. The team demonstrated strong technical expertise, clear communication, and a deep understanding of our requirements throughout the project. From planning to execution, delivery was smooth, timely, and aligned with our business goals.",
     author: "Goodlife",
     logo: goodlifeLogo,
-    link: null,
+    link: "https://heygoodlife.com/",
   },
   {
     quote: "As an entrepreneur, I needed my website delivered efficiently. Innovin Labs not only met deadlines with high quality but also shared our company values. The team was responsive, communicative, and professional. I highly recommend them.",

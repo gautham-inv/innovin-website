@@ -1,8 +1,6 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-// @ts-ignore - Lenis types may not be available
-import Lenis from "lenis";
 import { CLOUDINARY_TRANSFORM_BASE } from "@/lib/cloudinary";
 
 const img1 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/20260209_160659.jpg_cbpvzb.jpg`;
@@ -41,14 +39,6 @@ export default function Services() {
 
     let isComponentMounted = true;
 
-    // --- 1. INITIALIZE SMOOTH SCROLL (LENIS) ---
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Standard exponential ease
-      smoothWheel: true,
-      touchMultiplier: 2,
-    });
-
     const isDesktop = window.innerWidth >= 1280;
     const section = isDesktop ? sectionRef.current : mobileSectionRef.current;
 
@@ -61,24 +51,10 @@ export default function Services() {
     ]).then(([{ gsap }, { ScrollTrigger }]) => {
       // Check if component is still mounted after async imports
       if (!isComponentMounted) {
-        lenis.destroy();
         return;
       }
 
       gsap.registerPlugin(ScrollTrigger);
-
-      // --- 2. SYNC LENIS WITH GSAP ---
-      // Update ScrollTrigger when Lenis scrolls
-      lenis.on('scroll', ScrollTrigger.update);
-
-      // Add Lenis's requestAnimationFrame to GSAP's ticker
-      // This ensures animations and scrolling stay perfectly in sync
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-      });
-
-      // Turn off lag smoothing to prevent stuttering during heavy calculations
-      gsap.ticker.lagSmoothing(0);
 
       // Clean up existing triggers
       ScrollTrigger.getAll().forEach((trigger) => {
@@ -145,19 +121,19 @@ export default function Services() {
               force3D: true
             });
 
-            // Cards 2 and 3: Hidden initially
+            // Cards 2 and 3: Hidden below but at full opacity
             gsap.set(cards.slice(1), {
-              y: "20vh",
+              y: "100vh",
               scale: 0.9,
-              opacity: 0,
+              opacity: 1,
               force3D: true
             });
             gsap.set(cardImages.slice(1), {
-              opacity: 0.4,
+              opacity: 1,
               force3D: true
             });
             gsap.set(cardOverlays.slice(1), {
-              opacity: 0.8,
+              opacity: 0.4,
               force3D: true
             });
 
@@ -236,7 +212,6 @@ export default function Services() {
             pinnedTl.to(cards[1], {
               y: "-50%",
               scale: 1,
-              opacity: 1,
               duration: 0.5,
               ease: "power2.inOut",
               force3D: true
@@ -279,7 +254,6 @@ export default function Services() {
             pinnedTl.to(cards[2], {
               y: "-50%",
               scale: 1,
-              opacity: 1,
               duration: 0.5,
               ease: "power2.inOut",
               force3D: true
@@ -408,17 +382,12 @@ export default function Services() {
           }
         });
         ctx.revert();
-
-        // --- 3. CLEANUP LENIS ---
-        lenis.destroy();
-        gsap.ticker.remove(lenis.raf); // Important: remove the listener
       };
     });
 
     // Return cleanup function
     return () => {
       isComponentMounted = false;
-      lenis.destroy();
     };
   }, []);
 
@@ -430,7 +399,7 @@ export default function Services() {
         <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 xl:pl-20 space-y-1">
           <div ref={titleOurRef} className="overflow-hidden">
             <h2
-              className="text-[56px] xl:text-[82px] text-white font-medium leading-[62px] xl:leading-[90px] tracking-[-1.2px] inline-block"
+              className="text-[56px] xl:text-[72px] text-white font-medium leading-[62px] xl:leading-[80px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               our
@@ -438,7 +407,7 @@ export default function Services() {
           </div>
           <div ref={titleServicesRef} className="overflow-hidden">
             <h2
-              className="text-[56px] xl:text-[82px] text-white font-medium leading-[62px] xl:leading-[90px] tracking-[-1.2px] inline-block"
+              className="text-[56px] xl:text-[72px] text-white font-medium leading-[62px] xl:leading-[80px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               services
