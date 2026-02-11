@@ -75,6 +75,19 @@ body {
   opacity: 0;
 }
 
+/* Navigation Link Hover — reserve space for bold text to prevent layout shift */
+.nav-link-text {
+  display: inline-block;
+}
+.nav-link-text::after {
+  content: attr(data-text);
+  font-weight: 200;
+  display: table;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
 /* Navigation Link Hover */
 .nav-link {
   position: relative;

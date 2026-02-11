@@ -5,7 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import Image from "next/image";
-import HoverCard from "./HoverCard";
+import JobCard from "./JobCard";
 
 import { TEAM_IMAGE_BASE, cloudinaryUrl } from "@/lib/cloudinary";
 import { PreloadImage } from "./PreloadImage";
@@ -573,8 +573,8 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           </div>
         </div>
 
-        {/* Talent Approach Section */}
-        <div className="relative min-h-[800px] sm:min-h-[1000px] md:min-h-[1200px] xl:h-[1314px]">
+        {/* Talent Approach Section — content-sized on mobile/tablet, fixed height on xl desktop */}
+        <div className="relative min-h-0 md:min-h-0 xl:min-h-[1314px] xl:h-[1314px] pb-10 sm:pb-12 lg:pb-16">
           {/* Star decorations */}
           <div ref={starLeftRef} className="hidden xl:block absolute left-1/2 -ml-[580px] top-[300px] w-[100px] h-[100px] opacity-30">
             <svg viewBox="0 0 100 100" fill="none">
@@ -596,7 +596,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
             </p>
           </div>
 
-          <div className="relative xl:absolute xl:left-1/2 xl:top-[334px] xl:-translate-x-1/2 w-full xl:w-[890px] mx-auto">
+          <div className="relative mt-6 sm:mt-8 md:mt-10 xl:mt-0 xl:absolute xl:left-1/2 xl:top-[334px] xl:-translate-x-1/2 w-full xl:w-[890px] mx-auto">
             {/* Back card */}
             <div ref={backCardRef} className="hidden xl:block absolute top-0 left-0 right-0 flex items-center justify-center z-10">
               <div className="bg-white rounded-[20px] shadow-[0px_0px_9px_0px_rgba(0,0,0,0.25)] w-[834px] h-[834px]" style={{ transform: 'rotate(4deg)' }}>
@@ -607,11 +607,11 @@ export default function CareersPage({ jobs }: CareersPageProps) {
             <div className="relative xl:absolute xl:top-0 xl:-left-[20px] xl:right-0 flex items-center justify-center z-20">
               <div
                 ref={frontCardRef}
-                className="bg-white rounded-[20px] shadow-[0px_0px_6px_0px_rgba(0,0,0,0.25)] w-full max-w-[834px] h-auto min-h-[600px] xl:w-[834px] xl:h-[834px] p-6 sm:p-8 md:p-12 xl:p-[74px] front-card-rotate"
+                className="bg-white rounded-[20px] shadow-[0px_0px_6px_0px_rgba(0,0,0,0.25)] w-full max-w-[834px] h-auto xl:w-[834px] xl:h-[834px] p-6 sm:p-8 md:p-10 lg:p-12 xl:p-[74px] front-card-rotate"
               >
-                <div className="flex flex-col gap-6 sm:gap-8 xl:gap-[30px]">
+                <div className="flex flex-col gap-6 sm:gap-7 md:gap-8 xl:gap-[30px]">
                   {talentApproach.map((item, index) => (
-                    <div key={index} className="talent-item flex gap-4 sm:gap-6 xl:gap-[44px] items-center">
+                    <div key={index} className="talent-item flex gap-4 sm:gap-5 md:gap-6 xl:gap-[44px] items-center">
                       <div className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] lg:w-[94px] lg:h-[94px] shrink-0 flex items-center justify-center bg-primary/10 rounded-full">
                         <svg className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] lg:w-[50px] lg:h-[50px]" viewBox="0 0 50 50" fill="#005c89">
                           <path d="M25 5 L30 20 L45 25 L30 30 L25 45 L20 30 L5 25 L20 20 Z" />
@@ -732,122 +732,24 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           </h2>
 
           {jobOpenings.length > 0 ? (
-            <div className="flex flex-col gap-6 sm:gap-8 xl:gap-[32px]">
-              {/* Desktop: Grid layout */}
-              {jobOpenings.length >= 3 && (
-                <div className="hidden xl:grid grid-cols-3 gap-[20px]">
-                  {jobOpenings.slice(0, 3).map((job) => (
-                    <HoverCard
-                      key={job.id}
-                      href={`/careers/${job.slug}`}
-                      as="link"
-                      borderColor="border-[#005c89]"
-                      borderWidth="border-2"
-                      borderRadius="rounded-[30px]"
-                      padding="p-[20px]"
-                      shadow="hover:shadow-lg"
-                      className="gap-[27px]"
-                    >
-                      <h3 className="text-[24px] text-black font-medium leading-[34px]">
-                        {job.title}
-                      </h3>
-                      <p className="text-[16px] text-black leading-[44px] flex-1">
-                        {job.description}
-                      </p>
-                      <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
-                        View details
-                        <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
-                          <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                    </HoverCard>
-                  ))}
-                </div>
-              )}
-
-              {jobOpenings.length > 3 && (
-                <div className="hidden xl:block w-[500px]">
-                  <HoverCard
-                    href={`/careers/${jobOpenings[3].slug}`}
-                    as="link"
-                    borderColor="border-[#005c89]"
-                    borderWidth="border-2"
-                    borderRadius="rounded-[30px]"
-                    padding="p-[20px]"
-                    shadow="hover:shadow-lg"
-                    className="gap-[27px]"
-                  >
-                    <h3 className="text-[24px] text-black font-medium leading-[34px]">
-                      {jobOpenings[3].title}
-                    </h3>
-                    <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
-                      View details
-                      <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
-                        <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  </HoverCard>
-                </div>
-              )}
-
-              {jobOpenings.length < 4 && jobOpenings.length > 0 && (
-                <div className="hidden xl:grid grid-cols-3 gap-[20px]">
-                  {jobOpenings.map((job) => (
-                    <HoverCard
-                      key={job.id}
-                      href={`/careers/${job.slug}`}
-                      as="link"
-                      borderColor="border-[#005c89]"
-                      borderWidth="border-2"
-                      borderRadius="rounded-[30px]"
-                      padding="p-[20px]"
-                      shadow="hover:shadow-lg"
-                      className="gap-[27px]"
-                    >
-                      <h3 className="text-[24px] text-black font-medium leading-[34px]">
-                        {job.title}
-                      </h3>
-                      <p className="text-[16px] text-black leading-[44px] flex-1">
-                        {job.description}
-                      </p>
-                      <div className="flex items-center gap-[15px] text-[24px] text-black font-medium leading-[60px] hover:text-[#005c89] transition">
-                        View details
-                        <svg width="34" height="34" viewBox="0 0 34 34" fill="currentColor" className="rotate-90">
-                          <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </div>
-                    </HoverCard>
-                  ))}
-                </div>
-              )}
+            <div className="flex flex-col gap-6 sm:gap-8 xl:gap-8">
+              {/* Desktop: Grid layout — 4 cols when 4+ jobs, 3 cols otherwise */}
+              <div className={`hidden xl:grid gap-6 xl:gap-8 ${
+                jobOpenings.length >= 4 ? "grid-cols-4" : "grid-cols-3"
+              }`}>
+                {(jobOpenings.length >= 4 ? jobOpenings.slice(0, 4) : jobOpenings).map((job) => (
+                  <JobCard
+                    key={job.id}
+                    {...job}
+                    variant={jobOpenings.length >= 4 ? "compact" : "default"}
+                  />
+                ))}
+              </div>
 
               {/* Mobile/Tablet: Vertical stacked cards */}
-              <div className="xl:hidden flex flex-col gap-4 sm:gap-6">
+              <div className="xl:hidden flex flex-col gap-4 sm:gap-5">
                 {jobOpenings.map((job) => (
-                  <HoverCard
-                    key={job.id}
-                    href={`/careers/${job.slug}`}
-                    as="link"
-                    borderColor="border-[#005c89]"
-                    borderWidth="border-2"
-                    borderRadius="rounded-[20px] sm:rounded-[30px]"
-                    padding="p-4 sm:p-5"
-                    shadow="hover:shadow-lg"
-                    className="gap-4 sm:gap-6"
-                  >
-                    <h3 className="text-[20px] sm:text-[22px] text-black font-medium leading-[1.3] sm:leading-[1.4]">
-                      {job.title}
-                    </h3>
-                    <p className="text-[14px] sm:text-[15px] text-black leading-[1.6] sm:leading-[1.8] flex-1">
-                      {job.description}
-                    </p>
-                    <div className="flex items-center gap-3 sm:gap-[15px] text-[18px] sm:text-[20px] text-black font-medium leading-[1.5] sm:leading-[1.6] hover:text-[#005c89] transition">
-                      View details
-                      <svg className="w-6 h-6 sm:w-8 sm:h-8 rotate-90" viewBox="0 0 34 34" fill="currentColor">
-                        <path d="M10 14 L17 7 L24 14" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  </HoverCard>
+                  <JobCard key={job.id} {...job} variant="compact" />
                 ))}
               </div>
             </div>

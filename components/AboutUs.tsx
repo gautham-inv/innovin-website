@@ -338,11 +338,11 @@ export default function AboutUs() {
       {/* ═══════ HERO — Clean white bg, centered heading + description ═══════ */}
       <section className="relative w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-10 sm:pb-14 lg:pb-16 px-4 sm:px-6 md:px-8 xl:px-[70px] bg-white">
         <div ref={heroRef} className="max-w-[1681px] mx-auto">
-          <div className="max-w-[800px] mx-auto text-center">
+          <div className="max-w-[1000px] mx-auto text-center">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6">
             About us
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[600px] mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[800px] mx-auto">
             Innovin Labs is more than a name — it&apos;s a reflection of how we
             turn raw ideas into purposeful products. Our identity represents the
             seamless blend of imagination and execution, where every stroke

@@ -111,24 +111,21 @@ export default function Navigation() {
     const isActive = isPageActive || isHashActive;
 
     return `
-      border-[1.195px] border-solid border-white 
-      flex items-center justify-center px-[16.95px] py-[12.95px] 
-      text-[16px] font-['Manrope',sans-serif] leading-[27.964px]
-      hover:bg-white/50 transition whitespace-pre
-      ${isFirst ? "rounded-l-[23.893px]" : ""}
-      ${isLast ? "rounded-r-[23.893px]" : ""}
+      flex items-center justify-center h-full px-[16.95px] 
+      text-[16px] font-sans leading-[27.964px]
+      transition whitespace-pre
       ${isActive ? "nav-active" : "text-black"}
-      focus:outline-none focus:ring-2 focus:ring-primary/40
+      hover:font-semibold focus:outline-none focus:font-semibold
     `;
   };
 
   const mobileLinkClasses = (isPageActive = false) => {
     return `
       w-full px-6 py-4 text-left
-      text-[18px] font-['Manrope',sans-serif] leading-[27.964px]
+      text-[18px] font-sans leading-[27.964px]
       transition-colors
       ${isPageActive ? "bg-[#66C2E2] text-white" : "text-black hover:bg-white/50"}
-      focus:outline-none focus:ring-2 focus:ring-primary/40
+      hover:font-semibold focus:outline-none focus:font-semibold
     `;
   };
 
@@ -147,7 +144,7 @@ export default function Navigation() {
           }`}
       >
         <div className="py-1">
-          <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] flex items-center justify-between h-[60px] md:h-[68px]">
+          <div className="relative max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] flex items-center justify-between h-[60px] md:h-[68px]">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="h-[40px] md:h-[46px] relative">
@@ -160,40 +157,40 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop Nav links */}
-            <div className="hidden xl:flex bg-[rgba(215,237,248,0.4)] backdrop-blur-md border border-white/30 rounded-[26.282px] items-center absolute left-1/2 -translate-x-1/2">
+            <div className="hidden xl:flex xl:items-center absolute left-1/2 top-0 bottom-0 -translate-x-1/2 h-full">
               <Link
                 href="/services"
                 className={linkClasses("", true, false, pathname === "/services")}
               >
-                Services
+                <span className="nav-link-text" data-text="Services">Services</span>
               </Link>
 
               <Link
                 href="/why-us"
                 className={linkClasses("", false, false, pathname === "/why-us")}
               >
-                Why us
+                <span className="nav-link-text" data-text="Why us">Why us</span>
               </Link>
 
               <Link
                 href="/about"
                 className={linkClasses("", false, false, pathname === "/about")}
               >
-                About us
+                <span className="nav-link-text" data-text="About us">About us</span>
               </Link>
 
               <Link
                 href="/blog"
                 className={linkClasses("", false, false, pathname === "/blog")}
               >
-                Knowledge hub
+                <span className="nav-link-text" data-text="Knowledge hub">Knowledge hub</span>
               </Link>
 
               <Link
                 href="/careers"
                 className={linkClasses("", false, true, pathname === "/careers")}
               >
-                Careers
+                <span className="nav-link-text" data-text="Careers">Careers</span>
               </Link>
             </div>
 
@@ -241,7 +238,7 @@ export default function Navigation() {
               className={mobileLinkClasses(pathname === "/services")}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Services
+              <span className="nav-link-text" data-text="Services">Services</span>
             </Link>
 
             <Link
@@ -249,7 +246,7 @@ export default function Navigation() {
               className={mobileLinkClasses(pathname === "/why-us")}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Why us
+              <span className="nav-link-text" data-text="Why us">Why us</span>
             </Link>
 
             <Link
@@ -257,7 +254,7 @@ export default function Navigation() {
               className={mobileLinkClasses(pathname === "/about")}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              About us
+              <span className="nav-link-text" data-text="About us">About us</span>
             </Link>
 
             <Link
@@ -265,7 +262,7 @@ export default function Navigation() {
               className={mobileLinkClasses(pathname === "/blog")}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Knowledge hub
+              <span className="nav-link-text" data-text="Knowledge hub">Knowledge hub</span>
             </Link>
 
             <Link
@@ -273,7 +270,7 @@ export default function Navigation() {
               className={mobileLinkClasses(pathname === "/careers")}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Careers
+              <span className="nav-link-text" data-text="Careers">Careers</span>
             </Link>
 
             <div className="pt-4 px-6">

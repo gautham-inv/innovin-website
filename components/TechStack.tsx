@@ -41,6 +41,7 @@ const EXCLUDED_LOGOS = [
   "Squarespace",
   "Render",
   "GitHub",
+  "WordPress",
 ];
 
 // Extract all items from techStackData for the loop, filtering out logos that don't look good on dark BG
