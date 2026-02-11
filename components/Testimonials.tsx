@@ -336,7 +336,7 @@ export default function Testimonials() {
                           <div className="h-[36px] w-[130px] sm:h-[44px] sm:w-[160px] md:h-[50px] md:w-[180px] flex-shrink-0">
                             <img
                               alt="Company Logo"
-                              className="w-full h-full object-contain"
+                              className={`w-full h-full object-contain ${t.author === "Zirkly" || t.author === "Goodlife" ? "p-2" : ""}`}
                               src={t.logo}
                               draggable={false}
                             />
@@ -395,7 +395,7 @@ export default function Testimonials() {
                         <div className="h-[50px] md:h-[62px] w-[180px] md:w-[219px] flex-shrink-0">
                           <img
                             alt="Company Logo"
-                            className="w-full h-full object-contain"
+                            className={`w-full h-full object-contain ${t.author === "Zirkly" || t.author === "Goodlife" ? "p-2" : ""}`}
                             src={t.logo}
                             draggable={false}
                           />

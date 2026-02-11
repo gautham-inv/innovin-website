@@ -180,7 +180,7 @@ export default function Services() {
                 trigger: section,
                 start: "top top",
                 end: `+=${scrollDistance}`,
-                scrub: 0.5, // Reduced from 0.8 for snappier response, works well with Lenis
+                scrub: 1,
                 pin: true,
                 pinSpacing: true,
                 anticipatePin: 1,

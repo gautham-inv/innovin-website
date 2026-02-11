@@ -5,7 +5,7 @@ import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import EngagementModelsAnimated from "./EngagementModelsAnimated";
 
 const Word = ({ children, progress, range, highlight = false }: { children: ReactNode, progress: MotionValue<number>, range: [number, number], highlight?: boolean }) => {
-  const opacity = useTransform(progress, range, [0.1, 1]);
+  const opacity = useTransform(progress, range, [0.55, 1]);
   return (
     <motion.span style={{ opacity }} className={`mr-[0.2em] relative inline-block ${highlight ? 'text-[#66c2e2]' : ''}`}>
       {children}
@@ -62,7 +62,7 @@ export default function WhyUsPage() {
                 className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/IMG_0484_ttemgz.webp"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770793036/IMG_4574_3_qapja9.png"
                   alt="Feature showcase 1"
                   className="w-full h-full object-cover"
                 />
@@ -126,7 +126,7 @@ export default function WhyUsPage() {
                 className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663509/20260209_160612.jpg_lexrge.webp"
+                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770793033/IMG_1527_1_vxgn9s.jpg"
                   alt="Feature showcase 4"
                   className="w-full h-full object-cover"
                 />
@@ -256,7 +256,7 @@ export default function WhyUsPage() {
                   </div>
 
                   <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
-                    Top tech talents
+                    Top Tech Talents
                   </h3>
 
                   <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">

@@ -135,7 +135,6 @@ export default function PrivacyPolicyPage() {
                 <li className="ms-[22px] list-disc">
                   Access, correct, or delete your personal information by writing to us.
                 </li>
-                <li className="ms-[22px] list-disc">Disable cookies through your browser settings.</li>
               </ul>
             </section>
 

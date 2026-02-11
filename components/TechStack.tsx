@@ -12,9 +12,17 @@ import Link from "next/link";
 import { techStackData } from "@/lib/techStackData";
 
 const EXCLUDED_LOGOS = [
-  "AWS",
+  // "AWS", // Showing AWS
+  // "AWS Bedrock", // Showing AWS Bedrock
   "S3",
   "EC2",
+  "Lambda",
+  "RDS",
+  "API Gateway",
+  "SES",
+  "Route53",
+  "ELB",
+  "IAM",
   "BeautifulSoup",
   "Flask",
   "Expo",
@@ -52,12 +60,14 @@ const midIndex = Math.ceil(allTechItems.length / 2);
 const techLogosTop = allTechItems.slice(0, midIndex).map((item) => ({
   src: DARK_BG_OVERRIDES[item.name] || item.icon,
   alt: item.name,
+  title: item.name,
   href: item.href,
 }));
 
 const techLogosBottom = allTechItems.slice(midIndex).map((item) => ({
   src: DARK_BG_OVERRIDES[item.name] || item.icon,
   alt: item.name,
+  title: item.name,
   href: item.href,
 }));
 

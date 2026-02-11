@@ -307,17 +307,20 @@ export const LogoLoop = memo<LogoLoopProps>(
             width={item.width}
             height={item.height}
             alt={item.alt ?? ''}
+            title={item.title ?? item.alt ?? undefined}
             loading="lazy"
             decoding="async"
             draggable={false}
           />
         );
         const itemAriaLabel = isNodeItem ? (item.ariaLabel ?? item.title) : (item.alt ?? item.title);
+        const itemTooltip = !isNodeItem && 'title' in item ? (item.title ?? item.alt) : (isNodeItem ? item.title : undefined);
         const itemContent = item.href ? (
           <a
             className="logoloop__link"
             href={item.href}
             aria-label={itemAriaLabel || 'logo link'}
+            title={itemTooltip}
             target="_blank"
             rel="noreferrer noopener"
           >
