@@ -12,8 +12,8 @@ import Link from "next/link";
 import { techStackData } from "@/lib/techStackData";
 
 const EXCLUDED_LOGOS = [
-  // "AWS", // Showing AWS
-  // "AWS Bedrock", // Showing AWS Bedrock
+  "AWS", // Showing AWS
+  "AWS Bedrock", // Showing AWS Bedrock
   "S3",
   "EC2",
   "Lambda",
@@ -174,7 +174,7 @@ export default function TechStack() {
               href="/tech-stack"
               className="text-white border border-white/20 px-8 py-3 rounded-full hover:bg-white hover:text-[#131518] transition-all duration-300 font-medium"
             >
-              View Full Tech Stack
+              View full tech stack
             </Link>
           </div>
         </div>

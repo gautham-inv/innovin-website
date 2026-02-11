@@ -4,6 +4,7 @@ import { X, Linkedin } from "lucide-react";
 import Footer from "./Footer";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PreloadImage } from "./PreloadImage";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,10 +22,10 @@ const teamPhotos = [
 import { leadershipTeam } from "@/lib/leadership";
 
 const coreValues = [
-  { title: "Be Customer Obsessed", icon: "/images/c1.png" },
+  { title: "Be customer obsessed", icon: "/images/c1.png" },
   { title: "Excellence", icon: "/images/c2.png" },
-  { title: "Honesty and Integrity", icon: "/images/c3.png" },
-  { title: "Entrepreneurial Mindset", icon: "/images/c4.png" },
+  { title: "Honesty and integrity", icon: "/images/c3.png" },
+  { title: "Entrepreneurial mindset", icon: "/images/c4.png" },
   { title: "Give more than you take", icon: "/images/c5.png" },
   { title: "Make progress over perfection", icon: "/images/c6.png" },
 ];
@@ -168,19 +169,19 @@ function LeadershipCard({
 const stackSections = [
   {
     id: "journey",
-    title: "Our Journey",
+    title: "Our journey",
     content:
     "Innovin Labs began as innovators building social health solutions for the elderly, facing real-world challenges that shaped our adaptability, empathy, and technical expertise. That journey defined our mission—to help startups and scale-ups turn ideas into successful products. Today, we partner closely with founders, offering tailored tech solutions and product expertise, treating every product as our own and supporting teams at every stage of development. At Innovin Labs, we don’t just build technology—we collaborate, share experience, and help your vision succeed."
   },
   {
     id: "mission",
-    title: "Our Mission",
+    title: "Our mission",
     content:
       "Revolutionize the tech industry by combining cutting-edge technology employing AI capabilities. Revolutionize the tech industry by combining cutting-edge technology employing AI capabilities. Revolutionize the tech industry by combining cutting-edge technology employing AI capabilities.",
   },
   {
     id: "vision",
-    title: "Our Vision",
+    title: "Our vision",
     content:
       "We envision a world where every startup, regardless of size, has access to world-class engineering talent and product thinking \u2014 enabling ideas to move from concept to reality faster than ever before. Revolutionize the tech industry by combining cutting-edge technology employing AI capabilities.",
   },
@@ -333,6 +334,7 @@ export default function AboutUs() {
 
   return (
     <main id="main-content" className="bg-white w-full">
+      <PreloadImage href={imgHeroBackground} />
       {/* ═══════ HERO — Clean white bg, centered heading + description ═══════ */}
       <section className="relative w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-10 sm:pb-14 lg:pb-16 px-4 sm:px-6 md:px-8 xl:px-[70px] bg-white">
         <div ref={heroRef} className="max-w-[1681px] mx-auto">
@@ -363,6 +365,10 @@ export default function AboutUs() {
             ref={pictureRef}
             src={imgHeroBackground}
             alt="Innovin Labs team"
+            width={1681}
+            height={620}
+            fetchPriority="high"
+            loading="eager"
             className="w-full h-[350px] sm:h-[450px] lg:h-[550px] xl:h-[620px] object-cover rounded-xl sm:rounded-2xl"
           />
 
@@ -498,7 +504,7 @@ export default function AboutUs() {
         <div className="max-w-[1681px] mx-auto">
           <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-[20px]">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
-              Our Leadership Team
+              Our leadership team
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed max-w-4xl">
               Visionaries behind our promise to build world-class products

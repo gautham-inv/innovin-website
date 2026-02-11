@@ -89,14 +89,14 @@ export default function Footer() {
               onClick={() => router.push("/privacy")}
               className="hover:text-[#b4b7bc] transition-colors cursor-pointer"
             >
-              Privacy Policy
+              Privacy policy
             </button>
             <button
               type="button"
               onClick={() => router.push("/terms")}
               className="hover:text-[#b4b7bc] transition-colors cursor-pointer"
             >
-              Terms & Conditions
+              Terms & conditions
             </button>
           </div>
         </div>

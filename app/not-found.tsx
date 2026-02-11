@@ -23,7 +23,7 @@ export default function NotFound() {
 
           {/* Error Message */}
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 mb-4 sm:mb-6 lg:mb-8">
-            Page Not Found
+            Page not found
           </h2>
 
           {/* Description */}
@@ -38,7 +38,7 @@ export default function NotFound() {
               onClick={() => router.push("/")}
               className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg"
             >
-              Go to Homepage
+              Go to homepage
             </AnimatedButton>
 
 
@@ -50,14 +50,14 @@ export default function NotFound() {
               href="/about"
               className="text-gray-600 hover:text-primary transition-colors"
             >
-              About Us
+              About us
             </Link>
             <span className="text-gray-300">•</span>
             <Link
               href="/blog"
               className="text-gray-600 hover:text-primary transition-colors"
             >
-              Knowledge Hub
+              Knowledge hub
             </Link>
             <span className="text-gray-300">•</span>
             <Link
@@ -71,7 +71,7 @@ export default function NotFound() {
               href="/why-us"
               className="text-gray-600 hover:text-primary transition-colors"
             >
-              Why Us
+              Why us
             </Link>
           </div>
         </div>

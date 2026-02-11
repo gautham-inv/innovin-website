@@ -3,6 +3,11 @@
 import { useRef, ReactNode } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 import EngagementModelsAnimated from "./EngagementModelsAnimated";
+import { cloudinaryUrl } from "@/lib/cloudinary";
+import { PreloadImage } from "./PreloadImage";
+
+// First hero image URL — preloaded so it doesn’t appear 1–2s late
+const HERO_IMAGE_1 = cloudinaryUrl("v1770793036/IMG_4574_3_qapja9.png", { w: 300, h: 430, c: "fill" });
 
 const Word = ({ children, progress, range, highlight = false }: { children: ReactNode, progress: MotionValue<number>, range: [number, number], highlight?: boolean }) => {
   const opacity = useTransform(progress, range, [0.55, 1]);
@@ -25,7 +30,7 @@ export default function WhyUsPage() {
     offset: ["start start", "end end"],
   });
 
-  const headingText = "Unique Value Proposition";
+  const headingText = "Unique value proposition";
   const contentText = "Fueling Startups and emerging/growing businesses success – we leverage AI tools and open source programs to deliver faster, cost-effective solutions that unlock their growth potential.";
 
   const headingWords = headingText.split(" ");
@@ -36,11 +41,10 @@ export default function WhyUsPage() {
 
   return (
     <main id="main-content">
+      <PreloadImage href={HERO_IMAGE_1} />
       <div className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] overflow-clip relative px-4 sm:px-6 md:px-8 xl:px-[70px]">
         <div className="max-w-[1681px] mx-auto">
           {/* Header Section */}
-          {/* Hero Section */}
-          {/* Hero Section */}
           {/* Hero Section */}
           <div className="relative w-full min-h-[calc(100vh-100px)] sm:min-h-[calc(100vh-120px)] lg:min-h-[calc(100vh-146px)] flex items-center justify-center mb-16 lg:mb-24 overflow-visible">
             {/* Background Gradient & Animated Blur */}
@@ -62,8 +66,12 @@ export default function WhyUsPage() {
                 className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770793036/IMG_4574_3_qapja9.png"
+                  src={HERO_IMAGE_1}
                   alt="Feature showcase 1"
+                  width={150}
+                  height={215}
+                  fetchPriority="high"
+                  loading="eager"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -76,7 +84,12 @@ export default function WhyUsPage() {
                 className="absolute left-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663511/IMG_4985_dwhn4x.webp"
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770663511/IMG_4985_dwhn4x.webp", { w: 424, h: 284, c: "fill" })}
+                  alt="Feature showcase 2"
+                  width={212}
+                  height={142}
+                  fetchPriority="high"
+                  loading="eager"
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -89,7 +102,7 @@ export default function WhyUsPage() {
                 className="absolute left-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160659.jpg_khmgno.webp"
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160659.jpg_khmgno.webp", { w: 390, h: 292, c: "fill" })}
                   alt="Feature showcase 3"
                   className="w-full h-full object-cover"
                 />
@@ -126,7 +139,7 @@ export default function WhyUsPage() {
                 className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770793033/IMG_1527_1_vxgn9s.jpg"
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770793033/IMG_1527_1_vxgn9s.jpg", { w: 300, h: 430, c: "fill" })}
                   alt="Feature showcase 4"
                   className="w-full h-full object-cover"
                 />
@@ -140,7 +153,7 @@ export default function WhyUsPage() {
                 className="absolute right-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654380/IMG_0552_gshpuk.heic"
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654380/IMG_0552_gshpuk.heic", { w: 424, h: 284, c: "fill" })}
                   alt="Feature showcase 5"
                   className="w-full h-full object-cover"
                 />
@@ -154,7 +167,7 @@ export default function WhyUsPage() {
                 className="absolute right-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <img
-                  src="https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160751.jpg_hspmpm.webp"
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160751.jpg_hspmpm.webp", { w: 390, h: 292, c: "fill" })}
                   alt="Feature showcase 6"
                   className="w-full h-full object-cover"
                 />
@@ -270,7 +283,7 @@ export default function WhyUsPage() {
           {/* Our Engagement Models */}
           <div className="mb-8 sm:mb-10 pt-20">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
-              Our Engagement Models
+              Our engagement models
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed mb-10 sm:mb-12 lg:mb-[50px] max-w-4xl">
               We offer flexible engagement models as per the client requirements.

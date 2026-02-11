@@ -7,7 +7,8 @@ import Link from "next/link";
 import Image from "next/image";
 import HoverCard from "./HoverCard";
 
-import { TEAM_IMAGE_BASE, CLOUDINARY_TRANSFORM_BASE } from "@/lib/cloudinary";
+import { TEAM_IMAGE_BASE, cloudinaryUrl } from "@/lib/cloudinary";
+import { PreloadImage } from "./PreloadImage";
 
 // Register ScrollTrigger plugin
 if (typeof window !== "undefined") {
@@ -18,13 +19,18 @@ if (typeof window !== "undefined") {
 const iconCheck = "/images/21d929d3882a56f4a14a488dee787d233888e288.svg";
 const life = "/images/compressed_2a10271a41c28441412779781963630458378940.webp";
 
-const img1 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654380/IMG_0552_gshpuk.heic`;
-const img2 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654372/IMG_0484_kofvre.jpg`;
-const img3 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654369/IMG_4983_vmhgas.jpg`;
+// Reason cards: desktop 450×347, mobile up to 300×300 — request 900×694 at fetch (2x)
+const img1 = cloudinaryUrl("v1770654380/IMG_0552_gshpuk.heic", { w: 900, h: 694, c: "fill" });
+const img2 = cloudinaryUrl("v1770654372/IMG_0484_kofvre.jpg", { w: 900, h: 694, c: "fill" });
+const img3 = cloudinaryUrl("v1770654369/IMG_4983_vmhgas.jpg", { w: 900, h: 694, c: "fill" });
 
 const careers1 = "/images/careers1.webp"
 const careers2 = "/images/careers2.webp"
 const careers3 = "/images/careers3.webp"
+
+// Preload first visible images so they don’t pop in 1–2s later
+const PRELOAD_REASON_IMAGE = img1;
+const PRELOAD_TEAM_IMAGE = cloudinaryUrl(`${TEAM_IMAGE_BASE}/akshay_ydanyj.png`, { w: 200, h: 200, c: "fill" });
 
 
 interface Job {
@@ -54,25 +60,21 @@ export default function CareersPage({ jobs }: CareersPageProps) {
   const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null); // NEW: Track autoplay timer
   const backCardRef = useRef<HTMLDivElement>(null);
 
-  // Gallery images for masonry layout with slight random tilts
+  // Gallery: path only; thumb 800×600, lightbox 1600×1200 at render
   const galleryImages = [
-    // Row 1
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654380/IMG_0552_gshpuk.heic`, alt: "Team event 1", rotate: -3 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/IMG_3420_wt9qlf.jpg`, alt: "Team event 2", rotate: 2 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/IMG_3361_hqzld4.heic`, alt: "Team event 3", rotate: -1.5 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/20260209_160659.jpg_cbpvzb.jpg`, alt: "Team event 4", rotate: 3 },
-    // Row 2
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654378/20260209_160812.jpg_cbf8yh.jpg`, alt: "Team event 5", rotate: -2 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654378/20260209_160612.jpg_gc3qk1.jpg`, alt: "Team event 6", rotate: 1.5 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654377/IMG_0446_xxv9m7.jpg`, alt: "Team event 7", rotate: -2.5 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654373/20260209_160751.jpg_ceunj0.jpg`, alt: "Team event 8", rotate: 2 },
-    // Row 3
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654372/20260209_160738.jpg_zhvln9.jpg`, alt: "Team event 9", rotate: -1 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654371/IMG_2189_crwvtj.heic`, alt: "Team event 10", rotate: 1 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654372/IMG_0484_kofvre.jpg`, alt: "Team event 11", rotate: -3.5 },
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654370/IMG_4985_jiuwmy.jpg`, alt: "Team event 12", rotate: 2.5 },
-    // Row 4
-    { src: `${CLOUDINARY_TRANSFORM_BASE}/v1770654369/IMG_4983_vmhgas.jpg`, alt: "Team event 13", rotate: -1.5 },
+    { path: "v1770654380/IMG_0552_gshpuk.heic", alt: "Team event 1", rotate: -3 },
+    { path: "v1770654379/IMG_3420_wt9qlf.jpg", alt: "Team event 2", rotate: 2 },
+    { path: "v1770654379/IMG_3361_hqzld4.heic", alt: "Team event 3", rotate: -1.5 },
+    { path: "v1770654379/20260209_160659.jpg_cbpvzb.jpg", alt: "Team event 4", rotate: 3 },
+    { path: "v1770654378/20260209_160812.jpg_cbf8yh.jpg", alt: "Team event 5", rotate: -2 },
+    { path: "v1770654378/20260209_160612.jpg_gc3qk1.jpg", alt: "Team event 6", rotate: 1.5 },
+    { path: "v1770654377/IMG_0446_xxv9m7.jpg", alt: "Team event 7", rotate: -2.5 },
+    { path: "v1770654373/20260209_160751.jpg_ceunj0.jpg", alt: "Team event 8", rotate: 2 },
+    { path: "v1770654372/20260209_160738.jpg_zhvln9.jpg", alt: "Team event 9", rotate: -1 },
+    { path: "v1770654371/IMG_2189_crwvtj.heic", alt: "Team event 10", rotate: 1 },
+    { path: "v1770654372/IMG_0484_kofvre.jpg", alt: "Team event 11", rotate: -3.5 },
+    { path: "v1770654370/IMG_4985_jiuwmy.jpg", alt: "Team event 12", rotate: 2.5 },
+    { path: "v1770654369/IMG_4983_vmhgas.jpg", alt: "Team event 13", rotate: -1.5 },
   ];
 
   const images = [careers1, careers2, careers3];
@@ -410,6 +412,8 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
   return (
     <main id="main-content" className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px] px-4 sm:px-6 md:px-8 xl:px-[70px]">
+      <PreloadImage href={PRELOAD_REASON_IMAGE} />
+      <PreloadImage href={PRELOAD_TEAM_IMAGE} />
       <div className="max-w-[1681px] mx-auto">
         {/* Hero Section with CSS Dotted Background */}
         <div className="relative min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[550px] xl:min-h-[600px] mb-[40px] sm:mb-[60px] xl:mb-[80px] hero-dotted-bg">
@@ -428,8 +432,11 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                 <div className="bg-white p-2 pb-6 rounded-md shadow-lg" style={{ width: '100px' }}>
                   <div className="w-full aspect-square overflow-hidden rounded-sm bg-gray-200">
                     <img
-                      src={member.img}
+                      src={cloudinaryUrl(member.img, { w: 200, h: 200, c: "fill" })}
                       alt={member.name}
+                      width={100}
+                      height={100}
+                      {...(idx === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         // Fallback to placeholder
@@ -448,7 +455,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           {/* Centered Content Overlay */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 sm:px-12 md:px-20 lg:px-32 z-20">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
-              Ignite your <span className="text-[#005c89]">Career with Us</span>
+              Ignite your <span className="text-[#005c89]">career with us</span>
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl text-[#5a5a5a] leading-relaxed max-w-[700px]">
               Join a team of product champions powering innovation at global scale.
@@ -461,7 +468,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
         {/* Reason to Choose Us */}
         <div className="mb-[40px] sm:mb-[60px] lg:mb-[80px]">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-6 sm:mb-8 lg:mb-10">
-            Reason to Choose Us
+            Reason to choose us
           </h2>
 
           {/* Desktop: Horizontal carousel with dot indicators */}
@@ -474,7 +481,15 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                   style={{ opacity: 0 }}
                 >
                   <div className="w-[450px] h-[347px] rounded-lg overflow-hidden shrink-0">
-                    <img src={reason.image} alt="Team collaboration" className="w-full h-full object-cover" />
+                    <img
+                      src={reason.image}
+                      alt="Team collaboration"
+                      width={450}
+                      height={347}
+                      fetchPriority={index === 0 ? "high" : undefined}
+                      loading={index === 0 ? "eager" : undefined}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-[40px] text-black font-semibold leading-[60px] mb-[10px]">
@@ -536,7 +551,14 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                 className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm"
               >
                 <div className="w-full sm:w-[200px] md:w-[300px] h-[200px] sm:h-[250px] md:h-[300px] rounded-lg overflow-hidden shrink-0">
-                  <img src={reason.image} alt={reason.title} className="w-full h-full object-cover" />
+                  <img
+                    src={reason.image}
+                    alt={reason.title}
+                    width={300}
+                    height={300}
+                    {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-[24px] sm:text-[28px] md:text-[32px] text-black font-semibold leading-[1.2] mb-2 sm:mb-3">
@@ -633,7 +655,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               >
                 <div className="relative overflow-hidden rounded-[12px] sm:rounded-[16px] shadow-md">
                   <img
-                    src={image.src}
+                    src={cloudinaryUrl(image.path, { w: 800, h: 600, c: "fill" })}
                     alt={image.alt}
                     className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                   />
@@ -679,7 +701,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={galleryImages[lightboxIndex].src.replace(/w=\d+&h=\d+/, 'w=1400&h=900')}
+                src={cloudinaryUrl(galleryImages[lightboxIndex].path, { w: 1600, h: 1200, c: "fit" })}
                 alt={galleryImages[lightboxIndex].alt}
                 className="max-w-full max-h-[85vh] object-contain rounded-lg"
               />
@@ -706,7 +728,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
         {/* Recent Job Openings */}
         <div id="recent-job-openings">
           <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-6 sm:mb-8 lg:mb-10">
-            <span className="font-normal">Recent</span> Job Openings
+            <span className="font-normal">Recent</span> job openings
           </h2>
 
           {jobOpenings.length > 0 ? (

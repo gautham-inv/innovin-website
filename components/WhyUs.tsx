@@ -364,7 +364,7 @@ export default function WhyUs() {
           {/* Service Cards */}
           <div className="max-w-[1681px] w-full grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 pb-8 sm:pb-12 lg:pb-20">
             <ServiceCard
-              title="Product Strategy"
+              title="Product strategy"
               subtitle="Craft clarity before code."
               description="We help you map the journey from understanding your users to defining features that matter. Strategy isn't a phase; it's the foundation."
               className={isDesktop ? "relative md:rotate-[-5deg]" : "relative"}
@@ -373,7 +373,7 @@ export default function WhyUs() {
               delay={500}
             />
             <ServiceCard
-              title="Design & Experience"
+              title="Design & experience"
               subtitle="Interfaces that feel as good as they look."
               description="We blend form and function to design experiences that are intuitive, beautiful, and built for engagement."
               className="relative"

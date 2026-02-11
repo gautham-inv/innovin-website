@@ -63,26 +63,26 @@ export default function Hero() {
           {/* Mobile and Tablet */}
           <span className="block xl:hidden">
             <span className="block text-[32px] sm:text-[48px] md:text-[64px] leading-[1.1] tracking-[-0.02em]">
-              <span className="font-normal">Rapidly Transforming</span>{" "}
-              <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">Ideas</span>{" "}
+              <span className="font-normal">Rapidly transforming</span>{" "}
+              <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">ideas</span>{" "}
               <span className="font-normal">into</span>
             </span>
             <span className="block text-[32px] sm:text-[48px] md:text-[64px] leading-[1.1] tracking-[-0.02em] mt-2">
-              <span className="font-normal">Robust</span>{" "}
-              <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">Digital Solutions</span>
+              <span className="font-normal">robust</span>{" "}
+              <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">digital solutions</span>
             </span>
           </span>
 
           {/* Desktop - Centered */}
           <span className="hidden xl:block">
             <span className="block text-[80px] xl:text-[105px] leading-[1.1] tracking-[-0.02em]">
-              <span className="font-normal">Rapidly Transforming</span>{" "}
-              <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">Ideas</span>{" "}
+              <span className="font-normal">Rapidly transforming</span>{" "}
+              <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">ideas</span>{" "}
               <span className="font-normal">into</span>
             </span>
             <span className="block text-[80px] xl:text-[105px] leading-[1.1] tracking-[-0.02em] mt-2">
-              <span className="font-normal">Robust</span>{" "}
-              <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">Digital Solutions</span>
+              <span className="font-normal">robust</span>{" "}
+              <span className="font-bold bg-gradient-to-r from-[#005c89] to-[#0095ff] bg-clip-text text-transparent">digital solutions</span>
             </span>
           </span>
         </h1>

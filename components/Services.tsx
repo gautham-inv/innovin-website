@@ -1,11 +1,13 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { CLOUDINARY_TRANSFORM_BASE } from "@/lib/cloudinary";
+import { cloudinaryUrl } from "@/lib/cloudinary";
+import { PreloadImage } from "./PreloadImage";
 
-const img1 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654379/20260209_160659.jpg_cbpvzb.jpg`;
-const img2 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654378/20260209_160612.jpg_gc3qk1.jpg`;
-const img3 = `${CLOUDINARY_TRANSFORM_BASE}/v1770654373/20260209_160751.jpg_ceunj0.jpg`;
+// Card container up to 1100×700 — resize at fetch
+const img1 = cloudinaryUrl("v1770654379/20260209_160659.jpg_cbpvzb.jpg", { w: 1100, h: 700, c: "fill" });
+const img2 = cloudinaryUrl("v1770654378/20260209_160612.jpg_gc3qk1.jpg", { w: 1100, h: 700, c: "fill" });
+const img3 = cloudinaryUrl("v1770654373/20260209_160751.jpg_ceunj0.jpg", { w: 1100, h: 700, c: "fill" });
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -172,107 +174,43 @@ export default function Services() {
               force3D: true
             }, 0.8);
 
-            // Extended scroll distance with hold time after last card
-            const scrollDistance = window.innerHeight * 2.8; // Increased from 2.5 to 3.5
+            // 6 scroll notches total (~100px each = 600px)
+            const scrollDistance = 600;
 
             const pinnedTl = gsap.timeline({
               scrollTrigger: {
                 trigger: section,
                 start: "top top",
                 end: `+=${scrollDistance}`,
-                scrub: 1,
+                scrub: true,
                 pin: true,
                 pinSpacing: true,
-                anticipatePin: 1,
                 invalidateOnRefresh: true,
                 refreshPriority: -1,
               },
             });
 
-            // Transition 1: Card 1 to Card 2 - FASTER
-            pinnedTl.to(cards[0], {
-              scale: 0.85,
-              duration: 0.5, // Reduced from 0.8
-              ease: "power2.inOut", // Changed to power2 for snappier feel
-              force3D: true
-            }, 0);
-            pinnedTl.to(cardImages[0], {
-              opacity: 0.4,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0);
-            pinnedTl.to(cardOverlays[0], {
-              opacity: 0.8,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0);
+            // Transition 1: Card 1 shrinks + Card 2 slides up (0 → 0.4)
+            pinnedTl.to(cards[0], { scale: 0.85, duration: 0.4, ease: "none", force3D: true }, 0);
+            pinnedTl.to(cardImages[0], { opacity: 0.4, duration: 0.4, ease: "none", force3D: true }, 0);
+            pinnedTl.to(cardOverlays[0], { opacity: 0.8, duration: 0.4, ease: "none", force3D: true }, 0);
+            pinnedTl.to(cards[1], { y: "-50%", scale: 1, duration: 0.4, ease: "none", force3D: true }, 0);
+            pinnedTl.to(cardImages[1], { opacity: 1, duration: 0.4, ease: "none", force3D: true }, 0);
+            pinnedTl.to(cardOverlays[1], { opacity: 0.4, duration: 0.4, ease: "none", force3D: true }, 0);
 
-            pinnedTl.to(cards[1], {
-              y: "-50%",
-              scale: 1,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0);
-            pinnedTl.to(cardImages[1], {
-              opacity: 1,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0);
-            pinnedTl.to(cardOverlays[1], {
-              opacity: 0.4,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0);
+            // Tiny gap (0.4 → 0.5)
+            pinnedTl.to({}, { duration: 0.1 }, 0.4);
 
-            pinnedTl.to({}, { duration: 0.3 }, 0.5); // Reduced pause from 0.4
+            // Transition 2: Card 2 shrinks + Card 3 slides up (0.5 → 0.9)
+            pinnedTl.to(cards[1], { scale: 0.85, duration: 0.4, ease: "none", force3D: true }, 0.5);
+            pinnedTl.to(cardImages[1], { opacity: 0.4, duration: 0.4, ease: "none", force3D: true }, 0.5);
+            pinnedTl.to(cardOverlays[1], { opacity: 0.8, duration: 0.4, ease: "none", force3D: true }, 0.5);
+            pinnedTl.to(cards[2], { y: "-50%", scale: 1, duration: 0.4, ease: "none", force3D: true }, 0.5);
+            pinnedTl.to(cardImages[2], { opacity: 1, duration: 0.4, ease: "none", force3D: true }, 0.5);
+            pinnedTl.to(cardOverlays[2], { opacity: 0.4, duration: 0.4, ease: "none", force3D: true }, 0.5);
 
-            // Transition 2: Card 2 to Card 3 - FASTER
-            pinnedTl.to(cards[1], {
-              scale: 0.85,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0.8);
-            pinnedTl.to(cardImages[1], {
-              opacity: 0.4,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0.8);
-            pinnedTl.to(cardOverlays[1], {
-              opacity: 0.8,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0.8);
-
-            pinnedTl.to(cards[2], {
-              y: "-50%",
-              scale: 1,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0.8);
-            pinnedTl.to(cardImages[2], {
-              opacity: 1,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0.8);
-            pinnedTl.to(cardOverlays[2], {
-              opacity: 0.4,
-              duration: 0.5,
-              ease: "power2.inOut",
-              force3D: true
-            }, 0.8);
-
-            // Add hold time after last card (card stays fully visible)
-            pinnedTl.to({}, { duration: 0.5 }, 1.0); // Extended hold time at the end
+            // Brief hold so last card stays before unpin (0.9 → 1.0)
+            pinnedTl.to({}, { duration: 0.1 }, 0.9);
 
           } else {
             // Mobile animations
@@ -393,6 +331,7 @@ export default function Services() {
 
   return (
     <>
+      <PreloadImage href={img1} />
       {/* Desktop Version */}
       <section ref={sectionRef} id="services" className="hidden xl:block bg-black relative h-screen overflow-hidden" style={{ willChange: 'transform' }}>
         {/* Titles */}
@@ -441,6 +380,9 @@ export default function Services() {
                   ref={(el) => { cardImagesRef.current[index] = el; }}
                   src={service.image}
                   alt={service.title}
+                  width={1100}
+                  height={700}
+                  {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
                   className="w-full h-full object-cover"
                   style={{ willChange: 'opacity' }}
                 />
@@ -514,6 +456,9 @@ export default function Services() {
                 <div className="absolute inset-0">
                   <img
                     src={service.image}
+                    width={1100}
+                    height={700}
+                    {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
                     alt={service.title}
                     className="w-full h-full object-cover opacity-100"
                   />

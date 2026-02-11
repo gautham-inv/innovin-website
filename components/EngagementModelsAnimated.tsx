@@ -204,7 +204,7 @@ export default function EngagementModelsAnimated() {
             {/* Center Box - Always visible - Moved up */}
             <div className="absolute left-1/2 top-[280px] -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black rounded-[20px] p-[40px] z-10">
                 <p className="text-[36px] text-[#005c89] font-semibold leading-[1.4] whitespace-nowrap">
-                    Our Engagement Models
+                    Our engagement models
                 </p>
             </div>
 

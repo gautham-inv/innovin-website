@@ -186,14 +186,14 @@ export default function Navigation() {
                 href="/blog"
                 className={linkClasses("", false, false, pathname === "/blog")}
               >
-                Knowledge Hub
+                Knowledge hub
               </Link>
 
               <Link
                 href="/careers"
                 className={linkClasses("", false, true, pathname === "/careers")}
               >
-                Career
+                Careers
               </Link>
             </div>
 
@@ -265,7 +265,7 @@ export default function Navigation() {
               className={mobileLinkClasses(pathname === "/blog")}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Knowledge Hub
+              Knowledge hub
             </Link>
 
             <Link
@@ -273,7 +273,7 @@ export default function Navigation() {
               className={mobileLinkClasses(pathname === "/careers")}
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Career
+              Careers
             </Link>
 
             <div className="pt-4 px-6">

@@ -2,15 +2,16 @@
 
 import { useContactModal } from "./ContactModal";
 import { AnimatedButton } from "./AnimatedButton";
-import { CLOUDINARY_TRANSFORM_BASE } from "@/lib/cloudinary";
+import { cloudinaryUrl } from "@/lib/cloudinary";
+import { PreloadImage } from "./PreloadImage";
 
 const imgLogoDark = "/images/logo.png";
 const imgEllipse2 = "/images/blue_gradient.svg";
-// Using a placeholder image - replace with actual service images
-const imgProductDev = `${CLOUDINARY_TRANSFORM_BASE}/v1770657009/smart_product_dev_d6xfgr.png`;
-const imgDesign = `${CLOUDINARY_TRANSFORM_BASE}/v1770657008/startup-metaphor-flat-icon_1262-18784_isvbsr.avif`;
-const imgConsulting = `${CLOUDINARY_TRANSFORM_BASE}/v1770657009/consultingServices_y44b4q.png`;
-const imgAIConsulting = `${CLOUDINARY_TRANSFORM_BASE}/v1770657007/ai_y5o6pt.avif`;
+// Service images: container up to 550×400 — request 1100×800 at fetch (2x)
+const imgProductDev = cloudinaryUrl("v1770657009/smart_product_dev_d6xfgr.png", { w: 1100, h: 800, c: "fill" });
+const imgDesign = cloudinaryUrl("v1770657008/startup-metaphor-flat-icon_1262-18784_isvbsr.avif", { w: 1100, h: 800, c: "fill" });
+const imgConsulting = cloudinaryUrl("v1770657009/consultingServices_y44b4q.png", { w: 1100, h: 800, c: "fill" });
+const imgAIConsulting = cloudinaryUrl("v1770657007/ai_y5o6pt.avif", { w: 1100, h: 800, c: "fill" });
 
 export default function ServicesPage() {
   const { openModal } = useContactModal();
@@ -61,6 +62,7 @@ export default function ServicesPage() {
 
   return (
     <main id="main-content" className="bg-white flex flex-col items-start px-0 py-5 sm:py-6 lg:py-[20px] relative min-h-screen w-full pt-24 sm:pt-28 lg:pt-32">
+      <PreloadImage href={imgProductDev} />
       {/* Hero Section */}
       <div className="w-full px-4 sm:px-6 md:px-8 xl:px-[70px] py-5 sm:py-6 lg:py-[20px]">
         <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[80px] items-start relative w-full max-w-[1681px] mx-auto">
@@ -72,7 +74,7 @@ export default function ServicesPage() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[150%] bg-[#66c2e2]/15 blur-[60px] rounded-full -z-10 pointer-events-none mix-blend-multiply" />
 
                 <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6 w-full text-center">
-                  Our Services
+                  Our services
                 </h1>
               </div>
             </div>
@@ -112,8 +114,11 @@ export default function ServicesPage() {
                 <div className="h-[250px] sm:h-[300px] md:h-[350px] xl:h-[400px] relative shrink-0 w-full sm:w-full md:w-[500px] xl:w-[550px] rounded-2xl overflow-hidden order-1 xl:order-none shadow-lg">
                   <img
                     alt={service.title}
-                    className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
                     src={service.image}
+                    width={550}
+                    height={400}
+                    {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
+                    className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
                   />
                 </div>
               </div>

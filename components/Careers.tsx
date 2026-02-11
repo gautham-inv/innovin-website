@@ -61,13 +61,13 @@ export default function Careers() {
           {/* Header Section */}
           <div className="flex items-start xl:items-center justify-between gap-6 mb-[40px]">
             <h2 className="text-[36px] xl:text-[48px] text-black font-bold leading-tight xl:leading-[85.4px] tracking-[1.44px] max-w-[1183px]">
-              The Next Big Move Is Yours
+              The next big move is yours
             </h2>
             <button
               onClick={() => router.push("/careers")}
               className="bg-gradient-to-r cursor-pointer from-[#005c89] to-[#00a3cc] text-white px-8 py-3 rounded-full font-semibold hover:opacity-90 transition z-20 whitespace-nowrap"
             >
-              Explore Roles
+              Explore roles
             </button>
           </div>
 
@@ -183,7 +183,7 @@ export default function Careers() {
         {/* Header Section */}
         <div className="mb-12 md:mb-16 text-center space-y-6 md:space-y-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl text-black font-bold leading-tight">
-            The Next Big Move Is Yours
+            The next big move is yours
           </h2>
 
           <p className="text-base md:text-lg lg:text-xl text-[#005c89] leading-relaxed max-w-4xl mx-auto">
@@ -283,7 +283,7 @@ export default function Careers() {
               ${showButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
             `}
           >
-            Explore Roles
+            Explore roles
           </button>
         </div>
       </div>
