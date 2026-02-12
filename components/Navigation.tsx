@@ -111,8 +111,8 @@ export default function Navigation() {
     const isActive = isPageActive || isHashActive;
 
     return `
-      flex items-center justify-center h-full px-[16.95px] 
-      text-[16px] font-sans leading-[27.964px]
+      flex items-center justify-center px-4 py-2
+      text-[16px] font-sans leading-normal
       transition whitespace-pre
       ${isActive ? "nav-active" : "text-black"}
       hover:font-semibold focus:outline-none focus:font-semibold
@@ -146,7 +146,7 @@ export default function Navigation() {
         <div className="py-1">
           <div className="relative max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] flex items-center justify-between h-[60px] md:h-[68px]">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/" className="flex items-center shrink-0 gap-2" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="h-[40px] md:h-[46px] relative">
                 <img
                   src={imgLogoDark}
@@ -195,7 +195,7 @@ export default function Navigation() {
             </div>
 
             {/* Desktop CTA Button */}
-            <div className="hidden xl:block">
+            <div className="hidden xl:flex xl:items-center shrink-0">
               <AnimatedButton onClick={openModal} className="scale-110">
                 Get in touch
               </AnimatedButton>
