@@ -5,13 +5,28 @@ const goodlifeLogo = "/images/goodlife.png";
 const safelifeLogo = "/images/safelife.png";
 const retalystLogo = "/images/retalyst.webp";
 
-export const testimonials = [
+export interface Testimonial {
+  quote: string;
+  author: string;
+  role?: string;
+  company?: string;
+  logo: string;
+  link: string;
+  video?: string;
+  description?: string;
+}
+
+export const testimonials: Testimonial[] = [
   {
     quote:
       "Innovin Labs has been a committed and expert partner in delivering Zirkly. They managed the end-to-end delivery seamlessly, resulting in a significantly shorter time to launch our app. Their professionalism and technical expertise made the entire process smooth and efficient.",
     author: "Zirkly",
     logo: zirklyLogo,
     link: "https://www.zirkly.com/",
+    video:
+      "https://res.cloudinary.com/dejb29i0k/video/upload/v1770884539/zirkly_finalll_nv8r49.webm",
+    description:
+      "Zirkly is a fast, safe local marketplace that lets you buy and sell nearby with real people in just a few taps.",
   },
   {
     quote:
@@ -19,6 +34,8 @@ export const testimonials = [
     author: "Retalyst",
     logo: retalystLogo,
     link: "https://www.retalyst.com/",
+    description:
+      "Data-driven retail analytics platform for smarter business decisions.",
   },
   {
     quote:
@@ -26,17 +43,29 @@ export const testimonials = [
     author: "Goodlife",
     logo: goodlifeLogo,
     link: "https://heygoodlife.com/",
+    description:
+      "Lifestyle and wellness platform helping people live their best life.",
   },
   {
-    quote: "As an entrepreneur, I needed my website delivered efficiently. Innovin Labs not only met deadlines with high quality but also shared our company values. The team was responsive, communicative, and professional. I highly recommend them.",
-    author: "Ramon Portilla, Founder",
+    quote:
+      "As an entrepreneur, I needed my website delivered efficiently. Innovin Labs not only met deadlines with high quality but also shared our company values. The team was responsive, communicative, and professional. I highly recommend them.",
+    author: "Ramon Portilla",
+    role: "Founder",
+    company: "HumanX Insights",
     logo: humanxLogo,
     link: "https://humanxinsights.com/",
+    description:
+      "Human-centered insights and consulting for organizational transformation.",
   },
   {
-    quote: "Innovin delivers results. Within 60 days, they delivered a prototype to spec. In 90 days, we launched a unique product to beta testers. Innovin's speed and efficiency are unmatched, setting us on the path toward my dream. Love this team!",
-    author: "Mike Ebener, Founder, CEO",
+    quote:
+      "Innovin delivers results. Within 60 days, they delivered a prototype to spec. In 90 days, we launched a unique product to beta testers. Innovin's speed and efficiency are unmatched, setting us on the path toward my dream. Love this team!",
+    author: "Mike Ebener",
+    role: "Founder, CEO",
+    company: "AskSafely",
     logo: safelifeLogo,
     link: "https://www.asksafely.ai/",
-  }
+    description:
+      "AI-powered safety and compliance platform for proactive risk management.",
+  },
 ];

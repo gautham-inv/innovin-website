@@ -21,7 +21,10 @@ export const metadata: Metadata = {
   title: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
   description: "We help startups and small businesses build bold, scalable tech fast.",
   icons: {
-    icon: "/images/favicon.png",
+    icon: [
+      { url: "/images/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/favicon.png", sizes: "16x16", type: "image/png" },
+    ],
   },
 };
 

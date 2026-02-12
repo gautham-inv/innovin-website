@@ -157,7 +157,7 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop Nav links */}
-            <div className="hidden xl:flex xl:items-center absolute left-1/2 top-0 bottom-0 -translate-x-1/2 h-full">
+            <div className="hidden xl:flex xl:items-center absolute left-1/2 top-0 bottom-0 -translate-x-1/2">
               <Link
                 href="/services"
                 className={linkClasses("", true, false, pathname === "/services")}
