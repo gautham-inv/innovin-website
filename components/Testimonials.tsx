@@ -180,6 +180,15 @@ function TestimonialModal({
                   </button>
                 </div>
               </div>
+            ) : t.image ? (
+              <div className="relative h-[260px] sm:h-[400px] bg-neutral-900 border-b border-neutral-200">
+                <img
+                  src={t.image}
+                  alt={getCompanyName(t)}
+                  className="w-full h-full object-cover opacity-95"
+                  draggable={false}
+                />
+              </div>
             ) : (
               <div className="flex items-center justify-center h-[260px] bg-gradient-to-br from-neutral-50 to-neutral-100">
                 <img
@@ -266,9 +275,13 @@ function TestimonialCard({ t }: { t: Testimonial }) {
       {/* Image area — company logo on subtle bg */}
       <div className="relative flex-1 mx-5 mt-4 rounded-xl bg-neutral-50 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover/card:scale-[1.01]">
         <img
-          src={t.logo}
+          src={t.image || t.logo}
           alt={getCompanyName(t)}
-          className="w-[50%] max-h-[100px] object-contain opacity-80"
+          className={
+            t.image
+              ? "w-full h-full object-cover"
+              : "w-[50%] max-h-[100px] object-contain opacity-80"
+          }
           draggable={false}
         />
         {/* Play icon hint for video cards */}
@@ -680,8 +693,8 @@ export default function Testimonials() {
                   startAutoplay();
                 }}
                 className={`h-2 rounded-full transition-all duration-300 ${isActiveIndicator(i)
-                    ? "bg-black w-8 sm:w-10"
-                    : "bg-neutral-300 w-2"
+                  ? "bg-black w-8 sm:w-10"
+                  : "bg-neutral-300 w-2"
                   }`}
                 aria-label={`Go to slide ${i + 1}`}
               />

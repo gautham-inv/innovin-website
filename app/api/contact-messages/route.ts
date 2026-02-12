@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     // Call Edge Function to handle database operations
     // Edge Functions require Authorization header
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    
+
     if (!supabaseAnonKey) {
       console.error("Supabase anon key missing");
       return NextResponse.json(
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     const edgeFunctionUrl = `${supabaseUrl}/functions/v1/submit-contact-message`;
-    
+
     const response = await fetch(edgeFunctionUrl, {
       method: "POST",
       headers: {
@@ -56,26 +56,26 @@ export async function POST(request: NextRequest) {
       const errorText = await response.text();
       console.error("Edge Function error:", errorText);
       console.error("Edge Function status:", response.status);
-      
+
       // Handle 404 - Edge Function not deployed
       if (response.status === 404) {
         return NextResponse.json(
-          { 
+          {
             error: "Contact form service is not available. Please contact support directly.",
             details: "Edge Function not found. It may need to be deployed.",
           },
           { status: 503 }
         );
       }
-      
+
       // Try to parse error as JSON, fallback to text
       let errorMessage = "Failed to save message";
       let errorDetails: string | null = null;
-      
+
       try {
         const errorJson = JSON.parse(errorText);
         errorMessage = errorJson.error || errorMessage;
-        
+
         // Extract details - handle both string and object cases
         if (errorJson.details) {
           if (typeof errorJson.details === 'string') {
@@ -91,14 +91,14 @@ export async function POST(request: NextRequest) {
           errorDetails = `Error code: ${errorJson.code}${errorJson.hint ? ` - ${errorJson.hint}` : ''}`;
         }
       } catch (parseError) {
-        errorMessage = errorText.includes("Failed to save message") 
+        errorMessage = errorText.includes("Failed to save message")
           ? "Failed to save message. Please check server logs."
           : errorText || errorMessage;
         errorDetails = errorText;
       }
-      
+
       return NextResponse.json(
-        { 
+        {
           error: errorMessage,
           details: errorDetails,
         },
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
     if (slackWebhookUrl && data?.data?.id) {
       const adminBaseUrl = process.env.ADMIN_DASHBOARD_URL || "http://localhost:3001";
       const messageUrl = `${adminBaseUrl}/messages/${data.data.id}`;
-      
+
       await notifySlack(
         slackWebhookUrl,
         `New contact message: ${name} — Contact\n<${messageUrl}|View in Admin Dashboard>`

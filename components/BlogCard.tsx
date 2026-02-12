@@ -91,13 +91,8 @@ export default function BlogCard({
       {/* Content */}
       <div className="flex flex-col items-start relative shrink-0 w-full flex-1">
         <div className="flex flex-col gap-[5px] items-start relative shrink-0 text-black w-full">
-          <p
-            className="font-['Manrope',sans-serif] font-medium leading-[38.709px] min-w-full relative shrink-0 text-[16px] tracking-[-0.24px] w-[min-content] transition-colors"
-          >
-            {title.split(":")[0]}{title.includes(":") ? ":" : ""}
-          </p>
-          <p className="font-['Manrope',sans-serif] font-semibold leading-[30.7px] relative shrink-0 text-[24px] tracking-[-0.36px] w-full group-hover:underline underline-offset-4 transition-colors">
-            {title.includes(":") ? title.split(":")[1].trim() : title}
+          <p className="font-['Manrope',sans-serif] font-semibold leading-[30.7px] relative shrink-0 text-[24px] tracking-[-0.36px] w-full transition-colors">
+            {title}
           </p>
         </div>
       </div>

@@ -14,6 +14,7 @@ export interface Testimonial {
   link: string;
   video?: string;
   description?: string;
+  image?: string;
 }
 
 export const testimonials: Testimonial[] = [
@@ -45,6 +46,8 @@ export const testimonials: Testimonial[] = [
     link: "https://heygoodlife.com/",
     description:
       "Lifestyle and wellness platform helping people live their best life.",
+    video:
+      "https://res.cloudinary.com/dejb29i0k/video/upload/v1770912992/goodlife_b2difv.webm",
   },
   {
     quote:
@@ -56,6 +59,8 @@ export const testimonials: Testimonial[] = [
     link: "https://humanxinsights.com/",
     description:
       "Human-centered insights and consulting for organizational transformation.",
+    image:
+      "https://res.cloudinary.com/dejb29i0k/image/upload/v1770912993/Screenshot_2026-02-12_at_9.19.27_PM_xiqoqa.png",
   },
   {
     quote:

@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import JobCard from "./JobCard";
@@ -32,6 +33,54 @@ const careers3 = "/images/careers3.webp"
 const PRELOAD_REASON_IMAGE = img1;
 const PRELOAD_TEAM_IMAGE = cloudinaryUrl(`${TEAM_IMAGE_BASE}/akshay_ydanyj.png`, { w: 200, h: 200, c: "fill" });
 
+
+
+interface GalleryImage {
+  path: string;
+  alt: string;
+  rotate: number;
+}
+
+const DraggablePhoto = ({ image, index, openLightbox }: { image: GalleryImage; index: number; openLightbox: (index: number) => void }) => {
+  const isDragging = useRef(false);
+
+  return (
+    <motion.div
+      className="break-inside-avoid mb-8 cursor-grab active:cursor-grabbing group relative"
+      style={{ rotate: image.rotate }}
+      drag
+      dragMomentum={false}
+      whileDrag={{ scale: 1.1, zIndex: 50 }}
+      onDragStart={() => {
+        isDragging.current = true;
+      }}
+      onDragEnd={() => {
+        setTimeout(() => {
+          isDragging.current = false;
+        }, 150);
+      }}
+      onClick={(e) => {
+        // If we were dragging, prevent the click
+        if (isDragging.current) {
+          e.preventDefault();
+          e.stopPropagation();
+          return;
+        }
+        openLightbox(index);
+      }}
+    >
+      <div className="relative overflow-hidden rounded-[12px] sm:rounded-[16px] shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <img
+          src={cloudinaryUrl(image.path, { w: 800 })}
+          alt={image.alt}
+          className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
+        />
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+      </div>
+    </motion.div>
+  );
+};
 
 interface Job {
   _id: string;
@@ -645,24 +694,14 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Masonry Photo Gallery */}
         <div className="mb-[50px] sm:mb-[70px] xl:mb-[100px]">
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-4">
+          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-8">
             {galleryImages.map((image, index) => (
-              <div
+              <DraggablePhoto
                 key={index}
-                className="break-inside-avoid mb-4 cursor-pointer group"
-                style={{ transform: `rotate(${image.rotate}deg)` }}
-                onClick={() => openLightbox(index)}
-              >
-                <div className="relative overflow-hidden rounded-[12px] sm:rounded-[16px] shadow-md">
-                  <img
-                    src={cloudinaryUrl(image.path, { w: 800, h: 600, c: "fill" })}
-                    alt={image.alt}
-                    className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                </div>
-              </div>
+                image={image}
+                index={index}
+                openLightbox={openLightbox}
+              />
             ))}
           </div>
         </div>
@@ -734,9 +773,8 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           {jobOpenings.length > 0 ? (
             <div className="flex flex-col gap-6 sm:gap-8 xl:gap-8">
               {/* Desktop: Grid layout — 4 cols when 4+ jobs, 3 cols otherwise */}
-              <div className={`hidden xl:grid gap-6 xl:gap-8 ${
-                jobOpenings.length >= 4 ? "grid-cols-4" : "grid-cols-3"
-              }`}>
+              <div className={`hidden xl:grid gap-6 xl:gap-8 ${jobOpenings.length >= 4 ? "grid-cols-4" : "grid-cols-3"
+                }`}>
                 {(jobOpenings.length >= 4 ? jobOpenings.slice(0, 4) : jobOpenings).map((job) => (
                   <JobCard
                     key={job.id}

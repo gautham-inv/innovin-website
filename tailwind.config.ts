@@ -24,6 +24,9 @@ const config: Config = {
         // Ensure consistent font sizes
         base: ['1rem', { lineHeight: '1.5' }],
       },
+      screens: {
+        'xxl': '1430px',
+      },
     },
   },
   plugins: [],

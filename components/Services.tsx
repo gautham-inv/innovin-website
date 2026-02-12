@@ -15,9 +15,14 @@ export default function Services() {
   const cardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const cardImagesRef = useRef<(HTMLImageElement | null)[]>([]);
   const cardOverlaysRef = useRef<(HTMLDivElement | null)[]>([]);
-  const titleOurRef = useRef<HTMLDivElement>(null);
-  const titleServicesRef = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const desktopTitleOurRef = useRef<HTMLDivElement>(null);
+  const desktopTitleServicesRef = useRef<HTMLDivElement>(null);
+  const desktopSubtitleRef = useRef<HTMLParagraphElement>(null);
+
+  const mobileTitleOurRef = useRef<HTMLDivElement>(null);
+  const mobileTitleServicesRef = useRef<HTMLDivElement>(null);
+  const mobileSubtitleRef = useRef<HTMLParagraphElement>(null);
+
   const mobileCardsRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
   const services = [
@@ -41,7 +46,7 @@ export default function Services() {
 
     let isComponentMounted = true;
 
-    const isDesktop = window.innerWidth >= 1280;
+    const isDesktop = window.innerWidth >= 1430;
     const section = isDesktop ? sectionRef.current : mobileSectionRef.current;
 
     // Safety check
@@ -70,9 +75,12 @@ export default function Services() {
         ...cardImagesRef.current.filter(Boolean),
         ...cardOverlaysRef.current.filter(Boolean),
         ...mobileCardsRef.current.filter(Boolean),
-        titleOurRef.current,
-        titleServicesRef.current,
-        subtitleRef.current,
+        desktopTitleOurRef.current,
+        desktopTitleServicesRef.current,
+        desktopSubtitleRef.current,
+        mobileTitleOurRef.current,
+        mobileTitleServicesRef.current,
+        mobileSubtitleRef.current,
       ];
       gsap.set(allElements, { clearProps: "all" });
 
@@ -82,11 +90,10 @@ export default function Services() {
             void section.offsetHeight;
           }
 
-          const ourH2 = titleOurRef.current?.querySelector("h2");
-          const servicesH2 = titleServicesRef.current?.querySelector("h2");
-          const subtitle = subtitleRef.current;
-
           if (isDesktop) {
+            const ourH2 = desktopTitleOurRef.current?.querySelector("h2");
+            const servicesH2 = desktopTitleServicesRef.current?.querySelector("h2");
+            const subtitle = desktopSubtitleRef.current;
             const cards = cardsRef.current.filter(Boolean) as HTMLAnchorElement[];
             const cardImages = cardImagesRef.current.filter(Boolean) as HTMLImageElement[];
             const cardOverlays = cardOverlaysRef.current.filter(Boolean) as HTMLDivElement[];
@@ -214,6 +221,9 @@ export default function Services() {
 
           } else {
             // Mobile animations
+            const ourH2 = mobileTitleOurRef.current?.querySelector("h2");
+            const servicesH2 = mobileTitleServicesRef.current?.querySelector("h2");
+            const subtitle = mobileSubtitleRef.current;
             const mobileCards = mobileCardsRef.current.filter(Boolean) as HTMLAnchorElement[];
 
             if (!ourH2 || !servicesH2 || !subtitle || mobileCards.length === 0) return;
@@ -236,11 +246,12 @@ export default function Services() {
               force3D: true
             });
 
+            // Animate titles earlier: trigger when top of section hits 80% or 90% of viewport
             const preloadTl = gsap.timeline({
               scrollTrigger: {
                 trigger: section,
-                start: "top bottom-=300",
-                end: "top bottom",
+                start: "top 90%", // Start much earlier
+                end: "top 60%",
                 scrub: false,
                 once: true,
                 invalidateOnRefresh: true,
@@ -251,7 +262,7 @@ export default function Services() {
               y: 0,
               opacity: 1,
               stagger: 0.05,
-              duration: 1.2,
+              duration: 0.8,
               ease: "power3.out",
               force3D: true
             }, 0);
@@ -259,17 +270,18 @@ export default function Services() {
               y: 0,
               opacity: 1,
               stagger: 0.05,
-              duration: 1.2,
+              duration: 0.8,
               ease: "power3.out",
               force3D: true
-            }, 0.2);
+            }, 0.1);
             preloadTl.to(subtitle, {
               opacity: 1,
-              duration: 0.8,
+              duration: 0.6,
               ease: "power2.out",
               force3D: true
-            }, 0.8);
+            }, 0.4);
 
+            // Cards follow after
             mobileCards.forEach((card, index) => {
               gsap.to(card, {
                 opacity: 1,
@@ -278,11 +290,11 @@ export default function Services() {
                 ease: "power2.out",
                 scrollTrigger: {
                   trigger: card,
-                  start: "top bottom-=100",
-                  end: "top center",
+                  start: "top 95%", // Start cards earlier too
+                  end: "top 70%",
                   once: true,
                 },
-                delay: index * 0.2,
+                delay: 0.2 + (index * 0.1), // Reduced delay
               });
             });
           }
@@ -333,27 +345,27 @@ export default function Services() {
     <>
       <PreloadImage href={img1} />
       {/* Desktop Version */}
-      <section ref={sectionRef} id="services" className="hidden xl:block bg-black relative h-screen overflow-hidden" style={{ willChange: 'transform' }}>
+      <section ref={sectionRef} id="services" className="hidden xxl:block bg-black relative h-screen overflow-hidden" style={{ willChange: 'transform' }}>
         {/* Titles */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 xl:pl-20 space-y-1">
-          <div ref={titleOurRef} className="overflow-hidden">
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 2xl:pl-20 space-y-1">
+          <div ref={desktopTitleOurRef} className="overflow-hidden">
             <h2
-              className="text-[56px] xl:text-[72px] text-white font-medium leading-[62px] xl:leading-[80px] tracking-[-1.2px] inline-block"
+              className="text-[56px] xxl:text-[72px] text-white font-medium leading-[62px] xxl:leading-[80px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               our
             </h2>
           </div>
-          <div ref={titleServicesRef} className="overflow-hidden">
+          <div ref={desktopTitleServicesRef} className="overflow-hidden">
             <h2
-              className="text-[56px] xl:text-[72px] text-white font-medium leading-[62px] xl:leading-[80px] tracking-[-1.2px] inline-block"
+              className="text-[56px] xxl:text-[72px] text-white font-medium leading-[62px] xxl:leading-[80px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               services
             </h2>
           </div>
           <p
-            ref={subtitleRef}
+            ref={desktopSubtitleRef}
             className="text-[21px] text-neutral-500 leading-[30px] tracking-[0.325px] w-[272px] mt-3"
             style={{ willChange: 'opacity' }}
           >
@@ -362,7 +374,7 @@ export default function Services() {
         </div>
 
         {/* Cards */}
-        <div className="absolute left-[62%] xl:left-[60%] top-1/2 -translate-x-1/2 w-[900px] xl:w-[1100px] h-[620px] xl:h-[700px]">
+        <div className="absolute left-[62%] xxl:left-[60%] top-1/2 -translate-x-1/2 w-[900px] xxl:w-[1100px] h-[620px] xxl:h-[700px]">
           {services.map((service, index) => (
             <a
               key={index}
@@ -411,11 +423,11 @@ export default function Services() {
       </section>
 
       {/* Mobile/Tablet Version */}
-      <section ref={mobileSectionRef} id="services-mobile" className="xl:hidden bg-black relative py-16 sm:py-20 md:py-24 px-6 sm:px-8 md:px-10">
+      <section ref={mobileSectionRef} id="services-mobile" className="xxl:hidden bg-black relative py-16 sm:py-20 md:py-24 px-6 sm:px-8 md:px-10">
         <div className="max-w-[800px] mx-auto">
           {/* Titles */}
           <div className="mb-12 sm:mb-16 md:mb-20">
-            <div ref={titleOurRef} className="overflow-hidden">
+            <div ref={mobileTitleOurRef} className="overflow-hidden">
               <h2
                 className="text-[48px] sm:text-[56px] md:text-[64px] text-white font-medium leading-[1.1] tracking-[-0.02em] inline-block"
                 style={{ willChange: 'transform, opacity' }}
@@ -423,7 +435,7 @@ export default function Services() {
                 our
               </h2>
             </div>
-            <div ref={titleServicesRef} className="overflow-hidden">
+            <div ref={mobileTitleServicesRef} className="overflow-hidden">
               <h2
                 className="text-[48px] sm:text-[56px] md:text-[64px] text-white font-medium leading-[1.1] tracking-[-0.02em] inline-block"
                 style={{ willChange: 'transform, opacity' }}
@@ -432,7 +444,7 @@ export default function Services() {
               </h2>
             </div>
             <p
-              ref={subtitleRef}
+              ref={mobileSubtitleRef}
               className="text-[17px] sm:text-[19px] md:text-[21px] text-neutral-500 leading-[1.5] mt-4 sm:mt-5 max-w-[400px]"
               style={{ willChange: 'opacity' }}
             >

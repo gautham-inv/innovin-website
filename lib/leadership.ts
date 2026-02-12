@@ -21,6 +21,12 @@ export const leadershipTeam = [
         linkedin: "https://www.linkedin.com/in/sujithc/"
     },
     {
+        name: "Harihara S",
+        role: "COO",
+        image: "/images/harihara.png",
+        description: "As a results-driven leader, Harihara plays a pivotal leadership role in translating vision into execution, driving operational excellence, fostering cross-functional alignment, and ensuring the organization scales with efficiency, integrity, and impact."
+    },
+    {
         name: "Sreeprabha",
         role: "Program Lead",
         image: "/images/229320ea590322c52ad0db8e7533da4cd67039f2.png",

@@ -107,7 +107,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
                 className="flex gap-0 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
-                {recentPosts.map((post) => {
+                {recentPosts.map((post, index) => {
                   const postAuthorName =
                     post.author?.firstName && post.author?.lastName
                       ? `${post.author.firstName} ${post.author.lastName}`
@@ -120,29 +120,32 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
                     })
                     : "";
 
+                  const gradients = [
+                    "bg-gradient-to-br from-[#2E3192] to-[#1BFFFF]",
+                    "bg-gradient-to-br from-[#D4145A] to-[#FBB03B]",
+                    "bg-gradient-to-br from-[#662D8C] to-[#ED1E79]",
+                    "bg-gradient-to-br from-[#009245] to-[#FCEE21]",
+                    "bg-gradient-to-br from-[#614385] to-[#516395]"
+                  ];
+
+                  const gradientClass = gradients[index % gradients.length];
+
                   return (
                     <Link
                       key={post._id}
                       href={`/blog/${post.slug}`}
                       className="relative flex-shrink-0 w-full snap-start rounded-[20px] overflow-hidden p-4 sm:p-6 lg:p-[30px] min-h-[280px] sm:min-h-[320px] lg:min-h-[360px] group"
                     >
-                      {/* Background Image */}
-                      <div className="absolute inset-0 pointer-events-none rounded-[20px]">
-                        <div className="absolute bg-[#1a1a1a] inset-0 rounded-[20px]" />
-                        {post.coverImage && (
-                          <Image
-                            src={urlFor(post.coverImage)?.width(1681).height(262).url() || ''}
-                            alt={post.title}
-                            fill
-                            className="object-cover opacity-20 rounded-[20px] group-hover:opacity-25 transition-opacity"
-                          />
-                        )}
-                      </div>
+                      {/* Gradient Background */}
+                      <div className={`absolute inset-0 pointer-events-none rounded-[20px] ${gradientClass} opacity-90 transition-opacity group-hover:opacity-100`} />
+
+                      {/* Subtle Overlay for Text Readability */}
+                      <div className="absolute inset-0 pointer-events-none rounded-[20px] bg-black/10" />
 
                       {/* Content */}
                       <div className="relative h-full flex flex-col items-start justify-center text-white z-10">
                         <div className="flex flex-col gap-3 sm:gap-4 lg:gap-[20px] items-start relative shrink-0 w-full">
-                          <p className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.3] lg:leading-[50.6px] relative shrink-0 text-[24px] sm:text-[28px] md:text-[36px] lg:text-[60px] tracking-[-0.02em] lg:tracking-[-0.9px] w-full line-clamp-2">
+                          <p className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.3] lg:leading-[1.1] relative shrink-0 text-[24px] sm:text-[28px] md:text-[36px] lg:text-[60px] tracking-[-0.02em] lg:tracking-[-0.9px] w-full line-clamp-2">
                             {post.title.split(":")[0]}{post.title.includes(":") ? ":" : ""}
                           </p>
                           {post.title.includes(":") && (

@@ -173,8 +173,31 @@ export default function WhyUs() {
           const titleScale = 0.23;
           const titleYPosition = -vh * 0.25;
 
-          // Create main timeline
-          const tl = gsap.timeline({
+          // Create wiping timeline (runs before pinning)
+          const wipeTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top 50%", // Starts when section top is at 50% viewport
+              end: "top top",   // Ends when section hits top
+              scrub: 1,
+              markers: false
+            }
+          });
+
+          // Phase 1: Letter color fade (Attached to wipeTl)
+          letterRefs.current.forEach((letterEl, index) => {
+            if (!letterEl) return;
+
+            wipeTl.to(letterEl, {
+              color: "#232323",
+              duration: 1 / letters.length,
+              ease: "none",
+              force3D: true
+            }, index * (1 / letters.length));
+          });
+
+          // Create main timeline (pinning and rest of animation)
+          const pinTl = gsap.timeline({
             scrollTrigger: {
               trigger: section,
               start: "top top",
@@ -194,36 +217,26 @@ export default function WhyUs() {
             } as any
           });
 
-          // Phase 1: Letter color fade
-          letterRefs.current.forEach((letterEl, index) => {
-            if (!letterEl) return;
-
-            tl.to(letterEl, {
-              color: "#232323",
-              duration: 0.15 / letters.length,
-              ease: "none",
-              force3D: true
-            }, index * (0.15 / letters.length));
-          });
-
           // Phase 2: Scale and position title
-          tl.to(title, {
+          // Starts immediately upon pinning (0)
+          pinTl.to(title, {
             scale: titleScale,
             y: titleYPosition,
             duration: 0.25,
             ease: "power2.inOut",
             force3D: true,
             transformOrigin: "center center"
-          }, 0.15);
+          }, 0);
 
           // Phase 3: Fade in content
-          tl.to(content, {
+          // Starts slightly after scaling begins
+          pinTl.to(content, {
             opacity: 1,
             y: 0,
             duration: 0.3,
             ease: "power2.out",
             force3D: true
-          }, 0.3);
+          }, 0.15);
 
           // Force immediate update to reflect current scroll position
           // This is critical to prevent blank screen when user has already scrolled
