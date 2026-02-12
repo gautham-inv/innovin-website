@@ -77,12 +77,12 @@ export default function BlogCard({
         {/* Category Chip */}
         {primaryCategory && (
           <div
-            className="absolute flex items-center left-[18px] px-3 py-1.5 rounded-full top-[18px] z-10 font-['Manrope',sans-serif] font-bold text-[12px] shadow-sm border bg-white"
-            style={{
-              borderColor: categoryColor,
-              color: categoryColor
-            }}
+            className="absolute flex items-center gap-2 left-[18px] px-3 py-1.5 rounded-full top-[18px] z-10 font-['Manrope',sans-serif] font-bold text-[12px] shadow-sm border bg-white border-[#E0E0E0] text-neutral-700"
           >
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{ backgroundColor: categoryColor }}
+            />
             {primaryCategory.title}
           </div>
         )}

@@ -81,40 +81,38 @@ export default async function JobDetailPage(props: Props) {
 
   return (
     <div className="bg-white min-h-screen pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12 md:pb-16 font-sans">
-      <div className="max-w-[1542px] mx-auto px-4 sm:px-5">
-        {/* Job Title and Apply Button Section */}
-        <div className="flex flex-col gap-6 sm:gap-8 md:gap-[50px] items-start px-3 sm:px-4 md:px-5 py-8 sm:py-10 md:py-[60px]">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 w-full">
-            <div className="flex flex-col items-start justify-center w-full sm:flex-1 sm:pr-6">
-              <h1 className="font-semibold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-black w-full leading-tight tracking-tight">
-                {job.title}
-              </h1>
-            </div>
-            <Link
-              href={applyUrl}
-              className="bg-gradient-to-r from-[#66c2e2] to-[#005c89] border-[0.585px] border-[rgba(0,92,137,0.5)] rounded-[40px] px-6 sm:px-8 md:px-[35px] py-2 sm:py-2.5 md:py-[9px] h-12 sm:h-14 md:h-[56px] w-full sm:w-auto flex items-center justify-center hover:opacity-90 transition-opacity"
-            >
-              <span className="font-bold text-base sm:text-[16px] text-white whitespace-nowrap font-sans">
-                Apply Now
-              </span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="bg-[#9e9e9e] h-px w-full mb-0" />
-
-        {/* Job Description Section */}
-        <div className="flex flex-col items-start justify-center p-3 sm:p-4 md:p-5 w-full">
-          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8 items-start w-full">
-            <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
-              <div className="flex flex-col items-start w-full">
-                <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl text-black w-full font-sans leading-tight">
-                  Job Description
-                </h2>
+      <div className="w-full px-4 sm:px-6 md:px-8 xl:px-[70px]">
+        <div className="max-w-[1681px] mx-auto">
+          {/* Job Title and Apply Button Section */}
+          <div className="flex flex-col gap-6 sm:gap-8 md:gap-[50px] items-start px-3 sm:px-4 md:px-5 py-8 sm:py-10 md:py-[60px]">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 w-full">
+              <div className="flex flex-col items-start justify-center w-full sm:flex-1 sm:pr-6">
+                <h1 className="font-semibold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-black w-full leading-tight tracking-tight">
+                  {job.title}
+                </h1>
               </div>
+              <Link
+                href={applyUrl}
+                className="group relative p-[4px] rounded-[40px] transition-all duration-300 hover:scale-[1.02]"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-[#66c2e2] to-[#005c89] rounded-[40px]" />
+                <div className="relative bg-white rounded-[36px] px-6 sm:px-8 md:px-[35px] h-12 sm:h-14 md:h-[56px] flex items-center justify-center transition-colors group-hover:bg-transparent">
+                  <span className="font-bold text-base sm:text-[18px] bg-gradient-to-r from-[#66c2e2] to-[#005c89] bg-clip-text text-transparent whitespace-nowrap font-sans group-hover:text-white">
+                    Apply now
+                  </span>
+                </div>
+              </Link>
             </div>
-            <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
+          </div>
+
+          {/* Divider */}
+          <div className="bg-[#9e9e9e] h-px w-full mb-0" />
+
+          <div className="flex flex-col items-start justify-center p-3 sm:p-4 md:p-5 w-full">
+            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 items-start px-3 sm:px-4 md:px-5 w-full">
+              <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl text-black w-full font-sans leading-tight">
+                Job Description
+              </h2>
               {job.jobDescription && job.jobDescription.length > 0 && (
                 <div className="font-normal text-black w-full">
                   <PortableText className="job-description" value={job.jobDescription as PortableTextBlock[]} />
@@ -122,73 +120,63 @@ export default async function JobDetailPage(props: Props) {
               )}
             </div>
           </div>
-        </div>
 
-        {/* Roles and Responsibilities Section */}
-        <div className="flex flex-col items-start justify-center p-3 sm:p-4 md:p-5 w-full">
-          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8 items-start w-full">
-            <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
-              <div className="flex flex-col items-start w-full">
-                <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl text-black w-full mb-0 font-sans leading-tight">
-                  Roles and Responsibilities
-                </h2>
-                {job.rolesAndResponsibilities && job.rolesAndResponsibilities.length > 0 && (
-                  <div className="mt-0 w-full job-content">
-                    <PortableText className="job-content" value={job.rolesAndResponsibilities as PortableTextBlock[]} />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Qualifications Section */}
-        <div className="flex flex-col items-start justify-center p-3 sm:p-4 md:p-5 w-full">
-          <div className="flex flex-col items-start w-full">
-            <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
-              <div className="flex flex-col items-start w-full">
-                <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl text-black w-full mb-0 font-sans leading-tight">
-                  Qualifications
-                </h2>
-                {job.qualifications && job.qualifications.length > 0 && (
-                  <div className="mt-0 w-full job-content">
-                    <PortableText className="job-content" value={job.qualifications as PortableTextBlock[]} />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Benefits Section */}
-        <div className="flex flex-col gap-6 sm:gap-8 md:gap-[50px] items-start justify-center p-3 sm:p-4 md:p-5 w-full">
-          <div className="flex flex-col items-start w-full">
-            <div className="flex flex-col items-start px-3 sm:px-4 md:px-5 w-full">
-              <div className="flex flex-col items-start w-full">
-                <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl text-black w-full mb-0 font-sans leading-tight">
-                  Benefits
-                </h2>
-                {job.benefits && job.benefits.length > 0 && (
-                  <div className="mt-0 w-full job-content">
-                    <PortableText className="job-content" value={job.benefits as PortableTextBlock[]} />
-                  </div>
-                )}
-              </div>
+          <div className="flex flex-col items-start justify-center p-3 sm:p-4 md:p-5 w-full">
+            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 items-start px-3 sm:px-4 md:px-5 w-full">
+              <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl text-black w-full font-sans leading-tight">
+                Roles and Responsibilities
+              </h2>
+              {job.rolesAndResponsibilities && job.rolesAndResponsibilities.length > 0 && (
+                <div className="w-full job-content">
+                  <PortableText className="job-content" value={job.rolesAndResponsibilities as PortableTextBlock[]} />
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Divider */}
-          <div className="bg-[#9e9e9e] h-px w-full" />
+          <div className="flex flex-col items-start justify-center p-3 sm:p-4 md:p-5 w-full">
+            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 items-start px-3 sm:px-4 md:px-5 w-full">
+              <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl text-black w-full font-sans leading-tight">
+                Qualifications
+              </h2>
+              {job.qualifications && job.qualifications.length > 0 && (
+                <div className="w-full job-content">
+                  <PortableText className="job-content" value={job.qualifications as PortableTextBlock[]} />
+                </div>
+              )}
+            </div>
+          </div>
 
-          {/* Bottom Apply Button */}
-          <Link
-            href={applyUrl}
-            className="bg-gradient-to-r from-[#66c2e2] to-[#005c89] border-[0.585px] border-[rgba(0,92,137,0.5)] rounded-[40px] px-6 sm:px-8 md:px-[35px] py-2 sm:py-2.5 md:py-[9px] h-12 sm:h-14 md:h-[56px] w-full sm:w-auto flex items-center justify-center hover:opacity-90 transition-opacity"
-          >
-            <span className="font-bold text-base sm:text-[16px] text-white whitespace-nowrap font-sans">
-              Apply Now
-            </span>
-          </Link>
+          <div className="flex flex-col items-start justify-center p-3 sm:p-4 md:p-5 w-full">
+            <div className="flex flex-col gap-4 sm:gap-5 md:gap-6 items-start px-3 sm:px-4 md:px-5 w-full">
+              <h2 className="font-semibold text-xl sm:text-2xl md:text-3xl text-black w-full font-sans leading-tight">
+                Benefits
+              </h2>
+              {job.benefits && job.benefits.length > 0 && (
+                <div className="w-full job-content">
+                  <PortableText className="job-content" value={job.benefits as PortableTextBlock[]} />
+                </div>
+              )}
+            </div>
+
+            {/* Divider */}
+            <div className="bg-[#9e9e9e] h-px w-full mt-10 sm:mt-12 md:mt-16 mb-8 sm:mb-10 md:mb-12" />
+
+            {/* Bottom Apply Button */}
+            <div className="flex justify-center w-full">
+              <Link
+                href={applyUrl}
+                className="group relative p-[4px] rounded-[40px] transition-all duration-300 hover:scale-[1.02]"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-[#66c2e2] to-[#005c89] rounded-[40px]" />
+                <div className="relative bg-white rounded-[36px] px-8 sm:px-10 md:px-[45px] h-12 sm:h-14 md:h-[56px] flex items-center justify-center transition-colors group-hover:bg-transparent">
+                  <span className="font-bold text-base sm:text-[18px] bg-gradient-to-r from-[#66c2e2] to-[#005c89] bg-clip-text text-transparent whitespace-nowrap font-sans group-hover:text-white">
+                    Apply now
+                  </span>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />

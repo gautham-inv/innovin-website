@@ -3,7 +3,7 @@ const innovinLogo = "/images/logo.png";
 const humanxLogo = "/images/humanx.png";
 const goodlifeLogo = "/images/goodlife.png";
 const safelifeLogo = "/images/safelife.png";
-const retalystLogo = "/images/retalyst.webp";
+const retalystLogo = "/images/retalyst.png";
 
 export interface Testimonial {
   quote: string;
@@ -67,5 +67,7 @@ export const testimonials: Testimonial[] = [
     link: "https://www.asksafely.ai/",
     description:
       "AI-powered safety and compliance platform for proactive risk management.",
+    video:
+      "https://res.cloudinary.com/dejb29i0k/video/upload/v1770900888/safelife_final_jcobtq.webm",
   },
 ];

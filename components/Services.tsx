@@ -174,8 +174,8 @@ export default function Services() {
               force3D: true
             }, 0.8);
 
-            // 6 scroll notches total (~100px each = 600px)
-            const scrollDistance = 600;
+            // Increased scroll distance for slower animation (~2000px)
+            const scrollDistance = 2000;
 
             const pinnedTl = gsap.timeline({
               scrollTrigger: {
@@ -190,10 +190,10 @@ export default function Services() {
               },
             });
 
-            // Transition 1: Card 1 shrinks + Card 2 slides up (0 → 0.4)
-            pinnedTl.to(cards[0], { scale: 0.85, duration: 0.4, ease: "none", force3D: true }, 0);
-            pinnedTl.to(cardImages[0], { opacity: 0.4, duration: 0.4, ease: "none", force3D: true }, 0);
-            pinnedTl.to(cardOverlays[0], { opacity: 0.8, duration: 0.4, ease: "none", force3D: true }, 0);
+            // Transition 1: Card 1 shrinks & fades out + Card 2 slides up
+            pinnedTl.to(cards[0], { scale: 0.85, opacity: 0, duration: 0.4, ease: "none", force3D: true }, 0);
+            pinnedTl.to(cardImages[0], { opacity: 0, duration: 0.4, ease: "none", force3D: true }, 0);
+            pinnedTl.to(cardOverlays[0], { opacity: 0, duration: 0.4, ease: "none", force3D: true }, 0);
             pinnedTl.to(cards[1], { y: "-50%", scale: 1, duration: 0.4, ease: "none", force3D: true }, 0);
             pinnedTl.to(cardImages[1], { opacity: 1, duration: 0.4, ease: "none", force3D: true }, 0);
             pinnedTl.to(cardOverlays[1], { opacity: 0.4, duration: 0.4, ease: "none", force3D: true }, 0);
@@ -201,10 +201,10 @@ export default function Services() {
             // Tiny gap (0.4 → 0.5)
             pinnedTl.to({}, { duration: 0.1 }, 0.4);
 
-            // Transition 2: Card 2 shrinks + Card 3 slides up (0.5 → 0.9)
-            pinnedTl.to(cards[1], { scale: 0.85, duration: 0.4, ease: "none", force3D: true }, 0.5);
-            pinnedTl.to(cardImages[1], { opacity: 0.4, duration: 0.4, ease: "none", force3D: true }, 0.5);
-            pinnedTl.to(cardOverlays[1], { opacity: 0.8, duration: 0.4, ease: "none", force3D: true }, 0.5);
+            // Transition 2: Card 2 shrinks & fades out + Card 3 slides up
+            pinnedTl.to(cards[1], { scale: 0.85, opacity: 0, duration: 0.4, ease: "none", force3D: true }, 0.5);
+            pinnedTl.to(cardImages[1], { opacity: 0, duration: 0.4, ease: "none", force3D: true }, 0.5);
+            pinnedTl.to(cardOverlays[1], { opacity: 0, duration: 0.4, ease: "none", force3D: true }, 0.5);
             pinnedTl.to(cards[2], { y: "-50%", scale: 1, duration: 0.4, ease: "none", force3D: true }, 0.5);
             pinnedTl.to(cardImages[2], { opacity: 1, duration: 0.4, ease: "none", force3D: true }, 0.5);
             pinnedTl.to(cardOverlays[2], { opacity: 0.4, duration: 0.4, ease: "none", force3D: true }, 0.5);

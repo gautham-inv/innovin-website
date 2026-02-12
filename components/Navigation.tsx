@@ -140,7 +140,7 @@ export default function Navigation() {
       </a>
       <nav
         aria-label="Main navigation"
-        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[200px] bg-white/60 border-b border-white/20 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[50px] bg-white/75 border-b border-white/20 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
           }`}
       >
         <div className="py-1">
@@ -157,7 +157,7 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop Nav links */}
-            <div className="hidden xl:flex xl:items-center absolute left-1/2 top-0 bottom-0 -translate-x-1/2">
+            <div className="hidden xl:flex xl:items-center gap-x-10 absolute left-1/2 top-0 bottom-0 -translate-x-1/2">
               <Link
                 href="/services"
                 className={linkClasses("", true, false, pathname === "/services")}

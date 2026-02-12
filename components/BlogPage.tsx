@@ -181,7 +181,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
             {/* All Category Chip */}
             <button
               onClick={() => setSelectedCategory("all")}
-              className="border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-all duration-300"
+              className="border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-all duration-300 hover:border-[#005c89] hover:bg-[rgba(215,237,248,0.4)] hover:text-[#005c89]"
               style={{
                 borderColor: selectedCategory === "all" ? "#005c89" : "#E0E0E0",
                 backgroundColor: selectedCategory === "all" ? "rgba(215, 237, 248, 0.4)" : "white",
@@ -202,8 +202,10 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
                 <button
                   key={category._id}
                   onClick={() => setSelectedCategory(category._id)}
-                  className="border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-all duration-300"
+                  className="border-[1.195px] border-solid content-stretch flex items-center justify-center px-4 sm:px-[16.95px] py-2 sm:py-[12.95px] relative rounded-[23.893px] shrink-0 transition-all duration-300 hover:border-[var(--cat-color)] hover:bg-[var(--cat-bg)] hover:text-[var(--cat-color)]"
                   style={{
+                    ['--cat-color' as any]: categoryColor,
+                    ['--cat-bg' as any]: `${categoryColor}15`,
                     borderColor: isSelected ? categoryColor : "#E0E0E0",
                     backgroundColor: isSelected ? `${categoryColor}15` : "white",
                     color: isSelected ? categoryColor : "black",

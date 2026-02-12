@@ -30,9 +30,13 @@ const coreValues = [
   { title: "Make progress over perfection", icon: "/images/c6.png" },
 ];
 
-/* ───────── Content ───────── */
-const journeyContent =
-  "Innovin Labs began as innovators building social health solutions for the elderly, facing real-world challenges that shaped our adaptability, empathy, and technical expertise. That journey defined our mission\u2014to help startups and scale-ups turn ideas into successful products. Today, we partner closely with founders, offering tailored tech solutions and product expertise, treating every product as our own and supporting teams at every stage of development. At Innovin Labs, we don\u2019t just build technology\u2014we collaborate, share experience, and help your vision succeed.";
+const journeyContent = `We understand the startup journey firsthand. We know how critical it is to have a trusted technology partner—one who truly understands the challenges, uncertainty, and ambition that come with building something from the ground up.
+
+Innovin Labs wasn’t always a tech partner for startups. We were once innovators ourselves, working to solve social health challenges for the elderly. Building for this demographic presented unique hurdles that demanded adaptability, empathy, and resilience. Those experiences shaped who we are today and gave rise to our mission: empowering startups to overcome their technical barriers and turn bold ideas into successful products.
+
+That’s why Innovin Labs exists. We provide tailored technology solutions and expert guidance, allowing you to stay focused on your vision while we handle the complexity. Our team works closely with you, collaborating at every step to transform ideas into reality using cutting-edge technology and flexible, startup-friendly approaches.
+
+Our story is not just about technology—it’s about shared experience, understanding, and a deep commitment to your success. Don’t let technical challenges slow your momentum. Partner with Innovin Labs, and let us help power your startup journey forward.`;
 
 const missionContent =
   "Revolutionize the tech industry by combining cutting-edge technology employing AI capabilities. Revolutionize the tech industry by combining cutting-edge technology employing AI capabilities. Revolutionize the tech industry by combining cutting-edge technology employing AI capabilities.";
@@ -197,31 +201,60 @@ function JourneyCard() {
       ref={cardRef}
       className={`transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
     >
-      <div className="relative max-w-3xl mx-auto bg-white border border-neutral-200 rounded-xl shadow-2xl overflow-hidden">
-        {/* Title bar */}
-        <div className="px-6 sm:px-10 pt-8 sm:pt-10 pb-0">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#005c89] font-semibold leading-tight tracking-tight">
+      <div className="relative max-w-3xl mx-auto bg-white border border-neutral-100 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden">
+        {/* Date / Origin line */}
+        <div className="px-6 sm:px-10 pt-8 sm:pt-10 flex justify-end">
+
+        </div>
+
+        {/* Title */}
+        <div className="px-6 sm:px-10 pt-2 pb-0">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#005c89] font-bold leading-tight tracking-tight">
             Our journey
           </h2>
         </div>
+
         {/* Letter body */}
-        <div className="px-6 sm:px-10 pt-5 sm:pt-6 pb-8 sm:pb-10">
-          <p className="text-base sm:text-lg lg:text-xl text-[#232323] leading-relaxed">
-            {journeyContent}
-          </p>
-          <div className="mt-8 sm:mt-10 text-sm sm:text-base text-[#5a5a5a] leading-relaxed">
-            <p className="mb-1">with commitment,</p>
-            <p className="font-semibold text-[#232323]">Innovin Labs</p>
+        <div className="px-6 sm:px-10 pt-6 pb-12 sm:pb-16 flex flex-col gap-6">
+          {journeyContent.split("\n\n").map((paragraph, i) => (
+            <p
+              key={i}
+              className="text-base sm:text-lg lg:text-xl text-[#232323] leading-[1.6] sm:leading-[1.7] text-justify hyphens-auto"
+            >
+              {paragraph}
+            </p>
+          ))}
+
+          <div className="mt-4 sm:mt-6 text-sm sm:text-base text-[#5a5a5a] leading-relaxed">
+            <p className="italic mb-2">With shared purpose,</p>
+            <p className="font-bold text-[#232323] text-lg sm:text-xl">The Innovin Labs Team</p>
           </div>
         </div>
-        {/* Tilted stamp / photo — bottom right */}
-        <div className="absolute -bottom-3 -right-3 sm:bottom-4 sm:right-4 w-[100px] h-[100px] sm:w-[130px] sm:h-[130px] rotate-[8deg] rounded-lg overflow-hidden shadow-lg border-[3px] border-white pointer-events-none select-none">
-          <img
-            src={imgHeroBackground}
-            alt="Innovin Labs team"
-            className="w-full h-full object-cover"
-            draggable={false}
-          />
+
+        {/* Scalloped Stamp Design */}
+        <div
+          className="absolute -bottom-4 -right-4 sm:bottom-6 sm:right-6 w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] rotate-[10deg] p-2.5 bg-white shadow-2xl transition-transform hover:scale-110 hover:rotate-[12deg] duration-300 pointer-events-none select-none"
+          style={{
+            WebkitMaskImage: `
+              radial-gradient(12px at 12px 0, #0000 98%, #000) 50% / 24px 100%,
+              radial-gradient(12px at 0 12px, #0000 98%, #000) / 100% 24px
+            `,
+            WebkitMaskComposite: 'destination-in',
+            maskImage: `
+              radial-gradient(12px at 12px 0, #0000 98%, #000) 50% / 24px 100%,
+              radial-gradient(12px at 0 12px, #0000 98%, #000) / 100% 24px
+            `,
+            maskComposite: 'intersect',
+          }}
+        >
+          <div className="w-full h-full overflow-hidden border border-neutral-100 rounded-sm">
+            <img
+              src={imgHeroBackground}
+              alt="Innovin Labs photo"
+              className="w-full h-full object-cover sepia-[0.3] contrast-[1.1]"
+              draggable={false}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -331,9 +364,6 @@ function TimelineSection() {
           </p>
         </div>
       </div>
-
-      {/* Dot at bottom of line */}
-      <div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-3 h-3 rounded-full bg-[#005c89] z-10" />
     </div>
   );
 }
@@ -590,21 +620,21 @@ export default function AboutUs() {
                       shouldCenter && lastRowCount === 1
                         ? { gridColumn: "2 / 3" }
                         : shouldCenter &&
-                            lastRowCount === 2 &&
-                            index === leadershipTeam.length - 2
+                          lastRowCount === 2 &&
+                          index === leadershipTeam.length - 2
                           ? {
-                              gridColumn: "1 / 2",
-                              marginLeft: "auto",
-                              marginRight: "58px",
-                            }
+                            gridColumn: "1 / 2",
+                            marginLeft: "auto",
+                            marginRight: "58px",
+                          }
                           : shouldCenter &&
-                              lastRowCount === 2 &&
-                              index === leadershipTeam.length - 1
+                            lastRowCount === 2 &&
+                            index === leadershipTeam.length - 1
                             ? {
-                                gridColumn: "2 / 3",
-                                marginLeft: "58px",
-                                marginRight: "auto",
-                              }
+                              gridColumn: "2 / 3",
+                              marginLeft: "58px",
+                              marginRight: "auto",
+                            }
                             : {}
                     }
                   >

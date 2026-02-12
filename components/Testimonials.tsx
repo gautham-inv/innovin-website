@@ -581,7 +581,7 @@ export default function Testimonials() {
   /* ═══════════════════════════════════ RENDER ═══════════════════════════════════ */
   return (
     <>
-      <section className="testimonials-section bg-white w-full flex flex-col items-center justify-start lg:justify-center min-h-screen py-8 sm:py-10 lg:py-14 overflow-hidden relative">
+      <section className="testimonials-section bg-white w-full flex flex-col items-center justify-start py-8 sm:py-10 lg:py-14 overflow-hidden relative">
         {/* decorative blobs */}
         <div className="absolute left-[-400px] top-[100px] w-[800px] h-[400px] opacity-20 mix-blend-multiply pointer-events-none">
           <div className="absolute inset-0 bg-gradient-radial from-blue-500/20 via-blue-400/10 to-transparent blur-2xl" />
@@ -679,11 +679,10 @@ export default function Testimonials() {
                   stopAutoplay();
                   startAutoplay();
                 }}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  isActiveIndicator(i)
+                className={`h-2 rounded-full transition-all duration-300 ${isActiveIndicator(i)
                     ? "bg-black w-8 sm:w-10"
                     : "bg-neutral-300 w-2"
-                }`}
+                  }`}
                 aria-label={`Go to slide ${i + 1}`}
               />
             ))}

@@ -21,7 +21,7 @@ export default function CustomPortableText({
   className?: string
   value: PortableTextBlock[]
 }) {
-  const isJobContent = className?.includes('job-content')
+  const isJobContent = className?.includes('job-content') || className?.includes('job-description')
 
   const components: PortableTextComponents = {
     block: {
@@ -55,7 +55,7 @@ export default function CustomPortableText({
         const isJobDescription = className?.includes('job-description');
         const isJobContent = className?.includes('job-content');
 
-        let textStyles = "font-sans leading-relaxed text-black mb-4";
+        let textStyles = "font-sans leading-[1.6] text-black mb-4";
 
         if (isBlogContent) {
           textStyles += " text-lg sm:text-xl";
@@ -95,7 +95,7 @@ export default function CustomPortableText({
         const isBlogContent = className?.includes('blog-content');
         const isJobContent = className?.includes('job-content') || className?.includes('job-description');
 
-        let textStyles = "font-sans leading-relaxed text-black";
+        let textStyles = "font-sans leading-[1.6] text-black";
         if (isBlogContent) {
           textStyles += " text-lg sm:text-xl";
         } else if (isJobContent) {
@@ -114,7 +114,7 @@ export default function CustomPortableText({
         const isBlogContent = className?.includes('blog-content');
         const isJobContent = className?.includes('job-content') || className?.includes('job-description');
 
-        let textStyles = "font-sans leading-relaxed text-black";
+        let textStyles = "font-sans leading-[1.6] text-black";
         if (isBlogContent) {
           textStyles += " text-lg sm:text-xl";
         } else if (isJobContent) {
