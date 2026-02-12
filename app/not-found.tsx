@@ -47,9 +47,21 @@ export default function NotFound() {
           {/* Additional Links */}
           <div className="mt-8 sm:mt-10 lg:mt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-sm sm:text-base">
             <Link
+              href="/services"
+              className="text-gray-600 hover:text-primary transition-colors"
+            >
+              Services
+            </Link>
+            <Link
               href="/about"
               className="text-gray-600 hover:text-primary transition-colors"
             >
+              <Link
+                href="/why-us"
+                className="text-gray-600 hover:text-primary transition-colors"
+              >
+                Why us
+              </Link>
               About us
             </Link>
             <span className="text-gray-300">•</span>
@@ -67,12 +79,7 @@ export default function NotFound() {
               Careers
             </Link>
             <span className="text-gray-300">•</span>
-            <Link
-              href="/why-us"
-              className="text-gray-600 hover:text-primary transition-colors"
-            >
-              Why us
-            </Link>
+
           </div>
         </div>
       </div>

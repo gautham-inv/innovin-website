@@ -273,7 +273,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
       </div>
 
       {/* Image area — company logo on subtle bg */}
-      <div className="relative flex-1 mx-5 mt-4 rounded-xl bg-neutral-50 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover/card:scale-[1.01]">
+      <div className="relative h-[180px] sm:h-auto sm:flex-1 mx-5 mt-4 rounded-xl bg-neutral-50 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover/card:scale-[1.01]">
         <img
           src={t.image || t.logo}
           alt={getCompanyName(t)}
