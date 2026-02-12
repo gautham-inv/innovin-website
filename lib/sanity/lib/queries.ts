@@ -1,4 +1,4 @@
-import {defineQuery} from 'next-sanity'
+import { defineQuery } from 'next-sanity'
 
 const linkReference = /* groq */ `
   _type == "link" => {
@@ -72,6 +72,7 @@ const postFields = /* groq */ `
   "slug": slug.current,
   excerpt,
   coverImage,
+  thumbnail,
   "date": coalesce(date, _updatedAt),
   "author": author->{firstName, lastName, picture, description, linkedinUrl},
   "categories": categories[]->{_id, title, slug, description, color},

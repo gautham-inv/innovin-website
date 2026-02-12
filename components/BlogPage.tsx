@@ -21,6 +21,7 @@ interface Post {
   slug: string;
   excerpt?: string;
   coverImage?: any;
+  thumbnail?: any;
   date?: string;
   author?: {
     firstName?: string;
