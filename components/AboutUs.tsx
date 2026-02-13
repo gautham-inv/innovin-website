@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useLayoutEffect } from "react";
 import { X, Linkedin } from "lucide-react";
 import Footer from "./Footer";
 import gsap from "gsap";
@@ -279,17 +279,13 @@ function TimelineSection() {
   const missionRef = useRef<HTMLDivElement>(null);
   const visionRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === "undefined") return;
     const section = sectionRef.current;
     const line = lineRef.current;
     const mission = missionRef.current;
     const vision = visionRef.current;
     if (!section || !line || !mission || !vision) return;
-
-    gsap.set(line, { scaleY: 0, transformOrigin: "top center" });
-    gsap.set(mission, { opacity: 0, y: 40 });
-    gsap.set(vision, { opacity: 0, y: 40 });
 
     // Line grows behind the cards
     gsap.to(line, {
@@ -345,7 +341,7 @@ function TimelineSection() {
         <div
           ref={lineRef}
           className="w-full h-full bg-[#005c89]/20"
-          style={{ transformOrigin: "top center" }}
+          style={{ transformOrigin: "top center", transform: 'scaleY(0)' }}
         />
       </div>
 
@@ -353,7 +349,7 @@ function TimelineSection() {
       <div className="absolute left-1/2 top-0 -translate-x-1/2 w-3 h-3 rounded-full bg-[#005c89] z-10" />
 
       {/* Mission — center aligned, card sits on top of line */}
-      <div ref={missionRef} className="relative z-10 mb-16 sm:mb-20 lg:mb-24">
+      <div ref={missionRef} className="relative z-10 mb-16 sm:mb-20 lg:mb-24 opacity-0 translate-y-10">
         <div className="bg-white border border-neutral-200 rounded-xl shadow-md p-6 sm:p-8">
           <h3 className="text-2xl sm:text-3xl lg:text-4xl text-[#005c89] font-semibold leading-tight tracking-tight mb-3 sm:mb-4">
             Our mission
@@ -365,7 +361,7 @@ function TimelineSection() {
       </div>
 
       {/* Vision — center aligned, card sits on top of line */}
-      <div ref={visionRef} className="relative z-10">
+      <div ref={visionRef} className="relative z-10 opacity-0 translate-y-10">
         <div className="bg-white border border-neutral-200 rounded-xl shadow-md p-6 sm:p-8">
           <h3 className="text-2xl sm:text-3xl lg:text-4xl text-[#005c89] font-semibold leading-tight tracking-tight mb-3 sm:mb-4">
             Our vision
@@ -440,14 +436,12 @@ export default function AboutUs() {
   };
 
   /* ── GSAP: Hero + picture fade in ── */
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === "undefined") return;
 
     const hero = heroRef.current;
     const picture = pictureRef.current;
     if (!hero || !picture) return;
-
-    gsap.set([hero, picture], { opacity: 0, y: 20 });
 
     const tl = gsap.timeline({ delay: 0.2 });
     tl.to(hero, { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" });
@@ -455,7 +449,7 @@ export default function AboutUs() {
   }, []);
 
   /* ── GSAP: Overlay expands (left/right panels shrink, revealing picture) ── */
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window === "undefined") return;
 
     const mm = gsap.matchMedia();
@@ -490,7 +484,7 @@ export default function AboutUs() {
 
       {/* ═══════ HERO ═══════ */}
       <section className="relative w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-10 sm:pb-14 lg:pb-16 px-4 sm:px-6 md:px-8 xl:px-[70px] bg-white">
-        <div ref={heroRef} className="max-w-[1681px] mx-auto">
+        <div ref={heroRef} className="max-w-[1681px] mx-auto opacity-0 translate-y-5">
           <div className="max-w-[1000px] mx-auto text-center">
             <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6">
               About us
@@ -520,7 +514,7 @@ export default function AboutUs() {
             width={1681}
             height={620}
             priority
-            className="w-full h-[350px] sm:h-[450px] lg:h-[550px] xl:h-[620px] object-cover rounded-xl sm:rounded-2xl"
+            className="w-full h-[350px] sm:h-[450px] lg:h-[550px] xl:h-[620px] object-cover rounded-xl sm:rounded-2xl opacity-0 translate-y-5"
           />
           <div
             ref={overlayLeftRef}
@@ -634,16 +628,14 @@ export default function AboutUs() {
                           index === leadershipTeam.length - 2
                           ? {
                             gridColumn: "1 / 2",
-                            marginLeft: "auto",
-                            marginRight: "58px",
+                            transform: "translateX(calc(50% + 58px))",
                           }
                           : shouldCenter &&
                             lastRowCount === 2 &&
                             index === leadershipTeam.length - 1
                             ? {
                               gridColumn: "2 / 3",
-                              marginLeft: "58px",
-                              marginRight: "auto",
+                              transform: "translateX(calc(50% + 58px))",
                             }
                             : {}
                     }

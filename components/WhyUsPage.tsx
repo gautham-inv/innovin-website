@@ -237,7 +237,7 @@ export default function WhyUsPage() {
           {/* Our Expertise */}
           <div className="mb-12 sm:mb-16 lg:mb-[30px] pt-20">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
-              Our Expertise
+              Our expertise
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed mb-8 sm:mb-10 lg:mb-[30px] max-w-4xl">
               We believe in nurturing diverse talent, fostering creativity, and empowering individuals to reach their full potential.
@@ -257,7 +257,7 @@ export default function WhyUsPage() {
                   </div>
 
                   <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
-                    Network of Tech SMEs
+                    Network of tech SMEs
                   </h3>
 
                   <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">
@@ -279,7 +279,7 @@ export default function WhyUsPage() {
                   </div>
 
                   <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
-                    Top Tech Talents
+                    Top tech talents
                   </h3>
 
                   <p className="text-[16px] sm:text-[18px] lg:text-[18px] text-[#4a5568] leading-[1.7] sm:leading-[1.75] lg:leading-[1.8]">

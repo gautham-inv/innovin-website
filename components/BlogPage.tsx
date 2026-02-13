@@ -77,7 +77,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center py-8 sm:py-12 lg:py-[10px]">
           <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6 text-center">
-            Knowledge Hub
+            Knowledge hub
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[700px] mx-auto text-center">
             Stay updated with the latest trends and insights in the world of technology.
@@ -88,7 +88,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
         {recentPosts.length > 0 && (
           <div className="w-full relative mt-10">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#232323] mb-4 sm:mb-5 lg:mb-6">
-              Recent Blog Posts
+              Recent blog posts
             </h2>
 
             <div className="relative">

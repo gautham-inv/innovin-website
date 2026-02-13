@@ -72,6 +72,13 @@ function TestimonialModal({
     setCurrentTime(seekTo);
   };
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const progressPct = duration > 0 ? (currentTime / duration) * 100 : 0;
   const formatTime = (s: number) => {
     if (!Number.isFinite(s) || s < 0) return "0:00";
@@ -391,7 +398,7 @@ export default function Testimonials() {
     return stopAutoplay;
   }, [currentIndex, isDesktop, modalIndex]);
 
-  /* ── modal: escape to close (no body scroll lock — avoids jitter) ── */
+  /* ── modal: escape to close (with body scroll lock) ── */
   useEffect(() => {
     if (modalIndex === null) return;
     const onEsc = (e: KeyboardEvent) => {

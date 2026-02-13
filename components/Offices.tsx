@@ -23,7 +23,7 @@ const offices: Office[] = [
     cin: "U72900KL2023PTC078123",
     address: "VRA A 39, TC 91/828, Anayara (PO), Thiruvananthapuram- 695029, Kerala",
     image:
-      "https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80",
+      "/images/tvm-office.jpg",
     mapUrl:
       "https://www.google.com/maps/search/?api=1&query=C%26T+Engineers+8.5095267,76.9087915",
   },

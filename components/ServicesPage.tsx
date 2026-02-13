@@ -9,17 +9,17 @@ import Image from "next/image";
 const imgLogoDark = "/images/logo.png";
 const imgEllipse2 = "/images/blue_gradient.svg";
 // Service images: container up to 550×400 — request 1100×800 at fetch (2x)
-const imgProductDev = cloudinaryUrl("v1770657009/smart_product_dev_d6xfgr.png", { w: 1100, h: 800, c: "fill" });
-const imgDesign = cloudinaryUrl("v1770657008/startup-metaphor-flat-icon_1262-18784_isvbsr.avif", { w: 1100, h: 800, c: "fill" });
-const imgConsulting = cloudinaryUrl("v1770657009/consultingServices_y44b4q.png", { w: 1100, h: 800, c: "fill" });
-const imgAIConsulting = cloudinaryUrl("v1770657007/ai_y5o6pt.avif", { w: 1100, h: 800, c: "fill" });
+const imgProductDev = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770996488/1p_dhnwny.png";
+const imgDesign = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770996488/2p_bjbzt1.png";
+const imgConsulting = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770995843/3p_hbhrkn.png";
+const imgAIConsulting = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770996488/4p_mp3wui.png";
 
 export default function ServicesPage() {
   const { openModal } = useContactModal();
 
   const services = [
     {
-      title: "Smart Product Development",
+      title: "Smart product development",
       description: "We're not just software consultants – we're your Trusted Tech Innovation Partner and efficiency architects. We leverage the power of existing tools and technology to streamline your operations, slash costs, and build a smarter, faster, and future-proof solution for your business needs.",
       bullets: [
         "Boost your coding superpowers with AI-simplify complexity, code naturally, and enhance reliability and speed!",
@@ -29,7 +29,7 @@ export default function ServicesPage() {
       imageLeft: false,
     },
     {
-      title: "AI-Enhanced Design and Prototyping",
+      title: "AI-enhanced design and prototyping",
       description: "We blend creativity with intelligence to transform ideas into intuitive, data-driven designs. By harnessing AI-powered insights and rapid prototyping tools, we help you visualize, validate, and refine products faster ensuring every design decision is backed by precision, performance, and user delight.",
       bullets: [
         "We develop innovative design options and generate multiple solutions based on AI-driven algorithms and constraints.",
@@ -39,7 +39,7 @@ export default function ServicesPage() {
       imageLeft: true,
     },
     {
-      title: "Strategic Technology Consulting",
+      title: "Strategic technology consulting",
       description: "We're not just software consultants – we're your Trusted Tech Innovation Partner and efficiency architects. We leverage the power of existing tools and technology to streamline your operations, slash costs, and build a smarter, faster, and future-proof solution for your business needs.",
       bullets: [
         "Craft Custom Plans: We tailor a technology roadmap that leverages existing tools to automate tasks, improve data flow, and enhance collaboration.",
@@ -50,7 +50,7 @@ export default function ServicesPage() {
       imageLeft: false,
     },
     {
-      title: "Strategic AI Consulting",
+      title: "Strategic AI consulting",
       description: "We empower you with intelligent solutions, leveraging AI tools to solve specific business problems and achieve strategic goals.",
       bullets: [
         "Tailored intelligence that crafts solutions optimized for your unique industry challenges, for maximum impact.",
@@ -89,16 +89,16 @@ export default function ServicesPage() {
             {services.map((service, index) => (
               <div
                 key={index}
-                className={`flex flex-col xl:flex-row gap-8 sm:gap-10 xl:gap-16 items-start relative w-full ${service.imageLeft ? "xl:flex-row-reverse" : ""
+                className={`flex flex-col xl:flex-row gap-8 sm:gap-10 xl:gap-16 items-center xl:items-start relative w-full ${service.imageLeft ? "xl:flex-row-reverse" : ""
                   }`}
               >
                 {/* Content */}
                 <div className="flex-1 flex flex-col gap-4 sm:gap-6 items-start relative text-[#232323] w-full xl:w-auto order-2 xl:order-none">
                   <div className="flex flex-col gap-3 sm:gap-4 items-start relative w-full">
-                    <h2 className="font-semibold leading-[1.2] sm:leading-[1.3] relative text-3xl sm:text-4xl lg:text-5xl w-full tracking-tight">
+                    <h2 className="font-semibold leading-[1.2] sm:leading-[1.3] relative text-3xl sm:text-4xl lg:text-5xl w-full tracking-tight text-center xl:text-left">
                       {service.title}
                     </h2>
-                    <p className="font-normal leading-relaxed relative text-base sm:text-lg text-gray-700 w-full mt-2">
+                    <p className="font-normal leading-relaxed relative text-base sm:text-lg text-gray-700 w-full mt-2 text-center xl:text-left">
                       {service.description}
                     </p>
                   </div>
@@ -112,16 +112,18 @@ export default function ServicesPage() {
                 </div>
 
                 {/* Image */}
-                <div className="h-[250px] sm:h-[300px] md:h-[350px] xl:h-[400px] relative shrink-0 w-full sm:w-full md:w-[500px] xl:w-[550px] rounded-2xl overflow-hidden order-1 xl:order-none shadow-lg">
-                  <Image
-                    alt={service.title}
-                    src={service.image}
-                    width={550}
-                    height={400}
-                    priority={index === 0}
-                    loading={index === 0 ? "eager" : undefined}
-                    className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
-                  />
+                <div className="relative shrink-0 w-full max-w-[340px] md:max-w-[450px] xl:max-w-none xl:w-[550px] aspect-[4/3] order-1 xl:order-none flex items-center justify-center mx-auto xl:mx-0">
+                  <div className="relative w-full h-full transition-transform duration-500 transform scale-[0.7] xl:scale-[0.9]">
+                    <Image
+                      alt={service.title}
+                      src={service.image}
+                      width={550}
+                      height={400}
+                      priority={index === 0}
+                      loading={index === 0 ? "eager" : undefined}
+                      className="w-full h-full object-contain pointer-events-none"
+                    />
+                  </div>
                 </div>
               </div>
             ))}

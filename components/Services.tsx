@@ -354,7 +354,7 @@ export default function Services() {
               className="text-[56px] xxl:text-[72px] text-white font-medium leading-[62px] xxl:leading-[80px] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
-              our
+              Our
             </h2>
           </div>
           <div ref={desktopTitleServicesRef} className="overflow-hidden">
@@ -434,7 +434,7 @@ export default function Services() {
                 className="text-[48px] sm:text-[56px] md:text-[64px] text-white font-medium leading-[1.1] tracking-[-0.02em] inline-block"
                 style={{ willChange: 'transform, opacity' }}
               >
-                our
+                Our
               </h2>
             </div>
             <div ref={mobileTitleServicesRef} className="overflow-hidden">
