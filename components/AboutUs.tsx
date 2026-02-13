@@ -80,11 +80,11 @@ function CoreValueCard({
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="w-[200px] h-[165px] mb-[13px] text-[80px] flex items-center justify-center flex-shrink-0">
-        <img src={icon} alt={title} className="w-full h-full object-cover" />
+        <img src={icon} alt="" className="w-full h-full object-cover" />
       </div>
-      <p className="text-[25px] text-white leading-[1.4] tracking-[-0.375px] text-center break-words">
+      <h3 className="text-[25px] text-white leading-[1.4] tracking-[-0.375px] text-center break-words font-normal">
         {title}
-      </p>
+      </h3>
     </div>
   );
 }
@@ -123,11 +123,11 @@ function CoreValueCardMobile({
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] mb-3 sm:mb-4 text-[50px] sm:text-[60px] md:text-[70px] flex items-center justify-center">
-        <img src={icon} alt={title} className="w-full h-full object-cover" />
+        <img src={icon} alt="" className="w-full h-full object-cover" />
       </div>
-      <p className="text-[15px] sm:text-[17px] md:text-[20px] text-white leading-[1.5] sm:leading-[1.6] text-center">
+      <h3 className="text-[15px] sm:text-[17px] md:text-[20px] text-white leading-[1.5] sm:leading-[1.6] text-center font-normal">
         {title}
-      </p>
+      </h3>
     </div>
   );
 }
@@ -148,7 +148,7 @@ function LeadershipCard({
   return (
     <div className="flex flex-col gap-[24px] group">
       <div className="w-full h-[450px] rounded-[10px] overflow-hidden relative">
-        <img src={image} alt={name} className="w-full h-full object-cover" />
+        <img src={image} alt="" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#005c89]/90 via-[#005c89]/60 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
         <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out delay-75 flex flex-col gap-4">
           <p className="text-white text-[16px] font-medium leading-[1.5]">
@@ -159,6 +159,7 @@ function LeadershipCard({
               href={linkedin}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`LinkedIn profile for ${name}`}
               className="inline-flex items-center gap-2 text-white hover:text-[#66c2e2] transition-colors w-fit"
             >
               <Linkedin size={24} />
@@ -167,9 +168,9 @@ function LeadershipCard({
         </div>
       </div>
       <div className="flex flex-col gap-[9px]">
-        <p className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4]">
+        <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4]">
           {name}
-        </p>
+        </h3>
         <p className="text-[16px] sm:text-[18px] text-[#4a5568] leading-[1.5]">
           {role}
         </p>
@@ -219,7 +220,7 @@ function JourneyCard() {
           {journeyContent.split("\n\n").map((paragraph, i) => (
             <p
               key={i}
-              className="text-base sm:text-lg lg:text-xl text-[#232323] leading-[1.6] sm:leading-[1.7] text-justify hyphens-auto"
+              className="text-base sm:text-lg lg:text-xl text-[#232323] leading-[1.6] sm:leading-[1.7] text-left hyphens-auto"
             >
               {paragraph}
             </p>
@@ -250,7 +251,7 @@ function JourneyCard() {
           <div className="w-full h-full overflow-hidden border border-neutral-100 rounded-sm">
             <img
               src={imgHeroBackground}
-              alt="Innovin Labs photo"
+              alt=""
               className="w-full h-full object-cover sepia-[0.3] contrast-[1.1]"
               draggable={false}
             />
@@ -670,7 +671,7 @@ export default function AboutUs() {
                   <div className="w-full max-w-[140px] sm:max-w-[160px] md:max-w-[180px] aspect-[3/4] rounded-[8px] sm:rounded-[10px] overflow-hidden relative group">
                     <img
                       src={leader.image}
-                      alt={leader.name}
+                      alt=""
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#005c89]/90 via-[#005c89]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -680,6 +681,7 @@ export default function AboutUs() {
                           href={leader.linkedin}
                           target="_blank"
                           rel="noopener noreferrer"
+                          aria-label={`LinkedIn profile for ${leader.name}`}
                           className="text-white bg-white/20 p-2 rounded-full backdrop-blur-sm"
                         >
                           <Linkedin size={16} />
@@ -688,9 +690,9 @@ export default function AboutUs() {
                     </div>
                   </div>
                   <div className="flex flex-col gap-2 sm:gap-[6px] items-center">
-                    <p className="text-[16px] sm:text-[18px] md:text-[20px] text-[#232323] font-semibold leading-[1.3] sm:leading-[1.4] text-center">
+                    <h3 className="text-[16px] sm:text-[18px] md:text-[20px] text-[#232323] font-semibold leading-[1.3] sm:leading-[1.4] text-center">
                       {leader.name}
-                    </p>
+                    </h3>
                     <p className="text-[14px] sm:text-[16px] md:text-[18px] text-[#4a5568] font-medium leading-[1.4] sm:leading-[1.5] text-center">
                       {leader.role}
                     </p>
@@ -713,12 +715,14 @@ export default function AboutUs() {
           <button
             className="absolute top-4 right-4 sm:top-8 sm:right-8 text-white hover:text-[#66c2e2] transition-colors z-[110] p-2"
             onClick={() => setSelectedImageIndex(null)}
+            aria-label="Close modal"
           >
             <X size={40} />
           </button>
           <button
             className="absolute left-4 sm:left-10 text-white hover:text-[#66c2e2] transition-colors z-[110] p-4 bg-white/10 hover:bg-white/20 rounded-full"
             onClick={prevImage}
+            aria-label="Previous image"
           >
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
               <path
@@ -733,6 +737,7 @@ export default function AboutUs() {
           <button
             className="absolute right-4 sm:right-10 text-white hover:text-[#66c2e2] transition-colors z-[110] p-4 bg-white/10 hover:bg-white/20 rounded-full"
             onClick={nextImage}
+            aria-label="Next image"
           >
             <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
               <path

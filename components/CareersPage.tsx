@@ -490,7 +490,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                   <div className="w-full aspect-square overflow-hidden rounded-sm bg-gray-200">
                     <img
                       src={cloudinaryUrl(member.img, { w: 200, h: 200, c: "fill" })}
-                      alt={member.name}
+                      alt=""
                       width={100}
                       height={100}
                       {...(idx === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
@@ -540,7 +540,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                   <div className="w-[450px] h-[347px] rounded-lg overflow-hidden shrink-0">
                     <img
                       src={reason.image}
-                      alt="Team collaboration"
+                      alt=""
                       width={450}
                       height={347}
                       fetchPriority={index === 0 ? "high" : undefined}
@@ -566,6 +566,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               <button
                 onClick={handlePrevReason}
                 disabled={isTransitioning}
+                aria-label="Previous reason"
                 className="p-2 rounded-full hover:bg-gray-100 transition disabled:opacity-50"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -591,6 +592,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               <button
                 onClick={handleNextReason}
                 disabled={isTransitioning}
+                aria-label="Next reason"
                 className="p-2 rounded-full hover:bg-gray-100 transition disabled:opacity-50"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -610,7 +612,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                 <div className="w-full sm:w-[200px] md:w-[300px] h-[200px] sm:h-[250px] md:h-[300px] rounded-lg overflow-hidden shrink-0">
                   <img
                     src={reason.image}
-                    alt={reason.title}
+                    alt=""
                     width={300}
                     height={300}
                     {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
@@ -675,9 +677,9 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                         </svg>
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black font-medium leading-[1.3] sm:leading-[1.4] lg:leading-[34px] mb-1 sm:mb-2 lg:mb-[6px]">
+                        <h3 className="text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] text-black font-medium leading-[1.3] sm:leading-[1.4] lg:leading-[34px] mb-1 sm:mb-2 lg:mb-[6px]">
                           {item.title}
-                        </h4>
+                        </h3>
                         <p className="text-[16px] sm:text-[18px] lg:text-[20px] text-black leading-[1.5] sm:leading-[1.6] lg:leading-[34px]">
                           {item.description}
                         </p>
