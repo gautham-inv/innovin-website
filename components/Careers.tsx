@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { teamQuotes } from '@/lib/teamQuotes';
 
 const imgEllipse = "/images/4c3dce0794efde83822631e43c726b0634816851.png";
@@ -84,9 +85,11 @@ export default function Careers() {
           <div className="relative h-[700px] -mt-[300px]">
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1681px] h-full pointer-events-none">
               <div className="absolute top-[420px] left-1/2 transform -translate-x-1/2 w-[1000px] h-auto pointer-events-auto">
-                <img
+                <Image
                   src={imgEllipse}
                   alt="Ellipse"
+                  width={1000}
+                  height={1000}
                   className="w-full h-auto object-contain"
                 />
               </div>
@@ -156,10 +159,12 @@ export default function Careers() {
 
                         {/* Avatar */}
                         <div className="relative w-[92px] h-[92px] rounded-full overflow-hidden shrink-0">
-                          <img
+                          <Image
                             src={quote.avatar}
                             alt={quote.author}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
+                            sizes="92px"
                           />
                           <div
                             className={`absolute inset-0 ${quote.gradient
@@ -240,10 +245,12 @@ export default function Careers() {
 
                   <div className="flex gap-3 md:gap-4 items-center">
                     <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden shrink-0">
-                      <img
+                      <Image
                         src={quote.avatar}
                         alt={quote.author}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 40px, 48px"
                       />
                     </div>
 

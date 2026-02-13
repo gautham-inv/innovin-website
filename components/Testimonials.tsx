@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type React from "react";
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import { testimonials } from "@/lib/testimonials";
 import type { Testimonial } from "@/lib/testimonials";
 
@@ -104,11 +105,12 @@ function TestimonialModal({
           <div className="relative rounded-t-2xl overflow-hidden bg-neutral-100">
             {/* Logo chip overlay */}
             <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-2 bg-white rounded-full px-3 py-1.5 shadow-md">
-              <img
+              <Image
                 src={t.logo}
                 alt={getCompanyName(t)}
+                width={80}
+                height={20}
                 className="h-5 w-auto object-contain"
-                draggable={false}
               />
             </div>
 
@@ -182,20 +184,21 @@ function TestimonialModal({
               </div>
             ) : t.image ? (
               <div className="relative h-[260px] sm:h-[400px] bg-neutral-900 border-b border-neutral-200">
-                <img
+                <Image
                   src={t.image}
                   alt={getCompanyName(t)}
-                  className="w-full h-full object-cover opacity-95"
-                  draggable={false}
+                  fill
+                  className="object-cover opacity-95"
                 />
               </div>
             ) : (
               <div className="flex items-center justify-center h-[260px] bg-gradient-to-br from-neutral-50 to-neutral-100">
-                <img
+                <Image
                   src={t.logo}
                   alt={getCompanyName(t)}
+                  width={220}
+                  height={110}
                   className="max-w-[220px] max-h-[110px] object-contain"
-                  draggable={false}
                 />
               </div>
             )}
@@ -263,26 +266,29 @@ function TestimonialCard({ t }: { t: Testimonial }) {
       {/* Logo chip */}
       <div className="p-5 pb-0">
         <div className="inline-flex items-center gap-2 bg-neutral-50 border border-neutral-100 rounded-full px-3 py-1.5">
-          <img
+          <Image
             src={t.logo}
             alt={getCompanyName(t)}
+            width={110}
+            height={20}
             className="h-5 w-auto object-contain max-w-[110px]"
-            draggable={false}
           />
         </div>
       </div>
 
       {/* Image area — company logo on subtle bg */}
       <div className="relative h-[180px] sm:h-auto sm:flex-1 mx-5 mt-4 rounded-xl bg-neutral-50 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover/card:scale-[1.01]">
-        <img
+        <Image
           src={t.image || t.logo}
           alt={getCompanyName(t)}
+          fill={!!t.image}
+          width={!t.image ? 150 : undefined}
+          height={!t.image ? 100 : undefined}
           className={
             t.image
-              ? "w-full h-full object-cover"
-              : "w-[50%] max-h-[100px] object-contain opacity-80"
+              ? "object-cover"
+              : "object-contain opacity-80 w-[50%] max-h-[100px]"
           }
-          draggable={false}
         />
         {/* Play icon hint for video cards */}
         {t.video && (

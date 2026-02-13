@@ -78,9 +78,11 @@ const DraggablePhoto = ({ image, index, openLightbox }: { image: GalleryImage; i
       }}
     >
       <div className="relative overflow-hidden rounded-[12px] sm:rounded-[16px] shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <img
+        <Image
           src={cloudinaryUrl(image.path, { w: 800 })}
           alt={image.alt}
+          width={800}
+          height={600}
           className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
         />
         {/* Hover overlay */}
@@ -488,14 +490,15 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               >
                 <div className="bg-white p-2 pb-6 rounded-md shadow-lg" style={{ width: '100px' }}>
                   <div className="w-full aspect-square overflow-hidden rounded-sm bg-gray-200">
-                    <img
+                    <Image
                       src={cloudinaryUrl(member.img, { w: 200, h: 200, c: "fill" })}
                       alt=""
-                      width={100}
-                      height={100}
-                      {...(idx === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
+                      width={200}
+                      height={200}
+                      priority={idx === 0}
+                      loading={idx === 0 ? "eager" : undefined}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
+                      onError={(e: any) => {
                         // Fallback to placeholder
                         e.currentTarget.src = `https://ui-avatars.com/api/?name=${member.name}&size=200&background=f3f4f6&color=374151`;
                       }}
@@ -538,12 +541,12 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                   style={{ opacity: 0 }}
                 >
                   <div className="w-[450px] h-[347px] rounded-lg overflow-hidden shrink-0">
-                    <img
+                    <Image
                       src={reason.image}
                       alt=""
                       width={450}
                       height={347}
-                      fetchPriority={index === 0 ? "high" : undefined}
+                      priority={index === 0}
                       loading={index === 0 ? "eager" : undefined}
                       className="w-full h-full object-cover"
                     />
@@ -610,12 +613,13 @@ export default function CareersPage({ jobs }: CareersPageProps) {
                 className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center bg-white border border-gray-200 rounded-lg p-4 sm:p-6 shadow-sm"
               >
                 <div className="w-full sm:w-[200px] md:w-[300px] h-[200px] sm:h-[250px] md:h-[300px] rounded-lg overflow-hidden shrink-0">
-                  <img
+                  <Image
                     src={reason.image}
                     alt=""
                     width={300}
                     height={300}
-                    {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : undefined}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -749,10 +753,12 @@ export default function CareersPage({ jobs }: CareersPageProps) {
               className="max-w-[90vw] max-h-[85vh] flex items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <Image
                 src={cloudinaryUrl(galleryImages[lightboxIndex].path, { w: 1600, h: 1200, c: "fit" })}
                 alt={galleryImages[lightboxIndex].alt}
-                className="max-w-full max-h-[85vh] object-contain rounded-lg"
+                width={1600}
+                height={1200}
+                className="max-w-full max-h-[85vh] object-contain rounded-lg w-auto h-auto"
               />
             </div>
 

@@ -3,6 +3,7 @@
 import { techStackData } from "@/lib/techStackData";
 import { AnimatedButton } from "./AnimatedButton";
 import Link from "next/link";
+import Image from "next/image";
 import Footer from "./Footer";
 import { useContactModal } from "./ContactModal";
 
@@ -45,11 +46,13 @@ export default function TechStackPage() {
                                         className="group flex flex-col items-center gap-4 p-6 rounded-2xl border border-neutral-100 bg-white shadow-sm hover:shadow-md hover:border-[#66c2e2]/30 hover:bg-[#66c2e2]/5 transition-all duration-300"
                                     >
                                         <div className="w-16 h-16 flex items-center justify-center p-2 relative">
-                                            <img
+                                            <Image
                                                 src={item.icon}
                                                 alt={item.name}
-                                                className="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300 transform group-hover:scale-110"
-                                                onError={(e) => {
+                                                fill
+                                                sizes="64px"
+                                                className="object-contain grayscale group-hover:grayscale-0 transition-all duration-300 transform group-hover:scale-110"
+                                                onError={(e: any) => {
                                                     e.currentTarget.src = `https://ui-avatars.com/api/?name=${item.name}&size=200&background=f3f4f6&color=374151`;
                                                 }}
                                             />

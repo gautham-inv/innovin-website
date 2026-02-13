@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatedButton } from "./AnimatedButton";
 import { useContactModal } from "./ContactModal";
 import { Menu, X } from "lucide-react";
@@ -142,10 +143,13 @@ export default function Navigation() {
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0 gap-2" onClick={() => setIsMobileMenuOpen(false)}>
               <div className="h-[40px] md:h-[46px] relative">
-                <img
+                <Image
                   src={imgLogoDark}
                   alt="Innovin Labs Logo"
-                  className="h-full object-contain"
+                  width={260}
+                  height={46}
+                  className="h-full w-auto object-contain"
+                  priority
                 />
               </div>
             </Link>

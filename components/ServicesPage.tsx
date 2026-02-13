@@ -4,6 +4,7 @@ import { useContactModal } from "./ContactModal";
 import { AnimatedButton } from "./AnimatedButton";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 import { PreloadImage } from "./PreloadImage";
+import Image from "next/image";
 
 const imgLogoDark = "/images/logo.png";
 const imgEllipse2 = "/images/blue_gradient.svg";
@@ -112,12 +113,13 @@ export default function ServicesPage() {
 
                 {/* Image */}
                 <div className="h-[250px] sm:h-[300px] md:h-[350px] xl:h-[400px] relative shrink-0 w-full sm:w-full md:w-[500px] xl:w-[550px] rounded-2xl overflow-hidden order-1 xl:order-none shadow-lg">
-                  <img
+                  <Image
                     alt={service.title}
                     src={service.image}
                     width={550}
                     height={400}
-                    {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : undefined}
                     className="absolute inset-0 max-w-none object-cover pointer-events-none size-full"
                   />
                 </div>

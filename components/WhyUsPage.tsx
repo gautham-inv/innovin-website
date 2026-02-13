@@ -2,6 +2,7 @@
 
 import { useRef, ReactNode } from "react";
 import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
+import Image from "next/image";
 import EngagementModelsAnimated from "./EngagementModelsAnimated";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 import { PreloadImage } from "./PreloadImage";
@@ -65,12 +66,12 @@ export default function WhyUsPage() {
                 transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 100 }}
                 className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
-                <img
+                <Image
                   src={HERO_IMAGE_1}
                   alt="Feature showcase 1"
                   width={150}
                   height={215}
-                  fetchPriority="high"
+                  priority
                   loading="eager"
                   className="w-full h-full object-cover"
                 />
@@ -83,12 +84,12 @@ export default function WhyUsPage() {
                 transition={{ duration: 0.8, delay: 0.5, type: "spring", stiffness: 100 }}
                 className="absolute left-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
               >
-                <img
+                <Image
                   src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770663511/IMG_4985_dwhn4x.webp", { w: 424, h: 284, c: "fill" })}
                   alt="Feature showcase 2"
                   width={212}
                   height={142}
-                  fetchPriority="high"
+                  priority
                   loading="eager"
                   className="w-full h-full object-cover"
                 />
@@ -101,9 +102,11 @@ export default function WhyUsPage() {
                 transition={{ duration: 0.8, delay: 0.8, type: "spring", stiffness: 100 }}
                 className="absolute left-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
-                <img
+                <Image
                   src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160659.jpg_khmgno.webp", { w: 390, h: 292, c: "fill" })}
                   alt="Feature showcase 3"
+                  width={390}
+                  height={292}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -138,9 +141,11 @@ export default function WhyUsPage() {
                 transition={{ duration: 0.8, delay: 0.3, type: "spring", stiffness: 100 }}
                 className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
-                <img
+                <Image
                   src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770793033/IMG_1527_1_vxgn9s.jpg", { w: 300, h: 430, c: "fill" })}
                   alt="Feature showcase 4"
+                  width={300}
+                  height={430}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -152,9 +157,11 @@ export default function WhyUsPage() {
                 transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 100 }}
                 className="absolute right-[160px] top-[50px] w-[212px] h-[142px] rounded-[16px] overflow-hidden shadow-xl z-20 border-[3px] border-white"
               >
-                <img
+                <Image
                   src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1770654380/IMG_0552_gshpuk.heic", { w: 424, h: 284, c: "fill" })}
                   alt="Feature showcase 5"
+                  width={424}
+                  height={284}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -166,9 +173,11 @@ export default function WhyUsPage() {
                 transition={{ duration: 0.8, delay: 0.9, type: "spring", stiffness: 100 }}
                 className="absolute right-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
-                <img
+                <Image
                   src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160751.jpg_hspmpm.webp", { w: 390, h: 292, c: "fill" })}
                   alt="Feature showcase 6"
+                  width={390}
+                  height={292}
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -243,8 +252,8 @@ export default function WhyUsPage() {
 
                 <div className="relative z-10">
                   {/* Icon with background */}
-                  <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <img src={iconNetwork} alt="Network icon" className="w-full h-full object-contain filter brightness-0 invert" />
+                  <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative">
+                    <Image src={iconNetwork} alt="Network icon" fill className="object-contain filter brightness-0 invert p-4" sizes="100px" />
                   </div>
 
                   <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">
@@ -264,8 +273,9 @@ export default function WhyUsPage() {
 
                 <div className="relative z-10">
                   {/* Icon with background */}
-                  <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <img src={iconTalents} alt="Talents icon" className="w-full h-full object-contain filter brightness-0 invert" />
+
+                  <div className="w-[80px] h-[80px] sm:w-[90px] sm:h-[90px] lg:w-[100px] lg:h-[100px] mb-5 sm:mb-6 lg:mb-[20px] bg-gradient-to-br from-[#66c2e2] to-[#005c89] rounded-2xl p-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative">
+                    <Image src={iconTalents} alt="Talents icon" fill className="object-contain filter brightness-0 invert p-4" sizes="100px" />
                   </div>
 
                   <h3 className="text-[24px] sm:text-[28px] md:text-[30px] lg:text-[32px] text-[#232323] font-bold leading-[1.3] sm:leading-[1.4] lg:leading-[1.4] mb-3 sm:mb-4 lg:mb-[16px]">

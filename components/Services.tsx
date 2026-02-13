@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import { cloudinaryUrl } from "@/lib/cloudinary";
 import { PreloadImage } from "./PreloadImage";
+import Image from "next/image";
 
 // Card container up to 1100×700 — resize at fetch
 const img1 = cloudinaryUrl("v1770654379/20260209_160659.jpg_cbpvzb.jpg", { w: 1100, h: 700, c: "fill" });
@@ -388,13 +389,14 @@ export default function Services() {
               }}
             >
               <div className="absolute inset-0">
-                <img
-                  ref={(el) => { cardImagesRef.current[index] = el; }}
+                <Image
+                  ref={(el: HTMLImageElement | null) => { cardImagesRef.current[index] = el; }}
                   src={service.image}
                   alt={service.title}
                   width={1100}
                   height={700}
-                  {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
+                  priority={index === 0}
+                  loading={index === 0 ? "eager" : undefined}
                   className="w-full h-full object-cover"
                   style={{ willChange: 'opacity' }}
                 />
@@ -466,11 +468,12 @@ export default function Services() {
                 }}
               >
                 <div className="absolute inset-0">
-                  <img
+                  <Image
                     src={service.image}
                     width={1100}
                     height={700}
-                    {...(index === 0 ? { fetchPriority: "high" as const, loading: "eager" as const } : {})}
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : undefined}
                     alt={service.title}
                     className="w-full h-full object-cover opacity-100"
                   />

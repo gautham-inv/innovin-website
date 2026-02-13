@@ -12,6 +12,8 @@ gsap.registerPlugin(ScrollTrigger);
 const imgHeroBackground =
   "/images/compressed_efdf1ab711ffad6d48b3163655ede5890772aaf2.webp";
 
+import Image from "next/image";
+
 const teamPhotos = [
   "/images/compressed_573ac6c833b631241442f52f9339c8f43a7bcb76.webp",
   "/images/compressed_d7fbbc268730dca1329c17ec05aad7e281134f4f.webp",
@@ -79,8 +81,8 @@ function CoreValueCard({
       className={`flex flex-col items-center transition-all duration-700 ease-out w-[200px] ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="w-[200px] h-[165px] mb-[13px] text-[80px] flex items-center justify-center flex-shrink-0">
-        <img src={icon} alt="" className="w-full h-full object-cover" />
+      <div className="w-[200px] h-[165px] mb-[13px] text-[80px] flex items-center justify-center flex-shrink-0 relative">
+        <Image src={icon} alt="" fill className="object-cover" />
       </div>
       <h3 className="text-[25px] text-white leading-[1.4] tracking-[-0.375px] text-center break-words font-normal">
         {title}
@@ -122,8 +124,8 @@ function CoreValueCardMobile({
       className={`flex flex-col items-center transition-all duration-700 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] mb-3 sm:mb-4 text-[50px] sm:text-[60px] md:text-[70px] flex items-center justify-center">
-        <img src={icon} alt="" className="w-full h-full object-cover" />
+      <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] mb-3 sm:mb-4 text-[50px] sm:text-[60px] md:text-[70px] flex items-center justify-center relative">
+        <Image src={icon} alt="" fill className="object-cover" />
       </div>
       <h3 className="text-[15px] sm:text-[17px] md:text-[20px] text-white leading-[1.5] sm:leading-[1.6] text-center font-normal">
         {title}
@@ -148,7 +150,13 @@ function LeadershipCard({
   return (
     <div className="flex flex-col gap-[24px] group">
       <div className="w-full h-[450px] rounded-[10px] overflow-hidden relative">
-        <img src={image} alt="" className="w-full h-full object-cover" />
+        <Image
+          src={image}
+          alt=""
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-[#005c89]/90 via-[#005c89]/60 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
         <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out delay-75 flex flex-col gap-4">
           <p className="text-white text-[16px] font-medium leading-[1.5]">
@@ -248,12 +256,14 @@ function JourneyCard() {
             maskComposite: 'intersect',
           }}
         >
-          <div className="w-full h-full overflow-hidden border border-neutral-100 rounded-sm">
-            <img
+          <div className="w-full h-full overflow-hidden border border-neutral-100 rounded-sm relative">
+            <Image
               src={imgHeroBackground}
               alt=""
-              className="w-full h-full object-cover sepia-[0.3] contrast-[1.1]"
+              fill
+              className="object-cover sepia-[0.3] contrast-[1.1]"
               draggable={false}
+              sizes="150px"
             />
           </div>
         </div>
@@ -503,14 +513,13 @@ export default function AboutUs() {
         className="relative w-full bg-white py-6 sm:py-10 lg:py-14 overflow-hidden px-4 sm:px-6 md:px-8 xl:px-[70px]"
       >
         <div className="relative w-full max-w-[1681px] mx-auto">
-          <img
+          <Image
             ref={pictureRef}
             src={imgHeroBackground}
             alt="Innovin Labs team"
             width={1681}
             height={620}
-            fetchPriority="high"
-            loading="eager"
+            priority
             className="w-full h-[350px] sm:h-[450px] lg:h-[550px] xl:h-[620px] object-cover rounded-xl sm:rounded-2xl"
           />
           <div
@@ -669,10 +678,12 @@ export default function AboutUs() {
                   }
                 >
                   <div className="w-full max-w-[140px] sm:max-w-[160px] md:max-w-[180px] aspect-[3/4] rounded-[8px] sm:rounded-[10px] overflow-hidden relative group">
-                    <img
+                    <Image
                       src={leader.image}
                       alt=""
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 640px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#005c89]/90 via-[#005c89]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center">
@@ -753,10 +764,12 @@ export default function AboutUs() {
             className="relative w-full max-w-6xl max-h-[85vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <img
+            <Image
               src={teamPhotos[selectedImageIndex]}
               alt="Team Photo"
-              className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300"
+              width={1600}
+              height={1200}
+              className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300 w-auto h-auto"
             />
           </div>
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white font-medium bg-black/50 px-6 py-2 rounded-full">
