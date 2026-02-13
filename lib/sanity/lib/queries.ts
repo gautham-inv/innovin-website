@@ -72,7 +72,6 @@ const postFields = /* groq */ `
   "slug": slug.current,
   excerpt,
   coverImage,
-  thumbnail,
   "date": coalesce(date, _updatedAt),
   "author": author->{firstName, lastName, picture, description, linkedinUrl},
   "categories": categories[]->{_id, title, slug, description, color},

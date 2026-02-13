@@ -9,7 +9,6 @@ interface BlogCardProps {
   title: string;
   slug: string;
   excerpt?: string;
-  thumbnail?: any;
   coverImage?: any;
   date?: string;
   author?: {
@@ -30,7 +29,6 @@ export default function BlogCard({
   slug,
   excerpt,
   coverImage,
-  thumbnail,
   date,
   author,
   categories,
@@ -50,8 +48,6 @@ export default function BlogCard({
   const primaryCategory = categories && categories.length > 0 ? categories[0] : null;
   const categoryColor = primaryCategory?.color || "#66C2E2";
 
-  const displayImage = thumbnail || coverImage;
-
   return (
     <Link
       href={`/blog/${slug}`}
@@ -64,15 +60,17 @@ export default function BlogCard({
     >
       {/* Image Container */}
       <div className="bg-white h-[244px] overflow-hidden relative rounded-[16px] w-full">
-        {displayImage && (
+        {coverImage && (
           <div className="absolute inset-0">
             <div className="absolute inset-0 pointer-events-none rounded-[16px]">
-              <Image
-                src={urlFor(displayImage)?.width(800).height(540).url() || ''}
-                alt={title}
-                fill
-                className="object-cover rounded-[16px] transition-transform duration-500 group-hover:scale-105"
-              />
+              {urlFor(coverImage)?.width(800).url() && (
+                <Image
+                  src={urlFor(coverImage)?.width(800).url()!}
+                  alt={title}
+                  fill
+                  className="object-contain rounded-[16px] transition-transform duration-500 group-hover:scale-105"
+                />
+              )}
               <div className="absolute bg-[rgba(0,0,0,0.3)] inset-0 rounded-[16px]" />
             </div>
           </div>

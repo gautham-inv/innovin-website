@@ -36,7 +36,7 @@ export const testimonials: Testimonial[] = [
     logo: retalystLogo,
     link: "https://www.retalyst.com/",
     description:
-      "Data-driven retail analytics platform for smarter business decisions.",
+      "Retalyst is an AI-powered platform that instantly generates professional, SEO-optimized product titles, descriptions, specs, and tags to help businesses create compelling product content faster.",
   },
   {
     quote:
@@ -45,7 +45,7 @@ export const testimonials: Testimonial[] = [
     logo: goodlifeLogo,
     link: "https://heygoodlife.com/",
     description:
-      "Lifestyle and wellness platform helping people live their best life.",
+      "Goodlife is a personal intelligent shopping companion that helps you shop smarter, compare prices, and save more as you browse.",
     video:
       "https://res.cloudinary.com/dejb29i0k/video/upload/v1770912992/goodlife_b2difv.webm",
   },
@@ -58,7 +58,7 @@ export const testimonials: Testimonial[] = [
     logo: humanxLogo,
     link: "https://humanxinsights.com/",
     description:
-      "Human-centered insights and consulting for organizational transformation.",
+      "HumanX Insights is a consulting firm that helps purpose-driven organizations design and implement human experience strategies to accelerate customer and employee loyalty.",
     image:
       "https://res.cloudinary.com/dejb29i0k/image/upload/v1770912993/Screenshot_2026-02-12_at_9.19.27_PM_xiqoqa.png",
   },
@@ -71,7 +71,7 @@ export const testimonials: Testimonial[] = [
     logo: safelifeLogo,
     link: "https://www.asksafely.ai/",
     description:
-      "AI-powered safety and compliance platform for proactive risk management.",
+      "AskSafely is a privacy-first AI chat platform that lets you ask anything and automatically deletes your conversations after 8 hours, ensuring answers without storing, selling, or using your data.",
     video:
       "https://res.cloudinary.com/dejb29i0k/video/upload/v1770900888/safelife_final_jcobtq.webm",
   },

@@ -374,26 +374,25 @@ function ContactModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-start sm:items-center justify-center p-2 sm:p-4 lg:p-6 pt-8 overflow-hidden"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 lg:p-6 sm:pt-8 overflow-hidden"
       onClick={handleClose}
     >
       {/* Backdrop */}
-      < div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
       {/* Modal */}
-      < div
+      <div
         ref={modalRef}
-        className="relative mt-10 sm:mt-0 bg-[#131518] rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] w-full max-w-[680px] shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col"
-        onClick={(e) => e.stopPropagation()
-        }
+        className="relative sm:mt-0 bg-[#131518] rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] w-full max-w-[680px] shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col"
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         < div className="bg-[#131518] flex flex-col sm:flex-row gap-2 sm:gap-[361px] min-h-[54px] h-auto sm:h-[54px] items-start sm:items-center px-4 sm:px-[30px] py-3 sm:py-[10px] rounded-tl-[12px] sm:rounded-tl-[16px] lg:rounded-tl-[20px] rounded-tr-[12px] sm:rounded-tr-[16px] lg:rounded-tr-[20px] shrink-0 relative" >
           <div className="flex-1 w-full sm:w-auto">
-            {!showSuccess && currentStep === 1 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your name?</p>}
-            {!showSuccess && currentStep === 2 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] text-nowrap whitespace-pre">What's your company name</p>}
-            {!showSuccess && currentStep === 3 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] text-nowrap">What's your email</p>}
-            {!showSuccess && currentStep === 4 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] text-nowrap whitespace-nowrap lg:whitespace-nowrap">What can we help you with</p>}
+            {!showSuccess && currentStep === 1 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your name?</p>}
+            {!showSuccess && currentStep === 2 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your company name</p>}
+            {!showSuccess && currentStep === 3 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your email</p>}
+            {!showSuccess && currentStep === 4 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What can we help you with</p>}
             {!showSuccess && currentStep === 5 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px]">Confirm messsage</p>}
             {showSuccess && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#66c2e2] text-[14px] sm:text-[16px]">Thank you!</p>}
           </div>
@@ -408,7 +407,7 @@ function ContactModal() {
         </div >
 
         {/* Content */}
-        < div className="bg-[#131518] border-t border-[#6a6a6a] border-solid flex flex-col gap-[3px] items-start px-4 sm:px-6 lg:px-[30px] py-4 sm:py-6 lg:py-0 rounded-bl-[12px] sm:rounded-bl-[16px] lg:rounded-bl-[20px] rounded-br-[12px] sm:rounded-br-[16px] lg:rounded-br-[20px] shrink-0 w-full overflow-y-auto" >
+        < div className="bg-[#131518] border-t border-[#6a6a6a] border-solid flex flex-col gap-[3px] items-start px-4 sm:px-6 lg:px-[30px] py-4 sm:py-6 lg:py-0 rounded-bl-[12px] sm:rounded-bl-[16px] lg:rounded-bl-[20px] rounded-br-[12px] sm:rounded-br-[16px] lg:rounded-br-[20px] shrink-0 w-full overflow-y-auto overscroll-contain touch-pan-y" >
           {
             showSuccess ? (
               <div className="flex flex-col items-center justify-center py-8 sm:py-12 gap-4 sm:gap-6 w-full" >

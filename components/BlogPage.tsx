@@ -21,7 +21,6 @@ interface Post {
   slug: string;
   excerpt?: string;
   coverImage?: any;
-  thumbnail?: any;
   date?: string;
   author?: {
     firstName?: string;
@@ -146,7 +145,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
                       {/* Content */}
                       <div className="relative h-full flex flex-col items-start justify-center text-white z-10">
                         <div className="flex flex-col gap-3 sm:gap-4 lg:gap-[20px] items-start relative shrink-0 w-full">
-                          <p className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.3] lg:leading-[1.1] relative shrink-0 text-[24px] sm:text-[28px] md:text-[36px] lg:text-[60px] tracking-[-0.02em] lg:tracking-[-0.9px] w-full line-clamp-2">
+                          <p className="font-['Manrope',sans-serif] font-semibold leading-[1.2] sm:leading-[1.3] lg:leading-[1.5] relative shrink-0 text-[24px] sm:text-[28px] md:text-[36px] lg:text-[60px] tracking-[-0.02em] lg:tracking-[-0.9px] w-full line-clamp-2">
                             {post.title.split(":")[0]}{post.title.includes(":") ? ":" : ""}
                           </p>
                           {post.title.includes(":") && (

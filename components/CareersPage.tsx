@@ -43,12 +43,20 @@ interface GalleryImage {
 
 const DraggablePhoto = ({ image, index, openLightbox }: { image: GalleryImage; index: number; openLightbox: (index: number) => void }) => {
   const isDragging = useRef(false);
+  const [isDraggable, setIsDraggable] = useState(false);
+
+  useEffect(() => {
+    const checkDraggable = () => setIsDraggable(window.innerWidth >= 1024);
+    checkDraggable();
+    window.addEventListener('resize', checkDraggable);
+    return () => window.removeEventListener('resize', checkDraggable);
+  }, []);
 
   return (
     <motion.div
-      className="break-inside-avoid mb-8 cursor-grab active:cursor-grabbing group relative"
+      className="break-inside-avoid mb-8 lg:cursor-grab lg:active:cursor-grabbing group relative"
       style={{ rotate: image.rotate }}
-      drag
+      drag={isDraggable}
       dragMomentum={false}
       whileDrag={{ scale: 1.1, zIndex: 50 }}
       onDragStart={() => {

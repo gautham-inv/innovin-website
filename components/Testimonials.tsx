@@ -307,7 +307,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
             {t.company ? `, ${t.company}` : ""}
           </p>
         )}
-        <p className="text-neutral-500 text-xs sm:text-sm mt-2 sm:mt-3 line-clamp-3 leading-relaxed">
+        <p className="text-neutral-500 text-xs sm:text-sm mt-2 sm:mt-3 line-clamp-6 leading-relaxed">
           {t.quote}
         </p>
       </div>
