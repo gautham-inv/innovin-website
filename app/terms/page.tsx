@@ -1,16 +1,40 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import Schema from "@/components/Schema";
 
 export const metadata: Metadata = {
     title: "Terms and Conditions | Innovin Labs",
     description:
         "Read the terms and conditions governing the use of Innovin Labs' website and services.",
+    alternates: {
+        canonical: "/terms",
+    },
 };
 
 export default function TermsAndConditionsPage() {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://innovinlabs.com"
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: "Terms and Conditions",
+                item: "https://innovinlabs.com/terms"
+            }
+        ]
+    };
+
     return (
         <>
+            <Schema data={jsonLd} />
             <main id="main-content" className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[60px] lg:pb-[40px] overflow-hidden relative">
                 <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px]">
                     <header className="text-center mb-10 sm:mb-12 lg:mb-[50px]">

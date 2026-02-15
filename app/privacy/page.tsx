@@ -1,16 +1,40 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/Footer";
+import Schema from "@/components/Schema";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Innovin Labs",
   description:
     "Learn how Innovin Labs collects, uses, discloses, and protects personal information.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPolicyPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://innovinlabs.com"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Privacy Policy",
+        item: "https://innovinlabs.com/privacy"
+      }
+    ]
+  };
+
   return (
     <>
+      <Schema data={jsonLd} />
       <main id="main-content" className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[60px] lg:pb-[40px] overflow-hidden relative">
         <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px]">
           <header className="text-center mb-10 sm:mb-12 lg:mb-[50px]">

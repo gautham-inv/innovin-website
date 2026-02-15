@@ -1,0 +1,49 @@
+# Innovin Labs - Full Organization Context for LLMs
+
+## Company Overview
+Innovin Labs is a global technology consulting and software development company specializing in rapid product development, AI integration, and scalable tech solutions. We partner with startups and enterprises to transform ideas into digital reality.
+
+## Core Services
+1. **Smart Product Development**
+   - End-to-end software engineering
+   - MVP development
+   - Scalable architecture design
+   - Legacy system modernization
+
+2. **AI-Enhanced Design & Prototyping**
+   - User-centric UI/UX design
+   - Rapid prototyping with AI tools
+   - Design systems and component libraries
+
+3. **Strategic Technology Consulting**
+   - Tech stack selection and optimization
+   - Cloud infrastructure planning (AWS, GCP, Azure)
+   - CTO-as-a-Service for startups
+
+4. **Strategic AI Consulting**
+   - AI readiness assessment
+   - Custom AI model integration (LLMs, RAG)
+   - Process automation and workflow optimization
+
+## Technology Stack
+- **Frontend:** React, Next.js, TypeScript, Tailwind CSS, Vue.js
+- **Backend:** Node.js, Python (Django/FastAPI), NestJS, Go
+- **Mobile:** React Native, Flutter, Expo, iOS (Swift), Android (Kotlin)
+- **Database:** PostgreSQL, MongoDB, Redis, Supabase, Firebase
+- **DevOps:** Docker, Kubernetes, AWS, Google Cloud, Vercel, CI/CD pipelines
+- **AI/ML:** OpenAI API, Anthropic Claude, LangChain, Hugging Face, TensorFlow, PyTorch
+
+## Key Differentiators
+- **Speed to Market:** Leveraging AI-assisted coding to reduce development time by up to 40%.
+- **Global Talent Pool:** A network of vetted senior engineers and tech SMEs across India, Australia, and the US.
+- **Start-up DNA:** Deep understanding of startup challenges, focusing on agility and lean development.
+
+## Locations & Contact
+- **Headquarters:** Trivandrum, Kerala, India
+- **Global Offices:** Melbourne, Australia; San Francisco, CA, USA
+- **Website:** https://innovinlabs.com
+- **General Inquiries:** info@innovinlabs.com
+- **Careers:** careers@innovinlabs.com
+
+## Latest Insights
+Check our blog at https://innovinlabs.com/blog for the latest updates on AI trends, software engineering best practices, and case studies.

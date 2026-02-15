@@ -11,7 +11,7 @@ import { jobSlugs, postSlugs } from '@/lib/sanity/lib/queries'
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://innovinlabs.com'
-  
+
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -56,6 +56,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    {
+      url: `${baseUrl}/terms`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/tech-stack`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
   ]
 
   // Fetch dynamic routes from Sanity
@@ -69,7 +81,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       perspective: 'published',
       stega: false,
     })
-    
+
     if (postsResult.data && Array.isArray(postsResult.data)) {
       blogPosts = postsResult.data.map((post: { slug: string }) => ({
         url: `${baseUrl}/blog/${post.slug}`,
@@ -85,7 +97,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       perspective: 'published',
       stega: false,
     })
-    
+
     if (jobsResult.data && Array.isArray(jobsResult.data)) {
       careers = jobsResult.data.map((job: { slug: string }) => ({
         url: `${baseUrl}/careers/${job.slug}`,

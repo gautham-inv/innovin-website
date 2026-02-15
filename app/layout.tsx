@@ -6,6 +6,7 @@ import { ContactModalProvider } from "@/components/ContactModal";
 import ScrollToTop from "@/components/ScrollToTop";
 import SessionTracker from "@/components/SessionTracker";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import Schema from "@/components/Schema";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -18,13 +19,66 @@ const manrope = Manrope({
 
 // Add metadata to ensure consistent rendering
 export const metadata: Metadata = {
-  title: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://innovinlabs.com"),
+  title: {
+    default: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
+    template: "%s | Innovin Labs"
+  },
   description: "We help startups and small businesses build bold, scalable tech fast.",
+  keywords: ["Software Development", "AI Consulting", "Web Development", "Mobile App Development", "Startup Tech Partner"],
+  authors: [{ name: "Innovin Labs" }],
+  creator: "Innovin Labs",
+  publisher: "Innovin Labs",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: [
       { url: "/images/favicon.png", sizes: "32x32", type: "image/png" },
       { url: "/images/favicon.png", sizes: "16x16", type: "image/png" },
     ],
+    apple: [
+      { url: "/images/favicon.png" },
+    ],
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://innovinlabs.com",
+    title: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
+    description: "We help startups and small businesses build bold, scalable tech fast.",
+    siteName: "Innovin Labs",
+    images: [
+      {
+        url: "/images/og-image.png", // Ensure this image exists in public/images
+        width: 1200,
+        height: 630,
+        alt: "Innovin Labs - Transforming Ideas into Digital Solutions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
+    description: "We help startups and small businesses build bold, scalable tech fast.",
+    images: ["/images/og-image.png"], // Fallback to OG image
+    creator: "@innovinlabs", // Update with actual handle if strictly known, otherwise okay to omit or generic
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -55,9 +109,46 @@ export default async function RootLayout({
     ? (await import("./sanity-preview-tools")).default
     : null;
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Innovin Labs",
+      url: "https://innovinlabs.com",
+      logo: "https://innovinlabs.com/images/logo.png",
+      sameAs: [
+        "https://linkedin.com/company/innovinlabs",
+        "https://twitter.com/innovinlabs",
+      ],
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "", // Add if available
+        contactType: "customer service",
+        email: "info@innovinlabs.com",
+        areaServed: "Global",
+        availableLanguage: ["English"],
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: "Innovin Labs",
+      url: "https://innovinlabs.com",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://innovinlabs.com/search?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+      },
+    },
+  ];
+
   return (
     <html lang="en" className={manrope.variable}>
       <body className="antialiased">
+        <Schema data={jsonLd} />
         {SanityPreviewTools ? <SanityPreviewTools /> : null}
         <ContactModalProvider>
           <ScrollToTop />

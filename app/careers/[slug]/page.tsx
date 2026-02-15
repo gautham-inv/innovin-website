@@ -7,6 +7,7 @@ import { getSanityFetchConfig } from '@/lib/sanity/lib/preview'
 import { jobSlugs, jobQuery } from '@/lib/sanity/lib/queries'
 import PortableText from '@/components/PortableText'
 import Footer from '@/components/Footer'
+import Schema from '@/components/Schema'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -79,8 +80,64 @@ export default async function JobDetailPage(props: Props) {
 
   const applyUrl = `/careers/apply?jobId=${job._id}&title=${encodeURIComponent(job.title)}`
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "JobPosting",
+      title: job.title,
+      description: job.heading || job.title,
+      identifier: {
+        "@type": "PropertyValue",
+        name: "Innovin Labs",
+        value: job._id
+      },
+      datePosted: job.datePosted,
+      validThrough: job.dateExpires,
+      employmentType: job.employmentType || "FULL_TIME",
+      hiringOrganization: {
+        "@type": "Organization",
+        name: "Innovin Labs",
+        sameAs: "https://innovinlabs.com",
+        logo: "https://innovinlabs.com/images/logo.png"
+      },
+      jobLocation: {
+        "@type": "Place",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: job.location || "Trivandrum",
+          addressCountry: "IN"
+        }
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://innovinlabs.com"
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Careers",
+          item: "https://innovinlabs.com/careers"
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: job.title,
+          item: `https://innovinlabs.com/careers/${params.slug}`
+        }
+      ]
+    }
+  ];
+
   return (
     <div className="bg-white min-h-screen pt-16 sm:pt-20 md:pt-24 pb-8 sm:pb-12 md:pb-16 font-sans">
+      <Schema data={jsonLd} />
       <div className="w-full px-4 sm:px-6 md:px-8 xl:px-[70px]">
         <div className="max-w-[1681px] mx-auto">
           {/* Job Title and Apply Button Section */}

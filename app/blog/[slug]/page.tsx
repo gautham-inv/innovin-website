@@ -8,6 +8,7 @@ import Link from "next/link";
 import { urlFor } from "@/lib/sanity/lib/utils";
 import PortableText from "@/components/PortableText";
 import Footer from "@/components/Footer";
+import Schema from "@/components/Schema";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -115,8 +116,62 @@ export default async function BlogPost(props: Props) {
     })
     : "";
 
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title,
+      image: post.coverImage ? urlFor(post.coverImage)?.width(1200).height(630).url() : undefined,
+      datePublished: post.date,
+      dateModified: post._updatedAt || post.date,
+      author: {
+        "@type": "Person",
+        name: authorName,
+        image: post.author?.picture ? urlFor(post.author.picture)?.width(400).height(400).url() : undefined,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Innovin Labs",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://innovinlabs.com/images/logo.png"
+        }
+      },
+      description: post.excerpt,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": `https://innovinlabs.com/blog/${params.slug}`
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://innovinlabs.com"
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Blog",
+          item: "https://innovinlabs.com/blog"
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: post.title,
+          item: `https://innovinlabs.com/blog/${params.slug}`
+        }
+      ]
+    }
+  ];
+
   return (
     <article className="bg-white w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-[50px] sm:pb-[70px] lg:pb-[90px]">
+      <Schema data={jsonLd} />
       <div className="max-w-[1681px] mx-auto px-4 sm:px-6 md:px-8 lg:px-[70px]">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
           {/* Main Content */}

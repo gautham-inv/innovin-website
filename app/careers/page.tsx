@@ -4,10 +4,19 @@ import { sanityFetch } from "@/lib/sanity/lib/live";
 import { getSanityFetchConfig } from "@/lib/sanity/lib/preview";
 import { allJobsQuery } from "@/lib/sanity/lib/queries";
 import Footer from "@/components/Footer";
+import Schema from "@/components/Schema";
 
 export const metadata: Metadata = {
   title: "Careers | Innovin Labs - Join Our Team of Product Champions",
   description: "Ignite your career at Innovin Labs. Join a team of product champions powering innovation at global scale. Explore our job openings and company culture.",
+  alternates: {
+    canonical: "/careers",
+  },
+  openGraph: {
+    title: "Careers | Innovin Labs - Join Our Team of Product Champions",
+    description: "Ignite your career at Innovin Labs. Explore our job openings and company culture.",
+    url: "https://innovinlabs.com/careers",
+  },
 };
 
 /**
@@ -16,6 +25,25 @@ export const metadata: Metadata = {
  * See /api/revalidate for webhook handler.
  */
 export default async function Careers() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://innovinlabs.com"
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Careers",
+        item: "https://innovinlabs.com/careers"
+      }
+    ]
+  };
+
   let jobs: any[] = [];
 
   try {
