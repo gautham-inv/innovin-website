@@ -11,7 +11,7 @@ const imgEllipse2 = "/images/blue_gradient.svg";
 // Service images: container up to 550×400 — request 1100×800 at fetch (2x)
 const imgProductDev = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770996488/1p_dhnwny.png";
 const imgDesign = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770996488/2p_bjbzt1.png";
-const imgConsulting = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770995843/3p_hbhrkn.png";
+const imgConsulting = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770996489/3p_tvalko.png";
 const imgAIConsulting = "https://res.cloudinary.com/dejb29i0k/image/upload/v1770996488/4p_mp3wui.png";
 
 export default function ServicesPage() {

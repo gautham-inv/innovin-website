@@ -455,7 +455,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     { name: "Alias", img: `${TEAM_IMAGE_BASE}/alias_ajo9j2.png`, style: { bottom: "8%", left: "10%" }, rotate: "6deg" },
     { name: "Amit", img: `${TEAM_IMAGE_BASE}/amit_zwqnfl.png`, style: { bottom: "5%", left: "22%" }, rotate: "-4deg" },
     // Bottom center
-    { name: "Rishikesh", img: `${TEAM_IMAGE_BASE}/rishikesh_kxrool.png`, style: { bottom: "12%", left: "35%" }, rotate: "3deg" },
+    { name: "Rishikesh", img: `https://res.cloudinary.com/dejb29i0k/image/upload/v1771237410/DOC-20260216-WA0004_2__kbchzo.png`, style: { bottom: "12%", left: "35%" }, rotate: "3deg" },
     { name: "Sayooj", img: `${TEAM_IMAGE_BASE}/sayooj_ynbezz.png`, style: { bottom: "5%", left: "47%" }, rotate: "-5deg" },
     { name: "Dias", img: `${TEAM_IMAGE_BASE}/dias_otwvqu.png`, style: { bottom: "8%", right: "35%" }, rotate: "7deg" },
     // Bottom right
