@@ -514,7 +514,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
           {/* Centered Content Overlay */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8 sm:px-12 md:px-20 lg:px-32 z-20">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
               Ignite your <span className="text-[#005c89]">career with us</span>
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl text-[#5a5a5a] leading-relaxed max-w-[700px]">
@@ -527,7 +527,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Reason to Choose Us */}
         <div className="mb-[40px] sm:mb-[60px] lg:mb-[80px]">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-6 sm:mb-8 lg:mb-10">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-6 sm:mb-8 lg:mb-10 tracking-[-1.2px]">
             Reason to choose us
           </h2>
 
@@ -651,7 +651,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
           </div>
 
           <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6 tracking-[-1.2px]">
               Talent approach
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed max-w-full lg:max-w-[1472px]">
@@ -698,7 +698,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Experience life inside our home */}
         <div className="mb-8 sm:mb-12 lg:mb-[69px]">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#232323] font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6 tracking-[-1.2px]">
             Experience life inside our home
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed">
@@ -782,7 +782,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Recent Job Openings */}
         <div id="recent-job-openings">
-          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-6 sm:mb-8 lg:mb-10">
+          <h2 className="text-[28px] sm:text-[32px] md:text-[36px] xl:text-[40px] text-black font-semibold leading-[1.3] sm:leading-[1.4] xl:leading-[60px] mb-6 sm:mb-8 lg:mb-10 tracking-[-1.2px]">
             <span className="font-normal">Recent</span> job openings
           </h2>
 

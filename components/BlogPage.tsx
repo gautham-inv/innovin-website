@@ -76,7 +76,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
       <div className="max-w-[1681px] mx-auto">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center py-8 sm:py-12 lg:py-[10px]">
-          <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6 text-center">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6 text-center">
             Knowledge hub
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[700px] mx-auto text-center">
@@ -87,7 +87,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
         {/* Recent Posts Carousel with Arrow Buttons - Shows One at a Time */}
         {recentPosts.length > 0 && (
           <div className="w-full relative mt-10">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#232323] mb-4 sm:mb-5 lg:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#232323] mb-4 sm:mb-5 lg:mb-6 tracking-[-1.2px]">
               Recent blog posts
             </h2>
 
@@ -177,7 +177,7 @@ export default function BlogPage({ posts, categories, featuredPost }: BlogPagePr
 
         {/* Categories Section */}
         <div className="w-full mt-10">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#232323] mb-4 sm:mb-5 lg:mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#232323] mb-4 sm:mb-5 lg:mb-6 tracking-[-1.2px]">
             Categories
           </h2>
           <div className="flex flex-wrap gap-3 sm:gap-4 lg:gap-[13px] items-center">

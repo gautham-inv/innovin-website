@@ -65,7 +65,7 @@ export default function OfficeLocations() {
   return (
     <section className="bg-gradient-to-br from-slate-50 to-slate-100 py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-6 xl:px-[70px]">
       <div className="w-full max-w-[1681px] mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 sm:mb-8 lg:mb-10 text-slate-800">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight text-center mb-6 sm:mb-8 lg:mb-10 text-slate-800 tracking-[-1.2px]">
           Our offices
         </h2>
 

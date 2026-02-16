@@ -351,7 +351,7 @@ export default function Services() {
         <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 2xl:pl-20 space-y-1">
           <div ref={desktopTitleOurRef} className="overflow-hidden">
             <h2
-              className="text-[56px] xxl:text-[72px] text-white font-medium leading-[62px] xxl:leading-[80px] tracking-[-1.2px] inline-block"
+              className="text-3xl sm:text-4xl lg:text-5xl text-white font-semibold leading-[1.1] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               Our
@@ -359,7 +359,7 @@ export default function Services() {
           </div>
           <div ref={desktopTitleServicesRef} className="overflow-hidden">
             <h2
-              className="text-[56px] xxl:text-[72px] text-white font-medium leading-[62px] xxl:leading-[80px] tracking-[-1.2px] inline-block"
+              className="text-3xl sm:text-4xl lg:text-5xl text-white font-semibold leading-[1.1] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
             >
               services
@@ -431,7 +431,7 @@ export default function Services() {
           <div className="mb-12 sm:mb-16 md:mb-20">
             <div ref={mobileTitleOurRef} className="overflow-hidden">
               <h2
-                className="text-[48px] sm:text-[56px] md:text-[64px] text-white font-medium leading-[1.1] tracking-[-0.02em] inline-block"
+                className="text-3xl sm:text-4xl lg:text-5xl text-white font-semibold leading-[1.1] tracking-[-1.2px] inline-block"
                 style={{ willChange: 'transform, opacity' }}
               >
                 Our
@@ -439,7 +439,7 @@ export default function Services() {
             </div>
             <div ref={mobileTitleServicesRef} className="overflow-hidden">
               <h2
-                className="text-[48px] sm:text-[56px] md:text-[64px] text-white font-medium leading-[1.1] tracking-[-0.02em] inline-block"
+                className="text-3xl sm:text-4xl lg:text-5xl text-white font-semibold leading-[1.1] tracking-[-1.2px] inline-block"
                 style={{ willChange: 'transform, opacity' }}
               >
                 services

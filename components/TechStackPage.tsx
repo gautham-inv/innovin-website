@@ -15,7 +15,7 @@ export default function TechStackPage() {
             {/* Hero Section */}
             <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-6 xl:px-[70px] bg-neutral-50 border-b border-neutral-100">
                 <div className="max-w-[1681px] mx-auto text-center">
-                    <h1 className="text-4xl sm:text-5xl lg:text-7xl text-[#232323] font-semibold mb-4 sm:mb-5 lg:mb-6">
+                    <h1 className="text-5xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold mb-4 sm:mb-5 lg:mb-6">
                         Our <span className="text-[#005c89]">tech stack</span>
                     </h1>
                     <p className="text-lg sm:text-xl lg:text-2xl text-neutral-600 leading-relaxed max-w-3xl mx-auto font-medium">
@@ -30,7 +30,7 @@ export default function TechStackPage() {
                     {techStackData.map((category, idx) => (
                         <div key={idx} className="space-y-10">
                             <div className="flex items-center gap-4">
-                                <h2 className="text-2xl sm:text-3xl font-bold text-[#005c89] whitespace-nowrap">
+                                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#005c89] whitespace-nowrap tracking-[-1.2px]">
                                     {category.title}
                                 </h2>
                                 <div className="h-[1px] w-full bg-neutral-200" />
@@ -71,7 +71,7 @@ export default function TechStackPage() {
             {/* CTA Section */}
             <section className="py-24 px-4 sm:px-6 lg:px-6 xl:px-[70px] bg-[#131518] text-white">
                 <div className="max-w-[1681px] mx-auto text-center space-y-8">
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight">
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-[-1.2px]">
                         Ready to build something amazing with us?
                     </h2>
                     <p className="text-lg sm:text-xl text-neutral-400 max-w-2xl mx-auto">

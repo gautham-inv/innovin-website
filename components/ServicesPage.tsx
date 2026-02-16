@@ -74,7 +74,7 @@ export default function ServicesPage() {
                 {/* Blur Banner Effect */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[150%] bg-[#66c2e2]/15 blur-[60px] rounded-full -z-10 pointer-events-none mix-blend-multiply" />
 
-                <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6 w-full text-center">
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6 w-full text-center">
                   Our services
                 </h1>
               </div>
@@ -95,7 +95,7 @@ export default function ServicesPage() {
                 {/* Content */}
                 <div className="flex-1 flex flex-col gap-4 sm:gap-6 items-start relative text-[#232323] w-full xl:w-auto order-2 xl:order-none">
                   <div className="flex flex-col gap-3 sm:gap-4 items-start relative w-full">
-                    <h2 className="font-semibold leading-[1.2] sm:leading-[1.3] relative text-3xl sm:text-4xl lg:text-5xl w-full tracking-tight text-center xl:text-left">
+                    <h2 className="font-semibold leading-[1.2] sm:leading-[1.3] relative text-3xl sm:text-4xl lg:text-5xl w-full tracking-[-1.2px] text-center xl:text-left">
                       {service.title}
                     </h2>
                     <p className="font-normal leading-relaxed relative text-base sm:text-lg text-gray-700 w-full mt-2 text-center xl:text-left">

@@ -218,7 +218,7 @@ function JourneyCard() {
 
         {/* Title */}
         <div className="px-6 sm:px-10 pt-2 pb-0">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#005c89] font-bold leading-tight tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#005c89] font-bold leading-tight tracking-[-1.2px]">
             Our journey
           </h2>
         </div>
@@ -351,7 +351,7 @@ function TimelineSection() {
       {/* Mission — center aligned, card sits on top of line */}
       <div ref={missionRef} className="relative z-10 mb-16 sm:mb-20 lg:mb-24 opacity-0 translate-y-10">
         <div className="bg-white border border-neutral-200 rounded-xl shadow-md p-6 sm:p-8">
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl text-[#005c89] font-semibold leading-tight tracking-tight mb-3 sm:mb-4">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl text-[#005c89] font-semibold leading-tight tracking-[-0.8px] mb-3 sm:mb-4">
             Our mission
           </h3>
           <p className="text-base sm:text-lg lg:text-xl text-[#232323] leading-relaxed">
@@ -363,7 +363,7 @@ function TimelineSection() {
       {/* Vision — center aligned, card sits on top of line */}
       <div ref={visionRef} className="relative z-10 opacity-0 translate-y-10">
         <div className="bg-white border border-neutral-200 rounded-xl shadow-md p-6 sm:p-8">
-          <h3 className="text-2xl sm:text-3xl lg:text-4xl text-[#005c89] font-semibold leading-tight tracking-tight mb-3 sm:mb-4">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl text-[#005c89] font-semibold leading-tight tracking-[-0.8px] mb-3 sm:mb-4">
             Our vision
           </h3>
           <p className="text-base sm:text-lg lg:text-xl text-[#232323] leading-relaxed">
@@ -385,7 +385,7 @@ function TimelineMobile() {
       {/* Mission */}
       <div className="relative mb-10 sm:mb-14">
         <div className="absolute -left-[calc(1.25rem+1px)] sm:-left-[calc(1.5rem+1px)] top-1 w-3 h-3 rounded-full bg-[#005c89] z-10" />
-        <h3 className="text-2xl sm:text-3xl text-[#005c89] font-semibold leading-tight tracking-tight mb-3">
+        <h3 className="text-2xl sm:text-3xl text-[#005c89] font-semibold leading-tight tracking-[-0.6px] mb-3">
           Our mission
         </h3>
         <p className="text-base sm:text-lg text-[#232323] leading-relaxed">
@@ -396,7 +396,7 @@ function TimelineMobile() {
       {/* Vision */}
       <div className="relative">
         <div className="absolute -left-[calc(1.25rem+1px)] sm:-left-[calc(1.5rem+1px)] top-1 w-3 h-3 rounded-full bg-[#005c89] z-10" />
-        <h3 className="text-2xl sm:text-3xl text-[#005c89] font-semibold leading-tight tracking-tight mb-3">
+        <h3 className="text-2xl sm:text-3xl text-[#005c89] font-semibold leading-tight tracking-[-0.6px] mb-3">
           Our vision
         </h3>
         <p className="text-base sm:text-lg text-[#232323] leading-relaxed">
@@ -486,7 +486,7 @@ export default function AboutUs() {
       <section className="relative w-full pt-[100px] sm:pt-[120px] lg:pt-[146px] pb-10 sm:pb-14 lg:pb-16 px-4 sm:px-6 md:px-8 xl:px-[70px] bg-white">
         <div ref={heroRef} className="max-w-[1681px] mx-auto opacity-0 translate-y-5">
           <div className="max-w-[1000px] mx-auto text-center">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6">
               About us
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-[#5a5a5a] leading-relaxed max-w-[800px] mx-auto">
@@ -512,9 +512,9 @@ export default function AboutUs() {
             src={imgHeroBackground}
             alt="Innovin Labs team"
             width={1681}
-            height={620}
+            height={800}
             priority
-            className="w-full h-[350px] sm:h-[450px] lg:h-[550px] xl:h-[620px] object-cover rounded-xl sm:rounded-2xl opacity-0 translate-y-5"
+            className="w-full h-[350px] sm:h-[450px] lg:h-[600px] xl:h-[800px] object-cover rounded-xl sm:rounded-2xl opacity-0 translate-y-5"
           />
           <div
             ref={overlayLeftRef}
@@ -549,9 +549,9 @@ export default function AboutUs() {
       {/* ═══════ CORE VALUES ═══════ */}
       <section className="bg-black pt-12 sm:pt-16 md:pt-20 lg:pt-[60px] pb-16 sm:pb-20 md:pb-24 lg:pb-[126px] overflow-hidden relative px-4 sm:px-6 lg:px-6 xl:px-[70px]">
         <div className="max-w-[1681px] mx-auto text-center">
-          <h2 className="text-[28px] sm:text-[36px] md:text-[48px] lg:text-[64px] text-white leading-[1.3] sm:leading-[1.4] lg:leading-[60px] tracking-[-0.02em] lg:tracking-[-0.96px] mb-12 sm:mb-16 md:mb-24 lg:mb-[100px] px-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.3] sm:leading-[1.4] lg:leading-[1.2] tracking-[-1.2px] mb-12 sm:mb-16 md:mb-24 lg:mb-[100px] px-4 font-semibold">
             The{" "}
-            <span className="text-[#66c2e2] text-[32px] sm:text-[40px] md:text-[52px] lg:text-[70px] font-medium">
+            <span className="text-[#66c2e2] text-4xl sm:text-5xl lg:text-7xl font-bold">
               6 core values
             </span>{" "}
             that are embedded in our everyday work practices:
@@ -599,7 +599,7 @@ export default function AboutUs() {
       <section className="bg-white py-12 sm:py-14 md:py-16 lg:py-[60px] px-4 sm:px-6 lg:px-6 xl:px-[70px]">
         <div className="max-w-[1681px] mx-auto">
           <div className="mb-8 sm:mb-10 md:mb-12 lg:mb-[20px]">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight tracking-[-1.2px] mb-4 sm:mb-5 lg:mb-6">
               Our leadership team
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed max-w-4xl">

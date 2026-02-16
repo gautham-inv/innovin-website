@@ -128,7 +128,7 @@ export default function TechStack() {
           {/* Heading Section */}
           <div className="text-center flex flex-col gap-4 sm:gap-5 lg:gap-6 px-4">
             <h2
-              className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[62px] text-white font-medium tracking-[0.6px] lg:tracking-[1.88px] leading-[1.05] lg:leading-[84px] font-['Manrope',sans-serif]"
+              className="text-3xl sm:text-4xl lg:text-5xl text-white font-semibold tracking-[-1.2px] leading-[1.05] lg:leading-[84px] font-['Manrope',sans-serif]"
             >
               Tech stack we use
             </h2>

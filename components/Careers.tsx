@@ -61,7 +61,7 @@ export default function Careers() {
         <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-[70px] relative">
           {/* Header Section */}
           <div className="flex items-start xl:items-center justify-between gap-6 mb-[40px]">
-            <h2 className="text-[36px] xl:text-[48px] text-black font-bold leading-tight xl:leading-[85.4px] tracking-[1.44px] max-w-[1183px]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight lg:leading-[85.4px] tracking-[-1.2px] max-w-[1183px]">
               The next big move is yours
             </h2>
             <button
@@ -187,7 +187,7 @@ export default function Careers() {
       <div className="xl:hidden px-4 sm:px-6 md:px-12 py-8 md:py-12">
         {/* Header Section */}
         <div className="mb-12 md:mb-16 text-center space-y-6 md:space-y-8">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl text-black font-bold leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight tracking-[-1.2px]">
             The next big move is yours
           </h2>
 

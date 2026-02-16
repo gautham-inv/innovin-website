@@ -118,7 +118,7 @@ export default function WhyUsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-4xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6"
+                className="text-5xl sm:text-6xl lg:text-7xl text-[#232323] font-semibold leading-tight tracking-tight mb-4 sm:mb-5 lg:mb-6"
               >
                 Why us
               </motion.h1>
@@ -236,7 +236,7 @@ export default function WhyUsPage() {
         <div className="max-w-[1681px] mx-auto">
           {/* Our Expertise */}
           <div className="mb-12 sm:mb-16 lg:mb-[30px] pt-20">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6 tracking-[-1.2px]">
               Our expertise
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed mb-8 sm:mb-10 lg:mb-[30px] max-w-4xl">
@@ -292,7 +292,7 @@ export default function WhyUsPage() {
 
           {/* Our Engagement Models */}
           <div className="mb-8 sm:mb-10 pt-20">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight mb-4 sm:mb-5 lg:mb-6 tracking-[-1.2px]">
               Our engagement models
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-black leading-relaxed mb-10 sm:mb-12 lg:mb-[50px] max-w-4xl">
