@@ -418,14 +418,13 @@ export default function Services() {
                 <h3 className="relative z-10 text-4xl text-white font-semibold mb-6 leading-tight">{service.title}</h3>
                 <p className="relative z-10 text-xl text-neutral-300 leading-relaxed max-w-[600px]">{service.description}</p>
               </div>
-              <div className="absolute top-10 right-10 text-8xl font-bold text-white/10">{String(index + 1).padStart(2, "0")}</div>
             </a>
           ))}
         </div>
-      </section>
+      </section >
 
       {/* Mobile/Tablet Version */}
-      <section ref={mobileSectionRef} id="services-mobile" className="xxl:hidden bg-black relative py-16 sm:py-20 md:py-24 px-6 sm:px-8 md:px-10">
+      < section ref={mobileSectionRef} id="services-mobile" className="xxl:hidden bg-black relative py-16 sm:py-20 md:py-24 px-6 sm:px-8 md:px-10" >
         <div className="max-w-[800px] mx-auto">
           {/* Titles */}
           <div className="mb-12 sm:mb-16 md:mb-20">
@@ -485,12 +484,11 @@ export default function Services() {
                   <h3 className="text-[26px] sm:text-[30px] md:text-[34px] text-white font-semibold mb-3 sm:mb-4 md:mb-5 leading-tight">{service.title}</h3>
                   <p className="text-[16px] sm:text-[18px] md:text-[20px] text-neutral-300 leading-relaxed">{service.description}</p>
                 </div>
-                <div className="absolute top-6 sm:top-8 md:top-10 right-6 sm:right-8 md:right-10 text-[60px] sm:text-[70px] md:text-[80px] font-bold text-white/10">{String(index + 1).padStart(2, "0")}</div>
               </a>
             ))}
           </div>
         </div>
-      </section>
+      </section >
     </>
   );
 }

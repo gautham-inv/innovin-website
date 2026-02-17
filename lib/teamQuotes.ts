@@ -33,7 +33,7 @@ export const teamQuotes = [
     {
         id: 3,
         quote:
-            "We're constantly learning, tweaking, and pushing boundaries. It’s not just work — it’s building the future.",
+            "We're constantly learning, tweaking, and pushing boundaries. It’s not just work, it’s building the future.",
         author: "Ashwathy",
         role: "Product Engineer",
         avatar: ashwathyLogo,
@@ -57,7 +57,7 @@ export const teamQuotes = [
     {
         id: 5,
         quote:
-            "We don’t wait for permission — we build, test, break, and rebuild. That’s how real innovation happens.",
+            "We don’t wait for permission, we build, test, break, and rebuild. That’s how real innovation happens.",
         author: "Sidharth",
         role: "Product Engineer",
         avatar: sidharthLogo,
@@ -69,7 +69,7 @@ export const teamQuotes = [
     {
         id: 6,
         quote:
-            "Every day feels like a chance to create something meaningful. The energy, the trust, the ownership — it’s different here.",
+            "Every day feels like a chance to create something meaningful. The energy, the trust, the ownership, it’s different here.",
         author: "Edwin",
         role: "Product Designer",
         avatar: edwinLogo,

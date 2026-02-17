@@ -125,7 +125,6 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     { path: "v1770654379/IMG_3420_wt9qlf.jpg", alt: "Team event 2", rotate: 2 },
     { path: "v1770654379/IMG_3361_hqzld4.heic", alt: "Team event 3", rotate: -1.5 },
     { path: "v1770654379/20260209_160659.jpg_cbpvzb.jpg", alt: "Team event 4", rotate: 3 },
-    { path: "v1770654378/20260209_160812.jpg_cbf8yh.jpg", alt: "Team event 5", rotate: -2 },
     { path: "v1770654378/20260209_160612.jpg_gc3qk1.jpg", alt: "Team event 6", rotate: 1.5 },
     { path: "v1770654377/IMG_0446_xxv9m7.jpg", alt: "Team event 7", rotate: -2.5 },
     { path: "v1770654373/20260209_160751.jpg_ceunj0.jpg", alt: "Team event 8", rotate: 2 },

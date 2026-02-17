@@ -46,6 +46,7 @@ const missionContent =
 const visionContent =
   "We envision a world where every startup, regardless of size, has access to world-class engineering talent and product thinking \u2014 enabling ideas to move from concept to reality faster than ever before. Revolutionize the tech industry by combining cutting-edge technology employing AI capabilities.";
 
+
 /* ───────── Reusable sub-components ───────── */
 
 function CoreValueCard({
@@ -551,7 +552,7 @@ export default function AboutUs() {
         <div className="max-w-[1681px] mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white leading-[1.3] sm:leading-[1.4] lg:leading-[1.2] tracking-[-1.2px] mb-12 sm:mb-16 md:mb-24 lg:mb-[100px] px-4 font-semibold">
             The{" "}
-            <span className="text-[#66c2e2] text-4xl sm:text-5xl lg:text-7xl font-bold">
+            <span className="text-[#66c2e2] text-3xl sm:text-4xl lg:text-5xl font-bold">
               6 core values
             </span>{" "}
             that are embedded in our everyday work practices:
