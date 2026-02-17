@@ -134,6 +134,7 @@ export default function Navigation() {
     <>
 
       <nav
+        id="main-navigation"
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-[50px] bg-white/75 border-b border-white/20 transition-transform duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"
           }`}

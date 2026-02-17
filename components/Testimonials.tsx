@@ -31,10 +31,38 @@ function TestimonialModal({
   onClose: () => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const timeDisplayRef = useRef<HTMLSpanElement>(null);
+  const rafRef = useRef<number>(0);
+  const durationRef = useRef<number>(0);
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+
+  const formatTime = (s: number) => {
+    if (!Number.isFinite(s) || s < 0) return "0:00";
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return `${m}:${sec.toString().padStart(2, "0")}`;
+  };
+
+  /* Update progress bar + time via DOM refs — zero re-renders */
+  const updateProgress = () => {
+    const video = videoRef.current;
+    if (video) {
+      const dur = video.duration || 0;
+      durationRef.current = dur;
+      const pct = dur > 0 ? (video.currentTime / dur) * 100 : 0;
+      if (progressBarRef.current) progressBarRef.current.style.width = `${pct}%`;
+      if (timeDisplayRef.current)
+        timeDisplayRef.current.textContent = `${formatTime(video.currentTime)} / ${formatTime(dur)}`;
+    }
+    rafRef.current = requestAnimationFrame(updateProgress);
+  };
+
+  useEffect(() => {
+    rafRef.current = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
 
   const toggleMute = () => {
     if (videoRef.current) {
@@ -54,38 +82,29 @@ function TestimonialModal({
     }
   };
 
-  const handleTimeUpdate = () => {
-    if (videoRef.current) setCurrentTime(videoRef.current.currentTime);
-  };
-
-  const handleLoadedMetadata = () => {
-    if (videoRef.current) setDuration(videoRef.current.duration);
-  };
-
   const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!videoRef.current || !duration) return;
+    const video = videoRef.current;
+    if (!video || !durationRef.current) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const pct = Math.max(0, Math.min(1, x / rect.width));
-    const seekTo = pct * duration;
-    videoRef.current.currentTime = seekTo;
-    setCurrentTime(seekTo);
+    video.currentTime = pct * durationRef.current;
   };
 
   useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const nav = document.getElementById("main-navigation");
+
     document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    if (nav) nav.style.paddingRight = `${scrollbarWidth}px`;
+
     return () => {
       document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "0px";
+      if (nav) nav.style.paddingRight = "0px";
     };
   }, []);
-
-  const progressPct = duration > 0 ? (currentTime / duration) * 100 : 0;
-  const formatTime = (s: number) => {
-    if (!Number.isFinite(s) || s < 0) return "0:00";
-    const m = Math.floor(s / 60);
-    const sec = Math.floor(s % 60);
-    return `${m}:${sec.toString().padStart(2, "0")}`;
-  };
 
   return (
     <div
@@ -109,7 +128,7 @@ function TestimonialModal({
           </button>
 
           {/* Media area */}
-          <div className="relative rounded-t-2xl overflow-hidden bg-neutral-100">
+          <div className="relative rounded-t-2xl overflow-hidden bg-neutral-100 select-none">
             {/* Logo chip overlay */}
             <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-2 bg-white rounded-full px-3 py-1.5 shadow-md">
               <Image
@@ -126,13 +145,11 @@ function TestimonialModal({
                 <video
                   ref={videoRef}
                   src={t.video}
-                  className="h-full max-h-[400px] w-auto object-contain"
+                  className="h-full max-h-[400px] w-auto object-contain bg-neutral-900"
                   autoPlay
-                  muted
+                  muted={isMuted}
                   loop
                   playsInline
-                  onTimeUpdate={handleTimeUpdate}
-                  onLoadedMetadata={handleLoadedMetadata}
                   onPlay={() => setIsPlaying(true)}
                   onPause={() => setIsPlaying(false)}
                   onClick={togglePlayPause}
@@ -158,17 +175,18 @@ function TestimonialModal({
                     className="flex-1 h-1.5 bg-white/30 rounded-full cursor-pointer overflow-hidden"
                     onClick={handleProgressClick}
                     role="progressbar"
-                    aria-valuenow={Math.round(progressPct)}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
                   >
                     <div
-                      className="h-full bg-white rounded-full transition-[width] duration-150"
-                      style={{ width: `${progressPct}%` }}
+                      ref={progressBarRef}
+                      className="h-full bg-white rounded-full"
+                      style={{ width: "0%" }}
                     />
                   </div>
-                  <span className="text-white/90 text-xs tabular-nums flex-shrink-0 min-w-[2.5rem] text-right">
-                    {formatTime(currentTime)} / {formatTime(duration)}
+                  <span
+                    ref={timeDisplayRef}
+                    className="text-white/90 text-xs tabular-nums flex-shrink-0 min-w-[2.5rem] text-right"
+                  >
+                    0:00 / 0:00
                   </span>
                   <button
                     onClick={toggleMute}
@@ -617,7 +635,7 @@ export default function Testimonials() {
         </div>
 
         <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-6 xl:px-[70px] w-full relative z-10">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight lg:leading-[90px] text-center tracking-[-1.2px] mb-6 sm:mb-8 lg:mb-10">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight text-center tracking-[-1.2px] mb-4 sm:mb-5 lg:mb-6">
             Trusted by companies
           </h2>
 

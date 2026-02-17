@@ -348,7 +348,7 @@ export default function Services() {
       {/* Desktop Version */}
       <section ref={sectionRef} id="services" className="hidden xxl:block bg-black relative h-screen overflow-hidden" style={{ willChange: 'transform' }}>
         {/* Titles */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 2xl:pl-20 space-y-1">
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 z-40 pointer-events-none pl-8 2xl:pl-20">
           <div ref={desktopTitleOurRef} className="overflow-hidden">
             <h2
               className="text-3xl sm:text-4xl lg:text-5xl text-white font-semibold leading-[1.1] tracking-[-1.2px] inline-block"
@@ -357,7 +357,7 @@ export default function Services() {
               Our
             </h2>
           </div>
-          <div ref={desktopTitleServicesRef} className="overflow-hidden">
+          <div ref={desktopTitleServicesRef} className="overflow-hidden mb-4 sm:mb-5 lg:mb-6">
             <h2
               className="text-3xl sm:text-4xl lg:text-5xl text-white font-semibold leading-[1.1] tracking-[-1.2px] inline-block"
               style={{ willChange: 'transform, opacity' }}
@@ -367,7 +367,7 @@ export default function Services() {
           </div>
           <p
             ref={desktopSubtitleRef}
-            className="text-[21px] text-neutral-500 leading-[30px] tracking-[0.325px] w-[272px] mt-3"
+            className="text-[21px] text-neutral-500 leading-[30px] tracking-[0.325px] w-[272px]"
             style={{ willChange: 'opacity' }}
           >
             Explore the range of services offered by our tech and consulting company.
@@ -447,7 +447,7 @@ export default function Services() {
             </div>
             <p
               ref={mobileSubtitleRef}
-              className="text-[17px] sm:text-[19px] md:text-[21px] text-neutral-500 leading-[1.5] mt-4 sm:mt-5 max-w-[400px]"
+              className="text-base sm:text-lg lg:text-xl text-neutral-500 leading-relaxed max-w-[400px] mt-4 sm:mt-5 lg:mt-6"
               style={{ willChange: 'opacity' }}
             >
               Explore the range of services offered by our tech and consulting company.

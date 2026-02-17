@@ -14,17 +14,17 @@ export const leadershipTeam = [
         linkedin: "https://www.linkedin.com/in/stallonselvan/"
     },
     {
+        name: "Harihara S",
+        role: "COO",
+        image: "/images/harihara.png",
+        description: "As a results-driven leader, Harihara plays a pivotal leadership role in translating vision into execution, driving operational excellence, fostering cross-functional alignment, and ensuring the organization scales with efficiency, integrity, and impact."
+    },
+    {
         name: "Sujith Chellappan",
         role: "MD, S&O, ANZ",
         image: "/images/1ff65672b25e8ee1fea3e17ba66c200d1c3294f2.png",
         description: "A versatile leader with experience across multiple industries, Sujith specializes in solving complex challenges through collaboration and strategic execution. He is driven by innovation, operational excellence, and long-term business success.",
         linkedin: "https://www.linkedin.com/in/sujithc/"
-    },
-    {
-        name: "Harihara S",
-        role: "COO",
-        image: "/images/harihara.png",
-        description: "As a results-driven leader, Harihara plays a pivotal leadership role in translating vision into execution, driving operational excellence, fostering cross-functional alignment, and ensuring the organization scales with efficiency, integrity, and impact."
     },
     {
         name: "Sreeprabha",

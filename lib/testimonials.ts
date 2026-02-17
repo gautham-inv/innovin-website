@@ -21,7 +21,9 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       "Innovin Labs has been a committed and expert partner in delivering Zirkly. They managed the end-to-end delivery seamlessly, resulting in a significantly shorter time to launch our app. Their professionalism and technical expertise made the entire process smooth and efficient.",
-    author: "Zirkly",
+    author: "Sujith Chellappan",
+    role: "Founder",
+    company: "Zirkly",
     logo: zirklyLogo,
     link: "https://www.zirkly.com/",
     video:
@@ -32,7 +34,9 @@ export const testimonials: Testimonial[] = [
   {
     quote:
       "Innovin Labs enabled Retalyst to go from ideation to MVP in just a few weeks. They quickly understood our requirements and delivered exactly what we needed. Highly recommended for their speed, expertise, and reliability.",
-    author: "Retalyst",
+    author: "Sujith Chellappan",
+    role: "Founder",
+    company: "Retalyst",
     logo: retalystLogo,
     link: "https://www.retalyst.com/",
     description:

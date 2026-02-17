@@ -60,7 +60,7 @@ export default function Careers() {
       <div className="hidden xl:block min-h-[1111px]">
         <div className="max-w-[1681px] mx-auto px-4 sm:px-6 lg:px-[70px] relative">
           {/* Header Section */}
-          <div className="flex items-start xl:items-center justify-between gap-6 mb-[40px]">
+          <div className="flex items-start xl:items-center justify-between gap-6 mb-4 sm:mb-5 lg:mb-6">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight lg:leading-[85.4px] tracking-[-1.2px] max-w-[1183px]">
               The next big move is yours
             </h2>
@@ -186,7 +186,7 @@ export default function Careers() {
       {/* Mobile & Tablet Layout - Chat Bubble Style with Scroll Animations */}
       <div className="xl:hidden px-4 sm:px-6 md:px-12 py-8 md:py-12">
         {/* Header Section */}
-        <div className="mb-12 md:mb-16 text-center space-y-6 md:space-y-8">
+        <div className="mb-8 sm:mb-10 lg:mb-12 text-center space-y-4 sm:space-y-5 lg:space-y-6">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl text-black font-semibold leading-tight tracking-[-1.2px]">
             The next big move is yours
           </h2>
