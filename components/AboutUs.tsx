@@ -670,7 +670,7 @@ export default function AboutUs() {
                       : {}
                   }
                 >
-                  <div className="w-full max-w-[140px] sm:max-w-[160px] md:max-w-[180px] aspect-[3/4] rounded-[8px] sm:rounded-[10px] overflow-hidden relative group">
+                  <div className="w-[130px] sm:w-[160px] md:w-[180px] aspect-[3/4] rounded-[8px] sm:rounded-[10px] overflow-hidden relative group">
                     <Image
                       src={leader.image}
                       alt=""
