@@ -169,7 +169,7 @@ export default function WhyUs() {
           void section.offsetHeight;
 
           const vh = window.innerHeight;
-          const scrollDistance = vh * 1.8;
+          const scrollDistance = vh * 1.1;
           const titleScale = 0.23;
           const titleYPosition = -vh * 0.25;
 
@@ -222,7 +222,7 @@ export default function WhyUs() {
           pinTl.to(title, {
             scale: titleScale,
             y: titleYPosition,
-            duration: 0.25,
+            duration: 0.6,
             ease: "power2.inOut",
             force3D: true,
             transformOrigin: "center center"
@@ -233,10 +233,10 @@ export default function WhyUs() {
           pinTl.to(content, {
             opacity: 1,
             y: 0,
-            duration: 0.3,
+            duration: 0.4,
             ease: "power2.out",
             force3D: true
-          }, 0.15);
+          }, 0.6);
 
           // Force immediate update to reflect current scroll position
           // This is critical to prevent blank screen when user has already scrolled
