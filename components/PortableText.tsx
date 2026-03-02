@@ -7,7 +7,7 @@
  * https://portabletext.org/
  */
 
-import { Image } from 'next-sanity/image'
+import Image from 'next/image'
 import { getImageDimensions } from '@sanity/asset-utils'
 import { PortableText, type PortableTextComponents, type PortableTextBlock } from 'next-sanity'
 
