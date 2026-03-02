@@ -98,6 +98,28 @@ export default function Hero() {
 
       </div>
 
+      {/* Scroll hint caret */}
+      <button
+        onClick={() => {
+          const hero = document.querySelector('section');
+          if (hero) {
+            const nextSection = hero.nextElementSibling;
+            if (nextSection) {
+              nextSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+            }
+          }
+        }}
+        aria-label="Scroll down"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 scroll-hint-caret fade-in-blur"
+        style={{ animationDelay: '0.6s' }}
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 9L12 15L18 9" stroke="#005c89" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
       {/* Optimized CSS Animations */}
       <style>{`
         /* Smoother blur fade-in with GPU acceleration */
@@ -181,6 +203,29 @@ export default function Hero() {
           66% {
             transform: translate3d(25px, 20px, 0) scale(0.92);
           }
+        }
+
+        @keyframes gentleBounce {
+          0%, 100% {
+            transform: translate3d(-50%, 0, 0);
+          }
+          50% {
+            transform: translate3d(-50%, 6px, 0);
+          }
+        }
+
+        .scroll-hint-caret {
+          animation: gentleBounce 2s ease-in-out infinite, blurFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+          cursor: pointer;
+          background: none;
+          border: none;
+          padding: 4px;
+          opacity: 0.7;
+          transition: opacity 0.2s ease;
+        }
+
+        .scroll-hint-caret:hover {
+          opacity: 1;
         }
 
         /* Disable animations on devices that prefer reduced motion */
