@@ -67,7 +67,7 @@ export default function WhyUsPage() {
                 className="absolute left-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <Image
-                  src={HERO_IMAGE_1}
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1772431483/_DSC02181_c9ygof.jpg", { w: 300, h: 430, c: "fill" })}
                   alt="Feature showcase 1"
                   width={150}
                   height={215}
@@ -142,7 +142,7 @@ export default function WhyUsPage() {
                 className="absolute right-0 top-0 w-[150px] h-[215px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <Image
-                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770793033/IMG_1527_1_vxgn9s.jpg", { w: 300, h: 430, c: "fill" })}
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1772431484/_DSC0586_1_sv2xmo.jpg", { w: 300, h: 430, c: "fill" })}
                   alt="Feature showcase 4"
                   width={300}
                   height={430}

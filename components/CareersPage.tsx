@@ -121,18 +121,25 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
   // Gallery: path only; thumb 800×600, lightbox 1600×1200 at render
   const galleryImages = [
-    { path: "v1770654380/IMG_0552_gshpuk.heic", alt: "Team event 1", rotate: -3 },
-    { path: "v1770654379/IMG_3420_wt9qlf.jpg", alt: "Team event 2", rotate: 2 },
-    { path: "v1770654379/IMG_3361_hqzld4.heic", alt: "Team event 3", rotate: -1.5 },
-    { path: "v1770654379/20260209_160659.jpg_cbpvzb.jpg", alt: "Team event 4", rotate: 3 },
-    { path: "v1770654378/20260209_160612.jpg_gc3qk1.jpg", alt: "Team event 6", rotate: 1.5 },
-    { path: "v1770654377/IMG_0446_xxv9m7.jpg", alt: "Team event 7", rotate: -2.5 },
-    { path: "v1770654373/20260209_160751.jpg_ceunj0.jpg", alt: "Team event 8", rotate: 2 },
-    { path: "v1770654372/20260209_160738.jpg_zhvln9.jpg", alt: "Team event 9", rotate: -1 },
-    { path: "v1770654371/IMG_2189_crwvtj.heic", alt: "Team event 10", rotate: 1 },
-    { path: "v1770654372/IMG_0484_kofvre.jpg", alt: "Team event 11", rotate: -3.5 },
-    { path: "v1770654370/IMG_4985_jiuwmy.jpg", alt: "Team event 12", rotate: 2.5 },
-    { path: "v1770654369/IMG_4983_vmhgas.jpg", alt: "Team event 13", rotate: -1.5 },
+    { path: "v1772429931/_DSC1389_ic37xh.webp", alt: "Team event 1", rotate: -3 },
+    { path: "v1772429931/_DSC1214_cy6qaj.webp", alt: "Team event 2", rotate: 2 },
+    { path: "v1772429931/_DSC1299_j2tmsh.webp", alt: "Team event 3", rotate: -1.5 },
+    { path: "v1772429920/_DSC0717_yswj7i.webp", alt: "Team event 4", rotate: 3 },
+    { path: "v1772429920/_DSC0756_f8ja1h.webp", alt: "Team event 5", rotate: 1.5 },
+    { path: "v1772429920/_DSC1046_xdohub.webp", alt: "Team event 6", rotate: -2.5 },
+    { path: "v1772429920/_DSC0828_x7nex0.webp", alt: "Team event 7", rotate: 2 },
+    { path: "v1772429920/_DSC0913_plsy10.webp", alt: "Team event 8", rotate: -1 },
+    { path: "v1772429919/_DSC0548_hkqppn.webp", alt: "Team event 9", rotate: 1 },
+    { path: "v1772429919/_DSC0707_yxsvbq.webp", alt: "Team event 10", rotate: -3.5 },
+    { path: "v1772429919/_DSC0628_yyifo9.webp", alt: "Team event 11", rotate: 2.5 },
+    { path: "v1772429919/_DSC0710_sze707.webp", alt: "Team event 12", rotate: -1.5 },
+    { path: "v1770654379/IMG_3420_wt9qlf.jpg", alt: "Team event 13", rotate: 2 },
+    { path: "v1770654379/IMG_3361_hqzld4.heic", alt: "Team event 14", rotate: -1.5 },
+    { path: "v1770654377/IMG_0446_xxv9m7.jpg", alt: "Team event 15", rotate: -2.5 },
+    { path: "v1770654371/IMG_2189_crwvtj.heic", alt: "Team event 16", rotate: 1 },
+    { path: "v1770654372/IMG_0484_kofvre.jpg", alt: "Team event 17", rotate: -3.5 },
+    { path: "v1770654370/IMG_4985_jiuwmy.jpg", alt: "Team event 18", rotate: 2.5 },
+    { path: "v1770654369/IMG_4983_vmhgas.jpg", alt: "Team event 19", rotate: -1.5 },
   ];
 
   const images = [careers1, careers2, careers3];

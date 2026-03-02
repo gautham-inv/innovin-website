@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Image assets
 const imgHeroBackground =
-  "/images/compressed_efdf1ab711ffad6d48b3163655ede5890772aaf2.webp";
+  "https://res.cloudinary.com/dejb29i0k/image/upload/f_auto,q_auto/v1772396765/group_gbpsac.webp";
 
 import Image from "next/image";
 
@@ -259,7 +259,7 @@ function JourneyCard() {
         >
           <div className="w-full h-full overflow-hidden border border-neutral-100 rounded-sm relative">
             <Image
-              src={imgHeroBackground}
+              src="https://res.cloudinary.com/dejb29i0k/image/upload/v1772429931/_DSC1214_cy6qaj.webp"
               alt=""
               fill
               className="object-cover sepia-[0.3] contrast-[1.1]"
@@ -530,22 +530,49 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* ═══════ OUR JOURNEY — letter card ═══════ */}
-      <section className="bg-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 md:px-8 xl:px-[70px]">
-        <JourneyCard />
-      </section>
+      {/* ═══════ JOURNEY, MISSION & VISION WRAPPER WITH DOTTED LINES ═══════ */}
+      <div className="relative w-full px-4 sm:px-6 md:px-8 xl:px-[70px]">
+        <div className="w-full max-w-[1681px] mx-auto relative">
+          {/* Thick grey dashed lines at the sides, matching footer margin behavior */}
+          <div
+            className="absolute left-0 -top-6 sm:-top-10 lg:-top-14 bottom-0 hidden md:block"
+            style={{
+              width: "2px",
+              backgroundImage: "linear-gradient(to bottom, #d1d5db 65%, transparent 65%)",
+              backgroundSize: "4px 40px",
+              backgroundRepeat: "repeat-y",
+            }}
+          />
+          <div
+            className="absolute right-0 -top-6 sm:-top-10 lg:-top-14 bottom-0 hidden md:block"
+            style={{
+              width: "2px",
+              backgroundImage: "linear-gradient(to bottom, #d1d5db 65%, transparent 65%)",
+              backgroundSize: "4px 40px",
+              backgroundRepeat: "repeat-y",
+            }}
+          />
 
-      {/* ═══════ MISSION & VISION — timeline ═══════ */}
-      <section className="bg-white px-4 sm:px-6 md:px-8 xl:px-[70px]">
-        {/* Desktop: center-line timeline with left/right cards */}
-        <div className="hidden md:block">
-          <TimelineSection />
+          <div className="max-w-5xl mx-auto">
+            {/* ═══════ OUR JOURNEY — letter card ═══════ */}
+            <section className="bg-white py-12 sm:py-16 lg:py-20 px-4">
+              <JourneyCard />
+            </section>
+
+            {/* ═══════ MISSION & VISION — timeline ═══════ */}
+            <section className="bg-white px-4 pb-12 sm:pb-16 lg:pb-20">
+              {/* Desktop: center-line timeline with left/right cards */}
+              <div className="hidden md:block">
+                <TimelineSection />
+              </div>
+              {/* Mobile: simple vertical left-aligned timeline */}
+              <div className="md:hidden">
+                <TimelineMobile />
+              </div>
+            </section>
+          </div>
         </div>
-        {/* Mobile: simple vertical left-aligned timeline */}
-        <div className="md:hidden">
-          <TimelineMobile />
-        </div>
-      </section>
+      </div>
 
       {/* ═══════ CORE VALUES ═══════ */}
       <section className="bg-black pt-12 sm:pt-16 md:pt-20 lg:pt-[60px] pb-16 sm:pb-20 md:pb-24 lg:pb-[126px] overflow-hidden relative px-4 sm:px-6 lg:px-6 xl:px-[70px]">

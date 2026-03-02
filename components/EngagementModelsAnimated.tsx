@@ -38,7 +38,7 @@ export default function EngagementModelsAnimated() {
 
     // Check if desktop
     useEffect(() => {
-        const check = () => setIsDesktop(window.innerWidth >= 1280);
+        const check = () => setIsDesktop(window.innerWidth >= 1024);
         check();
         window.addEventListener("resize", check);
         return () => window.removeEventListener("resize", check);
@@ -174,7 +174,7 @@ export default function EngagementModelsAnimated() {
     if (!isDesktop) {
         // Mobile: Simple stacked cards
         return (
-            <div className="xl:hidden relative">
+            <div className="lg:hidden relative">
                 <div className="absolute left-1/2 top-0 bottom-0 w-0 border-l-2 border-dashed border-[#66c2e2] -translate-x-1/2 z-0" />
                 <div className="relative z-10 flex flex-col gap-6 sm:gap-8">
                     {engagementModels.map((model, index) => (
@@ -200,7 +200,7 @@ export default function EngagementModelsAnimated() {
 
     // Desktop: Animated diagram
     return (
-        <div ref={sectionRef} className="hidden xl:block relative h-[550px] w-full">
+        <div ref={sectionRef} className="hidden lg:block relative h-[550px] w-full">
             {/* Center Box - Always visible - Moved up */}
             <div className="absolute left-1/2 top-[280px] -translate-x-1/2 -translate-y-1/2 bg-white border-2 border-black rounded-[20px] p-[40px] z-10">
                 <p className="text-[36px] text-[#005c89] font-semibold leading-[1.4] whitespace-nowrap">

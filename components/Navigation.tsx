@@ -116,7 +116,7 @@ export default function Navigation() {
       text-[16px] font-sans leading-normal
       transition whitespace-pre
       ${isActive ? "nav-active" : "text-black"}
-      hover:font-semibold focus:outline-none focus:font-semibold
+      focus:outline-none
     `;
   };
 

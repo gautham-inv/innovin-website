@@ -75,18 +75,18 @@ body {
   opacity: 0;
 }
 
-/* Navigation Link Hover — reserve space for bold text to prevent layout shift */
+/* Navigation Link Hover — simulate bold with text-shadow to prevent any layout shift */
 .nav-link-text {
   display: inline-block;
+  transition: text-shadow 0.15s ease;
 }
 
-.nav-link-text::after {
-  content: attr(data-text);
-  font-weight: 600;
-  display: block;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
+/* Thicken strokes in all directions evenly — looks bold, zero width change */
+a:hover .nav-link-text,
+a:focus .nav-link-text {
+  text-shadow:
+    0 0 0.5px currentColor,
+    0 0 0.5px currentColor;
 }
 
 /* Navigation Link Hover */
