@@ -1,23 +1,32 @@
-import {defineLive} from 'next-sanity'
-import {client} from './client'
-import {token} from './token'
+import { client } from './client'
+import type { QueryParams } from 'next-sanity'
 
 /**
- * Use defineLive to enable:
- * - SSG: Fetches at build time for static generation
- * - SSR: Live preview in Sanity Studio (requires Server Actions)
- * - Webhook-driven revalidation: Pages regenerate via /api/revalidate webhook
- * 
- * Note: Server Actions are only used for live preview functionality.
- * Production pages are SSG and updated via webhook-triggered revalidation.
- * Learn more: https://github.com/sanity-io/next-sanity?tab=readme-ov-file#1-configure-definelive
+ * Static export mode: plain sanityFetch using the published Sanity client.
+ *
+ * defineLive / Server Actions are not supported with static export.
+ * All pages are pre-rendered at build time using published content.
+ * SanityLive and live preview are disabled.
  */
+export async function sanityFetch<T = unknown>({
+  query,
+  params = {},
+  perspective = 'published',
+  stega = false,
+}: {
+  query: string
+  params?: QueryParams
+  perspective?: 'published' | 'drafts'
+  stega?: boolean
+}): Promise<{ data: T }> {
+  const data = await client.fetch<T>(query, params, {
+    perspective: 'published', // always published in static export
+    stega: false,             // never stega in static export
+  })
+  return { data }
+}
 
-export const {sanityFetch, SanityLive} = defineLive({
-  client,
-  // Required for showing draft content when the Sanity Presentation Tool is used, or to enable the Vercel Toolbar Edit Mode
-  serverToken: token || undefined,
-  // Required for stand-alone live previews, the token is only shared to the browser if it's a valid Next.js Draft Mode session
-  browserToken: token || undefined,
-})
-
+// SanityLive is a no-op in static export mode — kept for compatibility if any file imports it
+export function SanityLive() {
+  return null
+}
