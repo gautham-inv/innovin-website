@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /_next/static/
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://innovinlabs.com/sitemap.xml
