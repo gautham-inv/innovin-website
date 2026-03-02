@@ -9,10 +9,10 @@ import Image from "next/image";
 const imgLogoDark = "/images/logo.png";
 const imgEllipse2 = "/images/blue_gradient.svg";
 // Service images: container up to 550×400 — request 1100×800 at fetch (2x)
-const imgProductDev = cloudinaryUrl("v1770996488/1p_dhnwny.png", { w: 1100, h: 800, c: "fill" });
-const imgDesign = cloudinaryUrl("v1770996488/2p_bjbzt1.png", { w: 1100, h: 800, c: "fill" });
-const imgConsulting = cloudinaryUrl("v1770996489/3p_tvalko.png", { w: 1100, h: 800, c: "fill" });
-const imgAIConsulting = cloudinaryUrl("v1770996488/4p_mp3wui.png", { w: 1100, h: 800, c: "fill" });
+const imgProductDev = cloudinaryUrl("v1770996488/1p_dhnwny.png", { w: 1100, h: 800, c: "fit" });
+const imgDesign = cloudinaryUrl("v1770996488/2p_bjbzt1.png", { w: 1100, h: 800, c: "fit" });
+const imgConsulting = cloudinaryUrl("v1770996489/3p_tvalko.png", { w: 1100, h: 800, c: "fit" });
+const imgAIConsulting = cloudinaryUrl("v1770996488/4p_mp3wui.png", { w: 1100, h: 800, c: "fit" });
 
 export default function ServicesPage() {
   const { openModal } = useContactModal();
@@ -114,7 +114,7 @@ export default function ServicesPage() {
 
                 {/* Image */}
                 <div className="relative shrink-0 w-full max-w-[340px] md:max-w-[450px] xl:max-w-none xl:w-[550px] aspect-[4/3] order-1 xl:order-none flex items-center justify-center mx-auto xl:mx-0">
-                  <div className="relative w-full h-full transition-transform duration-500 transform scale-[0.7] xl:scale-[0.9]">
+                  <div className="relative w-full h-full transition-transform duration-500 transform scale-[0.65] xl:scale-[0.8]">
                     <Image
                       alt={service.title}
                       src={service.image}

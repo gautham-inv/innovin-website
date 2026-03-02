@@ -13,6 +13,10 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
+// Static export: only pre-render slugs from generateStaticParams.
+// Unknown slugs return 404 instead of being rendered on-demand.
+export const dynamicParams = false;
+
 /**
  * Generate static params for all job slugs at build time.
  * Pages are pre-rendered as static HTML and served via CDN.

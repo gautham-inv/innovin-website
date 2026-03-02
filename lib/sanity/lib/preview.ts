@@ -1,28 +1,14 @@
-import { draftMode } from "next/headers";
-
 /**
- * Returns the correct Sanity fetch options for the current environment/session.
+ * Returns the correct Sanity fetch options.
  *
- * Goals:
- * - Render FAST in production (Render): do not touch `draftMode()` / cookies, always fetch published, no stega.
- * - Allow true draft preview + Visual Editing in the Preview deployment (Vercel) ONLY when Draft Mode is enabled:
- *   fetch drafts + stega.
+ * Static export mode: always fetch published content, never stega.
+ * Draft mode / visual editing is incompatible with static export and is disabled.
  */
 export async function getSanityFetchConfig(): Promise<{
   perspective: "published" | "drafts";
   stega: boolean;
 }> {
-  const previewEnvEnabled = process.env.NEXT_PUBLIC_ENABLE_SANITY_PREVIEW === "true";
-
-  // Production/default: always published, never stega (keeps pages statically optimizable)
-  if (!previewEnvEnabled) {
-    return { perspective: "published", stega: false };
-  }
-
-  // Preview env: only show drafts/stega when Draft Mode cookie is enabled (Sanity Presentation sets this)
-  const { isEnabled } = await draftMode();
-  return isEnabled ? { perspective: "drafts", stega: true } : { perspective: "published", stega: false };
+  // Static export: always use published content, never stega encoding.
+  // Draft mode / visual editing requires a running server (not available in static export).
+  return { perspective: "published", stega: false };
 }
-
-
-

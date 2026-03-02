@@ -89,26 +89,11 @@ export const viewport = {
   maximumScale: 5,
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // IMPORTANT FOR PERFORMANCE:
-  // Calling `draftMode()` (or `cookies()` / `headers()`) in the root layout makes the whole app dynamic,
-  // which can significantly slow down a hosted site by disabling static optimization.
-  //
-  // We only load Sanity Live + Visual Editing in non-production builds by default.
-  // To explicitly enable them in production, set:
-  //   NEXT_PUBLIC_ENABLE_SANITY_PREVIEW=true
-  const enableSanityPreviewTools =
-    process.env.NODE_ENV !== "production" ||
-    process.env.NEXT_PUBLIC_ENABLE_SANITY_PREVIEW === "true";
-
-  const SanityPreviewTools = enableSanityPreviewTools
-    ? (await import("./sanity-preview-tools")).default
-    : null;
-
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -149,7 +134,7 @@ export default async function RootLayout({
     <html lang="en" className={manrope.variable}>
       <body className="antialiased">
         <Schema data={jsonLd} />
-        {SanityPreviewTools ? <SanityPreviewTools /> : null}
+        {/* Sanity Visual Editing disabled in static export mode */}
         <ContactModalProvider>
           <ScrollToTop />
           <SessionTracker />
