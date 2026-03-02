@@ -7,7 +7,6 @@
  * https://portabletext.org/
  */
 
-import { stegaClean } from '@sanity/client/stega'
 import { Image } from 'next-sanity/image'
 import { getImageDimensions } from '@sanity/asset-utils'
 import { PortableText, type PortableTextComponents, type PortableTextBlock } from 'next-sanity'
@@ -148,7 +147,7 @@ export default function CustomPortableText({
         }
 
         const { width, height } = getImageDimensions(value.asset._ref)
-        const alt = stegaClean(value?.alt) || ''
+        const alt = (value?.alt as string) || ''
 
         return (
           <figure className="my-8">
