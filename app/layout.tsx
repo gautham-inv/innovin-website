@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     siteName: "Innovin Labs",
     images: [
       {
-        url: "/images/opengraph.avif", // Ensure this image exists in public/images
+        url: "/images/open-graph.avif",
         width: 1200,
         height: 630,
         alt: "Innovin Labs - Transforming Ideas into Digital Solutions",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
     description: "We help startups and small businesses build bold, scalable tech fast.",
-    images: ["/images/opengraph.avif"], // Fallback to OG image
+    images: ["/images/open-graph.avif"],
     creator: "@innovinlabs", // Update with actual handle if strictly known, otherwise okay to omit or generic
   },
   alternates: {
