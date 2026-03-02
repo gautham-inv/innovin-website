@@ -9,7 +9,8 @@
 
 import Image from 'next/image'
 import { getImageDimensions } from '@sanity/asset-utils'
-import { PortableText, type PortableTextComponents, type PortableTextBlock } from 'next-sanity'
+import { PortableText, type PortableTextComponents } from '@portabletext/react'
+import { type PortableTextBlock } from '@portabletext/types'
 
 import { urlForImage } from '@/lib/sanity/lib/utils'
 

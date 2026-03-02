@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { type PortableTextBlock } from 'next-sanity'
+import { type PortableTextBlock } from '@portabletext/types'
 import { sanityFetch } from '@/lib/sanity/lib/live'
 import { jobSlugs, jobQuery } from '@/lib/sanity/lib/queries'
 import PortableText from '@/components/PortableText'

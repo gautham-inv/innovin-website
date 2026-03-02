@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { type PortableTextBlock } from "next-sanity";
+import { type PortableTextBlock } from "@portabletext/types";
 import { sanityFetch } from "@/lib/sanity/lib/live";
 import { postQuery, postSlugs, relatedPostsQuery } from "@/lib/sanity/lib/queries";
 import Image from "next/image";
