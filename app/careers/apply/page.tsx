@@ -499,7 +499,7 @@ function ApplyForm() {
           <div className="flex gap-4 pt-4">
             <button
               type="submit"
-              disabled={isSubmitting || !turnstileToken}
+              disabled={isSubmitting}
               className="flex-1 bg-gradient-to-r from-[#66c2e2] to-[#005c89] text-white font-semibold text-sm sm:text-base py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Submitting..." : "Submit Application"}
