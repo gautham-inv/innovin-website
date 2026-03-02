@@ -79,10 +79,10 @@ const DraggablePhoto = ({ image, index, openLightbox }: { image: GalleryImage; i
     >
       <div className="relative overflow-hidden rounded-[12px] sm:rounded-[16px] shadow-lg hover:shadow-xl transition-shadow duration-300">
         <Image
-          src={image.path.startsWith('http') ? image.path : cloudinaryUrl(image.path, { w: 600, h: 450, c: "fill" })}
+          src={image.path.startsWith('http') ? image.path : cloudinaryUrl(image.path, { w: 600 })}
           alt={image.alt}
           width={600}
-          height={450}
+          height={800} // Placeholder height for Next.js, h-auto will override
           loading="lazy"
           className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
         />

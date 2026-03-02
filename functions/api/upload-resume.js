@@ -1,6 +1,6 @@
 /**
  * Cloudflare Pages Function — accepts the resume file and uploads it
- * directly to Supabase Storage. The browser never talks to Supabase.
+ * directly to Supabase Storage.
  *
  * Set these in Cloudflare Pages Dashboard → Settings → Environment Variables:
  *   NEXT_PUBLIC_SUPABASE_URL      (e.g. https://xxxx.supabase.co)
@@ -23,25 +23,22 @@ export async function onRequestPost(context) {
         let fileName, fileType, fileBuffer;
 
         if (contentType.includes("multipart/form-data")) {
-            // Handle FormData upload (file sent directly)
             const formData = await request.formData();
             const file = formData.get("file");
 
             if (!file || typeof file === "string") {
-                return jsonResponse({ error: "No file provided" }, 400);
+                return jsonResponse({ error: "No file provided in form data" }, 400);
             }
 
             fileName = file.name;
             fileType = file.type || "application/pdf";
             fileBuffer = await file.arrayBuffer();
         } else {
-            // Fallback: JSON body with base64-encoded file
             const body = await request.json();
             fileName = body.fileName;
             fileType = body.fileType || "application/pdf";
 
             if (body.fileData) {
-                // base64 encoded file
                 const binaryString = atob(body.fileData);
                 const bytes = new Uint8Array(binaryString.length);
                 for (let i = 0; i < binaryString.length; i++) {
@@ -49,7 +46,7 @@ export async function onRequestPost(context) {
                 }
                 fileBuffer = bytes.buffer;
             } else {
-                return jsonResponse({ error: "No file data provided" }, 400);
+                return jsonResponse({ error: "No file data provided in JSON" }, 400);
             }
         }
 
@@ -58,50 +55,56 @@ export async function onRequestPost(context) {
         }
 
         const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL;
-        const supabaseKey = env.SUPABASE_SERVICE_ROLE_KEY || env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+        const supabaseKey = env.SUPABASE_SERVICE_ROLE_KEY;
 
         if (!supabaseUrl || !supabaseKey) {
-            console.error("Missing env vars");
-            return jsonResponse({ error: "Server configuration error" }, 500);
+            console.error("Missing env vars: URL or Service Role Key");
+            return jsonResponse({ error: "Server configuration error: SUPABASE_SERVICE_ROLE_KEY might be missing in Cloudflare" }, 500);
         }
 
         // Generate unique file path
+        // We put it in the root of the 'resumes' bucket to avoid complex nested path issues
         const timestamp = Date.now();
         const sanitizedFileName = fileName.replace(/[^a-zA-Z0-9.\-_]/g, '_');
-        const filePath = `resumes/${timestamp}-${sanitizedFileName}`;
+        const storagePath = `${timestamp}-${sanitizedFileName}`;
 
         // Upload file directly to Supabase Storage via REST API
-        // POST /storage/v1/object/{bucket}/{path}
-        const uploadResponse = await fetch(
-            `${supabaseUrl}/storage/v1/object/resumes/${filePath}`,
-            {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${supabaseKey}`,
-                    'apikey': supabaseKey,
-                    'Content-Type': fileType,
-                    'x-upsert': 'true', // Overwrite if exists
-                },
-                body: fileBuffer,
-            }
-        );
+        // PUT works for both new and existing files when upsert is used
+        // URL format: /storage/v1/object/<bucket>/<path>
+        const uploadUrl = `${supabaseUrl}/storage/v1/object/resumes/${storagePath}`;
+
+        const uploadResponse = await fetch(uploadUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${supabaseKey}`,
+                'apikey': supabaseKey,
+                'Content-Type': fileType,
+                'x-upsert': 'true',
+            },
+            body: fileBuffer,
+        });
 
         if (!uploadResponse.ok) {
             const errorText = await uploadResponse.text();
-            console.error("Supabase upload error:", uploadResponse.status, errorText);
+            console.error("Supabase Storage Error:", uploadResponse.status, errorText);
             return jsonResponse({
-                error: "Failed to upload file",
+                error: "Supabase storage upload failed",
+                status: uploadResponse.status,
                 details: errorText,
             }, uploadResponse.status);
         }
 
-        // Construct the public URL
-        const publicUrl = `${supabaseUrl}/storage/v1/object/public/resumes/${filePath}`;
+        // Construct the public URL correctly
+        const publicUrl = `${supabaseUrl}/storage/v1/object/public/resumes/${storagePath}`;
 
-        return jsonResponse({ publicUrl, filePath });
+        return jsonResponse({
+            success: true,
+            publicUrl,
+            filePath: storagePath // This is what goes to the database
+        });
 
     } catch (error) {
-        console.error("upload-resume error:", error);
+        console.error("Critical upload-resume error:", error);
         return jsonResponse({ error: "Internal server error", details: error.message }, 500);
     }
 }
