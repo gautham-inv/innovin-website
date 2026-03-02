@@ -1,12 +1,10 @@
 /**
- * Cloudflare Pages Function — generates a Supabase Storage signed upload URL directly.
- *
- * No Supabase Edge Function needed. This calls the Supabase Storage REST API directly.
+ * Cloudflare Pages Function — accepts the resume file and uploads it
+ * directly to Supabase Storage. The browser never talks to Supabase.
  *
  * Set these in Cloudflare Pages Dashboard → Settings → Environment Variables:
  *   NEXT_PUBLIC_SUPABASE_URL      (e.g. https://xxxx.supabase.co)
  *   SUPABASE_SERVICE_ROLE_KEY     (from Supabase Project Settings → API → service_role)
- *   NEXT_PUBLIC_SUPABASE_ANON_KEY (fallback if service role not set - may fail if RLS blocks anon)
  */
 
 export async function onRequestOptions() {
@@ -20,15 +18,46 @@ export async function onRequestPost(context) {
     const { request, env } = context;
 
     try {
-        const body = await request.json();
-        const { fileName, fileType } = body;
+        const contentType = request.headers.get("Content-Type") || "";
 
-        if (!fileName || !fileType) {
-            return jsonResponse({ error: "Missing fileName or fileType" }, 400);
+        let fileName, fileType, fileBuffer;
+
+        if (contentType.includes("multipart/form-data")) {
+            // Handle FormData upload (file sent directly)
+            const formData = await request.formData();
+            const file = formData.get("file");
+
+            if (!file || typeof file === "string") {
+                return jsonResponse({ error: "No file provided" }, 400);
+            }
+
+            fileName = file.name;
+            fileType = file.type || "application/pdf";
+            fileBuffer = await file.arrayBuffer();
+        } else {
+            // Fallback: JSON body with base64-encoded file
+            const body = await request.json();
+            fileName = body.fileName;
+            fileType = body.fileType || "application/pdf";
+
+            if (body.fileData) {
+                // base64 encoded file
+                const binaryString = atob(body.fileData);
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+                fileBuffer = bytes.buffer;
+            } else {
+                return jsonResponse({ error: "No file data provided" }, 400);
+            }
+        }
+
+        if (!fileName) {
+            return jsonResponse({ error: "Missing fileName" }, 400);
         }
 
         const supabaseUrl = env.NEXT_PUBLIC_SUPABASE_URL;
-        // Prefer service role key (bypasses RLS). Falls back to anon key if not set.
         const supabaseKey = env.SUPABASE_SERVICE_ROLE_KEY || env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
         if (!supabaseUrl || !supabaseKey) {
@@ -41,48 +70,35 @@ export async function onRequestPost(context) {
         const sanitizedFileName = fileName.replace(/[^a-zA-Z0-9.\-_]/g, '_');
         const filePath = `resumes/${timestamp}-${sanitizedFileName}`;
 
-        // Call Supabase Storage REST API to create a signed upload URL
-        // Docs: https://supabase.com/docs/reference/javascript/storage-from-createsigneduploadurl
-        const storageResponse = await fetch(
-            `${supabaseUrl}/storage/v1/object/upload/sign/resumes/${filePath}`,
+        // Upload file directly to Supabase Storage via REST API
+        // POST /storage/v1/object/{bucket}/{path}
+        const uploadResponse = await fetch(
+            `${supabaseUrl}/storage/v1/object/resumes/${filePath}`,
             {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${supabaseKey}`,
-                    'Content-Type': 'application/json',
                     'apikey': supabaseKey,
+                    'Content-Type': fileType,
+                    'x-upsert': 'true', // Overwrite if exists
                 },
-                body: '{}',
+                body: fileBuffer,
             }
         );
 
-        if (!storageResponse.ok) {
-            const errorText = await storageResponse.text();
-            console.error("Supabase Storage error:", storageResponse.status, errorText);
+        if (!uploadResponse.ok) {
+            const errorText = await uploadResponse.text();
+            console.error("Supabase upload error:", uploadResponse.status, errorText);
             return jsonResponse({
-                error: "Failed to create upload URL",
+                error: "Failed to upload file",
                 details: errorText,
-            }, storageResponse.status);
+            }, uploadResponse.status);
         }
 
-        const storageData = await storageResponse.json();
+        // Construct the public URL
+        const publicUrl = `${supabaseUrl}/storage/v1/object/public/resumes/${filePath}`;
 
-        // Supabase often returns a relative path like "/object/upload/sign/..."
-        // We must ensure it's an absolute URL so the browser doesn't try to PUT to Cloudflare.
-        let uploadUrl = storageData.url;
-        if (uploadUrl && !uploadUrl.startsWith('http')) {
-            const baseUrl = supabaseUrl.endsWith('/') ? supabaseUrl.slice(0, -1) : supabaseUrl;
-            // The path usually starts with /object/upload/... but we need /storage/v1/object/upload/...
-            const path = uploadUrl.startsWith('/') ? uploadUrl : `/${uploadUrl}`;
-            uploadUrl = `${baseUrl}/storage/v1${path}`;
-        }
-
-        if (!uploadUrl) {
-            console.error("No URL in Supabase response:", storageData);
-            return jsonResponse({ error: "No upload URL returned from storage" }, 500);
-        }
-
-        return jsonResponse({ uploadUrl, filePath });
+        return jsonResponse({ publicUrl, filePath });
 
     } catch (error) {
         console.error("upload-resume error:", error);

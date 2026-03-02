@@ -129,24 +129,20 @@ function ApplyForm() {
     setSubmitStatus("idle");
 
     try {
-      // Step 1: Get presigned URL from Edge Function
-      const presignedUrlResponse = await fetch("/api/upload-resume", {
+      // Upload file directly to Cloudflare Function (which uploads to Supabase server-side)
+      const uploadFormData = new FormData();
+      uploadFormData.append("file", formData.resume!);
+
+      const uploadResponse = await fetch("/api/upload-resume", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fileName: formData.resume!.name,
-          fileType: formData.resume!.type,
-          // Don't send fileData - this triggers presigned URL generation
-        }),
+        body: uploadFormData,
       });
 
-      if (!presignedUrlResponse.ok) {
-        const errorData = await presignedUrlResponse.json().catch(() => ({ error: "Unknown error" }));
-        console.error("Upload URL error:", errorData);
+      if (!uploadResponse.ok) {
+        const errorData = await uploadResponse.json().catch(() => ({ error: "Unknown error" }));
+        console.error("Upload error:", errorData);
 
-        let errorMessage = "Failed to get upload URL. Please try again.";
+        let errorMessage = "Failed to upload resume. Please try again.";
         if (errorData.error) {
           errorMessage = errorData.error;
         } else if (errorData.details) {
@@ -160,25 +156,8 @@ function ApplyForm() {
         throw new Error(errorMessage);
       }
 
-      const { uploadUrl, filePath } = await presignedUrlResponse.json();
-
-      // Step 2: Upload file directly to Supabase Storage using presigned URL
-      const uploadResponse = await fetch(uploadUrl, {
-        method: "PUT",
-        headers: {
-          "Content-Type": formData.resume!.type || "application/pdf",
-        },
-        body: formData.resume!,
-      });
-
-      if (!uploadResponse.ok) {
-        throw new Error("Failed to upload resume");
-      }
-
-      // Step 3: Construct public URL for the uploaded file
-      // filePath from Edge Function is already in format: resumes/timestamp-filename.pdf
-      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-      const resumeUrl = `${supabaseUrl}/storage/v1/object/public/resumes/${filePath}`;
+      const { publicUrl, filePath } = await uploadResponse.json();
+      const resumeUrl = publicUrl;
 
       // Submit application data
       const applicationResponse = await fetch("/api/applications", {
