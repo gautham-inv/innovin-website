@@ -69,12 +69,12 @@ export async function onRequestPost(context) {
         const storagePath = `${timestamp}-${sanitizedFileName}`;
 
         // Upload file directly to Supabase Storage via REST API
-        // PUT works for both new and existing files when upsert is used
-        // URL format: /storage/v1/object/<bucket>/<path>
+        // POST creates new objects (PUT is only for updating existing ones)
+        // x-upsert header allows overwriting if a file with the same name exists
         const uploadUrl = `${supabaseUrl}/storage/v1/object/resumes/${storagePath}`;
 
         const uploadResponse = await fetch(uploadUrl, {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Authorization': `Bearer ${supabaseKey}`,
                 'apikey': supabaseKey,
