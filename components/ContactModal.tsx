@@ -237,6 +237,14 @@ function ContactModal() {
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleTurnstileVerify = useCallback((token: string) => {
+    setTurnstileToken(token);
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken(null);
+  }, []);
+
   if (!isOpen) return null;
 
   const handleNext = () => {
@@ -252,14 +260,6 @@ function ContactModal() {
       setErrors({});
     }
   };
-
-  const handleTurnstileVerify = useCallback((token: string) => {
-    setTurnstileToken(token);
-  }, []);
-
-  const handleTurnstileExpire = useCallback(() => {
-    setTurnstileToken(null);
-  }, []);
 
   const handleEnter = async () => {
     if (currentStep < 5) {
