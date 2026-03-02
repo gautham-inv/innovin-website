@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { type PortableTextBlock } from 'next-sanity'
 import { sanityFetch } from '@/lib/sanity/lib/live'
-import { getSanityFetchConfig } from '@/lib/sanity/lib/preview'
 import { jobSlugs, jobQuery } from '@/lib/sanity/lib/queries'
 import PortableText from '@/components/PortableText'
 import Footer from '@/components/Footer'
@@ -22,9 +21,9 @@ export const dynamicParams = false;
  * Pages are pre-rendered as static HTML and served via CDN.
  * Updates are triggered via webhook (see /api/revalidate)
  */
-export async function generateStaticParams() {
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
   try {
-    const { data } = await sanityFetch({
+    const { data } = await sanityFetch<{ slug: string }[]>({
       query: jobSlugs,
       perspective: 'published',
       stega: false,
@@ -43,12 +42,9 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   try {
-    const { perspective, stega } = await getSanityFetchConfig()
-    const { data: job } = await sanityFetch({
+    const { data: job } = await sanityFetch<any>({
       query: jobQuery,
       params,
-      perspective,
-      stega,
     })
 
     if (!job) {
@@ -70,12 +66,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function JobDetailPage(props: Props) {
   const params = await props.params
-  const { perspective, stega } = await getSanityFetchConfig()
-  const { data: job } = await sanityFetch({
+  const { data: job } = await sanityFetch<any>({
     query: jobQuery,
     params,
-    perspective,
-    stega,
   })
 
   if (!job?._id) {
