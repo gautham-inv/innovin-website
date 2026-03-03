@@ -1,12 +1,28 @@
 /**
- * Cloudflare Pages Function — replaces app/api/applications/route.ts
+ * Cloudflare Pages Function — handles job application submissions.
+ * Verifies Turnstile token inline, then forwards to Supabase Edge Function.
  *
- * Set these in Cloudflare Pages Dashboard → Settings → Environment Variables:
+ * Env vars (Cloudflare Pages → Settings → Environment Variables):
  *   NEXT_PUBLIC_SUPABASE_URL
  *   NEXT_PUBLIC_SUPABASE_ANON_KEY
+ *   TURNSTILE_SECRET_KEY
  *   SLACK_WEBHOOK_URL_APPLICATIONS
  *   ADMIN_DASHBOARD_URL
  */
+
+async function verifyTurnstile(token, secretKey) {
+    const response = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        {
+            method: "POST",
+            body: new URLSearchParams({
+                secret: secretKey,
+                response: token,
+            }),
+        }
+    );
+    return response.json();
+}
 
 export async function onRequestPost(context) {
     const { request, env } = context;
@@ -25,8 +41,27 @@ export async function onRequestPost(context) {
             yearOfGrad,
             backlogs,
             resumeUrl,
+            turnstileToken,
         } = body;
 
+        // 1. Verify Turnstile token
+        if (!turnstileToken) {
+            return jsonResponse({ error: "CAPTCHA verification required" }, 400);
+        }
+
+        const turnstileSecret = env.TURNSTILE_SECRET_KEY;
+        if (!turnstileSecret) {
+            console.error("TURNSTILE_SECRET_KEY not configured");
+            return jsonResponse({ error: "Server configuration error" }, 500);
+        }
+
+        const verification = await verifyTurnstile(turnstileToken, turnstileSecret);
+        if (!verification.success) {
+            console.error("Turnstile failed:", verification["error-codes"]);
+            return jsonResponse({ error: "CAPTCHA verification failed. Please try again." }, 403);
+        }
+
+        // 2. Validate fields
         if (!name || !email || !whatsapp || !specialization || !cgpa || !college || !yearOfGrad || !backlogs || !resumeUrl) {
             return jsonResponse({ error: "Missing required fields" }, 400);
         }
@@ -39,6 +74,7 @@ export async function onRequestPost(context) {
             return jsonResponse({ error: "Server configuration error" }, 500);
         }
 
+        // 3. Forward to Supabase (turnstileToken intentionally omitted)
         const response = await fetch(`${supabaseUrl}/functions/v1/submit-application`, {
             method: "POST",
             headers: {
@@ -63,12 +99,11 @@ export async function onRequestPost(context) {
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error("Edge Function error:", errorText, "status:", response.status);
+            console.error("Supabase Edge Function error:", errorText, "status:", response.status);
 
             let errorMessage = "Failed to save application";
             try {
-                const errorJson = JSON.parse(errorText);
-                errorMessage = errorJson.error || errorMessage;
+                errorMessage = JSON.parse(errorText).error || errorMessage;
             } catch {
                 errorMessage = errorText || errorMessage;
             }
@@ -78,7 +113,7 @@ export async function onRequestPost(context) {
 
         const data = await response.json();
 
-        // Slack notification
+        // 4. Slack notification
         const slackWebhookUrl = env.SLACK_WEBHOOK_URL_APPLICATIONS;
         if (slackWebhookUrl && data?.data?.id) {
             const adminBaseUrl = env.ADMIN_DASHBOARD_URL || "http://localhost:3001";

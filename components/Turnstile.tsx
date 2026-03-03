@@ -66,6 +66,10 @@ export default function Turnstile({
 
   const renderWidget = useCallback(() => {
     if (!containerRef.current || !window.turnstile) return;
+    if (!siteKey) {
+      console.warn("[Turnstile] No siteKey provided — widget not rendered. Set NEXT_PUBLIC_TURNSTILE_SITE_KEY in Cloudflare Pages env vars.");
+      return;
+    }
     if (widgetIdRef.current !== null) {
       window.turnstile.remove(widgetIdRef.current);
     }
@@ -80,6 +84,7 @@ export default function Turnstile({
   }, [siteKey, theme, onVerify, onExpire, onError]);
 
   useEffect(() => {
+    if (!siteKey) return; // Don't load script at all if no key
     loadTurnstileScript().then(renderWidget);
     return () => {
       if (widgetIdRef.current !== null && window.turnstile) {
@@ -87,7 +92,7 @@ export default function Turnstile({
         widgetIdRef.current = null;
       }
     };
-  }, [renderWidget]);
+  }, [renderWidget, siteKey]);
 
   return <div ref={containerRef} className={className} />;
 }

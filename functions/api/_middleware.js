@@ -1,9 +1,9 @@
 /**
  * Cloudflare Pages middleware — runs before every /api/* function.
- * Handles CORS preflight, Turnstile verification, and rate limiting.
+ * Handles CORS preflight and rate limiting only.
  *
- * Env vars needed in Cloudflare Pages Dashboard:
- *   TURNSTILE_SECRET_KEY  — from Cloudflare Dashboard → Turnstile → Site → Secret Key
+ * Turnstile verification is handled inline inside each individual function
+ * (contact-messages.js, applications.js) — following the article approach.
  */
 
 const rateLimitMap = new Map();
@@ -24,13 +24,9 @@ function isRateLimited(key) {
     }
 
     entry.count++;
-    if (entry.count > RATE_LIMIT_MAX_REQUESTS) {
-        return true;
-    }
-    return false;
+    return entry.count > RATE_LIMIT_MAX_REQUESTS;
 }
 
-// Periodic cleanup to prevent memory leaks in long-running workers
 function cleanupRateLimitMap() {
     const now = Date.now();
     for (const [key, entry] of rateLimitMap) {
@@ -38,19 +34,6 @@ function cleanupRateLimitMap() {
             rateLimitMap.delete(key);
         }
     }
-}
-
-async function verifyTurnstileToken(token, secretKey, ip) {
-    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-            secret: secretKey,
-            response: token,
-            remoteip: ip || "",
-        }),
-    });
-    return response.json();
 }
 
 function corsHeaders() {
@@ -61,73 +44,24 @@ function corsHeaders() {
     };
 }
 
-function jsonResponse(data, status = 200) {
-    return new Response(JSON.stringify(data), {
-        status,
-        headers: { "Content-Type": "application/json", ...corsHeaders() },
-    });
-}
-
-// Endpoints that require Turnstile (the final submission endpoints, not upload-resume)
-const TURNSTILE_PROTECTED = ["/api/applications", "/api/contact-messages"];
-
 export async function onRequest(context) {
-    const { request, env, next } = context;
+    const { request, next } = context;
 
-    // Handle CORS preflight
+    // Handle CORS preflight for all /api/* routes
     if (request.method === "OPTIONS") {
         return new Response(null, { status: 204, headers: corsHeaders() });
     }
 
-    // Only apply protections to POST requests
-    if (request.method !== "POST") {
-        return next();
-    }
-
-    const url = new URL(request.url);
-    const ip = getRateLimitKey(request);
-
-    // Rate limiting on all POST endpoints
-    if (isRateLimited(ip)) {
-        cleanupRateLimitMap();
-        return jsonResponse({ error: "Too many requests. Please try again later." }, 429);
-    }
-
-    // Turnstile verification only on protected endpoints
-    if (TURNSTILE_PROTECTED.includes(url.pathname)) {
-        const turnstileSecret = env.TURNSTILE_SECRET_KEY;
-
-        if (!turnstileSecret) {
-            console.error("TURNSTILE_SECRET_KEY not configured");
-            return jsonResponse({ error: "Server configuration error" }, 500);
+    // Rate limit all POST requests
+    if (request.method === "POST") {
+        const ip = getRateLimitKey(request);
+        if (isRateLimited(ip)) {
+            if (Math.random() < 0.05) cleanupRateLimitMap();
+            return new Response(
+                JSON.stringify({ error: "Too many requests. Please try again later." }),
+                { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+            );
         }
-
-        // Clone the request so the downstream handler can also read the body
-        const clonedRequest = request.clone();
-        let turnstileToken;
-
-        try {
-            const body = await clonedRequest.json();
-            turnstileToken = body.turnstileToken;
-        } catch {
-            return jsonResponse({ error: "Invalid request body" }, 400);
-        }
-
-        if (!turnstileToken) {
-            return jsonResponse({ error: "CAPTCHA verification required" }, 400);
-        }
-
-        const verification = await verifyTurnstileToken(turnstileToken, turnstileSecret, ip);
-
-        if (!verification.success) {
-            console.error("Turnstile verification failed:", verification["error-codes"]);
-            return jsonResponse({ error: "CAPTCHA verification failed. Please try again." }, 403);
-        }
-    }
-
-    // Periodic cleanup
-    if (Math.random() < 0.05) {
-        cleanupRateLimitMap();
     }
 
     return next();
