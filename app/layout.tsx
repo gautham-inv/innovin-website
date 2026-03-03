@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     siteName: "Innovin Labs",
     images: [
       {
-        url: "/images/open-graph.avif",
+        url: "/images/open-graph.png",
         width: 1200,
         height: 630,
         alt: "Innovin Labs - Transforming Ideas into Digital Solutions",
@@ -63,8 +63,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
     description: "We help startups and small businesses build bold, scalable tech fast.",
-    images: ["/images/open-graph.avif"],
-    creator: "@innovinlabs", // Update with actual handle if strictly known, otherwise okay to omit or generic
+    images: ["/images/open-graph.png"],
+    creator: "@innovinlabs",
   },
   alternates: {
     canonical: "/",
