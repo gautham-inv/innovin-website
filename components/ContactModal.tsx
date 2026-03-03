@@ -70,6 +70,9 @@ function ContactModal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  // Turnstile is disabled in local dev (NEXT_PUBLIC_ENABLE_TURNSTILE=false)
+  const isTurnstileEnabled = process.env.NEXT_PUBLIC_ENABLE_TURNSTILE === 'true';
   const modalRef = useRef<HTMLDivElement>(null);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const companyInputRef = useRef<HTMLInputElement>(null);
@@ -267,7 +270,7 @@ function ContactModal() {
     } else {
       if (!validateStep(5)) return;
 
-      if (!turnstileToken) {
+      if (isTurnstileEnabled && !turnstileToken) {
         setErrors({ submit: "Please complete the CAPTCHA verification" });
         return;
       }
@@ -402,6 +405,23 @@ function ContactModal() {
         className="relative sm:mt-0 bg-[#131518] rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] w-full max-w-[680px] shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Animated loading overlay inside modal */}
+        {isSubmitting && (
+          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#131518]/90 backdrop-blur-sm rounded-[12px] sm:rounded-[16px] lg:rounded-[20px]">
+            <div className="flex flex-col items-center gap-5">
+              {/* Spinner */}
+              <div className="relative w-14 h-14">
+                <div className="absolute inset-0 rounded-full border-[3px] border-white/10" />
+                <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-[#66c2e2] animate-spin" />
+              </div>
+              <div className="text-center">
+                <p className="text-[#66c2e2] font-semibold text-base">Sending your message…</p>
+                <p className="text-white/40 text-sm mt-1">Just a moment!</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         < div className="bg-[#131518] flex flex-col sm:flex-row gap-2 sm:gap-[361px] min-h-[54px] h-auto sm:h-[54px] items-start sm:items-center px-4 sm:px-[30px] py-3 sm:py-[10px] rounded-tl-[12px] sm:rounded-tl-[16px] lg:rounded-tl-[20px] rounded-tr-[12px] sm:rounded-tr-[16px] lg:rounded-tr-[20px] shrink-0 relative" >
           <div className="flex-1 w-full sm:w-auto">
@@ -567,14 +587,16 @@ function ContactModal() {
                         <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.message || "—"}</p>
                       </div>
                     </div>
-                    <div className="w-full pt-2">
-                      <Turnstile
-                        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
-                        onVerify={handleTurnstileVerify}
-                        onExpire={handleTurnstileExpire}
-                        theme="dark"
-                      />
-                    </div>
+                    {isTurnstileEnabled && (
+                      <div className="w-full pt-2">
+                        <Turnstile
+                          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
+                          onVerify={handleTurnstileVerify}
+                          onExpire={handleTurnstileExpire}
+                          theme="dark"
+                        />
+                      </div>
+                    )}
                     {errors.submit && (
                       <p className="text-red-400 text-xs sm:text-sm mb-2">{errors.submit}</p>
                     )}

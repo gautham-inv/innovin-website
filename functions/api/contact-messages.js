@@ -36,16 +36,16 @@ export async function onRequestPost(context) {
             return jsonResponse({ error: "CAPTCHA verification required" }, 400);
         }
 
+        // Skip Turnstile in dev (no secret key configured)
         const turnstileSecret = env.TURNSTILE_SECRET_KEY;
-        if (!turnstileSecret) {
-            console.error("TURNSTILE_SECRET_KEY not configured");
-            return jsonResponse({ error: "Server configuration error" }, 500);
-        }
-
-        const verification = await verifyTurnstile(turnstileToken, turnstileSecret);
-        if (!verification.success) {
-            console.error("Turnstile failed:", verification["error-codes"]);
-            return jsonResponse({ error: "CAPTCHA verification failed. Please try again." }, 403);
+        if (turnstileSecret) {
+            const verification = await verifyTurnstile(turnstileToken, turnstileSecret);
+            if (!verification.success) {
+                console.error("Turnstile failed:", verification["error-codes"]);
+                return jsonResponse({ error: "CAPTCHA verification failed. Please try again." }, 403);
+            }
+        } else {
+            console.warn("TURNSTILE_SECRET_KEY not set — skipping verification (dev mode)");
         }
 
         // 2. Validate fields

@@ -31,7 +31,11 @@ function ApplyForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [loadingStep, setLoadingStep] = useState<"uploading" | "submitting" | null>(null);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+
+  // Turnstile is disabled in local dev (NEXT_PUBLIC_ENABLE_TURNSTILE=false)
+  const isTurnstileEnabled = process.env.NEXT_PUBLIC_ENABLE_TURNSTILE === 'true';
 
   const handleTurnstileVerify = useCallback((token: string) => {
     setTurnstileToken(token);
@@ -135,12 +139,13 @@ function ApplyForm() {
       return;
     }
 
-    if (!turnstileToken) {
+    if (isTurnstileEnabled && !turnstileToken) {
       setErrors((prev) => ({ ...prev, turnstile: "Please complete the CAPTCHA verification" }));
       return;
     }
 
     setIsSubmitting(true);
+    setLoadingStep("uploading");
     setSubmitStatus("idle");
 
     try {
@@ -173,6 +178,8 @@ function ApplyForm() {
 
       const { publicUrl, filePath } = await uploadResponse.json();
       const resumeUrl = publicUrl;
+
+      setLoadingStep("submitting");
 
       // Submit application data
       const applicationResponse = await fetch("/api/applications", {
@@ -233,12 +240,59 @@ function ApplyForm() {
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
+      setLoadingStep(null);
     }
   };
 
   return (
     <div className="bg-white min-h-screen">
       <Navigation />
+
+      {/* Full-screen loading splash */}
+      {isSubmitting && (
+        <div className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-white/80 backdrop-blur-md">
+          <div className="flex flex-col items-center gap-6">
+            {/* Animated ring spinner */}
+            <div className="relative w-20 h-20">
+              <div className="absolute inset-0 rounded-full border-4 border-[#005c89]/20" />
+              <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#005c89] animate-spin" />
+            </div>
+            <div className="text-center">
+              <p className="text-[#005c89] font-semibold text-lg">
+                {loadingStep === "uploading" ? "Uploading your resume…" : "Submitting your application…"}
+              </p>
+              <p className="text-gray-400 text-sm mt-1">
+                {loadingStep === "uploading"
+                  ? "This may take a moment"
+                  : "Almost there, hang tight!"}
+              </p>
+            </div>
+            {/* Step indicators */}
+            <div className="flex items-center gap-3">
+              <div className={`flex items-center gap-2 text-sm font-medium transition-colors ${loadingStep === "uploading" ? "text-[#005c89]" : "text-green-600"
+                }`}>
+                {loadingStep === "uploading" ? (
+                  <div className="w-4 h-4 rounded-full border-2 border-[#005c89] border-t-transparent animate-spin" />
+                ) : (
+                  <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                )}
+                Resume
+              </div>
+              <div className="w-8 h-px bg-gray-300" />
+              <div className={`flex items-center gap-2 text-sm font-medium transition-colors ${loadingStep === "submitting" ? "text-[#005c89]" : "text-gray-400"
+                }`}>
+                {loadingStep === "submitting" && (
+                  <div className="w-4 h-4 rounded-full border-2 border-[#005c89] border-t-transparent animate-spin" />
+                )}
+                Application
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 sm:pt-30 lg:pt-35 lg:pb-24 text-sm sm:text-base">
         <div className="mb-8">
           <h1 className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-black mb-2 leading-tight">
@@ -484,16 +538,18 @@ function ApplyForm() {
             <p className="mt-1 text-xs text-gray-500">PDF only, max 5MB</p>
           </div>
 
-          {/* Turnstile CAPTCHA */}
-          <div>
-            <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
-              onVerify={handleTurnstileVerify}
-              onExpire={handleTurnstileExpire}
-              theme="light"
-            />
-            {errors.turnstile && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.turnstile}</p>}
-          </div>
+          {/* Turnstile CAPTCHA — only shown in production */}
+          {isTurnstileEnabled && (
+            <div>
+              <Turnstile
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
+                onVerify={handleTurnstileVerify}
+                onExpire={handleTurnstileExpire}
+                theme="light"
+              />
+              {errors.turnstile && <p className="mt-1 text-xs sm:text-sm text-red-500">{errors.turnstile}</p>}
+            </div>
+          )}
 
           {/* Submit Button */}
           <div className="flex gap-4 pt-4">
