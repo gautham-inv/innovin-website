@@ -238,35 +238,26 @@ function JourneyCard() {
           <div className="mt-4 sm:mt-6 text-sm sm:text-base text-[#5a5a5a] leading-relaxed">
             <p className="italic mb-2">With shared purpose,</p>
             <p className="font-bold text-[#232323] text-lg sm:text-xl">The Innovin Labs Team</p>
+            <div className="mt-2 w-32 h-16 relative rotate-[-3deg]">
+              <Image
+                src="/images/signature.png"
+                alt="Signature"
+                fill
+                className="object-contain object-left"
+              />
+            </div>
           </div>
         </div>
 
-        {/* Scalloped Stamp Design */}
-        <div
-          className="absolute -bottom-4 -right-4 sm:bottom-6 sm:right-6 w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] rotate-[10deg] p-2.5 bg-white shadow-2xl transition-transform hover:scale-110 hover:rotate-[12deg] duration-300 pointer-events-none select-none"
-          style={{
-            WebkitMaskImage: `
-              radial-gradient(12px at 12px 0, #0000 98%, #000) 50% / 24px 100%,
-              radial-gradient(12px at 0 12px, #0000 98%, #000) / 100% 24px
-            `,
-            WebkitMaskComposite: 'destination-in',
-            maskImage: `
-              radial-gradient(12px at 12px 0, #0000 98%, #000) 50% / 24px 100%,
-              radial-gradient(12px at 0 12px, #0000 98%, #000) / 100% 24px
-            `,
-            maskComposite: 'intersect',
-          }}
-        >
-          <div className="w-full h-full overflow-hidden border border-neutral-100 rounded-sm relative">
-            <Image
-              src="https://res.cloudinary.com/dejb29i0k/image/upload/v1772429931/_DSC1214_cy6qaj.webp"
-              alt=""
-              fill
-              className="object-cover sepia-[0.3] contrast-[1.1]"
-              draggable={false}
-              sizes="150px"
-            />
-          </div>
+        {/* Wax/Ink Stamp */}
+        <div className="absolute -bottom-6 -right-6 sm:bottom-2 sm:right-2 w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] rotate-[-15deg] pointer-events-none select-none">
+          <Image
+            src="/images/stamp.webp"
+            alt="Official Stamp"
+            fill
+            className="object-contain opacity-90"
+            draggable={false}
+          />
         </div>
       </div>
     </div>
