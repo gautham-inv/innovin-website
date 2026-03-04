@@ -103,7 +103,7 @@ export default function WhyUsPage() {
                 className="absolute left-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <Image
-                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160659.jpg_khmgno.webp", { w: 390, h: 292, c: "fill" })}
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1772622114/_DSC0498_kxeric.webp", { w: 390, h: 292, c: "fill" })}
                   alt="Feature showcase 3"
                   width={390}
                   height={292}
@@ -174,7 +174,7 @@ export default function WhyUsPage() {
                 className="absolute right-[60px] top-[230px] w-[195px] h-[146px] rounded-[16px] overflow-hidden shadow-xl z-10 border-[3px] border-white"
               >
                 <Image
-                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770663510/20260209_160751.jpg_hspmpm.webp", { w: 390, h: 292, c: "fill" })}
+                  src={cloudinaryUrl("https://res.cloudinary.com/dejb29i0k/image/upload/v1770793033/IMG_1527_1_vxgn9s.jpg", { w: 390, h: 292, c: "fill" })}
                   alt="Feature showcase 6"
                   width={390}
                   height={292}

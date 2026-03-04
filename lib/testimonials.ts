@@ -42,17 +42,7 @@ export const testimonials: Testimonial[] = [
     description:
       "Retalyst is an AI-powered platform that instantly generates professional, SEO-optimized product titles, descriptions, specs, and tags to help businesses create compelling product content faster.",
   },
-  {
-    quote:
-      "Goodlife partnered with Innovin Labs to bring their product vision to life efficiently and at scale. The team demonstrated strong technical expertise, clear communication, and a deep understanding of our requirements throughout the project. From planning to execution, delivery was smooth, timely, and aligned with our business goals.",
-    author: "Goodlife",
-    logo: goodlifeLogo,
-    link: "https://heygoodlife.com/",
-    description:
-      "Goodlife is a personal intelligent shopping companion that helps you shop smarter, compare prices, and save more as you browse.",
-    video:
-      "https://res.cloudinary.com/dejb29i0k/video/upload/v1770912992/goodlife_b2difv.webm",
-  },
+  
   {
     quote:
       "As an entrepreneur, I needed my website delivered efficiently. Innovin Labs not only met deadlines with high quality but also shared our company values. The team was responsive, communicative, and professional. I highly recommend them.",

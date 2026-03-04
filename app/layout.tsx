@@ -19,7 +19,7 @@ const manrope = Manrope({
 
 // Add metadata to ensure consistent rendering
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://innovinlabs.com"),
+  metadataBase: new URL(process.env.image  || "https://innovinlabs.com"),
   title: {
     default: "Innovin Labs - Rapidly Transforming Ideas into Digital Solutions",
     template: "%s | Innovin Labs"

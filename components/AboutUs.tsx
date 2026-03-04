@@ -515,7 +515,7 @@ export default function AboutUs() {
             width={1681}
             height={800}
             priority
-            className="w-full h-[350px] sm:h-[450px] lg:h-[600px] xl:h-[800px] object-cover rounded-xl sm:rounded-2xl opacity-0 translate-y-5"
+            className="w-full h-auto aspect-[1681/800] object-cover rounded-xl sm:rounded-2xl opacity-0 translate-y-5"
           />
           <div
             ref={overlayLeftRef}
