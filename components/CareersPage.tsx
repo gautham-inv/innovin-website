@@ -54,10 +54,11 @@ const DraggablePhoto = ({ image, index, openLightbox }: { image: GalleryImage; i
 
   return (
     <motion.div
-      className="break-inside-avoid mb-8 lg:cursor-grab lg:active:cursor-grabbing group relative"
+      className="break-inside-avoid mb-12 lg:cursor-grab lg:active:cursor-grabbing group relative"
       style={{ rotate: image.rotate }}
       drag={isDraggable}
       dragMomentum={false}
+      whileHover={{ y: -4, transition: { duration: 0.25, ease: 'easeOut' } }}
       whileDrag={{ scale: 1.1, zIndex: 50 }}
       onDragStart={() => {
         isDragging.current = true;
@@ -77,17 +78,17 @@ const DraggablePhoto = ({ image, index, openLightbox }: { image: GalleryImage; i
         openLightbox(index);
       }}
     >
-      <div className="relative overflow-hidden rounded-[12px] sm:rounded-[16px] shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <div className="relative overflow-hidden rounded-[12px] sm:rounded-[16px] shadow-[0_4px_16px_rgba(0,0,0,0.12)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.18)] transition-shadow duration-300">
         <Image
           src={image.path.startsWith('http') ? image.path : cloudinaryUrl(image.path, { w: 600 })}
           alt={image.alt}
           width={600}
           height={800} // Placeholder height for Next.js, h-auto will override
           loading="lazy"
-          className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
+          className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none rounded-[12px] sm:rounded-[16px]"
         />
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
       </div>
     </motion.div>
   );
@@ -132,14 +133,12 @@ export default function CareersPage({ jobs }: CareersPageProps) {
     { path: "v1772429920/_DSC0913_plsy10.webp", alt: "Team event 8", rotate: -1 },
     { path: "v1772429919/_DSC0548_hkqppn.webp", alt: "Team event 9", rotate: 1 },
     { path: "v1772429919/_DSC0707_yxsvbq.webp", alt: "Team event 10", rotate: -3.5 },
-    { path: "v1772429919/_DSC0628_yyifo9.webp", alt: "Team event 11", rotate: 2.5 },
     { path: "v1772429919/_DSC0710_sze707.webp", alt: "Team event 12", rotate: -1.5 },
     { path: "v1772440168/af0d73906f117e3a32a5cb2964335364aff6973e_zkltrc.jpg", alt: "Team event 13", rotate: 2 },
     { path: "v1772440167/careers1_u6prsi.webp", alt: "Team event 14", rotate: -1.5 },
     { path: "v1772440166/573ac6c833b631241442f52f9339c8f43a7bcb76_dirdfx.jpg", alt: "Team event 15", rotate: -2.5 },
     { path: "v1772440166/careers2_jlp4k1.webp", alt: "Team event 16", rotate: 1 },
     { path: "v1770654379/IMG_3420_wt9qlf.jpg", alt: "Team event 17", rotate: -3.5 },
-    { path: "v1770654370/IMG_4985_jiuwmy.jpg", alt: "Team event 18", rotate: 2.5 },
     { path: "v1770654371/IMG_2189_crwvtj.heic", alt: "Team event 19", rotate: -1.5 },
   ];
 
@@ -715,7 +714,7 @@ export default function CareersPage({ jobs }: CareersPageProps) {
 
         {/* Masonry Photo Gallery */}
         <div className="mb-[50px] sm:mb-[70px] xl:mb-[100px]">
-          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-8">
+          <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-10">
             {galleryImages.map((image, index) => (
               <DraggablePhoto
                 key={index}

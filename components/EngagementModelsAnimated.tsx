@@ -248,7 +248,7 @@ export default function EngagementModelsAnimated() {
                 {/* Line 3: Center to Bottom Right card - starts from right-bottom of center box, goes down then right to card */}
                 <path
                     className="line-path-3"
-                    d="M 1060 325 L 1060 395 Q 1060 405 1070 405 L 1200 405"
+                    d="M 1060 345 L 1060 460 Q 1060 470 1070 470 L 1200 470"
                     stroke="#66c2e2"
                     strokeWidth="2"
                     fill="none"
@@ -309,7 +309,7 @@ export default function EngagementModelsAnimated() {
             </div>
 
             {/* Card 3: Bottom Right - Horizontal layout - Moved up */}
-            <div className="animated-card-3 absolute right-0 top-[340px] w-[480px] bg-white border border-transparent rounded-[16px] p-[20px] z-20">
+            <div className="animated-card-3 absolute right-0 top-[410px] w-[480px] bg-white border border-transparent rounded-[16px] p-[20px] z-20">
                 <div className="card-content-3 flex items-start gap-5">
                     <div className="w-[70px] h-[70px] shrink-0 flex items-center justify-center bg-[#f0f9ff] rounded-xl">
                         <Repeat className="w-9 h-9 text-[#005c89]" />
