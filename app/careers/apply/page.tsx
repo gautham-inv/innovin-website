@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Footer from "../../../components/Footer";
 import Navigation from "../../../components/Navigation";
 import Turnstile from "../../../components/Turnstile";
+import SuccessModal from "../../../components/SuccessModal";
 
 
 
@@ -232,10 +233,10 @@ function ApplyForm() {
         resume: null,
       });
 
-      // Redirect after 3 seconds
+      // Redirect after 4 seconds (matches SuccessModal auto-close)
       setTimeout(() => {
         router.push("/careers");
-      }, 3000);
+      }, 4000);
     } catch (error) {
       console.error("Error submitting application:", error);
       setSubmitStatus("error");
@@ -304,24 +305,27 @@ function ApplyForm() {
           </p>
         </div>
 
-        {submitStatus === "success" && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-green-800">
-              Your application has been submitted successfully! Redirecting to careers page...
-            </p>
-          </div>
-        )}
-
         {submitStatus === "error" && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
             <p className="text-red-800 font-semibold mb-2">
               There was an error submitting your application.
             </p>
             <p className="text-red-700 text-sm">
-              Please check the console for details and try again. If the problem persists, the Edge Function may not be deployed yet.
+              Please try again. If the problem persists, please contact us directly.
             </p>
           </div>
         )}
+
+        <SuccessModal
+          isOpen={submitStatus === "success"}
+          onClose={() => {
+            setSubmitStatus("idle");
+            router.push("/careers");
+          }}
+          title="Application Submitted!"
+          message="We've received your application successfully."
+          subMessage="Our team will review it and get back to you soon. Redirecting to careers page..."
+        />
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

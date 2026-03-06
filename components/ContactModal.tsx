@@ -3,6 +3,7 @@
 import { useState, useEffect, useLayoutEffect, useRef, useCallback, createContext, useContext, ReactNode } from "react";
 import { ChevronUp, ArrowRight, X, CheckCircle } from "lucide-react";
 import Turnstile from "./Turnstile";
+import SuccessModal from "./SuccessModal";
 
 // Context for managing modal state
 interface ContactModalContextType {
@@ -314,19 +315,12 @@ function ContactModal() {
           return;
         }
 
-        setShowSuccess(true);
         setIsSubmitting(false);
+        setShowSuccess(true);
 
         // Track form submission
         const { trackEvent } = await import("@/lib/analytics");
         trackEvent("contact_form_submit", "form", "contact_modal");
-
-        setTimeout(() => {
-          setFormData({ name: "", company: "", email: "", message: "" });
-          setCurrentStep(1);
-          setShowSuccess(false);
-          handleClose();
-        }, 3000);
       } catch (error) {
         console.error("Error submitting contact form:", error);
         setErrors({ submit: "Failed to submit message. Please try again." });
@@ -393,232 +387,237 @@ function ContactModal() {
   );
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 lg:p-6 sm:pt-8 overflow-hidden"
-      onClick={handleClose}
-    >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-
-      {/* Modal */}
+    <>
       <div
-        ref={modalRef}
-        className="relative sm:mt-0 bg-[#131518] rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] w-full max-w-[680px] shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col"
-        onClick={(e) => e.stopPropagation()}
+        className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 lg:p-6 sm:pt-8 overflow-hidden"
+        onClick={handleClose}
       >
-        {/* Animated loading overlay inside modal */}
-        {isSubmitting && (
-          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#131518]/90 backdrop-blur-sm rounded-[12px] sm:rounded-[16px] lg:rounded-[20px]">
-            <div className="flex flex-col items-center gap-5">
-              {/* Spinner */}
-              <div className="relative w-14 h-14">
-                <div className="absolute inset-0 rounded-full border-[3px] border-white/10" />
-                <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-[#66c2e2] animate-spin" />
-              </div>
-              <div className="text-center">
-                <p className="text-[#66c2e2] font-semibold text-base">Sending your message…</p>
-                <p className="text-white/40 text-sm mt-1">Just a moment!</p>
+        {/* Backdrop */}
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+
+        {/* Modal */}
+        <div
+          ref={modalRef}
+          className="relative sm:mt-0 bg-[#131518] rounded-[12px] sm:rounded-[16px] lg:rounded-[20px] w-full max-w-[680px] shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Animated loading overlay inside modal */}
+          {isSubmitting && (
+            <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-[#131518]/90 backdrop-blur-sm rounded-[12px] sm:rounded-[16px] lg:rounded-[20px]">
+              <div className="flex flex-col items-center gap-5">
+                {/* Spinner */}
+                <div className="relative w-14 h-14">
+                  <div className="absolute inset-0 rounded-full border-[3px] border-white/10" />
+                  <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-[#66c2e2] animate-spin" />
+                </div>
+                <div className="text-center">
+                  <p className="text-[#66c2e2] font-semibold text-base">Sending your message…</p>
+                  <p className="text-white/40 text-sm mt-1">Just a moment!</p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Header */}
-        < div className="bg-[#131518] flex flex-col sm:flex-row gap-2 sm:gap-[361px] min-h-[54px] h-auto sm:h-[54px] items-start sm:items-center px-4 sm:px-[30px] py-3 sm:py-[10px] rounded-tl-[12px] sm:rounded-tl-[16px] lg:rounded-tl-[20px] rounded-tr-[12px] sm:rounded-tr-[16px] lg:rounded-tr-[20px] shrink-0 relative" >
-          <div className="flex-1 w-full sm:w-auto">
-            {!showSuccess && currentStep === 1 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your name?</p>}
-            {!showSuccess && currentStep === 2 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your company name</p>}
-            {!showSuccess && currentStep === 3 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your email</p>}
-            {!showSuccess && currentStep === 4 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What can we help you with</p>}
-            {!showSuccess && currentStep === 5 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px]">Confirm messsage</p>}
-            {showSuccess && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#66c2e2] text-[14px] sm:text-[16px]">Thank you!</p>}
-          </div>
+          {/* Header */}
+          < div className="bg-[#131518] flex flex-col sm:flex-row gap-2 sm:gap-[361px] min-h-[54px] h-auto sm:h-[54px] items-start sm:items-center px-4 sm:px-[30px] py-3 sm:py-[10px] rounded-tl-[12px] sm:rounded-tl-[16px] lg:rounded-tl-[20px] rounded-tr-[12px] sm:rounded-tr-[16px] lg:rounded-tr-[20px] shrink-0 relative" >
+            <div className="flex-1 w-full sm:w-auto">
+              {!showSuccess && currentStep === 1 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your name?</p>}
+              {!showSuccess && currentStep === 2 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your company name</p>}
+              {!showSuccess && currentStep === 3 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What's your email</p>}
+              {!showSuccess && currentStep === 4 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px] whitespace-normal">What can we help you with</p>}
+              {!showSuccess && currentStep === 5 && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-white text-[14px] sm:text-[16px]">Confirm messsage</p>}
+              {showSuccess && <p className="font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[#66c2e2] text-[14px] sm:text-[16px]">Thank you!</p>}
+            </div>
 
-          {
-            !showSuccess && (
-              <div className="hidden sm:block">
-                <StepIndicator step={currentStep} />
-              </div>
-            )
-          }
-        </div >
+            {
+              !showSuccess && (
+                <div className="hidden sm:block">
+                  <StepIndicator step={currentStep} />
+                </div>
+              )
+            }
+          </div >
 
-        {/* Content */}
-        < div className="bg-[#131518] border-t border-[#6a6a6a] border-solid flex flex-col gap-[3px] items-start px-4 sm:px-6 lg:px-[30px] py-4 sm:py-6 lg:py-0 rounded-bl-[12px] sm:rounded-bl-[16px] lg:rounded-bl-[20px] rounded-br-[12px] sm:rounded-br-[16px] lg:rounded-br-[20px] shrink-0 w-full overflow-y-auto overscroll-contain touch-pan-y" >
-          {
-            showSuccess ? (
-              <div className="flex flex-col items-center justify-center py-8 sm:py-12 gap-4 sm:gap-6 w-full" >
-                <CheckCircle className="size-12 sm:size-16 text-[#66c2e2]" />
-                <p className="font-['Manrope',sans-serif] font-medium text-white text-center text-lg sm:text-xl lg:text-2xl">
-                  We'll reach out to you soon!
-                </p>
-                <p className="font-['Manrope',sans-serif] font-normal text-[#878787] text-center text-sm sm:text-base">
-                  Thank you for contacting us. We'll get back to you as soon as possible.
-                </p>
-              </div>
-            ) : (
-              <>
-                {currentStep === 1 && (
-                  <>
-                    <input
-                      ref={nameInputRef}
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange("name", e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, handleEnter)}
-                      placeholder="Your name..."
-                      className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.name ? "text-red-400" : ""
-                        }`}
-                    />
-                    {errors.name && (
-                      <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.name}</p>
-                    )}
-                    <div className="flex items-center justify-between shrink-0 w-full pt-2 sm:pt-0">
-                      <div className="flex gap-[5px] items-center shrink-0">
-                        <div className="bg-[#5e5e5e] flex items-center justify-center p-[4.8px] rounded-[42px] shrink-0 opacity-50 cursor-not-allowed">
-                          <div className="flex items-center justify-center size-[14.4px]">
-                            <ChevronUp className="size-[14.4px] rotate-[270deg] text-white" />
+          {/* Content */}
+          < div className="bg-[#131518] border-t border-[#6a6a6a] border-solid flex flex-col gap-[3px] items-start px-4 sm:px-6 lg:px-[30px] py-4 sm:py-6 lg:py-0 rounded-bl-[12px] sm:rounded-bl-[16px] lg:rounded-bl-[20px] rounded-br-[12px] sm:rounded-br-[16px] lg:rounded-br-[20px] shrink-0 w-full overflow-y-auto overscroll-contain touch-pan-y" >
+            {
+              showSuccess ? null : (
+                <>
+                  {currentStep === 1 && (
+                    <>
+                      <input
+                        ref={nameInputRef}
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange("name", e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, handleEnter)}
+                        placeholder="Your name..."
+                        className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.name ? "text-red-400" : ""
+                          }`}
+                      />
+                      {errors.name && (
+                        <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.name}</p>
+                      )}
+                      <div className="flex items-center justify-between shrink-0 w-full pt-2 sm:pt-0">
+                        <div className="flex gap-[5px] items-center shrink-0">
+                          <div className="bg-[#5e5e5e] flex items-center justify-center p-[4.8px] rounded-[42px] shrink-0 opacity-50 cursor-not-allowed">
+                            <div className="flex items-center justify-center size-[14.4px]">
+                              <ChevronUp className="size-[14.4px] rotate-[270deg] text-white" />
+                            </div>
                           </div>
+                          <NavButton onClick={handleNext} rotate />
                         </div>
-                        <NavButton onClick={handleNext} rotate />
+                        <PleaseEnterButton onClick={handleEnter} />
                       </div>
-                      <PleaseEnterButton onClick={handleEnter} />
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
 
-                {currentStep === 2 && (
-                  <>
-                    <input
-                      ref={companyInputRef}
-                      type="text"
-                      value={formData.company}
-                      onChange={(e) => handleInputChange("company", e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, handleEnter)}
-                      placeholder="Your company..."
-                      className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.company ? "text-red-400" : ""
-                        }`}
-                    />
-                    {errors.company && (
-                      <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.company}</p>
-                    )}
-                    <div className="flex items-center justify-between shrink-0 w-full">
-                      <div className="flex gap-[5px] items-center shrink-0">
-                        <NavButton onClick={handlePrevious} />
-                        <NavButton onClick={handleNext} rotate />
+                  {currentStep === 2 && (
+                    <>
+                      <input
+                        ref={companyInputRef}
+                        type="text"
+                        value={formData.company}
+                        onChange={(e) => handleInputChange("company", e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, handleEnter)}
+                        placeholder="Your company..."
+                        className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.company ? "text-red-400" : ""
+                          }`}
+                      />
+                      {errors.company && (
+                        <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.company}</p>
+                      )}
+                      <div className="flex items-center justify-between shrink-0 w-full">
+                        <div className="flex gap-[5px] items-center shrink-0">
+                          <NavButton onClick={handlePrevious} />
+                          <NavButton onClick={handleNext} rotate />
+                        </div>
+                        <PleaseEnterButton onClick={handleEnter} />
                       </div>
-                      <PleaseEnterButton onClick={handleEnter} />
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
 
-                {currentStep === 3 && (
-                  <>
-                    <input
-                      ref={emailInputRef}
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange("email", e.target.value)}
-                      onKeyDown={(e) => handleKeyDown(e, handleEnter)}
-                      placeholder="your.email@example.com"
-                      className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.email ? "text-red-400" : ""
-                        }`}
-                    />
-                    {errors.email && (
-                      <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.email}</p>
-                    )}
-                    <div className="flex items-center justify-between shrink-0 w-full">
-                      <div className="flex gap-[5px] items-center shrink-0">
-                        <NavButton onClick={handlePrevious} />
-                        <NavButton onClick={handleNext} rotate />
+                  {currentStep === 3 && (
+                    <>
+                      <input
+                        ref={emailInputRef}
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e, handleEnter)}
+                        placeholder="your.email@example.com"
+                        className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] ${errors.email ? "text-red-400" : ""
+                          }`}
+                      />
+                      {errors.email && (
+                        <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.email}</p>
+                      )}
+                      <div className="flex items-center justify-between shrink-0 w-full">
+                        <div className="flex gap-[5px] items-center shrink-0">
+                          <NavButton onClick={handlePrevious} />
+                          <NavButton onClick={handleNext} rotate />
+                        </div>
+                        <PleaseEnterButton onClick={handleEnter} />
                       </div>
-                      <PleaseEnterButton onClick={handleEnter} />
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
 
-                {currentStep === 4 && (
-                  <>
-                    <textarea
-                      ref={messageInputRef}
-                      value={formData.message}
-                      onChange={(e) => handleInputChange("message", e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
-                          e.preventDefault();
-                          handleEnter();
-                        }
-                      }}
-                      placeholder="Your message..."
-                      rows={3}
-                      maxLength={500}
-                      className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] resize-none ${errors.message ? "text-red-400" : ""
-                        }`}
-                    />
-                    {errors.message && (
-                      <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.message}</p>
-                    )}
-                    <div className="flex items-center justify-between shrink-0 w-full">
-                      <div className="flex gap-[5px] items-center shrink-0">
-                        <NavButton onClick={handlePrevious} />
-                        <NavButton onClick={handleNext} rotate />
+                  {currentStep === 4 && (
+                    <>
+                      <textarea
+                        ref={messageInputRef}
+                        value={formData.message}
+                        onChange={(e) => handleInputChange("message", e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            handleEnter();
+                          }
+                        }}
+                        placeholder="Your message..."
+                        rows={3}
+                        maxLength={500}
+                        className={`font-['Manrope',sans-serif] font-medium leading-[1.2] sm:leading-[60px] shrink-0 text-[18px] sm:text-[20px] lg:text-[24px] text-white w-full bg-transparent border-none outline-none placeholder:text-[#878787] resize-none ${errors.message ? "text-red-400" : ""
+                          }`}
+                      />
+                      {errors.message && (
+                        <p className="text-red-400 text-xs sm:text-sm mt-1">{errors.message}</p>
+                      )}
+                      <div className="flex items-center justify-between shrink-0 w-full">
+                        <div className="flex gap-[5px] items-center shrink-0">
+                          <NavButton onClick={handlePrevious} />
+                          <NavButton onClick={handleNext} rotate />
+                        </div>
+                        <PleaseEnterButton onClick={handleEnter} />
                       </div>
-                      <PleaseEnterButton onClick={handleEnter} />
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
 
-                {currentStep === 5 && (
-                  <>
-                    <div className="flex flex-col gap-4 sm:gap-[24px] items-start shrink-0 w-full py-4 sm:py-[20px]">
-                      <div className="flex flex-col gap-2 sm:gap-[10px] items-start leading-normal shrink-0 text-[14px] sm:text-[16px] w-full">
-                        <p className="font-['Manrope',sans-serif] font-medium shrink-0 text-[#878787] w-full">Name</p>
-                        <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.name || "—"}</p>
-                      </div>
-                      <div className="flex flex-col gap-2 sm:gap-[10px] items-start leading-normal shrink-0 text-[14px] sm:text-[16px] w-full">
-                        <p className="font-['Manrope',sans-serif] font-medium shrink-0 text-[#878787] w-full">Company</p>
-                        <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.company || "—"}</p>
-                      </div>
-                      <div className="flex flex-col gap-2 sm:gap-[10px] items-start leading-normal shrink-0 text-[14px] sm:text-[16px] w-full">
-                        <p className="font-['Manrope',sans-serif] font-medium shrink-0 text-[#878787] w-full">Email</p>
-                        <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.email || "—"}</p>
-                      </div>
-                      <div className="flex flex-col gap-2 sm:gap-[10px] items-start leading-normal shrink-0 text-[14px] sm:text-[16px] w-full">
-                        <p className="font-['Manrope',sans-serif] font-medium shrink-0 text-[#878787] w-full">More info</p>
-                        <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.message || "—"}</p>
-                      </div>
-                    </div>
-                    {isTurnstileEnabled && (
-                      <div className="w-full pt-2">
-                        <Turnstile
-                          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
-                          onVerify={handleTurnstileVerify}
-                          onExpire={handleTurnstileExpire}
-                          theme="dark"
-                        />
-                      </div>
-                    )}
-                    {errors.submit && (
-                      <p className="text-red-400 text-xs sm:text-sm mb-2">{errors.submit}</p>
-                    )}
-                    <div className="flex items-center justify-between shrink-0 w-full pb-4 sm:pb-[20px] pt-2 sm:pt-0">
-                      <div className="flex gap-[5px] items-center shrink-0">
-                        <NavButton onClick={handlePrevious} />
-                        <div className="bg-[#5e5e5e] flex items-center justify-center p-[4.8px] rounded-[42px] shrink-0 opacity-50 cursor-not-allowed">
-                          <div className="flex items-center justify-center size-[14.4px] rotate-[180deg] scale-y-[-100%]">
-                            <ChevronUp className="size-[14.4px] rotate-[270deg] text-white" />
-                          </div>
+                  {currentStep === 5 && (
+                    <>
+                      <div className="flex flex-col gap-4 sm:gap-[24px] items-start shrink-0 w-full py-4 sm:py-[20px]">
+                        <div className="flex flex-col gap-2 sm:gap-[10px] items-start leading-normal shrink-0 text-[14px] sm:text-[16px] w-full">
+                          <p className="font-['Manrope',sans-serif] font-medium shrink-0 text-[#878787] w-full">Name</p>
+                          <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.name || "—"}</p>
+                        </div>
+                        <div className="flex flex-col gap-2 sm:gap-[10px] items-start leading-normal shrink-0 text-[14px] sm:text-[16px] w-full">
+                          <p className="font-['Manrope',sans-serif] font-medium shrink-0 text-[#878787] w-full">Company</p>
+                          <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.company || "—"}</p>
+                        </div>
+                        <div className="flex flex-col gap-2 sm:gap-[10px] items-start leading-normal shrink-0 text-[14px] sm:text-[16px] w-full">
+                          <p className="font-['Manrope',sans-serif] font-medium shrink-0 text-[#878787] w-full">Email</p>
+                          <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.email || "—"}</p>
+                        </div>
+                        <div className="flex flex-col gap-2 sm:gap-[10px] items-start leading-normal shrink-0 text-[14px] sm:text-[16px] w-full">
+                          <p className="font-['Manrope',sans-serif] font-medium shrink-0 text-[#878787] w-full">More info</p>
+                          <p className="font-['Manrope',sans-serif] font-normal shrink-0 text-white w-full break-words">{formData.message || "—"}</p>
                         </div>
                       </div>
-                      <PleaseEnterButton onClick={handleEnter} />
-                    </div>
-                  </>
-                )}
-              </>
-            )}
+                      {isTurnstileEnabled && (
+                        <div className="w-full pt-2">
+                          <Turnstile
+                            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""}
+                            onVerify={handleTurnstileVerify}
+                            onExpire={handleTurnstileExpire}
+                            theme="dark"
+                          />
+                        </div>
+                      )}
+                      {errors.submit && (
+                        <p className="text-red-400 text-xs sm:text-sm mb-2">{errors.submit}</p>
+                      )}
+                      <div className="flex items-center justify-between shrink-0 w-full pb-4 sm:pb-[20px] pt-2 sm:pt-0">
+                        <div className="flex gap-[5px] items-center shrink-0">
+                          <NavButton onClick={handlePrevious} />
+                          <div className="bg-[#5e5e5e] flex items-center justify-center p-[4.8px] rounded-[42px] shrink-0 opacity-50 cursor-not-allowed">
+                            <div className="flex items-center justify-center size-[14.4px] rotate-[180deg] scale-y-[-100%]">
+                              <ChevronUp className="size-[14.4px] rotate-[270deg] text-white" />
+                            </div>
+                          </div>
+                        </div>
+                        <PleaseEnterButton onClick={handleEnter} />
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+          </div >
         </div >
       </div >
-    </div >
+
+      <SuccessModal
+        isOpen={showSuccess}
+        onClose={() => {
+          setFormData({ name: "", company: "", email: "", message: "" });
+          setCurrentStep(1);
+          setShowSuccess(false);
+          handleClose();
+        }}
+        title="Thank you!"
+        message="We'll reach out to you soon!"
+        subMessage="Thank you for contacting us. We'll get back to you as soon as possible."
+      />
+    </>
   );
 }
 
