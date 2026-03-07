@@ -67,8 +67,11 @@ export default function ServicesPage() {
     <main id="main-content" className="bg-white flex flex-col items-start px-0 py-5 sm:py-6 lg:py-[20px] relative min-h-screen w-full pt-24 sm:pt-28 lg:pt-32">
       <PreloadImage href={imgProductDev} />
       {/* Hero Section */}
+      <div className="bg-white w-full overflow-clip relative">
+        <div className="max-w-[1681px] mx-auto">
+          {/* Header Section */}
       <div className="w-full px-4 sm:px-6 md:px-8 xl:px-[70px] py-5 sm:py-6 lg:py-[20px]">
-        <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[80px] items-start relative w-full max-w-[1681px] mx-auto">
+        <div className="flex flex-col gap-[60px] sm:gap-[100px] xl:gap-[80px] items-start relative w-full mx-auto">
           {/* Header Section */}
           <div className="flex flex-col items-center px-4 sm:px-5 lg:px-[20px] py-0 relative w-full">
             <div className="flex items-start pl-0 pr-4 sm:pr-5 lg:pr-[20px] relative w-full">
@@ -150,6 +153,8 @@ export default function ServicesPage() {
             ))}
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </main>
   );
